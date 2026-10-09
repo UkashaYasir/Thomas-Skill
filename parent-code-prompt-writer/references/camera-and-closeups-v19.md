@@ -1,5 +1,10 @@
 # Camera and close-ups — v19 (distance, close-up logic, composition, script line types)
 
+> **v24 (9 Oct 2026) — `v24-standard.md` §5–§6 adds:** "Avoid showing characters too small or too far away" — WIDE only
+> when distance or place is the point, with every face still readable; MEDWIDE is the usual full-figure shot. More zoom-ins
+> on faces, eyes, hands and objects, and a **zoom plan** (`zm`) that reuses a still with new framing in Premiere; a frame
+> with a planned reframe is composed so its target survives the crop.
+
 Source: Thomas's messages of 5 Oct 2026 (SOURCES.md A5, A6, A10, A14, A15, D), Muhammad's close-up direction
 (references/v19-principles.md §2), the Seven Things build audit (research R2 §1, §9, §10) and the craft research (R3 §1,
 §3, §5, §7, §8), plus the film-grammar sources listed at the end. Where an older file in this skill says otherwise about

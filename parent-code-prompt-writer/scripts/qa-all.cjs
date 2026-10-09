@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Runs every check on a v19 build and prints one verdict line per script.
+// Runs every check on a v24 build and prints one verdict line per script.
 //   node scripts/qa-all.cjs build.jsx [--partial] [--full]
 // --partial is passed to qa.cjs (batch turns). --full prints every ok/info line; by default only WARN and FAIL lines show.
 const { spawnSync } = require("child_process"), path = require("path");
@@ -9,6 +9,7 @@ const FULL = argv.includes("--full");
 const RUNS = [
   ["qa.cjs", argv.includes("--partial") ? ["--partial"] : []],
   ["qa-v19.cjs", []],
+  ["qa-v24.cjs", []],
   ["qa-render-risk.cjs", []],
   ["qa-consistency.cjs", []],
   ["qa-colour-v17.cjs", []],

@@ -1,6 +1,6 @@
 # Building a new video — data fields and steps (v18 fields, with the v19 additions)
 
-> **v19:** new videos build with `assets/compiler-v19/` (see its README for the exact keys, moods, shot types and
+> **v19:** new videos build with `assets/compiler-v24/` (see its README for the exact keys, moods, shot types and
 > checks); `assets/legacy/compiler-v18_3/` is kept as legacy. `v19-principles.md` wins over anything here. The v18 fields below
 > still work; where a v18 field encoded a rule v19 retired, it is marked.
 
@@ -31,7 +31,7 @@
   CLEAN frames.
 
 `assets/build-template.jsx` is the "Seven Things" Version 6 build (v18.2): everything above the data blocks is the compiler
-(keep it); the data blocks are that video's (replace them). The fastest way to build is `assets/compiler-v19/` (see its README). Each prompt is compiled from one frame (`RAW_BEATS` entry) plus the
+(keep it); the data blocks are that video's (replace them). The fastest way to build is `assets/compiler-v24/` (see its README). Each prompt is compiled from one frame (`RAW_BEATS` entry) plus the
 shared dictionaries.
 
 ## Data blocks to replace
@@ -93,7 +93,7 @@ away from a generated base image.
    `assets/legacy/compiler-r13/transform.cjs` (legacy); `seg04.cjs` shows the `api.P` helper that writes `picture`, `framing`, `map` and
    `check` from one left-centre-right spec).
 2. Extract and check with the scripts in `scripts/` (the v19 suite and its run commands are in
-   `assets/compiler-v19/README.md`). Rule checks must pass; printed distributions are information, never targets.
+   `assets/compiler-v24/README.md`). Rule checks must pass; printed distributions are information, never targets.
 3. Pages: `node scripts/copy-page.cjs build.jsx out.html "<title>"` (set ONLY=S1-S16 for a range) and
    `scripts/edit-page.cjs` the same way; publish both.
 

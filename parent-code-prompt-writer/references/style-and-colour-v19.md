@@ -1,5 +1,12 @@
 # Style and colour — v19 (backgrounds, the one colour element, outline places)
 
+> **v24 (9 Oct 2026) — `v24-standard.md` §2–§3 wins over this file:** the CLEAN ground is pure white (#FFFFFF; the
+> ground strip is decided); set pieces are thin **black** line with white fill (the soft-grey line rendered as ghost lines,
+> and the v22 soft fills and coloured floor planes were cut by Thomas); the colour focus is **bright and vivid by default**
+> (`calm` for quiet beats), colour chosen by meaning, with `ce2` for a second object only when needed; red covers
+> conflict, frustration and stress as well as danger; a glow is a drawn halo or radiating strokes (`gl`), never a soft
+> gradient. The rest of this file (moods, NIGHT, MEMORY, PEAK, readable white characters, positive phrasing) still holds.
+
 Source: Thomas's messages of 5 Oct 2026 (SOURCES.md A1, A10, A12, A13, A16, B, C, D), his earlier contrast note of 3 Oct
 2026, the Seven Things build audit (research R2) and the craft research (R3 §4 and §8). It applies
 references/v19-principles.md §1. Where an older file in this skill says otherwise about backgrounds or colour (tinted
@@ -40,7 +47,7 @@ The mood is the frame's background treatment. It is chosen after the feeling, th
 | **NIGHT** | one flat night-navy field | scenes that happen at night | slightly lighter navy outlines | one warm light or story object, or "none" |
 | **MEMORY** | a faded light grey ground | scenes in the past (a parent's own childhood, an earlier moment remembered) | faded grey outlines | only the story object keeps its colour |
 
-The exact hex values of each mood live in the compiler's MOOD table (assets/compiler-v19/). The old mood names still work
+The exact hex values of each mood live in the compiler's MOOD table (assets/compiler-v24/). The old mood names still work
 as aliases: BRIGHT, WARM, EVENING, COOL, DUSK, NEUTRAL and ACCENT all become CLEAN; TENSE, SUNNY and the old chapter
 "emo" palettes become PEAK variants; DARK becomes NIGHT; ICY becomes MEMORY.
 

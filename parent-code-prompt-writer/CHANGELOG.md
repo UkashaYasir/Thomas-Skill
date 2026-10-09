@@ -4,6 +4,148 @@ Every update gets a new version number and an entry here: what was added, why (w
 what it replaces. The newest version is at the top. The version is also written at the top of
 SKILL.md and in the package file name (parent-code-prompt-writer-vN.skill).
 
+## v24.3 — 9 Oct 2026 · the line-by-line pass over everything Muhammad shared
+
+**Why:** Muhammad: "check all things that i have shared cuz each line of them explains what we have to do". A second pass,
+line by line, over the Video 08 client messages, Muhammad's own replies, the master prompt and the Video 05 chat.
+
+**Added**
+- Lines that were still missing: "key objects and emotional moments need stronger, brighter colors" (V24 §3 — marks,
+  light shapes, PEAK when there is no object); Muhammad's "before i was using sort of dull colours" (bright = saturated,
+  crisp-edged, high contrast; compiler "crisp-edged"); "focus go directly to the action" and the master prompt's scene
+  question (V24 §2: why the image exists, what the viewer must get, which things are needed — focus, support, everything
+  else out); humour, symbol or contrast as valid reasons to keep an object; "different camera angles" within the natural
+  set (V24 §6); generating at full resolution before reframing; the text decision procedure and words planned in the
+  director's read, not added to finished frames (V24 §7); expression variety (V24 §5); the five "do not confuse"
+  distinctions (V24 §9); Thomas's aim — "psychology, emotions, humor, and excellent viewer retention" (V24 §1).
+- SKILL.md "When renders come back": look at the images, compare with the plan, choose the smallest fix (Photoshop, the
+  word-fix edit, an image edit, a reframe, a new prompt), add new failures to the ledger and the checks; two more
+  read-through questions.
+- `client-feedback-ledger.md`: rows E3b, E8b, E17–E19, F0, G7–G9, N7; §Q — 25 lines from the Video 05 chat with what
+  replaced the superseded ones; §R — every part of the master prompt and where it lives.
+- `assets/v24-samples/video08-regression/TESTS.md` — the master prompt's twelve tests, run on the prompts, with evidence;
+  visual tests marked not executed.
+
+**Verified (9 Oct 2026):** every check passes on all five samples; seven planted mistakes fail; Video 08 compiled with
+v24.3 colours only the phone in its study frame and fails on its numbered titles, title card and plaque.
+
+## v24.2 — 9 Oct 2026 · every client point traced; the rule behind each timestamp note
+
+**Why:** Muhammad: "I dont think so that you applied all suggestions, key points, and logics that the client said, and the
+detailed feedback with time stamp". An audit of every sentence Thomas wrote from 5 to 9 Oct found that the Frame.io notes
+were kept only as single-scene test cases, and that several of their rules, the white/place balance and the drawn marks of
+the approved Video 08 frames were missing or contradicted by an older v19 rule.
+
+**Added**
+- `references/client-feedback-ledger.md` — every point (A1–P7), Thomas's exact words, the rule, the check and the status.
+- `v24-standard.md` §16 — the rule behind every timestamp note, for every video; §2 white/place balance; §3 drawn marks
+  carry action (speed lines, impact strokes, buzz dashes, shine) and crying without tears; §4 metaphors enter with a
+  surprise and stay visible in the real scene; §6 action sequences move big and read easily, conversations change framing;
+  §8 conflict → repair with a held beat, calm → action handovers made big; §14 rows for action and for opening a metaphor.
+- `scripts/timestamp-map.cjs` — maps "02:30-02:40" to its frames from the voice-over length, with `--anchor` times from the
+  timeline (on Video 08 the 02:10–03:10 notes sit about 80 s earlier than the estimate — the tool says so).
+- Checks (`qa-v24.cjs`): phones are purple; every emotional peak has a dramatic close-up on its line or the next frame;
+  every metaphor enters with a surprise (`ip`); every chapter has a white moment.
+- Compiler: FLAT_STYLE allows a few drawn speed lines or ink strokes at the point of action.
+- SKILL.md: the timestamp workflow (map → fix → apply the rule everywhere → ledger), Photoshop fixes as accepted post work,
+  and the new read-through questions.
+
+**Changed**
+- `acting-and-interaction-v19.md`: v24 banner — drawn action marks allowed (v19 banned "motion lines"); tears stay out.
+- The template's phone is vivid purple (it was turquoise, from a superseded Video 05 example).
+
+**Verified (9 Oct 2026):** every check passes on the template and the regression sample; the older v19 samples pass with
+warnings that point at real v19-era choices (a turquoise phone, a peak without a close-up), as expected.
+
+## v24.1 — 9 Oct 2026 · Muhammad's two decisions, the scene playbook, the Video 05 lessons
+
+**Why:** Muhammad settled the two open questions of v24 — "Larger head means camera close or like the closeup to get a
+sudden visual change to grab the audience attention" and "need text in image prompts not seperate images" — and asked for
+the skill to hold every instruction and the logic of how each one is used depending on the scene.
+
+**Added**
+- `v24-standard.md` §14 **Scene by scene**: for each kind of moment (hook, chapter turn, explanation, dialogue, humour,
+  conflict, sadness and absence, pressure, aha, warmth, memory, imagined, night, rapid list, ending) the starting camera,
+  stage and colour, extras (scale, glow, marks, light), word and motion.
+- `v24-standard.md` §15 **Organised, never random** (Muhammad's Video 05 direction): a story world in the director's read,
+  a place changes only when the story moves there, one look and a way in and out for every kind of aside; whole-film pass
+  **J. Where and when** (`shot-plan-v19.md`); director's-read rows 0 (story world) and 11b (attention punches).
+- Video 05 lessons as rules: no fragment of an object along a close-up's edge; a recurring object's biggest picture saved
+  for its peak; no prop name or text naming a character who is not in the frame.
+- Checks (`qa-v24.cjs`): words left for Premiere or a separate image fail; chapters with characters but no close face and
+  no punch to a face warn; object texts naming an absent character warn.
+- Compiler: `wordFixPrompt` (an edit that redraws a misspelt word on the same image), shown on the Copy page as "Copy
+  word-fix edit".
+
+**Changed**
+- "larger heads" = the camera close: a sudden close-up (REACTION or XCLOSE, or a punch reframe) where the line turns, a
+  feeling peaks or attention could drift.
+- Words always live in the frame's own image prompt: `kw` is lettered in like `tx`; a WORD frame is a white frame with the
+  word lettered in and is generated like any other frame; the no-text prompt is gone.
+- The template and car-ride samples no longer name a character inside a prop text ("one slim rectangular smartphone",
+  "a small rounded car").
+
+**Replaces:** v24's "lettered into the image or set in Premiere" and its open questions.
+
+**Verified (9 Oct 2026):** every check passes on all five samples; the planted mistakes are still caught (seven fails);
+Video 08 compiled with v24.1 still fails on its numbered titles, title card and plaque, and the new name check finds S116.
+
+## v24 — 9 Oct 2026 · Thomas's final word after Video 08 ("Seven Types of Parents")
+
+**Why:** Thomas approved Video 08 on 9 Oct 2026 and set five standards "for the next video… from the very beginning":
+stronger, brighter, more vibrant colour on important objects; more zoom-ins and close-ups on faces, eyes, hands and objects;
+no characters too small or too far away; no numbering, large titles or decorative elements — only short, playful words;
+dynamic visuals that reuse stills through zooms and framing. His notes of 6–9 Oct also settled the white ground, black-line
+places, colour psychology, drawn glow, two-to-three-times objects, the helicopter cutaway and "ask yourself whether every
+object is actually necessary". The version number jumps to 24 because the Video 08 build already carried compiler changes
+labelled v20–v23 (made inside that video, never released as a skill); they are folded in here, minus what Thomas rejected.
+
+**Added**
+- `references/v24-standard.md` — the law over every other file: Thomas's words quoted and dated (T1–T9), the decisions,
+  the guard against each opposite extreme, the v20–v23 history with Thomas's verdict, Video 08's scene notes as test cases,
+  and the open questions.
+- `assets/compiler-v24/` (renamed from `compiler-v19`): the Video 08 engine with the fixes — pure white CLEAN ground; thin
+  black-line set pieces with white fill and no floor plane; the colour focus bright by default (`cm` for calm), `ce2` for a
+  second object, everything else black line; `TONE` bright/calm tones; drawn glow (`gl`); `mk` accent marks; `li` light
+  shapes; `mu` absence; `fg`, `sx`; hand-lettered words (`tx`) with a no-text prompt; letters on an object (`ol`); zoom
+  plans (`zm`, CLARITY line, `ZOOM_CUES`); DOMINANT = two to three times; wide frames keep faces readable; a hand-inked,
+  never AI-polished line.
+- `scripts/qa-v24.cjs` (run by `qa-all.cjs`): white ground; no set-piece fills or floor planes; at most two coloured
+  objects; ce2 and glow sanity; wide frames keep faces readable; no numbers, section titles, underlines or presentation
+  fonts on screen; short words; one-letter object text; reframe cues and targets; busy places (four or more set pieces) and
+  long-holding stills listed for review.
+- `assets/v24-samples/video08-regression/` — eleven test frames recreating Thomas's Video 08 notes with every v24 key.
+- Copy page: the colour reason, the word (with a "Copy no-text prompt" button) or the letter on an object, and the reframes.
+- SKILL.md and the RULES-CARD: name the skill version in the first reply (an attached `.skill` file wins); the
+  object-necessity pass and the zoom plan in the shot plan; done / partly / not reporting on every feedback round.
+
+**Changed**
+- RULES-CARD rewritten for v24; v24 banners on `v19-principles.md`, `style-and-colour-v19.md`, `camera-and-closeups-v19.md`,
+  `props-symbols-metaphors-v19.md`, `humour-text-contrast-v19.md` and `shot-plan-v19.md`.
+- Checks: the v19 colour, tint and keyword checks read the v24 wording; Thomas's own word endings (WAIT…, ENOUGH!, WHY?)
+  pass; a planned reframe or a landing word counts as a change; absence frames may be grey.
+
+**Replaces**
+- v19's very light neutral ground and soft-grey outlines → pure white and thin black line (Thomas, T6–T7).
+- v19's "one colour element" in its everyday hex, and v22's calm-by-default tones → a bright focus by default (T5, T9).
+- v20's "every story object keeps its colour in every frame" → only the focus and ce2 (T6).
+- v22's soft set-piece fills and coloured floor planes → removed (T6: "the ground does not also need to be colored").
+- v21.1's underlined editorial captions and v23's numbered headings in a geometric headline font → short hand-lettered
+  words only (T5, T9).
+- v19's "words only in Premiere, never in the image" → lettered into the image or in Premiere, in one hand-lettered look.
+- v19's ban on any glow word → soft glow banned, drawn glow allowed (T5).
+- v19.1's removal of the helicopter picture as a cliché → exaggerated cutaways allowed (T1).
+- v19's "red only for danger" → red for conflict, frustration and stress as well (T3).
+
+**Verified (9 Oct 2026):** every check passes on the template smoke test, the three v19 samples rebuilt with compiler v24,
+and the regression sample; planted mistakes (a numbered title, a "GRADE F" label, a glow with no focus, a reframe cue and
+target that are not in the line or frame, an off-white ground) are each caught; Video 08's own 263 frames compiled with v24
+draw no set-piece fills or floor planes and fail on their seven numbered titles, the "SEVEN TYPES OF PARENTS" card, "THE
+FIXER PARENT" and the "PERFECT PARENT" plaque. No v24 prompt has been rendered yet.
+
+**Still to decide:** whether Thomas's "larger heads" (8 Oct) means the camera closer (this version's reading) or a new
+character sheet; whether words read better lettered into the image or set in Premiere (both are supported).
+
 ## v19.1 — 6 Oct 2026 · finishing the v19 update
 
 **Why:** the remaining items from the independent verification of v19, so the skill is complete before the next video.

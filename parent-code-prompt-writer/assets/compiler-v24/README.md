@@ -1,17 +1,67 @@
-# Compiler v19 — the parts that build a Parent Code video
+# Compiler v24 — the parts that build a Parent Code video
 
-Compiler v19 turns a shot plan and frame data into one image prompt per script line, plus the edit prompts, sequences,
-mask reveals and the Copy and Edit pages. It puts Thomas's direction of 5 Oct 2026 into the prompts
-(`references/v19-principles.md`):
-- **CLEAN is the default background.** It is a white or very light neutral ground, and places are drawn as thin outlines.
-- **Each frame has one colour element**, or none.
-- **Full colour is only for emotional peaks and night.**
-- **Every face shows seven features**, and every interaction has an action and a reaction.
-- **Close-ups make sense.** Each one has a gaze and a reason.
-- **The checks pass or fail by a rule, never by a number.**
+Compiler v24 turns a shot plan and frame data into one image prompt per script line, plus the edit prompts, sequences,
+mask reveals, reframes and the Copy and Edit pages. It puts Thomas's final word after Video 08 into the prompts
+(`references/v24-standard.md`), on top of v19 (`references/v19-principles.md`):
+- **A pure white stage.** CLEAN is white (#FFFFFF); places are the fewest thin **black** line pieces with white fill; wider
+  shots get one ground line — never a coloured floor, grass or furniture.
+- **The colour focus is bright by default** ("stronger, brighter, and more vibrant colors on important objects"), with
+  colour chosen by meaning. `cm` keeps a quiet beat calm; `ce2` names a second coloured object only when needed. Everything
+  else is black line.
+- **Glow is drawn** (`gl`: halo, rays, rainbow); at night a screen is the light in the room.
+- **Objects two or three times larger** (`sl: "DOMINANT"`), and exaggerated cutaways (the helicopter).
+- **Characters never too small:** wide and medium-wide frames keep every face readable.
+- **Words are short, playful and hand-lettered, inside the frame's own prompt** (`tx`, `kw`), with a word-fix edit if
+  Flow misspells one; a letter on an object (`ol`) only
+  when the letter is the story. No numbers, section titles, underlines or presentation fonts.
+- **Zoom plans** (`zm`) reuse a still with new framing in Premiere; the targets are drawn crisp so the crop holds.
+- **The checks pass or fail by a rule.** `scripts/qa-v24.cjs` adds the v24 checks; `qa-all.cjs` runs everything.
 
-This folder holds a small worked example: the 16-line smoke test "I'm fine". It uses every mood, every shot type and
-every plan field. `node assemble.cjs` builds it, and every check passes.
+The engine is the Video 08 build's compiler (v19 plus the v20–v23 changes made during that video), with what Thomas
+rejected taken out: the v22 soft fills and floor planes, the calm-by-default colour, the v21.1 underlined captions and the
+v23 numbered headings and geometric headline font (see `references/v24-standard.md` §11).
+
+This folder's own data is still the v19 smoke test "I'm fine"; `../v24-samples/video08-regression/` uses every v24 key.
+
+## Changes in compiler v24 (changelog)
+
+**Version 24 (9 Oct 2026).**
+- `CLEAN_GROUND` is #FFFFFF; `OUTLINE_GREY` is #2B2B2B black ink; set pieces are "thin black ink line… thinner than the
+  characters' outlines, with plain white fill"; WORLD part fills (a fourth element) and `W.floor` are ignored outside
+  absence frames.
+- `colourBlock`: "THE BRIGHT COLOUR FOCUS in this frame is …" (or "The one colour in this frame is … in its calm, deeper
+  tone" with `cm`); `ce2` "in its own clear colour, quieter than the focus"; "Every other object and every set piece is
+  black line with white fill". `TONE` swaps a prop's hex to its bright or calm tone (`dicts.TONE`).
+- `GLOW` and `glowText` (`gl`); the night screen is ringed by drawn strokes; FLAT_STYLE and GLOBAL_AVOID ban soft glow,
+  bloom and gradients, never the drawn kind.
+- `SCALE.DOMINANT` is "two to three times its usual size"; SHOT WIDE and MEDWIDE keep faces readable, and `assemble.cjs`
+  adds "the characters drawn large enough that their faces read" to THE PICTURE of wider frames.
+- `HAND_LETTER` replaces CAPTION_* and BOLD_TYPE; `textLock` has one word style and no heading path; `wordLines`
+  replaces `captionLines`.
+- `COLOUR_LOGIC` holds Thomas's meanings; `colourWhy` reads "bright/calm (meaning)" for the Copy page.
+- `clarityLine` (CLARITY) for frames with reframes; `ZOOM_CUES` lists them.
+- SINGLE_FRAME asks for confident hand-inked lines, "never glossy, never vector-perfect or AI-polished";
+  RECURRING_CONSISTENCY adds line thickness; DETAIL_CAP keeps each piece "because the moment needs it".
+
+### v24 frame keys (`F(n, { … })`, read by `assemble.cjs`)
+
+| Key | What it does |
+|---|---|
+| `ce2` | A second coloured object (a PROP key in the frame), only when the moment needs both — e.g. the phone and the F. |
+| `cm` | `true`: the colour focus in its calm tone, for a deliberately quiet beat (sadness, absence, a held moment). |
+| `ac` | Why the colour is pushed in this frame (shown on the Copy page). |
+| `gl` | A drawn glow on the colour focus: `"halo"`, `"rays"` or `"rainbow"` (delight, discovery, reward only). |
+| `mk` | Accent marks on an action when no object carries the colour: `["three short jagged strokes above DAD's head", "RED"]`. |
+| `li` | A flat, clean-edged light shape: `["warm" \| "cool" \| "dusk", "where"]` — warm for positive moments. |
+| `mu` | `true`: absence — the place in quiet cool grey, every object black line except `ce`. |
+| `tx` | A hand-lettered word in this frame's own prompt (never a separate image): `[WORD, cue word, COLOUR, where, big]` — COLOUR from WORD_COLOUR (BLACK, RED, YELLOW, BLUE, GREEN, VIOLET…); `big` for an ending or a peak. |
+| `ol` | A letter on an object: `[LETTER, cue word, COLOUR, on what, how it is drawn]` — the red F. |
+| `zm` | Reframes of this still in Premiere: `[[cue word, target, "punch" \| "push"], …]` — the target is a character or object in the frame. |
+| `fg` | A near foreground piece at one edge of the frame. |
+| `sx` | `true`: a close face shot shows one slice of the place behind the head. |
+
+PROP keys used by v24: `fam` (the colour's meaning key in COLOUR_LOGIC), `why` (the colour reason), `screen: true` (lit at
+night), `lineText`, `part`, `small`, `onWall`, `mark`. `dicts.TONE`: `{ "#hex": { calm: [name, hex], bright: [name, hex] } }`.
 
 ## Changes in compiler v19 (changelog)
 
@@ -123,7 +173,7 @@ Things with the v19 compiler. It fails the new plan-field checks, as expected, b
 
 | Mood | Background | Use |
 |---|---|---|
-| `CLEAN` (the default) | `CLEAN_GROUND`: a very light warm neutral, #F7F6F3. Set pieces are thin soft-grey (#B4B8BD) outlines with white fill. Wider shots get one ground line. | Most frames: real places shown by a few outline cues. |
+| `CLEAN` (the default) | v24: `CLEAN_GROUND` is pure white #FFFFFF and set pieces are thin black ink (#2B2B2B) line with white fill. (v19 had a very light warm neutral, #F7F6F3, and thin soft-grey (#B4B8BD) outlines with white fill. Wider shots get one ground line. | Most frames: real places shown by a few outline cues. |
 | `WHITE` | Pure white #FFFFFF, with nothing behind the subject. | Face-only, object-only and word frames, and deliberate white breaks. |
 | `PEAK` | One full-colour field: the chapter's `CHAPTER[xx].emo` colour (its `field` or `wall`, with `floor` as the darker outline tone), or the TENSE/SUNNY variant, or a storm-violet default. | An emotional peak scene only. The frame must carry `pk: true`. Never behind a face close-up. |
 | `NIGHT` | One flat night-navy field (#2C384E) with dim slate outlines. The navy-not-grey and black-hair lock is included. | Night scenes. A face close-up inside a night scene goes WHITE, and the next wider frame brings the night back. |
@@ -195,7 +245,7 @@ line-type word, it is still read as the link. Use `lk` for the link from now on.
 | `dv` | The storytelling device. It is an open library, so new keys are only listed. |
 | `pop` | A pop-in: `[KEY, cue word, ADD or PUNCH, motion]`. Use story objects only; emoji-style icons fail the checks. |
 | `rv` | A mask reveal: `[KEY, cue word, surface, where]`. The surface `"FURN"` means it sits on an outline piece's white fill. Otherwise the cover is the ground or field colour. |
-| `kw` | The on-screen keyword: `[WORD, cue word]`. It must be an idea word: never "NUMBER …", digits or a sentence. |
+| `kw` | A short word: `[WORD, cue word, COLOUR]`. Compiler v24.1 letters it into this frame's image prompt (on a WORD frame, big in the centre of the white frame); use `tx` to set its place and size. It must be an idea word: never "NUMBER …", digits or a sentence. |
 | `mf` | The metaphor family. It also sets `fn: CONCEPT`. |
 | `mo` | The moment, e.g. "humour: …". |
 | `st` | The scene stage: START, PROBLEM, REACTION or RESULT. |

@@ -21,7 +21,7 @@ CLEAN (the default: very light neutral ground, outline places, one colour elemen
 object-only, word frames, white breaks) · PEAK (a full-colour field in the chapter's emotional colour, only on an
 emotional-peak frame with `pk: true`) · NIGHT (navy; the old DARK) · MEMORY (faded light grey; the old ICY). The old calm
 moods (BRIGHT, WARM, EVENING, COOL, DUSK, NEUTRAL, ACCENT) are aliases of CLEAN; the old TENSE/SUNNY and chapter emotional
-palettes are PEAK variants. Exact values: `assets/compiler-v19/`.
+palettes are PEAK variants. Exact values: `assets/compiler-v24/`.
 
 History, not a target: Video 05 measured white 10%, accent 0%, soft rooms 58%, full colour 32%; Seven Things measured pure
 white 6% and tinted rooms 44%. Thomas's 5 Oct note is the answer to both.

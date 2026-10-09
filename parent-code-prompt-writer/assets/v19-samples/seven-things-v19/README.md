@@ -14,7 +14,7 @@ What it shows:
   where its meaning moves (hidden S2 → held S17 → set down between them S43);
 - the whole cast, including BOSS redesigned with a flat-top (see `../seven-things-cast-lineup/`).
 
-Build and check (from `assets/compiler-v19/`):
+Build and check (from `assets/compiler-v24/`):
 
 ```bash
 node assemble.cjs --data ../v19-samples/seven-things-v19

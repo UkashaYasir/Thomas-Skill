@@ -1,5 +1,11 @@
 # Acting and interaction — faces, bodies and people together (v19)
 
+> **v24 (9 Oct 2026) — `v24-standard.md` §3 and §5 win over this file:** "larger heads" means the camera close — a sudden
+> close-up that grabs attention; expressions are pushed further, with dramatic close-ups at every emotional peak. **Drawn
+> marks are allowed when they carry action** (speed lines on a moving ball or arm, impact strokes where a hand hits a table,
+> buzz dashes round a phone, shine strokes) — Video 08's approved frames used them; sweat drops, steam, stars, anger veins,
+> blush marks and tears stay out. Crying is drawn by the face and body, not by tears.
+
 Read with `v19-principles.md` §3. Where older files (`emotion-and-performance.md`, `characters.md`) say something
 different about performance or interaction, this file wins.
 

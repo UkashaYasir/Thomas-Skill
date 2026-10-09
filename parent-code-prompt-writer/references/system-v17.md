@@ -64,7 +64,7 @@ Transitions: shape match, object carry, colour bleed, exit/enter, push into an o
 **8 — Motion and sound plan.** Rhythm per scene; move per beat (push = tension, snap = punchline, pan = travel, tilt =
 scale, hold = quiet); holds where the moment needs weight; no move type takes over; pop-ins with a bounce; match cuts;
 sound cues; audio −14 LUFS.
-**9 — Checks.** All scripts in `scripts/` (the v19 suite — see `assets/compiler-v19/README.md`): rule checks must pass;
+**9 — Checks.** All scripts in `scripts/` (the v19 suite — see `assets/compiler-v24/README.md`): rule checks must pass;
 printed distributions are information, never targets.
 **10 — Learning loop.** Every note becomes a rule + a before/after from a real render + a check; rules that don't improve
 renders are removed. New ideas, situations, behaviours and compositions that worked are added back to the v19 libraries.
