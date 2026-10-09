@@ -15,7 +15,7 @@ Render each set in Flow with the MOM and SON references attached and compare sid
 - do white faces and mitten hands stay clear of the ground?
 - does the one colour element stand out?
 
-Thomas picks the ground; then set it once in `assets/compiler-v19/template.jsx` (`const CLEAN_GROUND`), or per video with
+Thomas picks the ground; then set it once in `assets/compiler-v24/template.jsx` (`const CLEAN_GROUND`), or per video with
 `PROJECT.cleanGround` in `dicts.cjs`.
 
-Rebuild the page: `node make-strip.cjs` (it finds `../../compiler-v19`; set `COMPILER=` to point elsewhere).
+Rebuild the page: `node make-strip.cjs` (it finds `../../compiler-v24`; set `COMPILER=` to point elsewhere).

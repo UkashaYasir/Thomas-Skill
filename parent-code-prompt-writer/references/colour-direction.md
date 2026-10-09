@@ -67,7 +67,7 @@ green toy on a green field.
 
 ### Full-colour fields — PEAK, NIGHT and MEMORY only
 The old moods' full-voice "field" colours survive only as starting values for a chapter's emotional peak colour. The live
-values sit in the compiler (`assets/compiler-v19/`); when to use them is decided in `style-and-colour-v19.md`.
+values sit in the compiler (`assets/compiler-v24/`); when to use them is decided in `style-and-colour-v19.md`.
 
 | v19 mood | Use | Compiler default (5 Oct) | Other starting values (from the old palettes) |
 |---|---|---|---|

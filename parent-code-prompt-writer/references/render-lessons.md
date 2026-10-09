@@ -34,7 +34,7 @@ Eye level is the default. No floor cameras, no ceiling cameras, no top-of-object
 Edits: one change, from what to what, ≥ 180 characters, a "stays exactly as" sentence, only names in the frame, cue word from the line, no finger/anatomy words, mouths as shapes never quoted letters.
 
 ## Tools
-v19: assets/compiler-v19/ (README: keys, moods, shot types, checks) and the v19 scripts in scripts/. Legacy below.
+v19: assets/compiler-v24/ (README: keys, moods, shot types, checks) and the v19 scripts in scripts/. Legacy below.
 assets/build-template.jsx is the v19 worked example; the old "Seven Things" build is assets/legacy/build-template-v18-seven-things.jsx and assets/legacy/compiler-v18_3/ holds the parts that rebuild it byte-for-byte (template, assemble.cjs, dicts.cjs, segs/). The Video 05 build is kept as assets/build-template-video05.jsx.
 assets/legacy/compiler-r13/ holds the part files that built it (transform.cjs driver; seg04.cjs has the api.P helper that writes THE PICTURE, framing, placement and THE PICTURE IN SHORT from one left-centre-right spec; seg08/seg09 show a creative pass).
 scripts/copy-page.cjs (ONLY=S1-S16 prints a range; shows room masters, sequences, edit-only lines and keywords) and scripts/edit-page.cjs (edits and sequence images in order, each saying which image to open).

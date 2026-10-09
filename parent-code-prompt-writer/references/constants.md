@@ -2,7 +2,7 @@
 
 Every frame is generated independently with no memory of any other, so anything not restated in
 every prompt gets re-invented. The shared constants below are compiled into every prompt by the
-compiler. **The live text is in `assets/compiler-v19/template.jsx`; the block below is a copy of it
+compiler. **The live text is in `assets/compiler-v24/template.jsx`; the block below is a copy of it
 taken when v19 was written (5 Oct 2026). If the two ever differ, the template wins — re-copy it here,
 never paraphrase it.** If a constant needs changing, change it in the template and here together, and
 update any check that searches for its wording (a reworded constant silently passing a check that looks

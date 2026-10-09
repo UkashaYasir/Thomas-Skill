@@ -10,6 +10,6 @@ Three frames to render once in Flow, with the MOM and SON references attached, b
 Check: nobody bald; no two hair outlines alike (LITTLE BOY shares SON's hair on purpose — he is SON at seven); heights as
 written; accessories small and dark; no clothing. If anything drifts, fix the ROLE text, re-render, then lock it.
 
-Build (from `assets/compiler-v19/`): `node assemble.cjs --data ../v19-samples/seven-things-cast-lineup`, then
+Build (from `assets/compiler-v24/`): `node assemble.cjs --data ../v19-samples/seven-things-cast-lineup`, then
 `qa-all.cjs` (one expected warning: the row frames are longer than a normal character prompt because every ROLE text is in
 them).

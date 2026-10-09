@@ -1,5 +1,11 @@
 # Props, symbols and metaphors (v19)
 
+> **v24 (9 Oct 2026) — `v24-standard.md` §4 wins over this file:** important objects may be two or three times larger
+> for a moment; when the voice-over names a vivid image, an **exaggerated cutaway** shows it big and bright behind the
+> character ("a large exaggerated yellow or bright green helicopter… It does not always have to look completely
+> realistic") — this restores the helicopter picture that v19.1 removed as a cliché; a letter on an object is allowed when
+> the letter is the story (the red F). Props are bright on the colour focus, black line elsewhere (§4 of this file).
+
 Read with `v19-principles.md` §4. Where `metaphor-bank.md`, `staging-and-props.md` or `idea-not-object.md` say
 something different about props, symbols or metaphors, this file wins.
 

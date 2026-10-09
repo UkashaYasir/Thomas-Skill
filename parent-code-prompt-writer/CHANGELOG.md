@@ -4,6 +4,62 @@ Every update gets a new version number and an entry here: what was added, why (w
 what it replaces. The newest version is at the top. The version is also written at the top of
 SKILL.md and in the package file name (parent-code-prompt-writer-vN.skill).
 
+## v24 — 9 Oct 2026 · Thomas's final word after Video 08 ("Seven Types of Parents")
+
+**Why:** Thomas approved Video 08 on 9 Oct 2026 and set five standards "for the next video… from the very beginning":
+stronger, brighter, more vibrant colour on important objects; more zoom-ins and close-ups on faces, eyes, hands and objects;
+no characters too small or too far away; no numbering, large titles or decorative elements — only short, playful words;
+dynamic visuals that reuse stills through zooms and framing. His notes of 6–9 Oct also settled the white ground, black-line
+places, colour psychology, drawn glow, two-to-three-times objects, the helicopter cutaway and "ask yourself whether every
+object is actually necessary". The version number jumps to 24 because the Video 08 build already carried compiler changes
+labelled v20–v23 (made inside that video, never released as a skill); they are folded in here, minus what Thomas rejected.
+
+**Added**
+- `references/v24-standard.md` — the law over every other file: Thomas's words quoted and dated (T1–T9), the decisions,
+  the guard against each opposite extreme, the v20–v23 history with Thomas's verdict, Video 08's scene notes as test cases,
+  and the open questions.
+- `assets/compiler-v24/` (renamed from `compiler-v19`): the Video 08 engine with the fixes — pure white CLEAN ground; thin
+  black-line set pieces with white fill and no floor plane; the colour focus bright by default (`cm` for calm), `ce2` for a
+  second object, everything else black line; `TONE` bright/calm tones; drawn glow (`gl`); `mk` accent marks; `li` light
+  shapes; `mu` absence; `fg`, `sx`; hand-lettered words (`tx`) with a no-text prompt; letters on an object (`ol`); zoom
+  plans (`zm`, CLARITY line, `ZOOM_CUES`); DOMINANT = two to three times; wide frames keep faces readable; a hand-inked,
+  never AI-polished line.
+- `scripts/qa-v24.cjs` (run by `qa-all.cjs`): white ground; no set-piece fills or floor planes; at most two coloured
+  objects; ce2 and glow sanity; wide frames keep faces readable; no numbers, section titles, underlines or presentation
+  fonts on screen; short words; one-letter object text; reframe cues and targets; busy places (four or more set pieces) and
+  long-holding stills listed for review.
+- `assets/v24-samples/video08-regression/` — eleven test frames recreating Thomas's Video 08 notes with every v24 key.
+- Copy page: the colour reason, the word (with a "Copy no-text prompt" button) or the letter on an object, and the reframes.
+- SKILL.md and the RULES-CARD: name the skill version in the first reply (an attached `.skill` file wins); the
+  object-necessity pass and the zoom plan in the shot plan; done / partly / not reporting on every feedback round.
+
+**Changed**
+- RULES-CARD rewritten for v24; v24 banners on `v19-principles.md`, `style-and-colour-v19.md`, `camera-and-closeups-v19.md`,
+  `props-symbols-metaphors-v19.md`, `humour-text-contrast-v19.md` and `shot-plan-v19.md`.
+- Checks: the v19 colour, tint and keyword checks read the v24 wording; Thomas's own word endings (WAIT…, ENOUGH!, WHY?)
+  pass; a planned reframe or a landing word counts as a change; absence frames may be grey.
+
+**Replaces**
+- v19's very light neutral ground and soft-grey outlines → pure white and thin black line (Thomas, T6–T7).
+- v19's "one colour element" in its everyday hex, and v22's calm-by-default tones → a bright focus by default (T5, T9).
+- v20's "every story object keeps its colour in every frame" → only the focus and ce2 (T6).
+- v22's soft set-piece fills and coloured floor planes → removed (T6: "the ground does not also need to be colored").
+- v21.1's underlined editorial captions and v23's numbered headings in a geometric headline font → short hand-lettered
+  words only (T5, T9).
+- v19's "words only in Premiere, never in the image" → lettered into the image or in Premiere, in one hand-lettered look.
+- v19's ban on any glow word → soft glow banned, drawn glow allowed (T5).
+- v19.1's removal of the helicopter picture as a cliché → exaggerated cutaways allowed (T1).
+- v19's "red only for danger" → red for conflict, frustration and stress as well (T3).
+
+**Verified (9 Oct 2026):** every check passes on the template smoke test, the three v19 samples rebuilt with compiler v24,
+and the regression sample; planted mistakes (a numbered title, a "GRADE F" label, a glow with no focus, a reframe cue and
+target that are not in the line or frame, an off-white ground) are each caught; Video 08's own 263 frames compiled with v24
+draw no set-piece fills or floor planes and fail on their seven numbered titles, the "SEVEN TYPES OF PARENTS" card, "THE
+FIXER PARENT" and the "PERFECT PARENT" plaque. No v24 prompt has been rendered yet.
+
+**Still to decide:** whether Thomas's "larger heads" (8 Oct) means the camera closer (this version's reading) or a new
+character sheet; whether words read better lettered into the image or set in Premiere (both are supported).
+
 ## v19.1 — 6 Oct 2026 · finishing the v19 update
 
 **Why:** the remaining items from the independent verification of v19, so the skill is complete before the next video.

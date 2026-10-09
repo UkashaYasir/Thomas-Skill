@@ -1,7 +1,7 @@
 // Builds the CLEAN-ground test strip: the same chosen frames of the Seven Things v19 sample compiled on each prepared
-// ground, in one page. Usage: node make-strip.cjs   (COMPILER=path/to/compiler-v19 if it is not found next to this folder)
+// ground, in one page. Usage: node make-strip.cjs   (COMPILER=path/to/compiler-v24 if it is not found next to this folder)
 const fs = require("fs"), vm = require("vm"), path = require("path"), { execSync } = require("child_process");
-const ROOT = process.env.COMPILER ? path.resolve(process.env.COMPILER) : [path.resolve(__dirname, "../../compiler-v19"), path.resolve(__dirname, "../..")].find(d => fs.existsSync(path.join(d, "assemble.cjs")));
+const ROOT = process.env.COMPILER ? path.resolve(process.env.COMPILER) : [path.resolve(__dirname, "../../compiler-v24"), path.resolve(__dirname, "../..")].find(d => fs.existsSync(path.join(d, "assemble.cjs")));
 const DATA = path.relative(ROOT, path.resolve(__dirname, "../seven-things-v19")), OUT = path.join(__dirname, "out");
 const GROUNDS = [["#F7F6F3", "very light warm neutral (the current default)"], ["#FFFFFF", "pure white"], ["#F4F2EE", "light warm stone"], ["#F2F4F5", "light cool grey"]];
 const PICK = ["S1", "S22", "S23", "S9", "S28", "S30", "S43"]; // two-person wide with outline cues, a wide, a close after its wide, face + hands with a colour element, hands-only, a wide with a colour element, a medium two-shot

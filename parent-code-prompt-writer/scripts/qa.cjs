@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// The Parent Code — QA suite for a prompt build made with compiler v19 (assets/compiler-v19/ or assets/build-template.jsx).
+// The Parent Code — QA suite for a prompt build made with compiler v19 (assets/compiler-v24/ or assets/build-template.jsx).
 //
 //   node scripts/qa.cjs build.jsx [--lines 190] [--runtime 510] [--script script.txt] [--partial] [--brief]
 //
@@ -35,7 +35,7 @@ try {
   process.exit(1);
 }
 const { PROJECT, RAW_BEATS, BEATS, PROMPTS: P, ROLE, MOOD, WORLD, PROP, OVERLAY, POP_CUES, OVERLAY_PROMPTS, STORY, PLAN, MOTIFS, SCRIPT, SKETCH, EDIT_CUES, INSERT_BEATS, SEQUENCES, MOOD_ALIAS } = M;
-if (!MOOD_ALIAS) { console.log("FAIL  this build was not made with compiler v19 (no MOOD_ALIAS) — rebuild it with assets/compiler-v19/"); process.exit(1); }
+if (!MOOD_ALIAS) { console.log("FAIL  this build was not made with compiler v19 (no MOOD_ALIAS) — rebuild it with assets/compiler-v24/"); process.exit(1); }
 const D = BEATS || RAW_BEATS;
 const N = D.length;
 const SCRIPT_OK = Array.isArray(SCRIPT) && SCRIPT.length > 0 && !SCRIPT.some(l => /^<.*>$/.test(String(l).trim()));
@@ -345,8 +345,8 @@ revWord.length ? (SCRIPT_OK ? fail : warn)("reveal words that aren't in the line
 const revFill = revAll.filter(b => !/^#[0-9A-Fa-f]{6}$/.test(String(b.reveal.cover || b.reveal.fill || ""))).map(b => b.ref);
 revFill.length ? warn("reveals without the exact background fill colour for touch-ups: " + refs(revFill)) : ok("every reveal gives the exact background colour for touch-ups");
 info(`in-scene edits ${EC.length} · mask reveals ${revAll.length} · pop-ins ${cues.length} · sequences ${(SEQUENCES || []).length} · still on purpose (sti) ${D.filter(b => b.still).length}`);
-const noLife = D.filter(b => !editSet.has(b.ref) && !b.pop && !b.reveal && !b.still && !isWord(b)).map(b => b.ref);
-noLife.length ? warn("frames with no edit, reveal or pop-in and no stated stillness (sti) — say why the frame is still, or let something change: " + refs(noLife)) : ok("every frame changes on screen or says why it is still");
+const noLife = D.filter(b => !editSet.has(b.ref) && !b.pop && !b.reveal && !b.still && !(b.zooms && b.zooms.length) && !b.onScreen && !isWord(b)).map(b => b.ref); // v24: a planned reframe (zm) or a landing word is a change
+noLife.length ? warn("frames with no edit, reveal, pop-in, reframe or word and no stated stillness (sti) — say why the frame is still, or let something change: " + refs(noLife)) : ok("every frame changes on screen or says why it is still");
 const DEVICES = ["CONTEXT", "CUTAWAY_MAP", "THROUGH_FRAME", "AFTERMATH", "ESCALATION_RAMP", "CONSTANT_VS_CHANGE", "REPEAT_WITH_VARIATION", "TIME_MARKER", "CAUSE_EFFECT_CUT", "BEFORE_AFTER", "SCALE_SHIFT", "OBJECT_POV", "INSERT_DETAIL", "METAPHOR_OBJECT", "METAPHOR_WORLD", "SILENT_BEAT", "OTS_REACTION", "POWER_ANGLE", "DISTANCE", "MIRROR", "TUG_OF_WAR", "SPLIT_STATE", "HYPOTHETICAL", "LIST_DEVICE", "CALLBACK"];
 const withDev = D.filter(b => b.device);
 if (withDev.length) { const newDev = [...new Set(withDev.filter(b => !DEVICES.includes(b.device)).map(b => b.device))]; info("storytelling devices " + dist(withDev, b => b.device) + (newDev.length ? ` · new device keys (open library — add them to the library if they worked): ${newDev.join(", ")}` : "")); }

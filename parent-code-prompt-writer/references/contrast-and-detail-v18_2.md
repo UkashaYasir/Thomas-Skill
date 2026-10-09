@@ -90,7 +90,7 @@ black line as the characters, carrying the frame's one colour; other objects sma
   small arms).
 
 ## 6. Checks
-The v19 checks live in `scripts/` (agent E's rebuild; see `assets/compiler-v19/README.md`): WHITE frames name no room
+The v19 checks live in `scripts/` (agent E's rebuild; see `assets/compiler-v24/README.md`): WHITE frames name no room
 part; CLEAN frames carry no tinted wall or furniture wording; full colour only with `pk` or NIGHT; no room dress; no
 texture in settings; one-person hands never enter from both side edges; object focus light where the object is small on
 purpose; hidden objects turned toward us; placement names no wall colour; every named character is cast; chairs only for

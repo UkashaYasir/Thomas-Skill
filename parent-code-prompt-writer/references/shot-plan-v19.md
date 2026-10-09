@@ -1,5 +1,10 @@
 # Shot plan — v19 (the plan made before any prompt is written)
 
+> **v24 (9 Oct 2026):** the order of decisions adds the **object-necessity pass** (every set piece and prop tells the
+> story, carries the emotion or makes the moment understandable — or it goes) and the **zoom plan** (`zm`); `ce` is bright
+> by default (`cm` for a quiet beat) and `ce2` names a second coloured object only when needed; words are `tx`/`kw` in the
+> v24 hand-lettered style. See `v24-standard.md`.
+
 Source: Thomas, 5 Oct 2026 (SOURCES.md A14, D): "It shows how important it is that we define the emotional beats, camera
 angles, reactions, and visual contrasts very clearly before production starts. I do not simply want 'more images.' I want
 better and more varied images with a clear purpose. If we are working with 300+ images, the viewer should still never
@@ -50,7 +55,7 @@ purpose — the colour element is the thing the feeling and the idea have alread
 
 These short keys go on each frame in the segment files. The frame's other decisions use the build's existing fields
 (scene `sc`, shot `sz`, angle `an`, mood `m`, placement, word `kw`, move, reveals, edits and sequences); the compiler README
-(assets/compiler-v19/README.md) lists them all. In v19, `ln` holds the line type.
+(assets/compiler-v24/README.md) lists them all. In v19, `ln` holds the line type.
 
 | Key | Meaning | Required | How to write it | Example |
 |---|---|---|---|---|

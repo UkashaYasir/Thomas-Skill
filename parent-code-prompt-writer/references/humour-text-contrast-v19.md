@@ -1,5 +1,11 @@
 # Humour, on-screen words, contrast and pattern interrupts (v19)
 
+> **v24 (9 Oct 2026) — `v24-standard.md` §7 wins over §2 of this file:** words are short, playful, emotional and
+> hand-lettered ("WAIT…", "ENOUGH!", "SAFE", "TRUST", "PRESSURE", "WHY?", "INVISIBLE", "AHA!"); never numbers, section
+> titles, underlines, a cold presentation font or textbook terms; readable on a phone. They may be lettered into the image
+> (`tx`, with a no-text prompt as well) or set in Premiere in the same hand-lettered look (`kw`). Humour and exaggeration
+> are "essential parts of our channel identity" (Thomas, Video 08) — exaggerated reactions and impossible scale are in.
+
 Read with `v19-principles.md` §5. Where `aha-humour-popins.md`, `colour-and-text-v17.md` or `motion-and-energy.md` say
 something different about humour, words, contrast, interrupts or pacing, this file wins.
 

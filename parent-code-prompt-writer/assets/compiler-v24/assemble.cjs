@@ -1,11 +1,11 @@
-// Assembles a Parent Code build (compiler v19) from template.jsx + dicts.cjs + segs/segNN.cjs + script.txt.
+// Assembles a Parent Code build (compiler v24) from template.jsx + dicts.cjs + segs/segNN.cjs + script.txt.
 //
 //   node assemble.cjs [out.jsx] [--data DIR] [--segs DIR] [--dicts FILE] [--script FILE]
 //
 //   --data DIR    a video folder holding segs/, dicts.cjs and script.txt (each missing one falls back to this folder's own);
 //                 the default output is then DIR/out/build.jsx. Env DATA, SEGS, DICTS, SCRIPT do the same as the flags.
-//   CLEAN_GROUND=#FFFFFF  (env) or PROJECT.cleanGround in dicts.cjs swaps the CLEAN ground for a test strip
-//                 (prepared options: #F7F6F3 default, #FFFFFF, #F4F2EE, #F2F4F5).
+//   CLEAN_GROUND=#F7F6F3  (env) or PROJECT.cleanGround in dicts.cjs swaps the CLEAN ground (v24 default: pure white #FFFFFF,
+//                 Thomas's choice in Video 08; other prepared options #F7F6F3, #F4F2EE, #F2F4F5).
 //
 // Frames: F(n, {short keys}) · edits: E(ref, on, change) · sequences: Q(id, title, base, images). Short keys: see README.md.
 const fs = require("fs"), path = require("path"), vm = require("vm");
@@ -58,6 +58,7 @@ const api = {
     if (o.ms === true) { master = ref; if (W.set) masters[W.set] = ref; } else if (typeof o.ms === "string") master = o.ms; // v19: masters only where asked
     const lineType = isLineType(o.ln) ? o.ln.trim() : "";
     const plan = { ft: o.ft || "", ln: lineType, idea: o.idea || "", alt: Array.isArray(o.alt) ? o.alt : (o.alt ? [o.alt] : []), ia: o.ia || "", dist: o.dist || "", look: o.look || "", ctx: o.ctx || "", ce: o.ce || "", cx: o.cx || "", ip: o.ip || "" };
+    if (o.ce2) plan.ce2 = o.ce2; // v24: a second coloured object, only when the moment needs both
     const b = {
       n, ref, sequence: SEQ, scene: o.sc, tier: TIERS[o.t] || o.t || "SIMPLE", fn: o.fn || (o.mf ? "CONCEPT" : "STORY"),
       roles, props: o.p || [], hero: o.h || (roles === "No characters" ? ((o.p || [])[0] || "FACE") : "FACE"),
@@ -91,6 +92,18 @@ const api = {
     if (o.px) { b.propText = {}; for (let i = 0; i < o.px.length; i += 2) b.propText[o.px[i]] = o.px[i + 1]; } // px: ["KEY", "full object text for this frame"]
     if (o.kw) b.keyword = { word: o.kw[0], on: o.kw[1] };
     if (o.eo) b.editOnly = { seq: o.eo[0], from: o.eo[1] };
+    // ── v24 keys (references/v24-standard.md; README.md) ──
+    if (o.cm) b.calm = true; // the colour focus in its calm tone — a deliberately quiet beat (default: bright)
+    if (o.ac) b.accent = o.ac; // why this frame's colour is pushed (shown on the Copy page)
+    if (o.gl) { if (!["halo", "rays", "rainbow"].includes(o.gl)) throw new Error(ref + " gl must be halo, rays or rainbow"); b.glow = o.gl; }
+    if (o.mk) { b.accentMark = o.mk[0]; b.accentCol = (o.mk[1] || "YELLOW").toUpperCase(); } // marks on an action: ["a few short strokes…", "YELLOW"]
+    if (o.li) b.light = { kind: o.li[0], where: o.li[1] || "" }; // a flat, clean-edged light shape: warm | cool | dusk
+    if (o.mu) b.mute = true; // absence: grey on purpose
+    if (o.fg) b.fg = o.fg; // a near foreground piece at one edge
+    if (o.sx) b.slice = true; // a close face shot shows one slice of the place
+    if (o.tx) b.onScreen = { w: o.tx[0], on: o.tx[1], col: (o.tx[2] || "BLACK").toUpperCase(), ...(o.tx[3] ? { at: o.tx[3] } : {}), ...(o.tx[4] ? { big: true } : {}) }; // hand-lettered word: [word, cue, colour, where, big]
+    if (o.ol) b.onScreen = { w: o.ol[0], on: o.ol[1], col: (o.ol[2] || "BLACK").toUpperCase(), at: o.ol[3], font: o.ol[4] || "a big, thick handwritten capital letter in marker strokes" }; // a letter on an object: [letter, cue, colour, on what, how drawn]
+    if (o.zm) b.zooms = o.zm.map(z => ({ on: z[0], to: z[1], kind: z[2] || "punch" })); // Premiere reframes of this still: [[cue, target, punch|push]]
     if (!b.cam) delete b.cam;
     if (B.some(x => x.ref === ref)) throw new Error("duplicate " + ref);
     B.push(b);
@@ -121,7 +134,8 @@ for (const b of B) {
   if (b.shotSize === "WORD") { b.picture = "a plain, clean, pure white word frame with nothing drawn on it."; b.framing = "Plain white word frame, flat and empty."; b.check = "a plain pure white frame; {BG}."; continue; }
   const W = D.WORLD[b.world], s = SIZE[b.shotSize], a = ANG[b.angle] || T.ANGLE[b.angle];
   const where = b.mood === "WHITE" ? "in clean white space" : (W.parts && !b.pieces.length) || b.shotSize === "XCLOSE" ? OPEN[b.mood] : r.wh;
-  b.picture = r.eyes ? `an eyes-only extreme close-up at eye level ${where} — ${r.L}; ${r.C}; ${r.R}.` : `${art(s)} ${a} ${where} — ${r.L}; ${r.C}; ${r.R}.`;
+  const big = ["WIDE", "MEDWIDE"].includes(b.shotSize) && b.roles !== "No characters" ? " — the characters drawn large enough that their faces read" : ""; // v24: never too small
+  b.picture = r.eyes ? `an eyes-only extreme close-up at eye level ${where} — ${r.L}; ${r.C}; ${r.R}.` : `${art(s)} ${a} ${where} — ${r.L}; ${r.C}; ${r.R}${big}.`;
   b.framing = r.eyes ? `Eyes-only extreme close-up at eye level, ${where}, horizon level: at the left ${r.L}; in the centre ${r.C}; at the right ${r.R}.` : `${cap(s)} ${a}, ${where}, horizon level: at the left ${r.L}; in the centre ${r.C}; at the right ${r.R}.`;
   b.check = `${r.eyes ? "eyes-only extreme close-up" : s} ${a}, horizon level; left: ${r.L}; centre: ${r.C}; right: ${r.R}; {BG}.`;
 }
@@ -148,13 +162,13 @@ function serBeat(b) {
 const lc = s => s ? s.charAt(0).toLowerCase() + s.slice(1).replace(/\.$/, "") : "";
 const sketch = b => { const e = E.find(x => x.ref === b.ref); return [b.ref, b.sequence, `${b.scene} [${b.world} · ${b.roles}]`, b.tier, `${b.shotSize}/${b.angle}/${b.face}/${b.scale}`, b.mood, `hero ${b.hero}`, b.plan.ln || b.stage, `feel: ${lc(b.plan.ft || b.feel)}`, `idea: ${b.plan.idea || b.meaning}`, `moment: ${b.moment || "—"}`, `pop: ${b.pop ? `${b.pop.what} ${b.pop.type} '${b.pop.on}'` : "—"}`, `move: ${b.move.type}`, `device: ${b.device || "—"}`, `edit: ${e ? `'${e.on}' ${e.change.split(". ")[0]}` : "—"}`].join(" | "); };
 const STORY0 = { idea: "", arc: "", ending: "" };
-const REVISIONS0 = [{ batch: `Build 1 — ${new Date().toISOString().slice(0, 10)} · first full build (compiler v19)`, entries: [] }];
+const REVISIONS0 = [{ batch: `Build 1 — ${new Date().toISOString().slice(0, 10)} · first full build (compiler v24)`, entries: [] }];
 const GROUND = process.env.CLEAN_GROUND || (D.PROJECT && D.PROJECT.cleanGround) || "";
 if (GROUND && !/^#[0-9A-Fa-f]{6}$/.test(GROUND)) throw new Error("CLEAN_GROUND must be a #RRGGBB hex, got " + GROUND);
 
 function writeAll(beats) {
   src = TEMPLATE;
-  src = src.replace(/\/\/ THE PARENT CODE — prompt build[^\n]*/, `// THE PARENT CODE — prompt build · ${String(D.PROJECT.title).replace(/^The Parent Code — /, "")} (compiler v19)`);
+  src = src.replace(/\/\/ THE PARENT CODE — prompt build[^\n]*/, `// THE PARENT CODE — prompt build · ${String(D.PROJECT.title).replace(/^The Parent Code — /, "")} (compiler v24)`);
   if (GROUND) src = src.replace(/^const CLEAN_GROUND = "#[0-9A-Fa-f]{6}";/m, `const CLEAN_GROUND = "${GROUND.toUpperCase()}"; // test strip: set by CLEAN_GROUND / PROJECT.cleanGround`);
   replaceBlock("PROJECT", `const PROJECT = {\n  title: ${J(D.PROJECT.title)},\n  runtimeSec: ${D.PROJECT.runtimeSec || 510}, // voice-over length in seconds — ${SCRIPT.length} lines ≈ ${((D.PROJECT.runtimeSec || 510) / Math.max(SCRIPT.length, 1)).toFixed(1)} s per line\n};`);
   replaceBlock("ROLE", obj("ROLE", D.ROLE));
@@ -162,6 +176,7 @@ function writeAll(beats) {
   replaceBlock("CHAPTER", obj("CHAPTER", D.CHAPTER || {}));
   replaceBlock("WORLD", obj("WORLD", D.WORLD));
   replaceBlock("PROP", obj("PROP", D.PROP || {}));
+  replaceBlock("TONE", obj("TONE", D.TONE || {})); // v24: { "#hex in a prop text": { calm: [name, hex], bright: [name, hex] } }
   replaceBlock("OVERLAY", obj("OVERLAY", D.OVERLAY || {}));
   replaceBlock("SCRIPT", arr("SCRIPT", SCRIPT));
   replaceBlock("STORY", obj("STORY", D.STORY || STORY0));

@@ -1,6 +1,6 @@
 # The build file — fields, compiler, UI
 
-> **v19:** new videos compile with `assets/compiler-v19/` (its README lists the exact keys, moods, shot types and checks;
+> **v19:** new videos compile with `assets/compiler-v24/` (its README lists the exact keys, moods, shot types and checks;
 > `data-fields-and-build.md` has the summary). `v19-principles.md` wins over anything here. The field list below is the
 > v18 beat object with the v19 plan keys added; lines that encoded retired rules have been rewritten.
 
@@ -153,7 +153,7 @@ falls back to the clipboard API, and if both are refused opens the card, selects
 shows "Press Ctrl/Cmd+C". Double-clicking any prompt box also selects all of it. Keep this behaviour.
 
 ## Validation — every delivery
-The v19 suite and its commands are in `assets/compiler-v19/README.md`; rule checks must pass, printed shares are
+The v19 suite and its commands are in `assets/compiler-v24/README.md`; rule checks must pass, printed shares are
 information. The classic entry point still works:
 1. `node scripts/qa.cjs build.jsx --lines <N> --runtime <seconds> [--script script.txt]`. It loads
    everything above the `/* ===== UI ===== */` marker, so keep that marker in place.

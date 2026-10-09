@@ -1,4 +1,13 @@
-# Version 19 principles — the law for every frame (read first; overrides every older file)
+# Version 19 principles — the law for every frame (read after v24-standard.md; overrides every older file)
+
+> **v24 (9 Oct 2026):** `references/v24-standard.md` — Thomas's final word after Video 08 — wins over this file where they
+> differ: the ground is pure white; set pieces are thin black line with white fill; the colour focus is bright and vivid by
+> default, with colour chosen by meaning (yellow surprise, red conflict, blue trust, purple phones, green growth, warm
+> positive, grey absence); a drawn halo or rainbow burst may make a key object glow; important objects may be two or three
+> times larger, and exaggerated cutaways (the helicopter) are allowed; characters never too small to read; zoom plans
+> reuse a still; on-screen words are short, playful, hand-lettered, never numbered titles. Everything below that v24 does
+> not change still stands.
+
 
 Source: Thomas's messages of 5 Oct 2026 after "Seven Things Your Child Can't Tell You" (long note, short note, the
 summary he approved, his answer on real objects, his final priority list) and Muhammad's direction while turning them
@@ -141,6 +150,6 @@ this file wins. Verbatim quotes are in quotation marks.
 - New characters: references/cast-design-v19.md
 - Props, symbols and metaphors: references/props-symbols-metaphors-v19.md
 - Humour, words, contrast, interrupts: references/humour-text-contrast-v19.md
-- Compiler and checks: assets/compiler-v19/ and scripts/
+- Compiler and checks: assets/compiler-v24/ and scripts/
 - Research behind the rules (what "SOURCES", "R1", "R2" and "R3" refer to in citations): references/research/ — background
   only, never rules

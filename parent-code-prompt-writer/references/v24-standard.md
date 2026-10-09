@@ -1,0 +1,267 @@
+# Version 24 standard — Thomas's final word after Video 08 (read first; wins over every other file)
+
+Source: Thomas's messages on Video 08, "Seven Types of Parents" (6–9 Oct 2026), and the build Muhammad rendered from
+(`seven-types-build_3.jsx`, compiler v19 with the v20–v23 changes made during that video). Thomas approved Video 08 on
+9 Oct with five points "for the next video… implemented from the very beginning". This file holds those points, quoted
+exactly, and the decisions that turn them into rules. Where `v19-principles.md` or any other file says something
+different, **this file wins**; everything v19 says that this file does not change still stands.
+
+Thomas's words are the principles: applied across the whole script, exactly as written — no overdoing, no undoing. The
+numbers below (two or three times larger, a change about every 3–5 seconds) are Thomas's own and stay "approximately",
+judged by the moment; v19's rule against invented quotas still holds for everything else.
+
+---
+
+## 0. The sources, in order (later wins only where it changes an earlier point)
+
+| # | When | What |
+|---|---|---|
+| T1 | 6 Oct | "the best version I have seen from you so far" — colour psychology, the helicopter example, the fire twice as big, words still missing |
+| T2 | 7 Oct | "colors are not simply used more, but… intentionally and psychologically… text moments: fewer, but exactly at the right moments" |
+| T3 | 8 Oct, 13:07 | eight general points: hand-drawn style, colour list, 2–3× objects, exaggeration, a change every 3–5 s, bold readable text, emotional contrast, consistency, duration |
+| T4 | 8 Oct | Frame.io timestamp notes on Video 08 (scene-specific — §12) |
+| T5 | 8 Oct, 21:20 | remove the numbers, the underline and the "cold, formal" font; fewer full titles; short playful words; colours "too dry", can "glow… almost like a rainbow effect when it fits" |
+| T6 | 8 Oct, 23:58 | "not to fill each scene too much": ground neutral, fridge and window in black and white, too much green, no numbered title cards |
+| T7 | 9 Oct, 00:07 | remove the fridge, furniture and cabinets; keep the window "with black outlines on a white background"; "ask yourself whether every object is actually necessary… simply remove it" |
+| T8 | 9 Oct, 00:11 | "more zoom-ins, close-ups, and camera movements… reuse the same material with different zoom levels and framing" |
+| T9 | 9 Oct, 12:40 | **approval** and the five standards for the next video (§1) |
+
+---
+
+## 1. The five standards (T9, verbatim) — every video, from the first frame
+
+1. "**Colors:** Use stronger, brighter, and more vibrant colors on important objects to bring the scenes to life."
+2. "**Zooms:** Add more frequent zoom-ins and close-ups on faces, eyes, hands, and important objects."
+3. "**Emotions:** Avoid showing characters too small or too far away. Facial expressions and emotions must be immediately
+   recognizable."
+4. "**Text:** No unnecessary numbering, large titles, or decorative elements. Only short, playful words when they
+   genuinely support the scene."
+5. "**Dynamic visuals:** Keep scenes engaging through movement, camera changes, character reactions, and visual variety.
+   Reuse existing visuals creatively through zooms and different framing."
+
+And the standing instruction behind them (T7, T9): "start making these creative decisions independently… rather than
+waiting for me to point out individual objects." "For the next production, I expect these improvements to be applied
+consistently from the start, without requiring repeated revisions."
+
+---
+
+## 2. Background and places — white stage, black line, nothing extra
+
+- **The ground is white.** "The clean white background is very good and should stay" (T1); "Our backgrounds should
+  remain white and minimalistic" (T3). CLEAN is now pure white (`CLEAN_GROUND = #FFFFFF`); this closes v19's open
+  ground-strip decision.
+- **Set pieces are black line on white.** "black and white is enough for those elements" (T6); "simple with black
+  outlines on a white background" (T7). Every set piece is a thin black ink outline with white fill — thinner than the
+  characters' bold outlines, finished and closed. No fills, no tinted furniture, no coloured trees.
+- **The ground stays neutral.** "the ground does not also need to be colored. It is too much" (T6). Wider shots get one
+  thin ground line on white — never a coloured floor or grass plane.
+- **Object necessity, decided by us.** "Review each scene carefully and ask yourself whether every object is actually
+  necessary. If an element doesn't contribute to the story, emotion, or visual understanding, simply remove it" (T7).
+  Before a frame is written, every set piece and every prop answers yes to one of: does it tell the story, carry the
+  emotion, or make the moment understandable? Otherwise it is cut. The study scene is the model: the character and the
+  colourful books; one window outline to say "home"; no fridge, no counter, no cabinets.
+- **Keep it clean even when colours get stronger.** "please be careful not to fill each scene too much… The main focus
+  must always remain on the characters and the important objects" (T6).
+
+**What went wrong in Video 08 (so it never returns):** the v22 compiler filled every set piece with "its own soft colour"
+and laid a coloured floor plane under wider shots (sandy ground at the campfire; mint fridge, sage counter, teal chairs and
+a blue window in the study; grass-green ground, a green tree and an emerald bike on the path). Thomas cut all of it. The
+v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the checks failing it.
+
+---
+
+## 3. Colour — psychological, bright on the important thing, quiet everywhere else
+
+- **Bright by default on the important object.** "Use stronger, brighter, and more vibrant colors on important objects"
+  (T9); the colours were "too dry and slightly boring… they still need more life" (T5). The frame's colour focus (`ce`)
+  is drawn in its **bright, vivid tone** unless the moment is deliberately quiet (sadness, absence, a held beat — then
+  `calm`). The v22 default of a "calm, deeper everyday tone" is what read as dry.
+- **Few strong colours per frame.** "not too many strong colored elements in the same scene" (T6); "We do not want
+  everything colorful" (T3). One colour focus; a second coloured object only when the moment needs both (`ce2`, e.g. the
+  phone and the F in one argument). Every other story object is black line with white fill. One object may hold several
+  bright colours when that is its nature (the stack of books, the fire's orange and yellow, a rainbow burst).
+- **One colour, one meaning, for the whole video** (T1, T3). The defaults:
+
+  | Colour | Means | Typical objects and moments |
+  |---|---|---|
+  | **Yellow** | surprise, energy, attention, discovery | the "aha", the sudden idea, a surprise entrance, an exaggerated cutaway |
+  | **Red** | conflict, frustration, stress, danger | the failed grade, the argument's object, a warning |
+  | **Blue** | trust, safety, calm | the safe moment, the steady parent's object, reassurance |
+  | **Purple / dark violet** | smartphones, digital distraction | every phone, tablet, screen that pulls attention |
+  | **Green** | positive development, growth, an unexpected bright object | the step forward, the plant that grows, the bike he finally rides |
+  | **Orange / warm yellow** | warmth, fire, positive highlights | the campfire, a hug's warm accent, a reward |
+  | **Grey** | absence — colour drained on purpose | the absent parent, the empty chair, waiting |
+
+  These are defaults, judged by context ("These meanings are contextual guidance"). Red is no longer "danger only": it is
+  conflict, frustration and stress too (T3), still never decoration.
+- **Glow and rainbow are drawn, not rendered.** "the colours can glow much more strongly, almost like a rainbow effect when
+  it fits" (T5); "Make the smartphone glow more noticeable" (T4). In this flat style a glow is a **drawn halo**: one or two
+  clean-edged rings, or a ring of short radiating strokes, in a lighter tint of the object's colour. A **rainbow burst** is
+  a ring of short radiating strokes in several bright colours — for delight, discovery or reward only. Never a soft
+  gradient, bloom or blur. At night a screen is the light in the room: its flat light wedge stays.
+- **Positive moments look different from stressful ones.** "Positive scenes should feel visually different from the more
+  stressful moments" (T4); "subtle warm color accents" on the hug and the achievement; "subtle visual highlights instead of
+  maintaining exactly the same calm presentation" (T4). Warm: a flat warm light shape, the warm accent, people closer.
+  Stress: a red focus, red tension marks, tighter framing, people apart. Sadness: grey, negative space, the calm tone.
+- **Night stays dark blue-grey**, the colour with "a clear psychological purpose" (Video 05, confirmed in T4: "The darker
+  atmosphere works well").
+
+---
+
+## 4. Objects, exaggeration and metaphors — bolder, bigger, still clean
+
+- **Two or three times larger.** "Objects can also become two or three times larger when it improves the storytelling"
+  (T3); "the fire could easily be twice as big and more dramatic. Important objects should sometimes dominate the scene
+  for a moment" (T1). SCALE DOMINANT now means two to three times the normal size.
+- **Exaggerated cutaways are allowed.** "if the voice-over mentions a helicopter, we can suddenly show a large exaggerated
+  yellow or bright green helicopter behind the character for a few seconds. It does not always have to look completely
+  realistic. We are allowed to exaggerate because that creates attention, action and keeps the viewer engaged" (T1).
+  When the voice-over names a vivid concrete image, show it — big, bright, behind or around the character, with the
+  character reacting. This replaces v19.1's removal of the helicopter-parent picture as a cliché: Thomas asked for it.
+  The maturity test still holds — no hearts, stars, emoji or picture bubbles — but a big, real, exaggerated object is not
+  a symbol icon.
+- **Humour and exaggeration are channel identity.** "Humor and exaggeration are essential parts of our channel identity"
+  (T3). Exaggerated reactions and impossible scale are in; childish symbols stay out.
+- **Metaphors that are understood at once.** The control dials (Video 08) are the model: "a good visual concept"; make the
+  entrance "more impactful and surprising" and keep the link to the conflict visible (the dial on the wall showing the
+  current setting).
+- **Letters on an object.** A single letter or number drawn on an object is allowed when the letter *is* the story — the
+  oversized red F was "a strong concept" (T4). Never a label, a sign or a sentence.
+
+---
+
+## 5. Characters and emotion — closer, bigger on screen, pushed further
+
+- "Avoid showing characters too small or too far away. Facial expressions and emotions must be immediately recognizable"
+  (T9). WIDE is used only when the distance or the place is the point, and even then the characters fill enough of the
+  frame that every face reads. MEDWIDE is the usual full-figure shot.
+- "Push facial expressions and body language further. Use dramatic close-ups, exaggerated reactions, expressive eyes,
+  active hands, and stronger emotional contrasts" (T3). Strength still matches the beat: a quiet sadness is held (tier Q),
+  a conflict or a comic surprise is pushed to full.
+- "larger heads" (T3) is read as **larger on screen** — the camera closer — because the final standard (T9) is about
+  characters "too small or too far away" and the reference proportions are locked ("Keep the current hand-drawn
+  stick-figure style"). If Thomas means bigger heads in the character design, that is a new reference sheet, not a prompt
+  change (open question for Muhammad).
+- "Keep the current hand-drawn stick-figure style. Avoid overly polished or AI-generated-looking visuals" (T3).
+- "Maintain consistent character proportions, line thickness, facial features, colors, and object styling throughout the
+  video" (T3).
+
+---
+
+## 6. Camera, zooms and rhythm — reuse before regenerating
+
+- **Zoom into what matters.** "Add more frequent zoom-ins and close-ups on faces, eyes, hands, and important objects"
+  (T9); "use more zoom-ins, close-ups, and camera movements focusing on the characters, their facial expressions, and
+  important objects" (T8).
+- **Reuse a still with new framing.** "You can even reuse the same material with different zoom levels and framing,
+  keeping the viewer engaged without constantly creating new scenes" (T8); "Reuse existing visuals creatively through
+  zooms and different framing" (T9). Each frame can carry a **zoom plan** (`zm`): Premiere reframes of the same image on
+  cue words — punch to the face, the eyes, the hands or the object. A frame with a planned reframe is composed for it: the
+  target large and clear enough to survive the crop (a face reframed to the eyes starts at MEDIUM or closer). Order of
+  choice for more rhythm: reframe the still → a crop to a face or object → an edit of the image → a new frame.
+- **A meaningful change about every 3–5 seconds.** "Aim for a meaningful visual change approximately every 3–5 seconds…
+  However, every movement should support the story. Avoid unnecessary animation" (T3). A change is a new frame, an edit, a
+  reveal, a reframe or a camera move with a reason. It is an editing guideline, not a count of generated images.
+- **Vary the moves.** Zoom and pan "selectively, not exactly the same way on every image" (Video 05) still holds.
+
+---
+
+## 7. Text — short, playful, hand-drawn, only when it helps
+
+- **Out:** numbered section titles and title cards ("The numbers should be removed completely"), the underline, "this
+  current font style with the clean presentation look… too cold, too formal and too much like a slide presentation" (T5),
+  large titles and decorative elements (T9). The 8 Oct distinction between "professional section headings" and keywords
+  (T3) is superseded by T5 and T9: no section headings.
+- **In:** "short, meaningful words that feel playful, emotional and natural inside the scene… more hand-drawn, more alive
+  and more in the style of our stick-figure world. Words should support the emotion of the moment, not feel like chapter
+  headings" (T5). His examples: "WAIT…", "ENOUGH!", "SAFE", "TRUST", "PRESSURE", "WHY?", "INVISIBLE", "AHA!".
+- **Readable at once, even on a phone:** "clean, bold, highly readable text that works immediately, even on mobile
+  devices" (T3); "sophisticated does not necessarily mean more effective".
+- **Few, exactly at the right moment:** "fewer, but exactly at the right moments" (T2); "Only short, playful words when
+  they genuinely support the scene" (T9). A word is a reaction or a feeling (WAIT…, ENOUGH!, WHY?) or the one idea of the
+  line (TRUST, PRESSURE, INVISIBLE); never a term from a textbook ("FRUSTRATION TOLERANCE", "AUTHORITATIVE PARENTING"),
+  never a sentence, never a number. A short closing question works ("WHICH DIAL?" — "The concept works").
+- **The look:** bold hand-lettered capitals, like a thick marker in the same black ink as the stick figures — lively but
+  clean, the letters slightly uneven in a hand-made way, never a geometric presentation font; flat, no outline, shadow,
+  3D, underline, badge or number; black, or the meaning colour of the moment (red ENOUGH!, yellow AHA!, blue SAFE);
+  about one eighth of the frame height, in open space beside what it is about, never over a face.
+- **Where it is made:** lettered into the image (the compiler writes the word and also a no-text version of the prompt),
+  or set by Muhammad in Premiere in the same hand-lettered look — whichever reads better in the render.
+
+---
+
+## 8. Emotional storytelling
+
+- "We need stronger contrasts between frustration, sadness, humor, surprise, and positive emotional moments. Our audience
+  should immediately feel what the characters are experiencing" (T3).
+- "Every scene should create emotion, provide value, build curiosity, or entertain" (T3). A frame that does none of these
+  is cut or merged into its neighbour's still with a reframe.
+- "Create a stronger emotional contrast between frustration and the positive interaction that follows. Focus on facial
+  reactions and timing" (T4).
+
+---
+
+## 9. Guarding against the opposite extreme (each point, and how it fails)
+
+| Thomas asked for | The failure | The rule |
+|---|---|---|
+| brighter colours | every object coloured; coloured floors and furniture | bright on the focus only; set pieces black line; ground white |
+| fewer elements | empty, lifeless frames | cut what does not serve — then make what stays bigger, brighter and acting |
+| stronger faces | the same shocked face everywhere | the precise emotion of the beat, its strength matched to the beat |
+| more close-ups and zooms | every frame a close-up; the viewer lost | establish the place, then go close; reframes on the cue word, with a reason |
+| more words | titles and labels return | a short playful word, only where it lands a feeling |
+| bigger objects | everything oversized | two or three times larger *for a moment*, where it tells the story |
+| glow | soft rendered bloom, gradients | a drawn halo or a few radiating strokes |
+| more movement | motion with no reason | every change supports the story |
+
+---
+
+## 10. What stays exactly as it is
+
+Everything in v19 that this file does not change: the characters and the reference proportions; the seven features and
+the interaction beat; close-ups that make sense (`look`, `ctx`); screen sides inside a scene; natural camera angles;
+mature props and no symbol icons; recurring objects that evolve; the shot plan before production; edits, mask reveals and
+sequences; no teeth; no clothing; one video per chat, delivered in one pass.
+
+---
+
+## 11. The video-08 build, version by version (history — never copy from it)
+
+| Build change | What it did | Thomas's verdict | v24 |
+|---|---|---|---|
+| v20 | every story object kept its locked colour in every frame; set-piece line darkened to #6B7079 | "not too many strong colored elements" | one focus bright, others black line; the dark line kept, now black |
+| v21 | one meaning per colour (`COLOUR_LOGIC`); `mute` absence frames in grey; the phone screen as the light at night | colour psychology approved; grey absence approved; "phone glow more noticeable" | kept |
+| v21.1 | quiet editorial captions with a thin coloured underline | "remove the underline… too cold, too formal" | removed |
+| v22 | calm/bright tone per prop, `accent` frames; set pieces filled in soft colours; a coloured floor plane; flat light shapes; foreground and slice | colours "too dry"; ground and furniture colour "too much" | bright by default; fills and floor plane removed; light, foreground and slice kept |
+| v23 | bold geometric headline type; numbered section headings with a number badge | "I do not want these numbered section titles… avoid this cold formal font style" | removed; hand-lettered words only |
+
+---
+
+## 12. Video 08 notes as test cases (scene-specific — not rules for every video)
+
+These were Thomas's notes on single scenes. They are kept as regression examples in
+`assets/v24-samples/video08-regression/`, never copied as content into new videos.
+
+- Campfire (00:00–00:10): the fire much larger, strong orange and yellow; the rocks fine; the ground not coloured.
+- Phone (00:20, 01:40, 02:30): a strong purple phone; at night its glow more noticeable; the child's reaction exaggerated.
+- Indoor → playground (00:30–00:40): the calm indoor scene contrasts with exaggerated playground action.
+- The F (02:10–02:20): oversized, brighter red, the size contrast kept.
+- Hug, piano, achievement (02:50–03:10): warm accents; the reward feels rewarding.
+- Absent parent (04:40–05:00): grey atmosphere; loneliness through framing, body language, close-ups; the calendar as
+  missing time (days crossed off).
+- Table conflict (06:00–06:20): the father's face pushed further; the bike sequence clear.
+- Family conversation (06:30–06:50): more framing variety; positive looks different from stressful.
+- Control dials (07:20–07:50): a more surprising entrance; the dial setting tied visibly to the conflict.
+- Study scene (T7): books colourful; one window in black line; no fridge, furniture or cabinets.
+- Bike scene (T6): only the bike in strong colour; no green ground or tree.
+- Section titles (T5, T6): no numbers, no title cards.
+- Ending (08:50–08:57): "WHICH DIAL?" short and impactful, readable on mobile; no outro.
+- Duration: up to 9:00 is fine (T3) — the script and its timing stay final.
+
+---
+
+## 13. Open questions for Muhammad (not decided by this file)
+
+1. "larger heads" (T3): camera proximity (this file's reading), or a new reference sheet with bigger heads?
+2. The hand-lettered words: lettered into the image, or set in Premiere with a marker-style font? Both are supported; the
+   first renders decide.

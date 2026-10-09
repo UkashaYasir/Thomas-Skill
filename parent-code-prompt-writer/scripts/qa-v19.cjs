@@ -28,7 +28,7 @@ src = src.slice(0, marker).replace(/^\s*import[^\n]*\n/gm, "");
 let M;
 try { M = vm.runInNewContext(src + ";({RAW_BEATS,BEATS,PROMPTS,ROLE,PROP,OVERLAY,WORLD,MOOD,SCRIPT,EDIT_CUES,SEQUENCES,framePalette,MOOD_ALIAS:(typeof MOOD_ALIAS==='undefined'?null:MOOD_ALIAS),CLEAN_GROUND:(typeof CLEAN_GROUND==='undefined'?null:CLEAN_GROUND),OUTLINE_GREY:(typeof OUTLINE_GREY==='undefined'?null:OUTLINE_GREY)})", {}); }
 catch (e) { console.log("FAIL  the build does not compile: " + e.message); process.exit(1); }
-if (!M.MOOD_ALIAS) { console.log("FAIL  this build was not made with compiler v19 — rebuild it with assets/compiler-v19/"); process.exit(1); }
+if (!M.MOOD_ALIAS) { console.log("FAIL  this build was not made with compiler v19 or later — rebuild it with assets/compiler-v24/"); process.exit(1); }
 const { ROLE, PROP, OVERLAY, WORLD, MOOD, MOOD_ALIAS } = M;
 const D = M.BEATS || M.RAW_BEATS, P = M.PROMPTS, N = D.length;
 let fails = 0, warns = 0;
@@ -103,15 +103,16 @@ const tinted = [], extraHex = [];
 P.filter(p => ["CLEAN", "WHITE"].includes(moodOf(p.mood))).forEach(p => {
   const set = block(p.prompt, "SETTING", NEXT_SET), col = block(p.prompt, "COLOUR", NEXT_COL);
   const beat = [p.framing, p.action, p.map].join(" ");
-  const t = [set, col, beat].join(" "), m = t.match(TINT);
+  // v24: an absence frame (mute) is grey on purpose — its fixed grey wording is not a tint
+  const t = [set, col, beat].join(" ").replace(p.mute ? /quiet cool grey-blue|very light cool grey|pale cool grey/g : /$^/, ""), m = t.match(TINT);
   if (m) tinted.push(`${p.ref}("${m[0]}")`);
-  const allowed = new Set([String(M.CLEAN_GROUND).toUpperCase(), String(M.OUTLINE_GREY).toUpperCase(), "#FFFFFF"]);
+  const allowed = new Set([String(M.CLEAN_GROUND).toUpperCase(), String(M.OUTLINE_GREY).toUpperCase(), "#FFFFFF", ...(p.mute ? ["#AEB8C4", "#F1F3F5", "#E4E7EA"] : [])]);
   const bad = (set.match(/#[0-9A-Fa-f]{6}/g) || []).filter(h => !allowed.has(h.toUpperCase()));
   if (bad.length) extraHex.push(`${p.ref}(${[...new Set(bad)].join(" ")})`);
 });
 tinted.length ? fail("CLEAN/WHITE frames with tinted-room wording (a coloured wall, tinted room or furniture colour): " + refs(tinted)) : ok("CLEAN and WHITE frames carry no tinted wall, room or furniture wording");
-extraHex.length ? fail("CLEAN/WHITE settings that colour a set piece or the place (only the ground, the soft-grey line and white are allowed there): " + refs(extraHex)) : ok("CLEAN and WHITE settings are the ground, soft-grey outlines and white only");
-const noOne = P.filter(p => !/The only (?:other )?coloured element|Nothing (?:in it )?carries colou?r|No object carries colou?r|Only .{1,80} keeps its colou?r|Everything is black ink and white/.test(block(p.prompt, "COLOUR", NEXT_COL))).map(p => p.ref);
+extraHex.length ? fail("CLEAN/WHITE settings that colour a set piece or the place (only the white ground, the black line and white fill are allowed there — Thomas: \"black and white is enough\"): " + refs(extraHex)) : ok("CLEAN and WHITE settings are the white ground, black-line pieces and white fill only");
+const noOne = P.filter(p => !/THE BRIGHT COLOUR FOCUS in this frame is|The one colour in this frame is|THE BRIGHT ACCENT in this frame is|The only (?:other )?coloured element|Nothing (?:in it )?carries (?:strong )?colou?r|No object carries colou?r|Only .{1,80} keeps its colou?r|Everything is black ink and white/.test(block(p.prompt, "COLOUR", NEXT_COL))).map(p => p.ref);
 noOne.length ? fail("colour blocks that do not name one colour element (or say that nothing carries colour): " + refs(noOne)) : ok("every colour block names its one colour element, or says that nothing carries colour");
 info("colour elements " + dist(D, b => { const ce = String(plan(b).ce || "").trim(); return ce ? (/^none$/i.test(ce) ? "none" : (ce.match(/^[A-Z0-9_]+/) || [ce])[0]) : PROP[b.hero] ? b.hero + " (default)" : "none (default)"; }));
 const roomWhite = D.filter(b => moodOf(b.mood) === "WHITE" && closeFace(b)).filter(b => /\b(table|chair|counter|fridge|wall|door(way)?|stairs?|rail|sofa|bed|shelf|floor|window|desk)\b/i.test(stripProps([b.action, b.map].join(" ")))).map(b => b.ref);
@@ -240,11 +241,13 @@ eyeline.length ? fail("close-up gaze that does not match where the other person 
 
 // ════════════════════════════════════════════════════════════════
 head("KEYWORDS (humour-text-contrast-v19.md)");
-const K = D.filter(b => b.keyword && String(b.keyword.word || "").trim());
+// v24: lettered words (onScreen without a font) count as keywords too
+const K = D.map(b => b.keyword && String(b.keyword.word || "").trim() ? b : b.onScreen && !b.onScreen.font ? { ...b, keyword: { word: b.onScreen.w, on: b.onScreen.on } } : null).filter(Boolean);
 const NUMWORD = /^(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth)$/i;
 const badKw = K.filter(b => { const w = String(b.keyword.word).trim(); return /^NUMBER\b/i.test(w) || /\d/.test(w) || NUMWORD.test(w) || /^(?:no\.|#)/i.test(w); }).map(b => `${b.ref}("${b.keyword.word}")`);
 badKw.length ? fail("keywords that are numbers or list labels — on-screen words are idea words from the line (TRUST, SAFE, NOT REJECTION…): " + refs(badKw)) : ok("every keyword is an idea word, never a number or list label");
-const sentence = K.filter(b => { const w = String(b.keyword.word).trim(); return /[.!?]$/.test(w) || (b.script && w.toLowerCase().replace(/[^a-z ]/g, "") === String(b.script).toLowerCase().replace(/[^a-z ]/g, "")); }).map(b => `${b.ref}("${b.keyword.word}")`);
+// v24: Thomas's own words end in "…", "!" or "?" (WAIT…, ENOUGH!, WHY?) — a full stop or four or more words read as a sentence
+const sentence = K.filter(b => { const w = String(b.keyword.word).trim(); return (/[^.]\.$/.test(w) && !/\.\.\.$/.test(w)) || w.split(/\s+/).length >= 4 || (b.script && w.toLowerCase().replace(/[^a-z ]/g, "") === String(b.script).toLowerCase().replace(/[^a-z ]/g, "")); }).map(b => `${b.ref}("${b.keyword.word}")`);
 sentence.length ? fail("keywords that read as a sentence or repeat the whole line — a few strong words, never a voice-over sentence on screen: " + refs(sentence)) : ok("no keyword is a sentence or the whole line");
 info(`${K.length} keywords: ${K.map(b => `${b.ref} ${b.keyword.word}`).join(" · ") || "none"}`);
 

@@ -19,5 +19,5 @@ What the test found and fixed in the skill:
 - hand-sized objects need `small: true`, or a hero object is written "at least head-sized" → noted in
   data-fields-and-build.md.
 
-Build (from `assets/compiler-v19/`): `node assemble.cjs --data ../v19-samples/car-ride`, then `qa-all.cjs` — every check
+Build (from `assets/compiler-v24/`): `node assemble.cjs --data ../v19-samples/car-ride`, then `qa-all.cjs` — every check
 passes.
