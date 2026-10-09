@@ -1,4 +1,8 @@
-# CLEAN ground test strip
+# CLEAN ground test strip (history — decided)
+
+> Decided on 9 Oct 2026: the CLEAN ground stays #F7F6F3, the clean warm white Video 08 was approved on (Thomas: "The clean
+> white background is very good and should stay"; Muhammad: "the default background is white"). Set pieces are thin black
+> ink lines since v24, not soft grey. The strip is kept only in case a ground ever needs testing again.
 
 Thomas asked for "white or very light neutral backgrounds as the default". The compiler's CLEAN ground is one constant,
 `CLEAN_GROUND` (default #F7F6F3). This strip lets Thomas choose it from real renders.

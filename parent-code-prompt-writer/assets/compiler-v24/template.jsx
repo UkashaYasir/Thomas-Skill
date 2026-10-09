@@ -4,11 +4,13 @@ import { useState, useRef } from "react";
 // THE PARENT CODE — prompt build (compiler v24)
 // Copy this file, fill PROJECT, the dictionaries and RAW_BEATS (or let assemble.cjs fill them), and keep
 // the shared constants, the compiler and the UI exactly as they are.
-// v24 (Thomas's final word after Video 08, 9 Oct 2026 — references/v24-standard.md): a pure white stage; places as thin
-// black line pieces with white fill, only the ones the frame needs; the colour focus bright and vivid by default, colour by
+// v24 (Thomas's final word after Video 08, 9 Oct 2026 — references/v24-standard.md): the clean warm-white stage; places as
+// thin black line pieces with white fill, the fewest the frame needs; the colour focus bright and vivid by default, colour by
 // meaning; a drawn halo or rainbow burst for glow; objects two or three times larger for a moment; characters never too
 // small; zoom plans that reuse a still; short, playful hand-lettered words — never numbered titles. Under it, v19: the seven
 // expression features, a real interaction beat, close-ups that make sense (look + ctx).
+// v25 (Muhammad, 9 Oct 2026 — v24-standard.md §2a): white by default; a line that carries the emotional intensity turns the
+// stage into the emotion's colour (pc), the close-up goes white, and the film returns to white; inserts (I) inside a line.
 // =====================================================================
 
 const PROJECT = {
@@ -72,7 +74,7 @@ const COLOUR_HIERARCHY = "VISUAL ORDER: first the characters and their faces, th
 
 // v19 (Thomas: "one strong object, one strong face, one strong gesture"; "one door outline, one bed outline, one chair, one
 // object is enough"): less, but stronger.
-const DETAIL_CAP = "LESS, BUT STRONGER: one strong object, one strong face, one strong gesture — only the characters, objects and set pieces named here, each finished and closed, and each there because the moment needs it; the rest of the space stays plain white and open, with no wall art, plants, table lamps, cupboards, appliances, extra furniture, people or clutter.";
+const DETAIL_CAP = "LESS, BUT STRONGER: one strong object, one strong face, one strong gesture — only the characters, objects and set pieces named here, each finished and closed, and each there because the moment needs it; the rest of the space stays plain and open, with no wall art, plants, table lamps, cupboards, appliances, extra furniture, people or clutter.";
 
 const CONSTRUCTION_RESTATED = "CHARACTER LOCKS: exactly as the attached references — head size as in the references, big white round eyes with large black pupils, short thick eyebrows, a drawn mouth, thin black line bodies and limbs with no fill, white mitten hands, small white oval feet, no clothing beyond each character's named accessory; SON clearly shorter than MOM; nothing casts a shadow.";
 
@@ -149,14 +151,14 @@ const KEY_MAGENTA = "#FF00FF";
 
 // ── BACKGROUND AND MOODS (v19) ─────────────────────────────────────────
 // CLEAN_GROUND: the default ground — one constant so a test strip can swap it (assemble.cjs: CLEAN_GROUND=#FFFFFF node assemble.cjs …).
-const CLEAN_GROUND = "#FFFFFF"; // v24: Thomas — "The clean white background is very good and should stay"
-const CLEAN_GROUND_OPTIONS = { "#FFFFFF": "pure white", "#F7F6F3": "very light warm neutral", "#F4F2EE": "very light stone", "#F2F4F5": "very light cool grey" };
+const CLEAN_GROUND = "#F7F6F3"; // the clean warm white Video 08 was approved on — Thomas: "The clean white background is very good and should stay"; a hair below pure white so white characters still separate (3 Oct)
+const CLEAN_GROUND_OPTIONS = { "#F7F6F3": "very light warm white", "#FFFFFF": "pure white", "#F4F2EE": "very light stone", "#F2F4F5": "very light cool grey" };
 const OUTLINE_GREY = "#2B2B2B"; // v24: the thin black ink line of every set piece and ground line on CLEAN (Thomas: "black outlines on a white background"; v19's soft grey rendered as ghost lines)
 // MOOD: five moods. kind: clean | white | peak | night | memory. ground = the background; line = the set pieces' outline colour;
 // fill = the set pieces' fill. (wall/floor/furn/sky/field are kept as aliases of ground/fill for older scripts.)
 const _pal = (ground, line, fill) => ({ ground, line, fill, wall: ground, floor: ground, sky: ground, field: ground, furn: fill });
 const MOOD = {
-  CLEAN:  { label: "CLEAN", kind: "clean", feel: "the default — a pure white stage, the place told by the fewest thin black line pieces, bright colour only on the focus", ..._pal([CLEAN_GROUND_OPTIONS[CLEAN_GROUND] || "white", CLEAN_GROUND], ["black ink", OUTLINE_GREY], ["white", "#FFFFFF"]) },
+  CLEAN:  { label: "CLEAN", kind: "clean", feel: "the default — the clean warm-white stage, the place told by the fewest thin black line pieces, bright colour only on the focus", ..._pal([CLEAN_GROUND_OPTIONS[CLEAN_GROUND] || "white", CLEAN_GROUND], ["black ink", OUTLINE_GREY], ["white", "#FFFFFF"]) },
   WHITE:  { label: "WHITE", kind: "white", feel: "pure white — face-only, object-only and word frames, and deliberate white breaks", ..._pal(["pure white", "#FFFFFF"], ["black ink", OUTLINE_GREY], ["white", "#FFFFFF"]) },
   PEAK:   { label: "PEAK", kind: "peak", feel: "an emotional peak — one full-colour field, the chapter's emotional colour (needs pk: true)", ..._pal(["storm violet", "#9C86C0"], ["deep storm violet", "#7E68A6"], ["storm violet", "#9C86C0"]) },
   NIGHT:  { label: "NIGHT", kind: "night", feel: "night — one flat navy field, the set pieces solid slate-navy shapes", ..._pal(["night navy", "#35445E"], ["dark navy", "#1C2433"], ["lighter slate navy", "#55647F"]) },
@@ -167,6 +169,19 @@ const MOOD_ALIAS = { BRIGHT: "CLEAN", WARM: "CLEAN", EVENING: "CLEAN", COOL: "CL
 const PEAK_VARIANT = {
   TENSE: { field: ["storm violet", "#9C86C0"], floor: ["deep storm violet", "#7E68A6"] },
   SUNNY: { field: ["lemon yellow", "#F5E77E"], floor: ["golden ochre", "#E0BA4B"] },
+};
+// v25 colour stage by emotion (Muhammad, 9 Oct: white is the default; when a line carries emotional intensity the stage
+// converts to colour, then comes back to white). pc names the emotion's colour family on a PEAK frame — the same meaning
+// as COLOUR_LOGIC, for the whole video. Mid-light, saturated fields: black ink and the white characters both read on them.
+// No orange, amber or peach field (warm fields render stronger than written and swallow warm objects — render-lessons.md):
+// warmth is a warm light shape (li) on the white stage.
+const EMOTION_FIELD = {
+  RED:    { field: ["vivid red", "#E2443A"], floor: ["deep red", "#A3271F"], means: "conflict, anger, frustration, stress, danger — the breaking point" },
+  YELLOW: { field: ["bright lemon yellow", "#FFE04A"], floor: ["deep golden yellow", "#D9AE00"], means: "surprise, discovery, the aha, sudden energy" },
+  BLUE:   { field: ["clear bright blue", "#4D9BEA"], floor: ["deep blue", "#2C6BB5"], means: "trust, safety, relief — the calm after the storm" },
+  GREEN:  { field: ["fresh bright green", "#3CC46E"], floor: ["deep green", "#1F8A49"], means: "growth, the breakthrough, the step forward" },
+  VIOLET: { field: ["vivid violet", "#8D5CDF"], floor: ["deep violet", "#5B32A3"], means: "the screen's pull, digital overwhelm" },
+  GREY:   { field: ["flat cool grey", "#A3ABB5"], floor: ["deep slate grey", "#6E7783"], means: "emptiness, numbness, absence at its strongest" },
 };
 function moodOf(m) { return MOOD[m] ? m : (MOOD_ALIAS[m] || m); }
 
@@ -211,7 +226,7 @@ function framePalette(b) {
   const key = moodOf(b.mood), M = MOOD[key];
   if (!M) throw new Error(`Unknown MOOD "${b.mood}" in ${b.ref}`);
   if (key === "PEAK") {
-    const C = CHAPTER[String(b.sequence || "").slice(0, 2)], v = (C && C.emo) || PEAK_VARIANT[b.moodWas] || PEAK_VARIANT[b.mood];
+    const C = CHAPTER[String(b.sequence || "").slice(0, 2)], v = EMOTION_FIELD[b.peakCol] || (C && C.emo) || PEAK_VARIANT[b.moodWas] || PEAK_VARIANT[b.mood];
     if (v) { const field = v.field || v.wall, line = v.floor || v.furn || M.line; return _pal(field, line, field); }
   }
   return _pal(M.ground, M.line, M.fill);
@@ -393,7 +408,16 @@ function lineText(key, base) {
 function neutralFrame(b) { return false; }
 // v24 ("not too many strong colored elements in the same scene"): only the colour focus (ce) and, when named, ce2 carry
 // colour; every other story object is black line with white fill. A frame whose ce is "none" is face-led: all line.
-const isPlain = (b, k) => (b.plain || []).includes(k) || (heroKey(b) !== k && ce2Key(b) !== k);
+// v25: on a PEAK colour field, an object (or a mark, or a word) in the field's own hue would vanish into it — it is drawn white
+// with its bold black outline instead, so it stands out sharply (the red F on a red field becomes a white F).
+function _sat(hex) { const v = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255), mx = Math.max(...v), mn = Math.min(...v); return mx ? (mx - mn) / mx : 0; }
+function clashesField(b, hex) {
+  if (moodOf(b.mood) !== "PEAK" || !/^#[0-9A-Fa-f]{6}$/.test(String(hex || ""))) return false;
+  const f = framePalette(b).ground[1]; if (_sat(f) < 0.25 || _sat(hex) < 0.25) return false;
+  const d = Math.abs(hueOf(f) - hueOf(hex)); return Math.min(d, 360 - d) < 30;
+}
+function fieldIsLight(b) { return moodOf(b.mood) === "PEAK" && hexToLab(framePalette(b).ground[1])[0] >= 68; }
+const isPlain = (b, k) => (b.plain || []).includes(k) || (heroKey(b) !== k && ce2Key(b) !== k) || clashesField(b, PROP[k] && PROP[k].hex);
 function colouredItems(b) {
   if (neutralFrame(b)) return [];
   const ce = colourEl(b), seen = [];
@@ -461,7 +485,7 @@ function worldBlock(b) {
   const wider = WIDER.includes(b.shotSize) || (b.shotSize === "OBJECT" && !pieceList(b).length);
   const parts = W.parts ? pieceList(b).map(p => outlineText(p[2])) : [];
   const idea = !W.parts && W.text ? outlineText(W.text).replace(/[;,.]?\s*nothing else\.?\s*$/i, "").replace(/[.\s]+$/, "") : "";
-  const hasGround = /ground line|horizon/i.test(idea);
+  const hasGround = /ground line|floor line|horizon/i.test(idea);
   const label = parts.length ? placeLabel(b) : "";
   if (b.shotSize === "XCLOSE") return `SETTING: only the plain, flat ${g} ${key === "CLEAN" ? "ground" : "field"} behind the head — the camera is so close that nothing of the place is in frame.`;
   if (key === "CLEAN" || key === "MEMORY") {
@@ -489,8 +513,9 @@ function worldBlock(b) {
   const fieldWord = key === "NIGHT" ? "night" : "emotional peak";
   const head = `one flat, even ${g} colour field fills the whole background from edge to edge — the colour of this ${fieldWord}`;
   const fillTxt = key === "NIGHT" ? `a solid flat shape filled in ${P.fill[0]} (${P.fill[1]}) with a ${P.line[0]} (${P.line[1]}) outline` : `a solid flat shape filled in ${P.line[0]} (${P.line[1]}) with a thin darker outline`;
-  const pcs = parts.length ? `; ${label ? `${theLabel(label)} is told` : "the place is told"} by ${parts.length > 1 ? "these pieces" : "this piece"}: ${parts.join("; ")} — ${parts.length > 1 ? "each" : ""} drawn as ${fillTxt}, complete and standing firmly on the ground, never a pale or glowing outline` : idea ? `; ${idea}, drawn as ${fillTxt}` : "";
-  return `SETTING: ${head}${pcs}${wider && !hasGround ? `; one ${P.line[0]} ground line runs under the figures` : ""}; the rest of the field is plain and open.`;
+  const lineOnly = !parts.length && /^(?:one|a) [a-z ]*\b(?:floor|ground) line$/i.test(idea); // the place is only its ground line
+  const pcs = parts.length ? `; ${label ? `${theLabel(label)} is told` : "the place is told"} by ${parts.length > 1 ? "these pieces" : "this piece"}: ${parts.join("; ")} — ${parts.length > 1 ? "each" : ""} drawn as ${fillTxt}, complete and standing firmly on the ground, never a pale or glowing outline` : lineOnly ? `; ${idea} in ${P.line[0]} (${P.line[1]}) runs under the figures` : idea ? `; ${idea}, drawn as ${fillTxt}` : "";
+  return `SETTING: ${head}${pcs}${wider && !hasGround && !lineOnly ? `; one ${P.line[0]} ground line runs under the figures` : ""}; the rest of the field is plain and open.`;
 }
 
 // Version 7: a story object that hangs on the wall is the one exception to plain space
@@ -519,7 +544,7 @@ const LIGHT = {
 function lightBlock(b) {
   if (!b.light || !LIGHT[b.light.kind]) return "";
   const L = LIGHT[b.light.kind], night = moodOf(b.mood) === "NIGHT";
-  return `LIGHT: one flat, clean-edged shape of ${night && b.light.kind === "warm" ? "warm lamplight" : b.light.kind === "cool" ? "cool window light" : "light"} in ${L[0]} (${L[1]})${b.light.where ? ` — ${b.light.where}` : ""} — ${L[2]}; a flat shape with a sharp edge, never a glow, gradient or beam of rays.`;
+  return `LIGHT: one flat, clean-edged shape of ${night && b.light.kind === "warm" ? "warm lamplight" : b.light.kind === "cool" ? "cool window light" : "light"} in ${L[0]} (${L[1]})${b.light.where ? ` — ${b.light.where}` : ""} — ${L[2]}; the light itself is a flat shape with a sharp edge — never a soft glow, gradient or beam.`;
 }
 function fgBlock(b) {
   return b.fg ? `FOREGROUND: ${b.fg} — close to the camera at one edge of the frame, cut off by the frame edge and drawn in the same flat style and line, nearer than the characters; it frames the moment and covers no face.` : "";
@@ -531,10 +556,10 @@ const GLOW = {
   rays: "a ring of short, straight radiating strokes in a paler version of its own colour, like a drawn shine — flat ink strokes, never a soft blur",
   rainbow: "a burst of short, straight radiating strokes in several bright colours — yellow, orange, pink, green, blue and purple — like a joyful drawn shine, flat strokes, never a soft blur",
 };
-function glowText(b, hero) {
+function glowText(b, hero, whiteKey) {
   const g = b.glow && GLOW[b.glow]; if (!g) return "";
-  const who = hero ? (PROP[hero.key] || {}).name : b.accentMark ? "the action" : ""; if (!who) return "";
-  return `GLOW: around ${who}, ${g}.`;
+  const who = hero ? (PROP[hero.key] || {}).name : whiteKey ? (PROP[whiteKey] || {}).name : b.accentMark ? "the action" : ""; if (!who) return "";
+  return `GLOW: around ${who}, ${whiteKey && b.glow !== "rainbow" ? g.replace(/paler versions? of its own colou?r/, "white") : g}.`;
 }
 // v24 zoom plan (Thomas: "reuse the same material with different zoom levels and framing"): the targets of the planned
 // Premiere reframes are drawn crisp and complete, so a crop of the still holds up. Descriptive only — never an instruction.
@@ -553,28 +578,41 @@ function colourBlock(b) {
   // v24: the colour focus is bright (calm only with cm); ce2, when named, keeps its own clear colour, quieter; everything else,
   // set pieces included, is black line with white fill; walls, floors and grass are never coloured.
   const items = colouredItems(b), hero = items.find(i => i.hero), rest = items.filter(i => !i.hero);
-  const accent = !b.calm, mark = !hero && b.accentMark ? ACCENT_COL[String(b.accentCol || "YELLOW").toUpperCase()] || ACCENT_COL.YELLOW : null; // v24: bright by default
+  // v25: a focus in the PEAK field's own hue turns white with its bold outline (clashesField)
+  const hk = heroKey(b), whiteHero = !hero && hk && key === "PEAK" && clashesField(b, (colourEl(b) || {}).hex || PROP[hk].hex) ? hk : null;
+  const accent = !b.calm, markCol = b.accentMark ? ACCENT_COL[String(b.accentCol || "YELLOW").toUpperCase()] || ACCENT_COL.YELLOW : null; // v24: bright by default
+  const mark = markCol && clashesField(b, markCol[1]) ? ["bold black ink", "#1A1A1A"] : markCol;
   const plural = i => /[^S']S$/.test((PROP[i.key] || {}).name || "");
   const after = names.length && !hands ? "right after the faces" : names.length ? "right after the hands" : "first";
-  const heroLine = hero ? (accent ? `THE BRIGHT COLOUR FOCUS in this frame is ${hero.text} — vivid, saturated, crisp-edged and full of life, deliberately the brightest colour in the picture, so the eye goes to it ${after}.` : `The one colour in this frame is ${hero.text}, in ${plural(hero) ? "their" : "its"} calm, deeper tone — a deliberately quiet moment.`) : mark ? `THE BRIGHT ACCENT in this frame is ${b.accentMark}, in ${mark[0]} (${mark[1]}) — vivid and deliberate, so the eye goes to the action ${after}.` : "";
-  const restLine = rest.length ? `${rest.map(i => i.text).join("; ")} — ${rest.length > 1 ? "each in its" : plural(rest[0]) ? "in their" : "in its"} own clear colour, quieter than ${hero || mark ? "the focus" : "the faces"}.` : "";
-  const calmTail = items.length || mark ? "Every other object and every set piece is black line with white fill — no other strong colour anywhere in the frame." : "";
-  const glowLine = glowText(b, hero);
-  const none = !items.length && !mark ? (ce && ce.white ? `Nothing carries strong colour; ${ce.text}, white with one bold black outline, carries the frame.` : `Nothing carries strong colour; ${subject} with ${/^the white figures/.test(subject) ? "their bold black outlines carry" : "its bold black outline carries"} the frame.`) : "";
-  const capCol = b.onScreen && !b.onScreen.font && !["BLACK", "WHITE", "GREY"].includes(String(b.onScreen.col || "BLACK").toUpperCase()) ? textInk(b, b.onScreen) : "";
+  const fieldName = key === "PEAK" ? `${P.ground[0]} field` : "";
+  const heroLine = hero ? (accent ? `THE BRIGHT COLOUR FOCUS in this frame is ${hero.text} — vivid, saturated, crisp-edged and full of life, deliberately the brightest colour in the picture, so the eye goes to it ${after}.` : `The one colour in this frame is ${hero.text}, in ${plural(hero) ? "their" : "its"} calm, deeper tone — a deliberately quiet moment.`) : whiteHero ? `THE FOCUS in this frame is ${PROP[whiteHero].name}, drawn white with a bold black outline so it stands out sharply against the ${fieldName}, so the eye goes to it ${after}.` : mark ? `${mark === markCol ? "THE BRIGHT ACCENT" : "THE ACCENT"} in this frame is ${b.accentMark}, in ${mark[0]} (${mark[1]}) — ${mark === markCol ? "vivid and deliberate" : "bold and deliberate against the field"}, so the eye goes to the action ${after}.` : "";
+  // v25: drawn marks may sit beside a coloured focus — they carry the feeling of the action (Thomas: "emotional moments need stronger, brighter colors")
+  const markLine = mark && (hero || whiteHero) ? `MARKS: at the point of action, ${b.accentMark}, in ${mark[0]} (${mark[1]}) — a few bold drawn strokes that carry the feeling of the action, never decoration.` : "";
+  const restLine = rest.length ? `${rest.map(i => i.text).join("; ")} — ${rest.length > 1 ? "each in its" : plural(rest[0]) ? "in their" : "in its"} own clear colour, quieter than ${hero || mark || whiteHero ? "the focus" : "the faces"}.` : "";
+  const wcK = String((b.onScreen && b.onScreen.col) || "BLACK").toUpperCase();
+  const wordCol = b.onScreen && !b.onScreen.font && !["BLACK", "WHITE", "GREY"].includes(wcK) && !(WORD_COLOUR[wcK] && clashesField(b, WORD_COLOUR[wcK][1])); // a coloured word is the one allowed exception
+  // set pieces are black line on the light stages only: at night and on a peak they are solid tonal shapes, in absence quiet grey
+  const linePieces = ["CLEAN", "WHITE", "MEMORY"].includes(key) && !b.mute;
+  const except = [key === "PEAK" ? "the field" : "", markLine ? "the marks" : "", wordCol ? "the word named under TEXT" : ""].filter(Boolean);
+  const others = propItems(b).filter(i => i.key !== hk && !items.some(x => x.key === i.key)).length; // story objects left in black line
+  const apart = except.length ? `, apart from ${except.length > 1 ? except.slice(0, -1).join(", ") + " and " + except[except.length - 1] : except[0]}` : "";
+  const calmTail = !(items.length || mark || whiteHero) ? "" : linePieces ? `Every other object and every set piece is black line with white fill — no other strong colour anywhere in the frame${apart}.` : others ? `Every other story object is black line with white fill — no other strong colour anywhere in the frame${apart}.` : `No other strong colour anywhere in the frame${apart}.`;
+  const glowLine = glowText(b, hero, whiteHero);
+  const none = !items.length && !mark && !whiteHero ? (ce && ce.white ? `Nothing carries strong colour; ${ce.text}, white with one bold black outline, carries the frame.` : `Nothing carries strong colour; ${subject} with ${/^the white figures/.test(subject) ? "their bold black outlines carry" : "its bold black outline carries"} the frame.`) : "";
+  const capCol = wordCol ? textInk(b, b.onScreen) : "";
   const none2 = none && capCol ? none.replace("Nothing carries strong colour;", `Nothing carries strong colour except the on-screen keyword in ${capCol};`) : none;
   const accLine = acc ? " The characters' own small accessories keep their muted locked colours." : "";
   const pcsShown = b.shotSize !== "XCLOSE" || b.slice ? pieceList(b) : [];
   if (b.shotSize === "WORD") return `COLOUR: The whole frame is pure white (#FFFFFF). ${hero ? heroLine + " Everything else is white." : capCol ? `Only the word carries colour, in ${capCol}; everything else is white.` : "Nothing in it carries colour."}`;
   if (key === "CLEAN" || key === "WHITE" || key === "MEMORY") {
     const bg = key === "WHITE" ? "The background is pure white (#FFFFFF), clean and empty from edge to edge." : `The background is plain ${b.mute ? "very light cool grey (#F1F3F5)" : `${P.ground[0]} (${P.ground[1]})`}, flat and even from edge to edge.`;
-    const setLine = key === "WHITE" || !pcsShown.length ? "" : b.mute ? "" : ` Every set piece is a thin black line drawing with plain white fill, and the ground stays plain ${P.ground[0]} — the place reads at a glance without any colour.`;
+    const setLine = key === "WHITE" || !pcsShown.length ? "" : b.mute ? "" : ` The place reads at a glance without any colour on walls, floor or furniture.`;
     const mem = (key === "MEMORY" ? ` This is a memory: the set pieces are faded and soft, like an old photograph, with warm grey lines.${names.length ? (hands ? " The mitten hands stay pure white with bold black outlines." : " The characters stay pure white with bold black outlines, exactly as on a white page.") : ""}` : "") + (b.mute ? ` This moment is drained of warmth on purpose — absence: the place is quiet cool grey-blue and the other objects are black line.` : "");
-    return clean([`COLOUR: ${bg}`, heroLine, glowLine, restLine, none2, calmTail, setLine, mem, accLine, chars]);
+    return clean([`COLOUR: ${bg}`, heroLine, markLine, glowLine, restLine, none2, calmTail, setLine, mem, accLine, chars]);
   }
   const white = names.length ? (hands ? " The mitten hands stay pure white with bold black outlines." : " The characters stay pure white with bold black outlines, exactly as on a white page — never tinted by the field.") : "";
-  const objs = items.length || mark ? clean([heroLine, glowLine, restLine, key === "NIGHT" && !accent ? "Story objects keep their own colours, only a shade darker for the night, and stay clearly visible against the set pieces." : "", calmTail]) : "No object carries colour; the field and the white faces carry the frame.";
-  if (key === "PEAK") return clean([`COLOUR: The background is one flat, even ${P.ground[0]} (${P.ground[1]}) field filling the whole frame — the colour of this emotional peak; set pieces are solid flat shapes in ${P.line[0]} (${P.line[1]}) with a thin darker outline.${white}`, objs, accLine]);
+  const objs = items.length || mark || whiteHero ? clean([heroLine, markLine, glowLine, restLine, key === "NIGHT" && !accent ? "Story objects keep their own colours, only a shade darker for the night, and stay clearly visible against the set pieces." : "", calmTail]) : "No object carries colour; the field and the white faces carry the frame.";
+  if (key === "PEAK") return clean([`COLOUR: The background is one flat, even ${P.ground[0]} (${P.ground[1]}) field filling the whole frame — the colour of this emotional peak, bold and saturated, flat from edge to edge with no gradient, texture or vignette; set pieces are solid flat shapes in ${P.line[0]} (${P.line[1]}) with a thin darker outline.${white}`, objs, accLine]);
   return clean([`COLOUR: The background is one flat ${P.ground[0]} (${P.ground[1]}) field — the night is deep navy, a flat colour rather than a photo filter or a border, never grey, never black-and-white; set pieces are solid flat shapes in ${P.fill[0]} (${P.fill[1]}) with ${P.line[0]} (${P.line[1]}) outlines, never pale or glowing outlines.${white}${names.length && !hands ? " Every character keeps solid black (#1A1A1A) hair." : ""}`, objs, accLine]);
 }
 
@@ -649,13 +687,14 @@ function shotBlock(b) {
   return clean([`CAMERA: ${size}, ${ang}. ${b.framing}`, b.cam && CAMERA_LIB[b.cam] ? CAMERA_LIB[b.cam] : "", perspective(b), face, scale]);
 }
 
-function isDarkField(b) { const m = moodOf(b.mood); return m === "NIGHT" || m === "PEAK"; }
+function isDarkField(b) { const m = moodOf(b.mood); return m === "NIGHT" || (m === "PEAK" && !fieldIsLight(b)); }
 // letters on an object (the teacher's handwritten grade) keep that object's own ink
 function objectInk(b, w) { const k = String(w.col || "BLACK").toUpperCase(); const c = WORD_COLOUR[k] && k !== "GREY" ? WORD_COLOUR[k] : WORD_COLOUR.BLACK; return `${c[0]} (${c[1]})`; }
 // a word of three or more parts breaks into two lines
 function wordLines(txt) { const parts = String(txt).split(" "); if (parts.length >= 3) { const h = Math.ceil(parts.length / 2); return [parts.slice(0, h).join(" "), parts.slice(h).join(" ")]; } return [String(txt)]; }
 function spelled(txt) { return txt.split(" ").map(x => x.split("").join("-")).join(", then a space, then "); }
-function textInk(b, w) { const k = String(w.col || "BLACK").toUpperCase(); if (isDarkField(b)) return k === "BLACK" || !WORD_COLOUR[k] ? "plain white (#FFFFFF)" : `${WORD_COLOUR[k][0]} (${WORD_COLOUR[k][1]})`; const c = WORD_COLOUR[k] || WORD_COLOUR.BLACK; return `${c[0]} (${c[1]})`; }
+// v25: a word in the PEAK field's own hue would vanish — it takes the plain ink of that field (white on a dark field, black on a light one)
+function textInk(b, w) { const k = String(w.col || "BLACK").toUpperCase(), same = WORD_COLOUR[k] && clashesField(b, WORD_COLOUR[k][1]); if (isDarkField(b)) return k === "BLACK" || !WORD_COLOUR[k] || same ? "plain white (#FFFFFF)" : `${WORD_COLOUR[k][0]} (${WORD_COLOUR[k][1]})`; const c = same || !WORD_COLOUR[k] ? WORD_COLOUR.BLACK : WORD_COLOUR[k]; return `${c[0]} (${c[1]})`; }
 function textLock(b) {
   if (b._cardSpace) return `TEXT: no readable words, letters, numbers, labels or signs anywhere in this frame. Keep the space where the word goes — ${b._cardSpace} — clear and empty; the word is added there later in the edit.`;
   if (b.onScreen) { const w = b.onScreen, txt = String(w.w);
@@ -715,7 +754,9 @@ function buildPrompt(b) {
   if (hasFace) parts.push(b.eyesOnly ? EXPRESSION_EYES : ["WIDE", "MEDWIDE"].includes(b.shotSize) ? EXPRESSION_SMALL : PERFORMANCE_AND_EXPRESSION);
   if (hasFace) parts.push(CONSTRUCTION_RESTATED);
   parts.push(RECURRING_CONSISTENCY, FLAT_STYLE, textLock(b));
-  { let av = b.eyesOnly ? GLOBAL_AVOID.replace(" a face with no mouth;", "") : GLOBAL_AVOID; if (b.mute) av = av.replace("coloured walls, a whole room in one colour tone, or bright", "coloured walls, or bright"); if (b.onScreen) av = av.replace("printed words, letters, captions or signs;", "any other printed words, letters, captions or signs, or a misspelled word;"); if (WORLD[b.world] && (WORLD[b.world].set === "KITCHEN" || /kitchen/i.test(placeLabel(b)))) av = av.replace("busy rooms,", "busy rooms, a sink, tap, cooker or cupboards,"); parts.push(av); }
+  { let av = b.eyesOnly ? GLOBAL_AVOID.replace(" a face with no mouth;", "") : GLOBAL_AVOID; { const AV_COL = "coloured walls, floors, grass or furniture, a whole room in one colour tone, or strong colour anywhere except on what the colour line names;", mk = moodOf(b.mood); // v25: the avoid line agrees with a colour stage
+    if (mk === "PEAK" || mk === "NIGHT") av = av.replace(AV_COL, "walls, floors, grass or furniture in any colour other than the one flat field and its deeper tone, or strong colour anywhere except on what the colour line names;");
+    else if (b.mute) av = av.replace(AV_COL, "walls, floors, grass or furniture in any colour other than the quiet grey, or strong colour anywhere except on what the colour line names;"); } if (b.onScreen) av = av.replace("printed words, letters, captions or signs;", "any other printed words, letters, captions or signs, or a misspelled word;"); if (WORLD[b.world] && (WORLD[b.world].set === "KITCHEN" || /kitchen/i.test(placeLabel(b)))) av = av.replace("busy rooms,", "busy rooms, a sink, tap, cooker or cupboards,"); parts.push(av); }
   if (b.check) parts.push(`THE PICTURE IN SHORT: ${b.check.replace(/\{BG(WALL)?\}/g, bgShort(b))}`); // restates the shot at the end (descriptive, never instruction-shaped)
   return clean(parts);
 }
@@ -744,7 +785,7 @@ function buildOverlayPrompt(key) {
 
 // v21: every frame carries the reason for its strongest colour (COLOUR_LOGIC), shown on the Copy page
 function _ceKey(b) { const ce = String((b.plan && b.plan.ce) || "").trim(); if (/^none$/i.test(ce)) return null; const k = (ce.match(/^[A-Z0-9_]+/) || [""])[0]; return PROP[k] ? k : (PROP[b.hero] ? b.hero : null); }
-function colourWhy(b) { if (b.colourReason) return b.colourReason; const k = _ceKey(b), P = k && PROP[k]; const m = P ? (P.why || (P.fam && COLOUR_LOGIC[P.fam] ? `${P.fam.toLowerCase()} = ${COLOUR_LOGIC[P.fam]}` : "")) : (b.accentMark && b.accentCol ? `${String(b.accentCol).toLowerCase()} = ${COLOUR_LOGIC[String(b.accentCol).toUpperCase()] || ""}` : ""); if (b.mute && !k) return "grey = " + COLOUR_LOGIC.GREY; if (!k && !b.accentMark) return ""; return `${b.calm ? "calm" : "bright"}${b.accent ? " — " + b.accent : ""}${m ? " (" + m + ")" : ""}${b.glow ? " · glow: " + b.glow : ""}`; }
+function colourWhy(b) { if (b.colourReason) return b.colourReason; const k = _ceKey(b), P = k && PROP[k]; const m = P ? (P.why || (P.fam && COLOUR_LOGIC[P.fam] ? `${P.fam.toLowerCase()} = ${COLOUR_LOGIC[P.fam]}` : "")) : (b.accentMark && b.accentCol ? `${String(b.accentCol).toLowerCase()} = ${COLOUR_LOGIC[String(b.accentCol).toUpperCase()] || ""}` : ""); const F = moodOf(b.mood) === "PEAK" && EMOTION_FIELD[b.peakCol], st = F ? `stage: ${F.field[0]} field (${String(b.peakCol).toLowerCase()} = ${F.means})` : ""; if (b.mute && !k) return ["grey = " + COLOUR_LOGIC.GREY, st].filter(Boolean).join(" · "); if (!k && !b.accentMark) return st; if (k && F && clashesField(b, P.hex)) return [`white on its own colour stage (${P.fam ? P.fam.toLowerCase() : "its colour"} would vanish into the field)`, st].join(" · "); return [`${b.calm ? "calm" : "bright"}${b.accent ? " — " + b.accent : ""}${m ? " (" + m + ")" : ""}${b.glow ? " · glow: " + b.glow : ""}`, st].filter(Boolean).join(" · "); }
 const BEATS = RAW_BEATS.map(b => ({ ...b, mood: moodOf(b.mood), ...(MOOD_ALIAS[b.mood] && !b.moodWas ? { moodWas: b.mood } : {}), script: b.script || SCRIPT[b.n - 1] || "", colourReason: colourWhy(b) }));
 // v24.1: the word is part of the frame prompt; if Flow misspells it, the word-fix edit repairs it on the same image
 function wordFixPrompt(b) {
@@ -993,7 +1034,7 @@ export default function App() {
               </table>
             </div>
             <h3 style={S.h3}>Insert frames — cut into the frame of the same line, on the word</h3>
-            {INSERT_PROMPTS.map(p => <PromptBox key={p.ref} label={`${p.ref} · “${p.script}” · cut in on “${p.move.on}”`} meta={p.meaning} text={p.prompt} />)}
+            {INSERT_PROMPTS.map(p => <PromptBox key={p.ref} label={`${p.ref} · “${p.script}” · cut in on “${p.cutIn || p.move.on}”`} meta={p.meaning} text={p.prompt} />)}
             <h3 style={S.h3}>Edit prompts — dynamic changes inside the scene</h3>
             <div style={S.note}>Don't generate a new frame for these. Open the frame's generated image in the image editor, paste the edit prompt, and keep the result. In the edit, show the original image, then cut to the edited one on the cue word.</div>
             {EDIT_PROMPTS.map(p => <PromptBox key={p.ref} label={`${p.ref} · edit, cut on “${p.on}”`} meta={`“${p.script}”`} text={p.prompt} />)}

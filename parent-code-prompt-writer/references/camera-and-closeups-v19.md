@@ -36,7 +36,7 @@ coming back."
 | **REACTION** | the listener's face responding to what was just said or done, the cause shown just before or placed in the frame | after a trigger; the "seriously?" look; any moment where the face tells the viewer how to feel about the frame before (the Kuleshov effect, R3 S4) | WHITE, or CLEAN with an outline cue |
 | **HANDS** | hands only, short forearms rising from the bottom edge; no head | an inner state through the hands: a thumb above SEND, a hand stopping short of the door handle, a hand pausing on the keys, hiding, giving | CLEAN |
 | **OBJECT** | the object alone, no character | the object is the information (the test and its mark, the keys in the bun); chapter turns; aftermath | WHITE (object-only), or CLEAN when its place matters |
-| **WORD** | a pure white frame for an on-screen word; nothing drawn, or one small object if the plan names it | a strong moment where an idea word sharpens the line; text added by Muhammad in Premiere (references/humour-text-contrast-v19.md); Muhammad may use a white matte in Premiere instead of generating a blank frame — generate it only when the plan names an object in it | WHITE |
+| **WORD** | a pure white frame with one short word hand-lettered into it (v24.1), or one small object if the plan names it | a strong moment where a word sharpens the line; generated like any other frame — the word is in the prompt, never added later (`v24-standard.md` §7) | WHITE |
 
 **Distance families.** For the rules on change (§5) and the distance script (§7), the shots fall into families that read
 differently on screen:
@@ -270,7 +270,8 @@ Turn one dial from the seed list until the frame says the line's feeling:
 - **time** — the frame just before someone enters, or just after they leave.
 
 Then: check the composition against the film's log (shot + angle + place + sides) so it is new; check it can be generated
-(a natural angle, few elements, revealed objects apart from hands, no words in the image); record it in the plan. After
+(a natural angle, few elements, revealed objects apart from hands, no words in the image except the one hand-lettered word
+the plan names); record it in the plan. After
 the video, add the ones that worked to the seed list.
 
 ---
@@ -371,7 +372,8 @@ Each type answers: **Viewer feels** · **Staging** · **Camera** · **Colour** �
   S195 XCLOSE of SON, a huge face with the pupils rolled to the top and the head tipped back, while MOM's raised hand
   enters from the left edge, `look: "up and away from MOM's hand"`, `ctx: "MOM's raised hand placed at the left edge"`;
   S196 MEDWIDE, SON mid-tantrum in the kitchen, arms flung out, MOM stopped in the doorway at the left. If the plan marks
-  this run as the chapter's peak, S194 and S196 are PEAK with `pk: true` and S195 is WHITE.
+  this run as the line that carries the intensity, S194 and S196 take the colour stage (`pk: true`, `pc: "RED"` — v25)
+  and S195 is WHITE.
 
 ### statement
 - **Viewer feels**: understanding — "so that is why".
@@ -451,7 +453,7 @@ Each type answers: **Viewer feels** · **Staging** · **Camera** · **Colour** �
 - **Interrupt, word, edit**: large-face or visual-silence; few edits; a word only when it sharpens the meaning (SHAME,
   NOT REJECTION).
 - **Example**: S197 "“I hate you!”" The build put SON's close-up in front of the storm-colour field. v19: S196 "The
-  tantrum." is the peak wide in the chapter's PEAK colour (`pk: true`), MOM stopped in the doorway at the left; S197 is
+  tantrum." is the peak wide on the red colour stage (`pk: true`, `pc: "RED"` — v25), MOM stopped in the doorway at the left; S197 is
   XCLOSE on WHITE, SON's mouth a huge open shout shape, eyebrows slammed down, `look: "toward MOM, out of frame left"`,
   `ctx: "follows the peak wide S196"`; S198 is MOM's REACTION on white — she does not shout back; she stops.
   `ip: "visual-silence"`.

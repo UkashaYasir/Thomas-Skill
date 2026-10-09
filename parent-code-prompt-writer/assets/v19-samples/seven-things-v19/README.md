@@ -2,13 +2,13 @@
 
 The cold open and chapter one of "Seven Things Your Child Can't Tell You", re-planned with Thomas's direction of 5 Oct 2026
 (`references/v19-principles.md`). The script lines are exactly the delivered ones; every picture is new. The compiled
-build is `assets/build-template.jsx`.
+build is `assets/build-template.jsx` (recompiled with the v25 compiler; the phone is purple since v24).
 
 What it shows:
 - every frame planned first: `ft`, `ln`, `idea`, `alt` (with the Version 9 staging and why it lost), `ce`, `cx`; `ia` and
   `dist` on every shared frame; `look` and `ctx` on every close shot with a face; `ip` on interrupts; `pk` on the one peak;
 - the CLEAN ground with outline places, WHITE for face-only, eyes-only and the child-voice break, one MEMORY scene, one
-  PEAK (S14, a wide frame), one NIGHT frame (S18);
+  colour stage (S14, a wide frame — `pc: "RED"` since v25: the fear of letting her down), one NIGHT frame (S18);
 - close-ups that make sense: the place shown first, gaze sides matching, reverse shots keeping the sides;
 - real moments instead of symbols, humour from Thomas's list, and THE JAR — the recurring idea Thomas liked — used only
   where its meaning moves (hidden S2 → held S17 → set down between them S43);

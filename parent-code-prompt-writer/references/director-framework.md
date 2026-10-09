@@ -1,5 +1,13 @@
 # The director's framework — how every decision is made (brought up to v19)
 
+> **v25 — lookup only.** `v24-standard.md` and `RULES-CARD.md` win over everything below, then `v19-principles.md`.
+> Where this file says otherwise, the current rule is: the CLEAN ground is the clean warm white #F7F6F3 and set pieces
+> are thin **black** ink lines with white fill (never soft grey), the fewest the frame needs; the colour focus is bright;
+> at most two coloured objects (`ce`, `ce2`); colour by meaning (red = conflict, frustration, stress, danger; phones
+> purple); white by default, and an intense line turns the whole stage to its emotion's colour (`pc`, `v24-standard.md`
+> §2a); words are short, playful and hand-lettered **inside the frame's own image prompt** — never added in Premiere,
+> never numbers or titles; drawn glow and action marks are allowed; "larger heads" means sudden close-ups.
+
 > **v19:** `v19-principles.md` is the law and wins over anything here. This framework is how its rules are applied, frame
 > by frame. Detail: `shot-plan-v19.md` (plan and ideas), `style-and-colour-v19.md`, `camera-and-closeups-v19.md`,
 > `acting-and-interaction-v19.md`, `everyday-situations-v19.md`, `props-symbols-metaphors-v19.md`,
@@ -90,13 +98,15 @@ Surprise comes from twisting familiar things (the kettle starting to boil as MOM
 A scene builds to its surprising image; the frames around it support it.
 
 ## 8. Colour, white space, contrast, variety, text — read from the moment (detail: `style-and-colour-v19.md`, `humour-text-contrast-v19.md`)
-- Background: "white or very light neutral backgrounds as the default" — CLEAN (very light neutral ground, places as thin
-  soft-grey outlines with white fill) or WHITE (pure white for face-only, object-only, word frames, white breaks). This
+- Background: "white or very light neutral backgrounds as the default" — CLEAN (the clean warm white #F7F6F3, places as
+  the fewest thin black ink outlines with white fill — v24) or WHITE (pure white for face-only, object-only, word frames, white breaks). This
   includes everyday story scenes and a scene's first frame: the place is shown by its outline cue, never by a tinted room.
-- Colour: one colour element per frame (`ce`) — the important object or the part of it that matters — or none when the
-  face carries the frame. Everything else is uncoloured. Never colour to fill space.
-- Full colour: only on planned emotional peaks (PEAK, `pk: true`) and night (NIGHT), and rarely — "full-screen color" is
-  on Thomas's "Less" list. Never a full-colour field behind a face close-up.
+- Colour: the colour focus (`ce`), bright by default — the important object or the part of it that matters — and a second
+  object (`ce2`) only when the moment needs both; or none when the face carries the frame. Everything else is uncoloured.
+  Never colour to fill space.
+- Full colour: the intensity ladder (`v24-standard.md` §2a) — every line that carries the emotional intensity turns the
+  stage to its emotion's colour (`pk` + `pc`), and night is NIGHT; never decoration, never a share of frames. Never a
+  full-colour field behind a face close-up.
 - Contrast is a family, not only colour: "empty background vs strong object; neutral scene vs one bright color; wide shot
   vs extreme close-up; serious moment vs humorous reaction; still moment vs movement; small prop vs large face; silence
   vs strong visual beat." Each frame names the contrast it makes (`cx`). The colour element always differs from its
@@ -104,7 +114,7 @@ A scene builds to its surprising image; the frames around it support it.
 - Variety comes from camera distance, faces, composition, contrast and pattern interrupts — the video never settles into
   one look. Pace follows the emotion: more switches through calm explanation, held related frames at the peaks.
 - On-screen words: idea words from the line (TRUST, SAFE, LISTEN, SHAME, MISREAD, NOT REJECTION…), "only at strong
-  moments, not constantly", on the spoken word, one consistent style, added in Premiere. They may sit on an emotional
+  moments, not constantly", on the spoken word, short, playful and hand-lettered inside the frame's own image prompt (v24). They may sit on an emotional
   moment when the word names what it means. Never chapter numbers. No count target.
 
 ## 9. Interaction, objects, places, humour

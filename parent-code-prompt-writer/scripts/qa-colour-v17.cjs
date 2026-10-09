@@ -7,7 +7,7 @@
 // The idea-word and background rules are in scripts/qa-v19.cjs.
 const fs = require("fs"), vm = require("vm");
 let s = fs.readFileSync(process.argv[2], "utf8"); s = s.slice(0, s.indexOf("/* ===== UI ===== */")).replace(/^\s*import[^\n]*\n/gm, "");
-const M = vm.runInNewContext(s + ";({RAW_BEATS,PROP,MOOD,SCRIPT,PROJECT,framePalette,hexToLab,MOOD_ALIAS:(typeof MOOD_ALIAS==='undefined'?{}:MOOD_ALIAS)})", {});
+const M = vm.runInNewContext(s + ";({RAW_BEATS,PROMPTS,PROP,MOOD,SCRIPT,PROJECT,framePalette,hexToLab,MOOD_ALIAS:(typeof MOOD_ALIAS==='undefined'?{}:MOOD_ALIAS)})", {});
 const B = M.RAW_BEATS.filter(b => !b.editOnly), N = B.length, RT = Number(process.argv[3] || (M.PROJECT && M.PROJECT.runtimeSec) || 510);
 let fails = 0, warns = 0; const ok = m => console.log("  ok    " + m), fail = m => { fails++; console.log("  FAIL  " + m); }, warn = m => { warns++; console.log("  WARN  " + m); }, info = m => console.log("  info  " + m);
 const lab = h => M.hexToLab(h), chroma = h => { const [, a, b] = lab(h); return Math.hypot(a, b); }, hue = h => { const [, a, b] = lab(h); return (Math.atan2(b, a) * 180 / Math.PI + 360) % 360; };
@@ -20,7 +20,7 @@ console.log(`\nCOLOUR CONTRAST AND KEYWORD QA (v19) — ${N} frames\n`);
 const T = {}; B.forEach(b => { const k = moodOf(b.mood); T[k] = (T[k] || 0) + 1; });
 info("backgrounds: " + Object.entries(T).map(([k, v]) => `${k} ${v}`).join(", ") + " — information only (v19: CLEAN is the default; full colour only for peaks and night)");
 // 2. contrast: the one colour element stands apart from the background it sits on (no brown objects on brown)
-const clash = []; B.forEach(b => { const k = ceKey(b); if (!k || !M.PROP[k]) return; const h = M.PROP[k].hex; if (chroma(h) <= 15) return; const g = M.framePalette(b).ground[1]; const sameFam = chroma(g) > 12 && Math.abs(((hue(h) - hue(g) + 540) % 360) - 180) < 25; if (dE(h, g) < 22 || sameFam) clash.push(`${b.ref}(${k} ${h} on ${g})`); });
+const clash = []; B.forEach(b => { const k = ceKey(b); if (!k || !M.PROP[k]) return; if (/THE FOCUS in this frame is [^.]*drawn white/.test((M.PROMPTS.find(x => x.ref === b.ref) || {}).prompt || "")) return; /* v25: drawn white on its colour stage */ const h = M.PROP[k].hex; if (chroma(h) <= 15) return; const g = M.framePalette(b).ground[1]; const sameFam = chroma(g) > 12 && Math.abs(((hue(h) - hue(g) + 540) % 360) - 180) < 25; if (dE(h, g) < 22 || sameFam) clash.push(`${b.ref}(${k} ${h} on ${g})`); });
 clash.length ? fail("colour elements too close in colour to their background — change the object's colour or the frame's background: " + clash.join(" ")) : ok("every colour element stands clearly apart from its background");
 // 3. keywords: on a word of their own line
 const words = M.SCRIPT.map(x => String(x).split(/\s+/).filter(Boolean).length), spw = RT / Math.max(1, words.reduce((a, c) => a + c, 0)), tAt = n => words.slice(0, n - 1).reduce((a, c) => a + c, 0) * spw;

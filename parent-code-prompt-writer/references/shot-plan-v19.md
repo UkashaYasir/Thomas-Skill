@@ -42,7 +42,7 @@ final; the plan serves them and never changes them.
 | 5 | **The contrast.** What this frame sets against the frame before, or inside itself. | `cx` |
 | 6 | **The interrupt.** Is this frame a switch in kind? Which kind? | `ip` |
 | 7 | **The word.** Is this a strong moment where one idea word sharpens the line? | `kw` |
-| 8 | **The colour element and the mood.** The one coloured thing (or none), the background treatment, and whether this is a peak. | `ce`, `m`, `pk` |
+| 8 | **The colour and the stage.** The colour focus (or none) and a second object only if needed; the rung of the colour ladder (`v24-standard.md` §2a): the white stage, colour on the feeling, or — on a line that carries the intensity — the stage in the emotion's colour, with the close-up on white. | `ce`, `ce2`, `m`, `mk`/`gl`/`li`, `pk`, `pc` |
 | 9 | **Movement and edits.** An in-scene edit (one change), a mask reveal on a voice-over word, a camera move in Premiere, or a held still. | edits, reveals, move |
 
 Why this order: emotion leads, and "background, prop, color, camera angle, movement" follow (Thomas). Colour comes late on
@@ -67,10 +67,11 @@ These short keys go on each frame in the segment files. The frame's other decisi
 | `dist` | the distance between the characters | whenever two or more characters are in the frame | touching / close / apart / far | "apart" |
 | `look` | where the eyes go, and on which side | CLOSE, XCLOSE, FACE_HANDS, and REACTION with a face | the target and the side | "toward MOM, out of frame left" |
 | `ctx` | what makes the close shot make sense | the same frames as `look` | the frame it follows, or the context in the frame | "follows wide S22", "hands + THE PHONE", "over MOM's shoulder" |
-| `ce` | the one colour element | every frame | a PROP key, a PROP key followed by the part, or "none" | "PHONE", "JAR lid", "none" |
+| `ce` | the colour focus — bright by default (`cm` for calm); `ce2` names a second coloured object only when needed | every frame | a PROP key, a PROP key followed by the part, or "none" | "PHONE", "JAR lid", "none" |
 | `cx` | the contrast this frame makes | whenever the frame makes a contrast; when sameness with the frame before is chosen (a calm stretch, a held peak), write "affinity — " and why | with the frame before, or inside the frame | "MEDIUM office → huge face on white" |
 | `ip` | the interrupt type | when the frame is an interrupt | white-break, extreme-close-up, word, unexpected-object, funny-reaction, strong-pose, short-metaphor, visual-silence, large-face — or a new type | "funny-reaction" |
-| `pk` | an emotional-peak frame | every frame of a marked peak; required for a PEAK mood | true | true |
+| `pk` | a line that carries the emotional intensity | every frame of a marked peak; required for a PEAK mood; it should reach colour (§2a) | true | true |
+| `pc` | the colour stage of an intense line (v25) | when the line carries the intensity and the scenario shows on a wider frame; sets the PEAK mood; never on a face close-up | RED, YELLOW, BLUE, GREEN, VIOLET, GREY | `"RED"` |
 
 Meanings of `dist` (as in references/acting-and-interaction-v19.md §7.3): **touching** — in contact; **close** — within
 reach; **apart** — out of reach, across the table or the room; **far** — at opposite ends of a wide frame, or through a
@@ -110,7 +111,8 @@ The first idea is rarely the best one; the most obvious one usually illustrates 
 6. **Fits the story so far** — the characters, places, screen sides and motif states already established.
 7. **No repetition** — not an idea, composition or motif picture already used (check the logs, §4).
 8. **Feasible to generate** — two reference characters (others copied from them), a natural angle, few elements, revealed
-   objects apart from hands, no words in the image, edits that change one thing at a time.
+   objects apart from hands, no words in the image except the one hand-lettered word the plan names (`tx`/`kw`), edits that
+   change one thing at a time.
 
 ### 3.4 Recording and reusing the runner-ups
 - `alt` keeps the runner-ups in short strings. When revising an existing build, the old staging goes in `alt` with the
@@ -160,9 +162,12 @@ looks good." A return with no new meaning or no new picture is cut or changed.
 repeats anywhere in the film, no near-repeats of the old formulas (references/camera-and-closeups-v19.md §8.1), screen
 sides kept inside each scene and varied between scenes.
 
-**H. Colour script.** CLEAN as the default; WHITE where faces, objects, words and white breaks land; PEAK only on marked
-peaks; NIGHT only at night; MEMORY only in the past; each `ce` pulls the eye to the right place; red only for danger
-(references/style-and-colour-v19.md).
+**H. Colour script — the intensity ladder** (v25, `v24-standard.md` §2a). Read the emotional curve line by line: CLEAN
+as the default; WHITE where faces, objects, words and white breaks land; colour on the feeling (`mk`, `gl`, `li`, a
+coloured word) where it rises; the colour stage (PEAK + `pc`, in the emotion's colour) on every line that carries the
+intensity, on its wider frame, with the close-up on white; then back to white. NIGHT only at night; MEMORY only in the
+past; `mu` grey for absence. Each `ce` pulls the eye to the right place; red means conflict, frustration, stress and
+danger. A long stretch with no colour lift is read again — calm on purpose stays calm (references/style-and-colour-v19.md).
 
 **J. Where and when** (v24, Muhammad's "no random scenes"). Read the place and time of every frame along the film: each
 place change has a story reason (time passed, someone walked there); asides (memory, imagined, future) use their one look
@@ -224,7 +229,7 @@ S106 · "Your brother was reading at your age."
         "the brother's school photo on the fridge with SON's eyes on it"]
   ia   "MOM taps the high mark with THE PENCIL → SON's eyes drop away and his chin tucks"
   dist "close"
-  sz CLOSE · an LOW · m CLEAN   (the doorframe as two thin soft-grey lines)
+  sz CLOSE · an LOW · m CLEAN   (the doorframe as two thin black lines)
   look "down and away to the lower right, away from MOM's hand"
   ctx  "follows S105, where the doorframe, MOM (left) and SON (at the post, right) are set; hand + THE PENCIL show the cause"
   ce   "PENCIL"
@@ -314,9 +319,9 @@ S196 · "The tantrum."
         "the slammed cupboard door still swinging, SON's back to MOM"]
   ia   "SON shoves the chair back and flings his arms out → MOM stops dead in the doorway"
   dist "far"
-  sz MEDWIDE · an EYE · m PEAK · pk true   (the chapter's peak colour field; the doorway as a darker outline)
+  sz MEDWIDE · an EYE · pk true · pc RED   (the stage turns red — conflict at its breaking point; the doorway as a darker shape)
   ce   "none"   (the field is the colour)
-  cx   "the chapter's quiet CLEAN frames → its one full-colour field"
+  cx   "the chapter's white CLEAN frames → the red stage of the tantrum"
   ip   "strong-pose"
 
 S197 · "“I hate you!”"
@@ -355,7 +360,7 @@ S215 · "All three things can be true."
   compositions. S82 → S83 keeps the scene's sides and moves from medium to close.
 - **Character distance**: S196 is far; S197–S198 hold the distance; by S215 they are touching. The change carries the
   chapter.
-- **Contrast map**: the chapter's one PEAK field (S196) lands against CLEAN frames, then cuts straight to a white face
+- **Contrast map**: the red colour stage of the tantrum (S196) lands against CLEAN frames, then cuts straight to a white face
   (S197). S108's humour lands right after S106's hurt.
 - **Motif log**: THE PHONE returns at S108 with a new meaning — in chapter two it pulled MOM away from her child; here it
   is her comparison tool — and in a new picture (held up at SON's face, not in MOM's lap).
@@ -368,4 +373,4 @@ S215 · "All three things can be true."
 - Thomas, 5 Oct 2026: SOURCES.md A10, A11, A14, A15, A16, D.
 - Seven Things before/after list and measurements: research/R2_build_audit.md §1, §2, §4, §7, §8, §10.
 - Contrast and affinity, Kuleshov, pace by emotion: research/R3_craft_research.md §1 and §7.
-- Field keys: research/WORKPLAN.md "Shared names".
+- Field keys: `assets/compiler-v24/README.md` (frame keys).

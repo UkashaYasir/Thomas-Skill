@@ -1,5 +1,13 @@
 # Aha moments, humour, the hook, and pop-ins
 
+> **v25 — lookup only.** `v24-standard.md` and `RULES-CARD.md` win over everything below, then `v19-principles.md`.
+> Where this file says otherwise, the current rule is: the CLEAN ground is the clean warm white #F7F6F3 and set pieces
+> are thin **black** ink lines with white fill (never soft grey), the fewest the frame needs; the colour focus is bright;
+> at most two coloured objects (`ce`, `ce2`); colour by meaning (red = conflict, frustration, stress, danger; phones
+> purple); white by default, and an intense line turns the whole stage to its emotion's colour (`pc`, `v24-standard.md`
+> §2a); words are short, playful and hand-lettered **inside the frame's own image prompt** — never added in Premiere,
+> never numbers or titles; drawn glow and action marks are allowed; "larger heads" means sudden close-ups.
+
 > "The scene should not simply exist. Something should happen inside the scene."
 > "We need small surprises, visual changes and special moments throughout the video so the viewer's
 > eyes stay engaged." — Thomas
@@ -94,7 +102,7 @@ Build it as a **cold open** — four shapes, escalation, and the payoff rule are
 - If the script opens with a list or a promise ("seven signs…"), cut straight into a fast visual preview
   of what's coming — no number card and no static title card (history: the Video 1 "7" held for six
   seconds was the weakest moment of that video). Chapter numbers are not on-screen words.
-- A one-word idea text (a WORD frame — pure white, the word added in Premiere) is a pattern interrupt;
+- A one-word idea text (a WORD frame — pure white, the word hand-lettered into its own image prompt) is a pattern interrupt;
   number and symbol slides are out.
 
 ## 7. Pop-ins — small moments added in the edit
@@ -131,7 +139,7 @@ line, no shadow and no other object, so it keys cleanly in Premiere (Ultra Key).
 dictionary holds story elements that only ever appear as pops (a notification card, a ringing alarm
 clock), each with its locked colour and shape. Generic symbols — warning triangles, question marks,
 arrows, ticks, hearts, stars, emoji-style icons — are not overlays any more (the checks flag them). On-
-screen words are not overlay prompts: Muhammad types them in Premiere.
+screen words are not overlay prompts: they are hand-lettered inside the frame's own prompt (v24.1).
 
 ### What to pop, and how often
 - Pop what the narration names at the moment it names it: the phone on "phone", the dashboard warning
@@ -147,7 +155,7 @@ screen words are not overlay prompts: Muhammad types them in Premiere.
 - Pops and camera moves work together (`motion-and-energy.md` §1); a `SNAP_ZOOM` or `SHAKE` on the same
   word as a `PUNCH` doubles the hit.
 - On-screen idea words (TRUST, SAFE, LISTEN, SHAME, MISREAD, NOT REJECTION…) are not pops from this
-  dictionary: Muhammad adds them in Premiere on the spoken word, in the one channel style
+  dictionary: they are hand-lettered into the frame's own prompt on the spoken word, in the one channel style
   (`humour-text-contrast-v19.md`), never a sentence, never small, only at strong moments.
 - Don't pop an object on a line that's carried by a quiet close-up face — let the face hold.
 

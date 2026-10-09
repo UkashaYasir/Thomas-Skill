@@ -6,7 +6,7 @@ publishing. It covers:
   MOM at sixteen, linked with `sameAs` so she keeps MOM's bun;
 - new places as outline cues: the car (windscreen, steering wheel, seats, dashboard, side window), the road, the football
   pitch;
-- a NIGHT drive whose face close-ups go WHITE, a hands-only insert that stays NIGHT, a MEMORY, one PEAK on a wide frame, a
+- a NIGHT drive whose face close-ups go WHITE, a hands-only insert that stays NIGHT, a MEMORY, one colour stage on a wide frame (S11, `pc: "GREY"` since v25 — being left out), a
   WORD frame (SAFE), an OBJECT frame with a mask reveal;
 - every shot type, humour (the escape that isn't; the parent who swivels round), love shown through behaviour (three words
   and one squeeze, eyes on the road), and a recurring object that changes meaning (THE RADIO DIAL).

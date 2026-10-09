@@ -1,12 +1,16 @@
 import { useState, useRef } from "react";
 
 // =====================================================================
-// THE PARENT CODE — prompt build · Seven Things Your Child Can't Tell You (v19 sample, lines 1–43) (compiler v19)
+// THE PARENT CODE — prompt build · Seven Things Your Child Can't Tell You (v19 sample, lines 1–43) (compiler v24)
 // Copy this file, fill PROJECT, the dictionaries and RAW_BEATS (or let assemble.cjs fill them), and keep
 // the shared constants, the compiler and the UI exactly as they are.
-// v19 (Thomas, 5 Oct 2026 — references/v19-principles.md): white or very light neutral ground by default (CLEAN),
-// places as thin outline cues, one colour element per frame, full colour only for emotional peaks (PEAK) and night
-// (NIGHT), the seven expression features, a real interaction beat, and close-ups that make sense (look + ctx).
+// v24 (Thomas's final word after Video 08, 9 Oct 2026 — references/v24-standard.md): the clean warm-white stage; places as
+// thin black line pieces with white fill, the fewest the frame needs; the colour focus bright and vivid by default, colour by
+// meaning; a drawn halo or rainbow burst for glow; objects two or three times larger for a moment; characters never too
+// small; zoom plans that reuse a still; short, playful hand-lettered words — never numbered titles. Under it, v19: the seven
+// expression features, a real interaction beat, close-ups that make sense (look + ctx).
+// v25 (Muhammad, 9 Oct 2026 — v24-standard.md §2a): white by default; a line that carries the emotional intensity turns the
+// stage into the emotion's colour (pc), the close-up goes white, and the film returns to white; inserts (I) inside a line.
 // =====================================================================
 
 const PROJECT = {
@@ -16,7 +20,7 @@ const PROJECT = {
 
 // ── SHARED CONSTANTS ───────────────────────────────────────────────────
 
-const SINGLE_FRAME = "ONE single 16:9 landscape frame showing one physical moment — a hand-drawn 2D animation still for a mature, understated parenting explainer for parents and teenagers, flat colours, the characters in clean black ink outlines. No storyboard, panels, borders, captions, subtitles or printed words. A wide shot shows figures small in the space, a medium shot a figure about half the frame high, a close-up the head and shoulders filling most of the frame. Every character is a simple stick figure in the style of the attached references — a round white head and a thin black line body with no fill — never a realistic or anime-style person, never skin colour, clothing, a dress or a filled black body.";
+const SINGLE_FRAME = "ONE single 16:9 landscape frame showing one physical moment — a hand-drawn 2D animation still for a modern, expressive parenting explainer: flat colours, confident hand-inked black outlines and big, clear emotions — never glossy, never vector-perfect or AI-polished. No storyboard, panels, borders, captions, subtitles or printed words. Even a wide shot keeps every character large enough that the face and its feeling read at once; a close-up fills most of the frame with the head. Every character is a simple stick figure in the style of the attached references — a round white head and a thin black line body with no fill — never a realistic or anime-style person, never skin colour, clothing or a filled body.";
 
 const REF_SPEC = "the same head shape and head size as in the references, the same small half-round ears, big white round eyes with large black pupils, short thick eyebrows, a drawn mouth that changes shape with the feeling, thin black line body, white mitten hands with no cuffs, small white oval feet, the same ink line thickness and the same height difference as the MOM-and-SON height sheet";
 // REFERENCE_LOCK (shown in the Constants tab): the frame-by-frame version is built by refLock() in the compiler.
@@ -27,32 +31,32 @@ const CORE_CONSTRUCTION = "CONSTRUCTION, as in the references: a large round whi
 const HAND_LOCK = "HANDS: every arm ends in a small white mitten with one thumb bump and no cuff, as in the references; a held object stays visible in the hand; a hand near the camera stays in proportion — never a giant glove or one long arm stretched across the frame. Every character has exactly two arms, each ending in exactly one mitten hand — never a third arm or hand.";
 
 // Added after the Video 4 hook renders (an upside-down table shot and a fisheye kitchen): keep every camera natural.
-const NATURAL_PERSPECTIVE = "PERSPECTIVE: a natural normal-lens view — level horizon, straight verticals, normal proportions, everyone upright; no fisheye, tilt, upside-down view or oversized foreground hand.";
+const NATURAL_PERSPECTIVE = "PERSPECTIVE: a natural normal-lens view — level horizon, straight verticals, normal proportions, standing figures upright; no fisheye, tilt, upside-down view or oversized foreground hand.";
 // a figure lying down (in bed, on a cushion) is not "upright"
-function perspective(b) { const t = [b.action, b.map, b.performance].join(" "); return /\b(lies|lying) (awake|asleep|in bed|in the bed|on (his|her) (back|side)|back|curled)\b|\basleep\b|\b(lands|landing) on (his|her) back\b/.test(t) ? NATURAL_PERSPECTIVE.replace("everyone upright", "upright verticals, and anyone lying down lies flat exactly as the action says") : NATURAL_PERSPECTIVE; }
+function perspective(b) { const t = [b.action, b.map, b.performance].join(" "); return /\b(lies|lying) (awake|asleep|in bed|in the bed|on (his|her) (back|side)|back|curled)\b|\basleep\b|\b(lands|landing) on (his|her) back\b/.test(t) ? NATURAL_PERSPECTIVE.replace("standing figures upright", "standing figures upright, and anyone lying down lies flat exactly as the action says") : NATURAL_PERSPECTIVE; }
 
 const HANDS_ONLY_CONSTRUCTION = "HANDS-ONLY CONSTRUCTION: only hands and short forearms are in this frame, entering from the nearest frame edge — the bottom edge, or the bottom corners when two people share the frame — as short lines; never long arm lines stretched across the frame. Each forearm is one thin black ink line — never a white tube, a thick arm or a sleeve — ending in a small white mitten hand with one thumb bump, exactly the line thickness and hand shape of the reference images. No head, face, hair, torso or legs appear anywhere in the frame.";
 
 // v19 (Thomas, Oct 5: "eyes, eyebrows, mouth movement, head position, hand gestures, posture, eye direction. The characters
 // should not just 'stand in the scene.' They should clearly react."): every face shows one emotion through all seven features.
-const PERFORMANCE_AND_EXPRESSION = "EXPRESSION: every face shows one clear emotion with all seven features working together — the eyes (how wide or narrow, soft or hard), the eyebrows (their tilt carries the feeling), the mouth (a big clear shape, never a tiny neutral dash), the head position (tilted, dropped, turned away or lifted), a hand gesture, the posture of the whole stick body, and the eye direction (the pupils pressed toward what the character looks at). Every character is caught mid-action — doing something, then reacting — never just standing in the scene. Pushed stronger than life, in the reference construction: no teeth, snarl or distorted eyes; pride is a clean smile; thinking is a head tilt, never a hand on the chin.";
+const PERFORMANCE_AND_EXPRESSION = "EXPRESSION: one clear emotion with every feature working together — the eyes, the tilt of the eyebrows, a big clear mouth shape, the head position, a hand gesture, the posture and the pupils pressed toward what the character looks at. Every character is caught mid-action, never just standing in the scene; pushed big like a top animated explainer, in the reference construction: no teeth, snarl or distorted eyes; thinking is a head tilt, never a hand on the chin.";
 // v19 (verification W2/W3): the features a shot can show — small faces in wide frames keep one bold shape and the body
 // carries the feeling; eyes-only crops carry the feeling in the eyes alone (no mouth, hands or body to ask for).
-const EXPRESSION_SMALL = "EXPRESSION: the figures are small in this frame, so the body carries the feeling — the head position, a clear hand gesture, the posture of the whole stick body and the distance between people — and each small face keeps one bold, simple shape (the tilt of the eyebrows and a clear mouth shape) for one clear emotion, with the eye direction shown by the turn of the head; no fine detail is drawn into a small face. Every character is caught mid-action — doing something, then reacting — never just standing in the scene. Pushed stronger than life, in the reference construction: no teeth, snarl or distorted eyes.";
+const EXPRESSION_SMALL = "EXPRESSION: in this wider frame the whole body acts the feeling — the head position, a clear hand gesture, the posture of the whole stick body and the distance between people — and every face, even a small one, still reads at once: big white eyes with the pupils turned to what they look at, eyebrows steeply angled for the feeling, and a big clear mouth shape (a wide open oval, a deep downturned curve, a big smile curve or a wavy worried line), never a blank or mild face. Every character is caught mid-action — doing something, then reacting — never just standing in the scene. Pushed stronger than life, in the reference construction: no teeth, snarl or distorted eyes.";
 const EXPRESSION_EYES = "EXPRESSION: only the eyes and the eyebrows are in this frame, so they carry the whole feeling — one clear emotion pushed stronger than life: how wide or narrow the eyes are, the tilt of the eyebrows, and the pupils pressed toward what the character looks at. No distortion, no eyelashes.";
 // Version 9 (Muhammad, Oct 2026: "less emotion expressed and character interaction"): how far each tier pushes the face
 const EXPRESSION_STRENGTH = {
   // v19: the push is emotion-neutral, so a quiet, tender beat is pushed into its own feeling (never into steep angry brows)
   HOOK: "EXPRESSION STRENGTH — FULL: the feeling at its peak, readable from across the room — the eyebrows, the pupils, the mouth, the head and the whole body pushed clearly and boldly into this one feeling, as the performance describes it.",
   EMOTIONAL: "EXPRESSION STRENGTH — FULL: the feeling at its peak, readable from across the room — the eyebrows, the pupils, the mouth, the head and the whole body pushed clearly and boldly into this one feeling, as the performance describes it.",
-  SIMPLE: "EXPRESSION STRENGTH — CLEAR: the feeling reads at a glance — eyebrows clearly angled, a clear mouth shape, the body turned with the action; never a blank face.",
-  QUIET: "EXPRESSION STRENGTH — HELD: one clear, quiet feeling held still — soft but unmistakable, readable at a glance, never blank or neutral.",
+  SIMPLE: "EXPRESSION STRENGTH — CLEAR: the feeling reads instantly — eyebrows steeply angled, a big clear mouth shape, the head and the body turned with the action; never a blank or mild face.",
+  QUIET: "EXPRESSION STRENGTH — HELD: one clear, quiet feeling held still — calm in the body but unmistakable in the face: the eyebrows, the eyes and the mouth clearly shaped for the feeling, readable at a glance, never blank or neutral.",
   EYES: "EXPRESSION STRENGTH — FULL: the eyebrows and the pupils pushed clearly and boldly into this one feeling, as the performance describes it.",
 };
 
 // v19 (Thomas: "more real interaction between characters"; emotion through "eye contact, hesitation, body language, distance
 // between people, hands, reactions, silence"): an action and a visible reaction, the eye line clear, the distance as planned.
-const INTERACTION = "INTERACTION: one character acts and the other visibly reacts in this same frame — each with their own clear face, hands and posture, their heads and bodies turned by the moment, toward each other or clearly away. The eye line is unmistakable: a meeting look is a clear straight line of sight between the two faces; an avoided look turns the pupils and the head clearly away.";
+const INTERACTION = "INTERACTION: one character acts and the other visibly reacts in this same frame, each with a clear face, hands and posture. The eye line is unmistakable — a straight line of sight between two faces, or the head and pupils clearly turned away. They are staged in depth, one nearer the camera, overlapping or turned toward each other — never standing side by side in a row facing the camera; where the moment allows, their hands do something together: a touch, a hand-over, a pull or a block.";
 // dist: the planned distance between the characters (apart for conflict, close for repair, touch where it pays off)
 const DISTANCE = {
   touching: "they touch — a hand on an arm or a shoulder, or sitting pressed side by side; the touch is part of the moment",
@@ -63,21 +67,21 @@ const DISTANCE = {
 
 const RECOGNITION = "RECOGNITION: each character is identifiable at a glance even when small, in profile or from behind — MOM by her black bun and her greater height, SON by his black spiky messy hair and shorter build, anyone else by their own described hair and accessories; no two characters share a hair shape.";
 
-const RECURRING_CONSISTENCY = "RECURRING CONSISTENCY: characters keep the references' hair, head size, height and build; every named object keeps the same shape and part count, colour and size across frames; the camera changes only pose, crop and angle.";
+const RECURRING_CONSISTENCY = "RECURRING CONSISTENCY: characters keep the references' hair, head size, height, build and line thickness; every named object keeps the same shape and part count, colour and size across frames; the camera changes only pose, crop and angle.";
 
 // v19 visual order with the white default: people first, then the one colour element, then the outline place.
-const COLOUR_HIERARCHY = "VISUAL ORDER: first the characters and their faces, then the one colour element, last the place. The white characters with bold black outlines are the strongest contrast in the frame; set pieces are thinner, softer lines that never compete, and nothing white-filled overlaps a character's outline. The eye knows at once where to look.";
+const COLOUR_HIERARCHY = "VISUAL ORDER: first the characters and their faces, then the story object in its bright colour, last the place — the white characters with bold black outlines are the strongest contrast, the black-line set pieces stay thin and quiet on the white ground, and nothing white-filled overlaps a character's outline.";
 
 // v19 (Thomas: "one strong object, one strong face, one strong gesture"; "one door outline, one bed outline, one chair, one
 // object is enough"): less, but stronger.
-const DETAIL_CAP = "LESS, BUT STRONGER: one strong object, one strong face, one strong gesture. Only the characters, objects and outline set pieces named here appear; the place is shown by those few outlines alone, and the rest of the space stays plain and open — no wall art, plants, lamps, extra furniture, people or clutter. Every shape is finished and closed, nothing cut off except by the frame edge.";
+const DETAIL_CAP = "LESS, BUT STRONGER: one strong object, one strong face, one strong gesture — only the characters, objects and set pieces named here, each finished and closed, and each there because the moment needs it; the rest of the space stays plain and open, with no wall art, plants, table lamps, cupboards, appliances, extra furniture, people or clutter.";
 
 const CONSTRUCTION_RESTATED = "CHARACTER LOCKS: exactly as the attached references — head size as in the references, big white round eyes with large black pupils, short thick eyebrows, a drawn mouth, thin black line bodies and limbs with no fill, white mitten hands, small white oval feet, no clothing beyond each character's named accessory; SON clearly shorter than MOM; nothing casts a shadow.";
 
-const FLAT_STYLE = "FLAT 2D STYLE: matte flat fills; characters and story objects in one medium-thin black outline; set pieces in thinner, softer lines; no gradients, shading, cast shadows, glow, 3D or blur; something switched on or important shows as flat colour, a bolder outline or a few short ink dashes; everything rests on its ground line.";
+const FLAT_STYLE = "FLAT 2D STYLE: matte flat fills; characters and story objects in bold black outlines; set pieces in thin black ink lines with white fill (solid shapes at night and on a peak), never faint; no gradients, shading, cast shadows, soft glow, bloom, 3D or blur; light is a flat pale shape with a clean edge; anything that shines or glows is drawn — a halo of clean-edged rings or short radiating strokes in flat colour; movement and impact show as a few short drawn speed lines or ink strokes at the point of action, never as decoration; everything rests on its ground line.";
 
 // v19: kept short (R3 §8 — conflicting or stacked instructions are the real risk, not length).
-const GLOBAL_AVOID = "AVOID: a head smaller or larger than in the references, or a bald, featureless round head; a white-filled torso, thick tube arms or width on any limb; a hand ending in a bare line, or a cuff around a mitten; eyes without a white circle; a face with no mouth; hair changing shape from the references; any garment; teeth, snarls or distorted faces; a hand-on-chin pose; blank faces and stiff bodies just standing in the scene; a look into the camera; a teenager as tall as an adult; coloured walls, coloured furniture or a room filled with one colour; generic symbols — hearts, stars, trophies, emoji-style icons, or picture bubbles standing in for a feeling; busy rooms, clutter, texture or background people; strong red on anything that is not danger; shadows, gradients, glow or blur; half-drawn shapes; printed words, letters, captions or signs; realistic or 3D rendering.";
+const GLOBAL_AVOID = "AVOID: a head smaller or larger than in the references, or a bald, featureless round head; a white-filled torso, thick tube arms or width on any limb; a hand ending in a bare line, or a cuff around a mitten; eyes without a white circle; a face with no mouth; hair changing shape from the references; any garment; teeth, snarls or distorted faces; blank, mild or neutral faces and stiff bodies just standing in the scene; a look into the camera; characters lined up side by side facing the camera; coloured walls, floors, grass or furniture, a whole room in one colour tone, or strong colour anywhere except on what the colour line names; faint or broken ghost outlines, or furniture floating off the ground; generic symbols — hearts, stars, trophies, emoji-style icons, or picture bubbles standing in for a feeling; busy rooms, clutter, texture or background people; strong red on anything that is not danger, stress, frustration or conflict; shadows, gradients, soft glow, bloom or blur; printed words, letters, captions or signs; realistic or 3D rendering.";
 
 const TIER = {
   SIMPLE: "SCENE TIER — SIMPLE: a clean connective moment, quick to read — one clear action, simple staging, the feeling still readable at a glance.",
@@ -91,8 +95,8 @@ const SHOT = {
   XCLOSE: "extreme close-up",
   CLOSE: "close-up",
   MEDIUM: "medium shot",
-  MEDWIDE: "medium-wide shot",
-  WIDE: "wide shot",
+  MEDWIDE: "medium-wide shot, whole figures large in the frame so every face reads",
+  WIDE: "wide shot, the characters still large enough that every face and its feeling read clearly",
   FACE_HANDS: "face-and-hands close-up: the face and both mitten hands fill the frame together, the hands raised into the frame near the face so the gesture and the expression read as one",
   REACTION: "reaction close-up: one face, with the top of the shoulders, filling most of the frame, caught in the instant it reacts to what just happened",
   HANDS: "hands-only close shot, cropped at the forearms, no head or face anywhere in the frame, the hands and what they hold filling most of the frame",
@@ -103,7 +107,7 @@ const SHOT = {
 const ANGLE = {
   EYE: "level eye-line camera",
   LOW: "slightly low camera, a gentle upward view with straight vertical lines",
-  HIGH: "slightly high camera, a gentle downward view with every character upright",
+  HIGH: "slightly high camera, a gentle downward view with every standing character upright",
   OVERHEAD: "camera directly overhead looking straight down, used only for table tops, floors, beds and hands",
   OTS: "over-the-shoulder camera",
   PROFILE: "side-on profile camera",
@@ -121,35 +125,63 @@ const FACE = {
 
 const SCALE = {
   ORDINARY: "",
-  DOMINANT: "SCALE — DOMINANT: {HERO} is drawn oversized on purpose for this moment — clearly bigger than its usual size and the heaviest shape in the frame, at the size the action gives (this overrides the usual size in the objects list) — with every one of its counted details still drawn.",
+  DOMINANT: "SCALE — DOMINANT: {HERO} is drawn oversized on purpose for this moment — two to three times its usual size and the heaviest, most eye-catching shape in the frame, at the size the action gives (this overrides the usual size in the objects list) — with every one of its counted details still drawn.",
   OVERWHELMING: "SCALE — OVERWHELMING: {HERO} towers over the figures and fills most of the frame — this overrides the usual size in the objects list — keeping its exact shape, colour and counted details.",
 };
 
-const TYPOGRAPHY = "bold hand-drawn black capital letters with slightly uneven rounded strokes, large and few";
+// v24 on-screen words (Thomas, 8–9 Oct 2026: "short, meaningful words that feel playful, emotional and natural inside the
+// scene… more hand-drawn, more alive"; "remove the numbers, remove the underline, avoid this cold formal font style"):
+// one hand-lettered style, lettered into the image in open space (a no-text prompt is made too) or set in Premiere alike.
+const HAND_LETTER = "bold hand-lettered capital letters, like a word written with a thick marker in the same black ink feel as the stick figures — lively and a little uneven in a hand-made way, yet clean and instantly readable, even on a phone; flat solid colour with no outline, no shadow, no 3D, no underline and no box or badge — never a geometric presentation font, never bubbly cartoon lettering";
+const TYPOGRAPHY = "bold hand-lettered capital letters in flat black ink";
+const WORD_COLOUR = {
+  BLACK: ["charcoal black", "#1A1A1A"], WHITE: ["plain white", "#FFFFFF"], GREY: ["dark grey", "#5F6670"],
+  YELLOW: ["deep golden yellow", "#E8A400"], ORANGE: ["bright orange", "#F26A1B"], RED: ["bright red", "#E0201B"], BRIGHTRED: ["bright pure red", "#F21D1D"], GREEN: ["strong green", "#1FA34A"],
+  BLUE: ["strong blue", "#1F6FE0"], VIOLET: ["strong purple", "#7A2BE2"], AMBER: ["bright orange", "#F28C1A"], GOLD: ["deep golden yellow", "#E8A400"],
+};
+// v24 colour logic — one colour, one meaning, for the whole video (Thomas, Video 08: "think psychologically when using
+// colours. Colours should create life, action, emotion and light"). Defaults, judged by context.
+const COLOUR_LOGIC = {
+  YELLOW: "surprise, energy, attention, discovery", RED: "conflict, frustration, stress, danger", GREEN: "positive development, growth", BLUE: "trust, safety, calm",
+  VIOLET: "smartphones and digital distraction", AMBER: "warmth, positive highlights", ORANGE: "fire, heat, intensity", GOLD: "status, spectacle", GREY: "absence — colour drained on purpose",
+};
 const DANGER_RED = "#D32F2F";
 const KEY_GREEN = "#00B140";
 const KEY_MAGENTA = "#FF00FF";
 
 // ── BACKGROUND AND MOODS (v19) ─────────────────────────────────────────
 // CLEAN_GROUND: the default ground — one constant so a test strip can swap it (assemble.cjs: CLEAN_GROUND=#FFFFFF node assemble.cjs …).
-const CLEAN_GROUND = "#F7F6F3";
-const CLEAN_GROUND_OPTIONS = { "#F7F6F3": "very light warm neutral", "#FFFFFF": "pure white", "#F4F2EE": "very light stone", "#F2F4F5": "very light cool grey" };
-const OUTLINE_GREY = "#B4B8BD"; // the thin soft-grey line of every outline set piece and ground line on CLEAN
+const CLEAN_GROUND = "#F7F6F3"; // the clean warm white Video 08 was approved on — Thomas: "The clean white background is very good and should stay"; a hair below pure white so white characters still separate (3 Oct)
+const CLEAN_GROUND_OPTIONS = { "#F7F6F3": "very light warm white", "#FFFFFF": "pure white", "#F4F2EE": "very light stone", "#F2F4F5": "very light cool grey" };
+const OUTLINE_GREY = "#2B2B2B"; // v24: the thin black ink line of every set piece and ground line on CLEAN (Thomas: "black outlines on a white background"; v19's soft grey rendered as ghost lines)
 // MOOD: five moods. kind: clean | white | peak | night | memory. ground = the background; line = the set pieces' outline colour;
 // fill = the set pieces' fill. (wall/floor/furn/sky/field are kept as aliases of ground/fill for older scripts.)
 const _pal = (ground, line, fill) => ({ ground, line, fill, wall: ground, floor: ground, sky: ground, field: ground, furn: fill });
 const MOOD = {
-  CLEAN:  { label: "CLEAN", kind: "clean", feel: "the default — a very light neutral ground, the place as thin outlines, one colour element", ..._pal([CLEAN_GROUND_OPTIONS[CLEAN_GROUND] || "very light neutral", CLEAN_GROUND], ["soft grey", OUTLINE_GREY], ["white", "#FFFFFF"]) },
-  WHITE:  { label: "WHITE", kind: "white", feel: "pure white — face-only, object-only and word frames, and deliberate white breaks", ..._pal(["pure white", "#FFFFFF"], ["soft grey", OUTLINE_GREY], ["white", "#FFFFFF"]) },
+  CLEAN:  { label: "CLEAN", kind: "clean", feel: "the default — the clean warm-white stage, the place told by the fewest thin black line pieces, bright colour only on the focus", ..._pal([CLEAN_GROUND_OPTIONS[CLEAN_GROUND] || "white", CLEAN_GROUND], ["black ink", OUTLINE_GREY], ["white", "#FFFFFF"]) },
+  WHITE:  { label: "WHITE", kind: "white", feel: "pure white — face-only, object-only and word frames, and deliberate white breaks", ..._pal(["pure white", "#FFFFFF"], ["black ink", OUTLINE_GREY], ["white", "#FFFFFF"]) },
   PEAK:   { label: "PEAK", kind: "peak", feel: "an emotional peak — one full-colour field, the chapter's emotional colour (needs pk: true)", ..._pal(["storm violet", "#9C86C0"], ["deep storm violet", "#7E68A6"], ["storm violet", "#9C86C0"]) },
-  NIGHT:  { label: "NIGHT", kind: "night", feel: "night — one flat navy field", ..._pal(["night navy", "#2C384E"], ["dim slate", "#5A677D"], ["night navy", "#2C384E"]) },
-  MEMORY: { label: "MEMORY", kind: "memory", feel: "the past — a faded light grey, as if the colour has drained out", ..._pal(["faded memory grey", "#DDE1E7"], ["faded grey", "#B8BFCA"], ["faded memory grey", "#DDE1E7"]) },
+  NIGHT:  { label: "NIGHT", kind: "night", feel: "night — one flat navy field, the set pieces solid slate-navy shapes", ..._pal(["night navy", "#35445E"], ["dark navy", "#1C2433"], ["lighter slate navy", "#55647F"]) },
+  MEMORY: { label: "MEMORY", kind: "memory", feel: "the past — a very light warm paper background, the colours faded", ..._pal(["very light warm paper", "#F4F1EB"], ["warm grey", "#7D776E"], ["white", "#FFFFFF"]) },
 };
 // Older mood names still compile: the calm moods become CLEAN, DARK → NIGHT, ICY → MEMORY, TENSE and SUNNY → PEAK variants.
 const MOOD_ALIAS = { BRIGHT: "CLEAN", WARM: "CLEAN", EVENING: "CLEAN", COOL: "CLEAN", DUSK: "CLEAN", NEUTRAL: "CLEAN", ACCENT: "CLEAN", DARK: "NIGHT", ICY: "MEMORY", TENSE: "PEAK", SUNNY: "PEAK" };
 const PEAK_VARIANT = {
   TENSE: { field: ["storm violet", "#9C86C0"], floor: ["deep storm violet", "#7E68A6"] },
   SUNNY: { field: ["lemon yellow", "#F5E77E"], floor: ["golden ochre", "#E0BA4B"] },
+};
+// v25 colour stage by emotion (Muhammad, 9 Oct: white is the default; when a line carries emotional intensity the stage
+// converts to colour, then comes back to white). pc names the emotion's colour family on a PEAK frame — the same meaning
+// as COLOUR_LOGIC, for the whole video. Mid-light, saturated fields: black ink and the white characters both read on them.
+// No orange, amber or peach field (warm fields render stronger than written and swallow warm objects — render-lessons.md):
+// warmth is a warm light shape (li) on the white stage.
+const EMOTION_FIELD = {
+  RED:    { field: ["vivid red", "#E2443A"], floor: ["deep red", "#A3271F"], means: "conflict, anger, frustration, stress, danger — the breaking point" },
+  YELLOW: { field: ["bright lemon yellow", "#FFE04A"], floor: ["deep golden yellow", "#D9AE00"], means: "surprise, discovery, the aha, sudden energy" },
+  BLUE:   { field: ["clear bright blue", "#4D9BEA"], floor: ["deep blue", "#2C6BB5"], means: "trust, safety, relief — the calm after the storm" },
+  GREEN:  { field: ["fresh bright green", "#3CC46E"], floor: ["deep green", "#1F8A49"], means: "growth, the breakthrough, the step forward" },
+  VIOLET: { field: ["vivid violet", "#8D5CDF"], floor: ["deep violet", "#5B32A3"], means: "the screen's pull, digital overwhelm" },
+  GREY:   { field: ["flat cool grey", "#A3ABB5"], floor: ["deep slate grey", "#6E7783"], means: "emptiness, numbness, absence at its strongest" },
 };
 function moodOf(m) { return MOOD[m] ? m : (MOOD_ALIAS[m] || m); }
 
@@ -204,7 +236,7 @@ function framePalette(b) {
   const key = moodOf(b.mood), M = MOOD[key];
   if (!M) throw new Error(`Unknown MOOD "${b.mood}" in ${b.ref}`);
   if (key === "PEAK") {
-    const C = CHAPTER[String(b.sequence || "").slice(0, 2)], v = (C && C.emo) || PEAK_VARIANT[b.moodWas] || PEAK_VARIANT[b.mood];
+    const C = CHAPTER[String(b.sequence || "").slice(0, 2)], v = EMOTION_FIELD[b.peakCol] || (C && C.emo) || PEAK_VARIANT[b.moodWas] || PEAK_VARIANT[b.mood];
     if (v) { const field = v.field || v.wall, line = v.floor || v.furn || M.line; return _pal(field, line, field); }
   }
   return _pal(M.ground, M.line, M.fill);
@@ -227,11 +259,16 @@ const WORLD = {
 const PROP = {
   "JAR": {"part":"THE JAR's tangerine-orange (#F57C00) lid","rest":"the glass stays clear and pale","name":"THE JAR","hex":"#F57C00","colour":"tangerine orange","danger":false,"nouns":["jar"],"lineText":"THE JAR: one clear glass jar about as tall as SON's head, drawn in bold black line with a white fill, with one big wide screw lid marked with five short upright ridges round its rim; one small dark tangled knot sits inside the glass.","text":"THE JAR: one clear glass jar about as tall as SON's head, drawn with the same bold black outline as the characters, a very pale blue-white glass fill (#EEF6F9) and two short white shine dashes on its side, with one big wide screw lid in flat tangerine orange (#F57C00) — the lid about a third of the jar's height — marked with five short upright ridges round its rim; one small dark tangled knot sits inside the glass."},
   "MILK_GLASS": {"small":true,"part":"the teal (#00A6A0) stripe of THE MILK GLASS","rest":"the glass stays clear and the milk stays white","name":"THE MILK GLASS","hex":"#00A6A0","colour":"teal","danger":false,"nouns":["milk","glass"],"text":"THE MILK GLASS: one small clear tumbler with one teal (#00A6A0) stripe round its middle, holding plain white milk."},
-  "PHONE": {"small":true,"part":"THE PHONE's turquoise (#00B3B8) case","name":"THE PHONE","hex":"#00B3B8","colour":"turquoise","danger":false,"nouns":["phone"],"text":"THE PHONE: MOM's slim rectangular smartphone in a flat turquoise (#00B3B8) case with rounded corners and one small round camera dot at its top corner; its screen one plain dark panel with no picture and no words."},
+  "PHONE": {"small":true,"part":"THE PHONE's strong purple (#8A2BE2) case","name":"THE PHONE","hex":"#8A2BE2","colour":"strong purple","fam":"VIOLET","screen":true,"danger":false,"nouns":["phone"],"text":"THE PHONE: MOM's slim rectangular smartphone in a flat strong purple (#8A2BE2) case with rounded corners and one small round camera dot at its top corner; its screen one plain dark panel with no picture and no words."},
   "TEST": {"small":true,"part":"the dark ink-blue (#2453D8) circle on THE TEST","rest":"the paper stays white","name":"THE TEST","hex":"#2453D8","colour":"dark ink blue","danger":false,"nouns":["test","paper"],"text":"THE TEST: one sheet of white school paper folded in half, showing a few short grey lines and one big hand-drawn circle in dark ink blue (#2453D8) in its top corner — no letters or numbers."},
   "NOTE": {"small":true,"name":"THE NOTE","hex":"#F2D633","colour":"lemon yellow","danger":false,"nouns":["note","plan"],"text":"THE NOTE: one square sticky note in flat lemon yellow (#F2D633) with three short scribbled black lines on it — no letters or numbers."},
   "FRIDGE": {"part":"the bright violet (#7B4FD6) marker lines on THE FRIDGE door","rest":"the fridge and the papers stay white","name":"THE FRIDGE","hex":"#7B4FD6","colour":"bright violet","danger":false,"nouns":["fridge","investigation","marker"],"lineText":"THE FRIDGE: one tall plain fridge drawn in bold black line with a white fill, its door covered with a few plain white papers held by small round magnets, joined by thin black marker lines.","text":"THE FRIDGE: one tall plain fridge drawn in bold black line with a white fill; its door is covered with a few plain white papers — a letter, a timetable grid, a small group photo drawn as tiny round heads — held by small round black magnets and joined by hand-drawn lines in bright violet (#7B4FD6) marker; no words, letters or numbers on any paper."},
   "WHITEBOARD": {"part":"the raspberry (#E5457F) frame and easel of THE WHITEBOARD","rest":"the board itself stays white","name":"THE WHITEBOARD","hex":"#E5457F","colour":"raspberry","danger":false,"nouns":["whiteboard"],"text":"THE WHITEBOARD: one big rectangular whiteboard on a three-legged easel, its thick frame and easel legs in flat raspberry (#E5457F), the board plain white with four small square boxes drawn on it in black marker, joined by short straight lines — no words, letters or numbers."},
+};
+
+// TONE (v22): bright hex in a prop text → { calm: [name, hex], bright: [name, hex] }; filled by assemble.cjs from dicts.TONE.
+const TONE = {
+
 };
 // OVERLAY: pop-in elements made once on a chroma-key background. mature: false marks an emoji-style icon (checks fail it).
 const OVERLAY = {
@@ -308,6 +345,7 @@ const DIRECTOR_READ = null;
 const KEY_LINES = ["S2","S9","S14","S34","S43"];
 const HELD_MOMENTS = ["S42","S43"];
 
+
 // ── SKETCH — one short line per script line ──
 const SKETCH = [
   "S1 | 00 Cold open | Front hall, evening — the hug [HALL · Mom, Son] | HOOK | MEDWIDE/PROFILE/NORMAL/ORDINARY | CLEAN | hero FIGURE | hook | feel: warmth — this love is real | idea: Side-on in the front hall: SON throws his arms round MOM the moment she comes in, and she melts into it. | moment: — | pop: — | move: PUSH_IN | device: CONTEXT | edit: —",
@@ -376,7 +414,7 @@ const RAW_BEATS = [
     reveal: null,
     link: "",
     requiredText: "",
-    picture: "a medium-wide shot from the side at eye level in the front hall — MOM just inside the front door, large, half the frame height, her keys still dangling from one mitten hand; the two of them meeting in one tight hug; SON, large, his arms thrown round MOM, his chin landing on her shoulder.",
+    picture: "a medium-wide shot from the side at eye level in the front hall — MOM just inside the front door, large, half the frame height, her keys still dangling from one mitten hand; the two of them meeting in one tight hug; SON, large, his arms thrown round MOM, his chin landing on her shoulder — the characters drawn large enough that their faces read.",
     map: "left — MOM just inside the front door, large, half the frame height, her keys still dangling from one mitten hand; centre — the two of them meeting in one tight hug; right — SON, large, his arms thrown round MOM, his chin landing on her shoulder.",
     check: "medium-wide shot from the side at eye level, horizon level; left: MOM just inside the front door, large, half the frame height, her keys still dangling from one mitten hand; centre: the two of them meeting in one tight hug; right: SON, large, his arms thrown round MOM, his chin landing on her shoulder; {BG}.",
     plan: {"ft":"Warmth — this love is real.","ln":"hook","idea":"Side-on in the front hall: SON throws his arms round MOM the moment she comes in, and she melts into it.","alt":["a 'love you' message on MOM's phone (rejected: words on a screen)","SON at seven running into MOM's arms (kept for the memory scene)","SON resting his head on MOM's shoulder on the sofa (kept for a later repair line)"],"ia":"SON throws both arms round MOM without a word → MOM's eyebrows jump up, then her eyes close into happy curves and her free hand wraps round his back","dist":"touching","look":"","ctx":"","ce":"none","cx":"a full, open hug to start — the warmth the next frame turns","ip":""},
@@ -494,7 +532,7 @@ const RAW_BEATS = [
     reveal: null,
     link: "",
     requiredText: "",
-    picture: "a wide shot at eye level in the kitchen — MOM standing at the kitchen counter, small, her back half-turned, THE PHONE pressed to her ear; the small round table, with open space above it; LITTLE BOY sitting at the table on a chair, small, his short legs dangling, THE MILK GLASS in front of him.",
+    picture: "a wide shot at eye level in the kitchen — MOM standing at the kitchen counter, small, her back half-turned, THE PHONE pressed to her ear; the small round table, with open space above it; LITTLE BOY sitting at the table on a chair, small, his short legs dangling, THE MILK GLASS in front of him — the characters drawn large enough that their faces read.",
     map: "left — MOM standing at the kitchen counter, small, her back half-turned, THE PHONE pressed to her ear; centre — the small round table, with open space above it; right — LITTLE BOY sitting at the table on a chair, small, his short legs dangling, THE MILK GLASS in front of him.",
     check: "wide shot at eye level, horizon level; left: MOM standing at the kitchen counter, small, her back half-turned, THE PHONE pressed to her ear; centre: the small round table, with open space above it; right: LITTLE BOY sitting at the table on a chair, small, his short legs dangling, THE MILK GLASS in front of him; {BG}.",
     plan: {"ft":"A soft pull into the past — this started long ago.","ln":"time-jump","idea":"A faded memory: LITTLE BOY alone at the kitchen table with a glass of milk, watching MOM's turned back as she talks on the phone.","alt":["LITTLE BOY holding THE JAR on his bedroom floor (Version 9: the jar again, so early)","a drawing on the fridge (an object without a moment)"],"ia":"LITTLE BOY watches MOM's back and lifts one hand as if to say something → MOM keeps talking on the phone at the counter, not turning round","dist":"apart","look":"","ctx":"","ce":"none","cx":"the bright present → a faded memory; the teenager → a small child","ip":""},
@@ -596,7 +634,7 @@ const RAW_BEATS = [
     meaning: "Today: SON at the same kitchen table, a glass of milk in front of him, staring at it — the small moment is still with him.",
     shotSize: "FACE_HANDS", angle: "EYE", face: "LARGE", scale: "ORDINARY",
     framing: "Face-and-hands close-up at eye level, at the kitchen table, horizon level: at the left a little open space; in the centre SON's face and both mitten hands, large, his hands resting flat on the table top either side of THE MILK GLASS; at the right a little open space.",
-    action: "SON sits at the kitchen table with both mitten hands resting flat on the table top either side of THE MILK GLASS, not touching it, and stares down at it.",
+    action: "SON leans over the kitchen table with both mitten hands resting flat on the table top either side of THE MILK GLASS, not touching it, and stares down at it.",
     performance: "SON: eyes heavy and still, eyebrows tilted up in the middle, mouth a flat line pressed tight at one corner, head bowed toward the glass, both mitten hands flat on the table either side of it, posture hunched over the table, pupils fixed down on THE MILK GLASS.",
     world: "KITCHEN", mood: "CLEAN", peak: false,
     stage: "RESULT",
@@ -613,7 +651,7 @@ const RAW_BEATS = [
     plan: {"ft":"A lump in the throat — he never forgot.","ln":"time-jump","idea":"Today: SON at the same kitchen table, a glass of milk in front of him, staring at it — the small moment is still with him.","alt":["SON's eyes with the memory reflected in them (reflections render badly)","MOM wiping the same table today, humming, with no memory of it (kept for a later 'forgot' line)"],"ia":"","dist":"","look":"down at THE MILK GLASS on the table in front of him","ctx":"the glass is in the frame; follows the memory S5–S8 at this same table","ce":"MILK_GLASS stripe","cx":"faded memory → the bright present; the small child → the teenager who still carries it","ip":""},
     slots: {"L":"a little open space","C":"SON's face and both mitten hands, large, his hands resting flat on the table top either side of THE MILK GLASS","R":"a little open space"},
     why: "The time cut lets the viewer feel what 'they didn't' means.",
-    pieces: ["table","chair"],
+    pieces: ["table"],
   },
   {
     n: 10, ref: "S10",
@@ -634,7 +672,7 @@ const RAW_BEATS = [
     reveal: null,
     link: "",
     requiredText: "",
-    picture: "a medium-wide shot at eye level in his bedroom — the shut bedroom door with its small round knob; open floor; SON kneeling by his bed, large, half the frame height, sliding THE TEST under the edge of the mattress.",
+    picture: "a medium-wide shot at eye level in his bedroom — the shut bedroom door with its small round knob; open floor; SON kneeling by his bed, large, half the frame height, sliding THE TEST under the edge of the mattress — the characters drawn large enough that their faces read.",
     map: "left — the shut bedroom door with its small round knob; centre — open floor; right — SON kneeling by his bed, large, half the frame height, sliding THE TEST under the edge of the mattress.",
     check: "medium-wide shot at eye level, horizon level; left: the shut bedroom door with its small round knob; centre: open floor; right: SON kneeling by his bed, large, half the frame height, sliding THE TEST under the edge of the mattress; {BG}.",
     plan: {"ft":"Recognition — every parent has seen this quick hide.","ln":"statement","idea":"SON kneels by his bed and slides a folded test under the mattress, glancing back at the shut door.","alt":["THE JAR slid under the bed (the jar is kept for the moments that change its meaning)","SON turning his phone face down as MOM walks in (kept for the phone chapter)"],"ia":"","dist":"","look":"","ctx":"","ce":"TEST circle","cx":"the open kitchen → a shut door and a hand hiding something","ip":""},
@@ -719,7 +757,7 @@ const RAW_BEATS = [
     reveal: null,
     link: "",
     requiredText: "",
-    picture: "a medium-wide shot from a little above head height on the stairs — MOM at the foot of the stairs, small, sorting letters at the hall table and humming; the staircase running down between them; SON sitting on the top stair, large, in the near foreground, hugging his knees.",
+    picture: "a medium-wide shot from a little above head height on the stairs — MOM at the foot of the stairs, small, sorting letters at the hall table and humming; the staircase running down between them; SON sitting on the top stair, large, in the near foreground, hugging his knees — the characters drawn large enough that their faces read.",
     map: "left — MOM at the foot of the stairs, small, sorting letters at the hall table and humming; centre — the staircase running down between them; right — SON sitting on the top stair, large, in the near foreground, hugging his knees.",
     check: "medium-wide shot from a little above head height, horizon level; left: MOM at the foot of the stairs, small, sorting letters at the hall table and humming; centre: the staircase running down between them; right: SON sitting on the top stair, large, in the near foreground, hugging his knees; {BG}.",
     cam: "SLIGHTLY_ABOVE",
@@ -737,7 +775,7 @@ const RAW_BEATS = [
     feel: "The terror of letting her down — the peak of the opening.",
     meaning: "The field turns the colour of fear: MOM starts up the stairs smiling; at the top SON freezes, the folded test crushed behind his back.",
     shotSize: "WIDE", angle: "EYE", face: "NORMAL", scale: "ORDINARY",
-    framing: "Wide shot at eye level, on the stairs, horizon level: at the left MOM at the bottom of the stairs, small, one foot on the first step, smiling up; in the centre the staircase rising between them; at the right SON at the top of the stairs, small, frozen, one hand behind his back.",
+    framing: "Wide shot at eye level, on the stairs, horizon level: at the left MOM at the bottom of the stairs, one foot on the first step, smiling up; in the centre the staircase rising between them; at the right SON at the top of the stairs, frozen, one hand behind his back.",
     action: "MOM puts one foot on the first stair and smiles up at SON; at the top of the stairs SON freezes, one mitten hand hidden behind his back. INTERACTION BEAT: MOM starts up the stairs, smiling up at him; in response, SON freezes at the top, shoulders jumping up, one hand hidden behind his back.",
     performance: "SON: eyes wide open in fright, eyebrows shooting up and drawn together, mouth a tight open oval, head pulled back, one mitten hand crushing a folded paper behind his back and the other gripping the banister rail, posture rigid and pressed back, pupils locked on MOM below. MOM: eyes bright and warm, eyebrows lifted, mouth a wide easy smile, head tipped up toward him, one mitten hand on the banister, posture stepping up lightly, pupils on SON.",
     world: "HALL", mood: "PEAK", peak: true,
@@ -749,13 +787,14 @@ const RAW_BEATS = [
     reveal: null,
     link: "",
     requiredText: "",
-    picture: "a wide shot at eye level on the stairs — MOM at the bottom of the stairs, small, one foot on the first step, smiling up; the staircase rising between them; SON at the top of the stairs, small, frozen, one hand behind his back.",
-    map: "left — MOM at the bottom of the stairs, small, one foot on the first step, smiling up; centre — the staircase rising between them; right — SON at the top of the stairs, small, frozen, one hand behind his back.",
-    check: "wide shot at eye level, horizon level; left: MOM at the bottom of the stairs, small, one foot on the first step, smiling up; centre: the staircase rising between them; right: SON at the top of the stairs, small, frozen, one hand behind his back; {BG}.",
-    plan: {"ft":"The terror of letting her down — the peak of the opening.","ln":"peak","idea":"The field turns the colour of fear: MOM starts up the stairs smiling; at the top SON freezes, the folded test crushed behind his back.","alt":["SON tiptoeing across thin ice toward MOM (Version 9: a cliché metaphor; the real moment is stronger)","SON's face alone, terrified (kept as the edit's feeling)"],"ia":"MOM starts up the stairs, smiling up at him → SON freezes at the top, shoulders jumping up, one hand hidden behind his back","dist":"far","look":"","ctx":"","ce":"none","cx":"the opening's one full-colour field, right after the quiet watching","ip":"strong-pose"},
-    slots: {"L":"MOM at the bottom of the stairs, small, one foot on the first step, smiling up","C":"the staircase rising between them","R":"SON at the top of the stairs, small, frozen, one hand behind his back"},
-    why: "The opening's peak gets its only full-colour field; the gap between her smile and his fear is the story.",
+    picture: "a wide shot at eye level on the stairs — MOM at the bottom of the stairs, one foot on the first step, smiling up; the staircase rising between them; SON at the top of the stairs, frozen, one hand behind his back — the characters drawn large enough that their faces read.",
+    map: "left — MOM at the bottom of the stairs, one foot on the first step, smiling up; centre — the staircase rising between them; right — SON at the top of the stairs, frozen, one hand behind his back.",
+    check: "wide shot at eye level, horizon level; left: MOM at the bottom of the stairs, one foot on the first step, smiling up; centre: the staircase rising between them; right: SON at the top of the stairs, frozen, one hand behind his back; {BG}.",
+    plan: {"ft":"The terror of letting her down — the peak of the opening.","ln":"peak","idea":"The field turns the colour of fear: MOM starts up the stairs smiling; at the top SON freezes, the folded test crushed behind his back.","alt":["SON tiptoeing across thin ice toward MOM (Version 9: a cliché metaphor; the real moment is stronger)","SON's face alone, terrified (kept as the edit's feeling)"],"ia":"MOM starts up the stairs, smiling up at him → SON freezes at the top, shoulders jumping up, one hand hidden behind his back","dist":"far","look":"","ctx":"","ce":"none","cx":"the white stage of the opening → the whole stage in red, the colour of the fear","ip":"strong-pose"},
+    slots: {"L":"MOM at the bottom of the stairs, one foot on the first step, smiling up","C":"the staircase rising between them","R":"SON at the top of the stairs, frozen, one hand behind his back"},
+    why: "The line that carries the opening's intensity converts the stage to red (v25 ladder); the gap between her smile and his fear is the story.",
     heroWho: "Son",
+    peakCol: "RED",
     pieces: ["stairs"],
   },
   {
@@ -862,7 +901,7 @@ const RAW_BEATS = [
     reveal: null,
     link: "",
     requiredText: "",
-    picture: "a medium-wide shot at eye level at the foot of the stairs — MOM at the foot of the stairs, large, half the frame height, one mitten hand on the banister; the staircase rising into the dark; open dark space above the stairs.",
+    picture: "a medium-wide shot at eye level at the foot of the stairs — MOM at the foot of the stairs, large, half the frame height, one mitten hand on the banister; the staircase rising into the dark; open dark space above the stairs — the characters drawn large enough that their faces read.",
     map: "left — MOM at the foot of the stairs, large, half the frame height, one mitten hand on the banister; centre — the staircase rising into the dark; right — open dark space above the stairs.",
     check: "medium-wide shot at eye level, horizon level; left: MOM at the foot of the stairs, large, half the frame height, one mitten hand on the banister; centre: the staircase rising into the dark; right: open dark space above the stairs; {BG}.",
     plan: {"ft":"Curiosity and resolve — tonight could go differently.","ln":"hook","idea":"Night: MOM at the foot of the stairs, one hand on the banister, eyes closed, taking a breath before she goes up to him.","alt":["a number six on a card (no number cards)","MOM's hand on his bedroom door handle (kept for the chapter it belongs to)"],"ia":"","dist":"","look":"","ctx":"","ce":"none","cx":"the warm dinner → the night hall; a parent who stops before reacting","ip":""},
@@ -889,7 +928,7 @@ const RAW_BEATS = [
     reveal: null,
     link: "",
     requiredText: "",
-    picture: "a medium-wide shot straight on at eye level in clean white space — open white space; SON standing, small, about a third of the frame height, both mitten hands loosely together in front of him, looking toward the left; open white space.",
+    picture: "a medium-wide shot straight on at eye level in clean white space — open white space; SON standing, small, about a third of the frame height, both mitten hands loosely together in front of him, looking toward the left; open white space — the characters drawn large enough that their faces read.",
     map: "left — open white space; centre — SON standing, small, about a third of the frame height, both mitten hands loosely together in front of him, looking toward the left; right — open white space.",
     check: "medium-wide shot straight on at eye level, horizon level; left: open white space; centre: SON standing, small, about a third of the frame height, both mitten hands loosely together in front of him, looking toward the left; right: open white space; {BG}.",
     plan: {"ft":"A hush — the child is about to speak for himself.","ln":"chapter-turn","idea":"A white break: SON alone and small in empty white space, lifting his eyes to the left, toward the parent he is about to speak to.","alt":["THE JAR alone on a shelf (Version 9: six of the seven chapter openers were this same picture)","a number card (chapter numbers are never on-screen words)"],"ia":"","dist":"","look":"","ctx":"","ce":"none","cx":"the night hall → empty white; the parent's view → the child's","ip":"white-break"},
@@ -924,7 +963,7 @@ const RAW_BEATS = [
     slots: {"L":"open white space on the side he looks toward","C":"SON's face and the top of his shoulders, large, a little right of centre","R":"a little open white space"},
     still: "the keyword lands on a held face",
     why: "One idea word at a strong moment, on the spoken word, added in Premiere.",
-    keyword: {"word":"LISTEN","on":"listen"},
+    onScreen: {"w":"LISTEN","on":"listen","col":"BLACK"},
     pieces: [],
   },
   {
@@ -975,7 +1014,7 @@ const RAW_BEATS = [
     reveal: null,
     link: "",
     requiredText: "",
-    picture: "a wide shot from a little above head height in the front hall — MOM at the hall table, small, turning round from the post; the foot of the stairs between them; SON in the open front door, small, his schoolbag sliding off one shoulder, his head low.",
+    picture: "a wide shot from a little above head height in the front hall — MOM at the hall table, small, turning round from the post; the foot of the stairs between them; SON in the open front door, small, his schoolbag sliding off one shoulder, his head low — the characters drawn large enough that their faces read.",
     map: "left — MOM at the hall table, small, turning round from the post; centre — the foot of the stairs between them; right — SON in the open front door, small, his schoolbag sliding off one shoulder, his head low.",
     check: "wide shot from a little above head height, horizon level; left: MOM at the hall table, small, turning round from the post; centre: the foot of the stairs between them; right: SON in the open front door, small, his schoolbag sliding off one shoulder, his head low; {BG}.",
     cam: "SLIGHTLY_ABOVE",
@@ -1120,7 +1159,7 @@ const RAW_BEATS = [
     reveal: null,
     link: "",
     requiredText: "",
-    picture: "a medium-wide shot at eye level at the foot of the stairs — MOM standing by the hall table, large, THE PHONE lifted to her ear; SON's mitten hand reaching across the gap toward her arm; SON on the bottom stair, half rising.",
+    picture: "a medium-wide shot at eye level at the foot of the stairs — MOM standing by the hall table, large, THE PHONE lifted to her ear; SON's mitten hand reaching across the gap toward her arm; SON on the bottom stair, half rising — the characters drawn large enough that their faces read.",
     map: "left — MOM standing by the hall table, large, THE PHONE lifted to her ear; centre — SON's mitten hand reaching across the gap toward her arm; right — SON on the bottom stair, half rising.",
     check: "medium-wide shot at eye level, horizon level; left: MOM standing by the hall table, large, THE PHONE lifted to her ear; centre: SON's mitten hand reaching across the gap toward her arm; right: SON on the bottom stair, half rising; {BG}.",
     plan: {"ft":"Panic and comedy — she is already calling.","ln":"rapid-list","idea":"MOM stands with THE PHONE already at her ear, calling the school; SON half rises from the stair, reaching to stop her.","alt":["MOM typing an angry email (a screen with words)","MOM grabbing her car keys (one step too far)"],"ia":"MOM lifts THE PHONE to her ear to call the school → SON half rises from the stair, one mitten hand reaching out to stop her","dist":"apart","look":"","ctx":"","ce":"PHONE","cx":"two faces close → the distance opening as she stands","ip":""},
@@ -1176,7 +1215,7 @@ const RAW_BEATS = [
     reveal: null,
     link: "",
     requiredText: "",
-    picture: "a wide shot from the side at eye level in the front hall — MOM striding away toward the kitchen, large, THE PHONE at her ear; the empty hall floor stretching between them; SON on the bottom stair, large, holding THE NOTE up, one mitten hand half raised.",
+    picture: "a wide shot from the side at eye level in the front hall — MOM striding away toward the kitchen, large, THE PHONE at her ear; the empty hall floor stretching between them; SON on the bottom stair, large, holding THE NOTE up, one mitten hand half raised — the characters drawn large enough that their faces read.",
     map: "left — MOM striding away toward the kitchen, large, THE PHONE at her ear; centre — the empty hall floor stretching between them; right — SON on the bottom stair, large, holding THE NOTE up, one mitten hand half raised.",
     check: "wide shot from the side at eye level, horizon level; left: MOM striding away toward the kitchen, large, THE PHONE at her ear; centre: the empty hall floor stretching between them; right: SON on the bottom stair, large, holding THE NOTE up, one mitten hand half raised; {BG}.",
     plan: {"ft":"The comedy of speed.","ln":"humour-aside","idea":"Side-on: MOM marches off toward the kitchen, phone at her ear; SON is left on the stair holding the note, mouth half open.","alt":["a stopwatch in MOM's hand (Version 9: a timer prop for a time line)","a clock spinning on the wall (a generic device)"],"ia":"MOM marches off toward the kitchen, THE PHONE at her ear → SON stays on the stair holding THE NOTE up, his mouth half open, his other hand half raised","dist":"far","look":"","ctx":"","ce":"NOTE","cx":"a still boy → a mother in full motion","ip":""},
@@ -1205,7 +1244,7 @@ const RAW_BEATS = [
     reveal: null,
     link: "",
     requiredText: "",
-    picture: "a wide shot at eye level in the kitchen — MOM standing at THE FRIDGE, large, half the frame height, drawing on its door with a marker in one mitten hand; THE FRIDGE door covered in papers under magnets, joined by marker lines; SON sitting at the kitchen table, small, slumped low in his chair.",
+    picture: "a wide shot at eye level in the kitchen — MOM standing at THE FRIDGE, large, half the frame height, drawing on its door with a marker in one mitten hand; THE FRIDGE door covered in papers under magnets, joined by marker lines; SON sitting at the kitchen table, small, slumped low in his chair — the characters drawn large enough that their faces read.",
     map: "left — MOM standing at THE FRIDGE, large, half the frame height, drawing on its door with a marker in one mitten hand; centre — THE FRIDGE door covered in papers under magnets, joined by marker lines; right — SON sitting at the kitchen table, small, slumped low in his chair.",
     check: "wide shot at eye level, horizon level; left: MOM standing at THE FRIDGE, large, half the frame height, drawing on its door with a marker in one mitten hand; centre: THE FRIDGE door covered in papers under magnets, joined by marker lines; right: SON sitting at the kitchen table, small, slumped low in his chair; {BG}.",
     plan: {"ft":"A big laugh — the overreaction made visible.","ln":"humour-aside","idea":"Wide: the fridge door has become an incident board — the school letter, his timetable and the class photo under magnets, joined by violet marker lines — MOM drawing one more line while SON slumps at the table.","alt":["a pinboard of cards and string on a stand (the same joke, but the stand appears from nowhere — the kitchen's own fridge is more real)","MOM with a magnifying glass bending over him (the detective joke in a smaller frame)","police tape across the kitchen door (too far into fantasy)"],"ia":"MOM draws another violet line across THE FRIDGE door, explaining → SON slumps lower in his chair, his chin sinking to the table","dist":"apart","look":"","ctx":"","ce":"FRIDGE marker lines","cx":"the hall's quick beats → one wide, absurd picture","ip":"short-metaphor"},
@@ -1213,6 +1252,8 @@ const RAW_BEATS = [
     still: "the pull out is the reveal",
     why: "Thomas's 'parent overthinking something simple', built from the kitchen's own fridge — one wide comic picture.",
     heroWho: "Mom",
+    accentMark: "a few short speed strokes flicking off MOM's marker hand",
+    accentCol: "YELLOW",
     pieces: ["table","chair"],
   },
   {
@@ -1319,7 +1360,7 @@ const RAW_BEATS = [
     reveal: null,
     link: "",
     requiredText: "",
-    picture: "a medium-wide shot at eye level in the kitchen — MOM standing by THE FRIDGE, large, her raised mitten hand with the marker sinking; the empty chair pulled out beside SON; SON sitting at the kitchen table, large, one mitten hand patting the seat of the empty chair.",
+    picture: "a medium-wide shot at eye level in the kitchen — MOM standing by THE FRIDGE, large, her raised mitten hand with the marker sinking; the empty chair pulled out beside SON; SON sitting at the kitchen table, large, one mitten hand patting the seat of the empty chair — the characters drawn large enough that their faces read.",
     map: "left — MOM standing by THE FRIDGE, large, her raised mitten hand with the marker sinking; centre — the empty chair pulled out beside SON; right — SON sitting at the kitchen table, large, one mitten hand patting the seat of the empty chair.",
     check: "medium-wide shot at eye level, horizon level; left: MOM standing by THE FRIDGE, large, her raised mitten hand with the marker sinking; centre: the empty chair pulled out beside SON; right: SON sitting at the kitchen table, large, one mitten hand patting the seat of the empty chair; {BG}.",
     plan: {"ft":"A lump in the throat — all he wants is company.","ln":"child-voice","idea":"SON pulls out the empty chair beside him and pats its seat, looking up at MOM; her marker hand at the fridge sinks.","alt":["a blanket fort (Version 9: a child's den for a teenager's feeling — too young)","SON holding out one earbud to share (kept for a later chapter)"],"ia":"SON pulls out the empty chair beside him and pats its seat, looking up at her → MOM's raised marker hand sinks from the fridge door and her face softens","dist":"apart","look":"","ctx":"","ce":"none","cx":"a huge pair of eyes → a small invitation across the room","ip":""},
@@ -1327,6 +1368,7 @@ const RAW_BEATS = [
     still: "the invitation holds; she answers later",
     why: "'Sit inside this feeling with me' as behaviour: an empty chair, offered.",
     heroWho: "Son",
+    light: {"kind":"warm","where":"one flat oval of warm light on the wall behind the empty chair"},
     pieces: ["table","chair"],
   },
   {
@@ -1348,7 +1390,7 @@ const RAW_BEATS = [
     reveal: null,
     link: "",
     requiredText: "",
-    picture: "a wide shot from a little above head height in the living room — MOM dropping onto the left end of the sofa, small, her head tipped back; the long low sofa between them; DAD at the right end of the sofa, small, a laptop open on his knees.",
+    picture: "a wide shot from a little above head height in the living room — MOM dropping onto the left end of the sofa, small, her head tipped back; the long low sofa between them; DAD at the right end of the sofa, small, a laptop open on his knees — the characters drawn large enough that their faces read.",
     map: "left — MOM dropping onto the left end of the sofa, small, her head tipped back; centre — the long low sofa between them; right — DAD at the right end of the sofa, small, a laptop open on his knees.",
     check: "wide shot from a little above head height, horizon level; left: MOM dropping onto the left end of the sofa, small, her head tipped back; centre: the long low sofa between them; right: DAD at the right end of the sofa, small, a laptop open on his knees; {BG}.",
     cam: "SLIGHTLY_ABOVE",
@@ -1436,7 +1478,7 @@ const RAW_BEATS = [
     reveal: null,
     link: "",
     requiredText: "",
-    picture: "a medium-wide shot at eye level in the living room — MOM on the sofa, large, staring up at the board; THE WHITEBOARD on its easel, planted in front of the sofa; DAD standing beside THE WHITEBOARD, large, beaming, one mitten hand on its frame.",
+    picture: "a medium-wide shot at eye level in the living room — MOM on the sofa, large, staring up at the board; THE WHITEBOARD on its easel, planted in front of the sofa; DAD standing beside THE WHITEBOARD, large, beaming, one mitten hand on its frame — the characters drawn large enough that their faces read.",
     map: "left — MOM on the sofa, large, staring up at the board; centre — THE WHITEBOARD on its easel, planted in front of the sofa; right — DAD standing beside THE WHITEBOARD, large, beaming, one mitten hand on its frame.",
     check: "medium-wide shot at eye level, horizon level; left: MOM on the sofa, large, staring up at the board; centre: THE WHITEBOARD on its easel, planted in front of the sofa; right: DAD standing beside THE WHITEBOARD, large, beaming, one mitten hand on its frame; {BG}.",
     plan: {"ft":"A laugh — the fix arrives on an easel.","ln":"humour-aside","idea":"DAD wheels a whiteboard on an easel right in front of the sofa, beaming; MOM blinks at it.","alt":["DAD opening a spreadsheet on the laptop (a screen — the joke needs size)","DAD handing her a self-help book (smaller and quieter)"],"ia":"DAD plants THE WHITEBOARD in front of the sofa, beaming → MOM blinks at it, her mouth falling open","dist":"apart","look":"","ctx":"","ce":"WHITEBOARD frame","cx":"a sagging face → a bright, absurd object","ip":"unexpected-object"},
@@ -1492,7 +1534,7 @@ const RAW_BEATS = [
     reveal: null,
     link: "",
     requiredText: "",
-    picture: "a wide shot at eye level in the living room — MOM at the open doorway, large, carrying THE WHITEBOARD out under one arm; the empty floor where the board stood; DAD on the sofa, small, both mitten hands raised.",
+    picture: "a wide shot at eye level in the living room — MOM at the open doorway, large, carrying THE WHITEBOARD out under one arm; the empty floor where the board stood; DAD on the sofa, small, both mitten hands raised — the characters drawn large enough that their faces read.",
     map: "left — MOM at the open doorway, large, carrying THE WHITEBOARD out under one arm; centre — the empty floor where the board stood; right — DAD on the sofa, small, both mitten hands raised.",
     check: "wide shot at eye level, horizon level; left: MOM at the open doorway, large, carrying THE WHITEBOARD out under one arm; centre: the empty floor where the board stood; right: DAD on the sofa, small, both mitten hands raised; {BG}.",
     plan: {"ft":"A laugh of relief — gone.","ln":"humour-aside","idea":"Wide: MOM marches the whiteboard out through the doorway under one arm; DAD, on the sofa, raises both palms with a sheepish smile.","alt":["MOM throwing it out of the window (Version 9: a throw that renders as a falling board)","MOM wiping the board clean (smaller than the line)"],"ia":"MOM marches THE WHITEBOARD out of the room → DAD raises both palms with a sheepish smile","dist":"far","look":"","ctx":"","ce":"WHITEBOARD frame","cx":"her deadpan stillness → her decisive exit","ip":""},
@@ -1549,7 +1591,7 @@ const RAW_BEATS = [
     reveal: null,
     link: "Pays off S34: she takes the chair he offered.",
     requiredText: "",
-    picture: "a medium-wide shot from the side at eye level at the kitchen table — MOM sitting down on the chair beside SON, large, turned toward him; the table edge in front of them; SON sitting at the table, large, his head lifting a little toward her.",
+    picture: "a medium-wide shot from the side at eye level at the kitchen table — MOM sitting down on the chair beside SON, large, turned toward him; the table edge in front of them; SON sitting at the table, large, his head lifting a little toward her — the characters drawn large enough that their faces read.",
     map: "left — MOM sitting down on the chair beside SON, large, turned toward him; centre — the table edge in front of them; right — SON sitting at the table, large, his head lifting a little toward her.",
     check: "medium-wide shot from the side at eye level, horizon level; left: MOM sitting down on the chair beside SON, large, turned toward him; centre: the table edge in front of them; right: SON sitting at the table, large, his head lifting a little toward her; {BG}.",
     plan: {"ft":"Warmth — she simply stays.","ln":"advice","idea":"Side-on: MOM sits down in the chair he pulled out for her, without a word; his eyes slide toward her.","alt":["MOM hugging him (too quick — the line is about staying)","MOM kneeling by his chair (he is a teenager; level seats say equals)"],"ia":"MOM sits down in the chair beside him without a word, her hands open in her lap → SON's eyes slide toward her and his shoulders drop a little","dist":"close","look":"","ctx":"","ce":"none","cx":"far apart in S34 → side by side","ip":"visual-silence"},
@@ -1557,6 +1599,7 @@ const RAW_BEATS = [
     still: "her sitting down is the change; the sequence step carries the rest",
     why: "Love as behaviour — Thomas's 'a parent quietly sitting next to a teenager'.",
     heroWho: "Mom",
+    light: {"kind":"warm","where":"one flat oval of warm light on the wall behind the two of them"},
     pieces: ["table","chair"],
   },
   {
@@ -1591,7 +1634,36 @@ const RAW_BEATS = [
 
 // Insert frames: extra shots cut into a frame on its strongest word; same fields as RAW_BEATS, n = the parent frame's line.
 const INSERT_BEATS = [
-
+  {
+    n: 14, ref: "S14b",
+    sequence: "00 Cold open", scene: "Stairs, that evening", tier: "HOOK", fn: "STORY",
+    roles: "Son", props: [], hero: "FACE",
+    feel: "The fear itself, up close.",
+    meaning: "SON's face alone on pure white at the top of the stairs: eyes wide, eyebrows shot up and drawn together.",
+    shotSize: "CLOSE", angle: "HIGH", face: "NORMAL", scale: "ORDINARY",
+    framing: "Close shot from a little above head height, in clean white space, horizon level: at the left white space; in the centre SON's face, large; at the right white space.",
+    action: "SON's face fills the frame, frozen in fright, one mitten hand pressed to his chest.",
+    performance: "SON: eyes wide open in fright, eyebrows shooting up and drawn together, mouth a tight open oval, head pulled back, one mitten hand pressed to his chest, shoulders jumped up, pupils pressed down toward frame left.",
+    world: "HALL", mood: "WHITE", peak: false,
+    stage: "",
+    moment: "",
+    pop: null,
+    move: {"type":"SNAP_ZOOM","on":"terrifying","note":"snap in"},
+    device: "DISTANCE",
+    reveal: null,
+    link: "",
+    requiredText: "",
+    picture: "a close shot from a little above head height in clean white space — white space; SON's face, large; white space.",
+    map: "left — white space; centre — SON's face, large; right — white space.",
+    check: "close shot from a little above head height, horizon level; left: white space; centre: SON's face, large; right: white space; {BG}.",
+    cam: "SLIGHTLY_ABOVE",
+    plan: {"ft":"The fear itself, up close.","ln":"peak-close-up","idea":"SON's face alone on pure white at the top of the stairs: eyes wide, eyebrows shot up and drawn together.","alt":["a punch into S14 (his face would sit on the red field)","MOM's smiling face (the fear is his)"],"ia":"","dist":"","look":"down and to frame left, toward MOM at the bottom of the stairs","ctx":"follows S14 (the wide red stairs): the same moment, the camera suddenly in on his face","ce":"none","cx":"a wide red stage → one frightened face on white","ip":"snap-to-white"},
+    slots: {"L":"white space","C":"SON's face, large","R":"white space"},
+    why: "A face close-up never sits on a colour field: the peak's close-up is an insert on white.",
+    cutIn: "terrifying",
+    insert: true,
+    pieces: [],
+  },
 ];
 // Sequences: an important moment told as a short run of stills in one scene. Each image is the base frame of a line (type base),
 // that frame's in-scene edit from EDIT_CUES (type edit), or an extra edit image (type step, change written here).
@@ -1616,15 +1688,15 @@ const EDIT_WHO = {"Mom":"MOM is the woman with black hair in a round bun on top"
 function editWho(e) {
   const a = RAW_BEATS.find(x => x.ref === e.ref);
   const people = a.roles === "No characters" ? [] : a.roles.split(",").map(r => r.trim()).filter(r => EDIT_WHO[r]).map(r => EDIT_WHO[r]);
-  const things = Object.values(PROP).filter(p => p.name && e.change.includes(p.name)).map(p => `${p.name} is the ${p.colour ? p.colour + " " : ""}${p.name.replace(/^(THE|HIS OWN|MOM'S) /, "").toLowerCase()}`);
+  const things = Object.values(PROP).filter(p => p.name && e.change.includes(p.name)).map(p => { const key = Object.keys(PROP).find(k => PROP[k] === p), T = TONE[String(p.hex).toUpperCase()], col = T ? (isAccentKey(a, key) ? T.bright[0] : T.calm[0]) : p.colour; return p.editLook ? `${p.name} is ${p.editLook}` : p.rest && p.part ? `${p.name} ${/[^S']S$/.test(p.name) ? "are the objects with their" : "is the object with its"} ${p.part.replace(p.name + "'s ", "").replace(p.name + "' ", "").replace(/\s*\(#[0-9A-Fa-f]{6}\)/g, "")} — ${p.rest}` : `${p.name} ${/[^S']S$/.test(p.name) ? "are" : "is"} the ${col ? col + " " : ""}${p.name.replace(/^(THE|HIS OWN|MOM'S|DAD'S|SON'S|THE CLASSMATE'S|THE COUSIN'S) /, "").toLowerCase()}`; });
   const list = [...people, ...things];
   return list.length ? `WHO AND WHAT IS WHO IN THIS IMAGE: ${list.join("; ")}.` : "";
 }
-function editPrompt(e) { return [`EDIT THIS IMAGE — make exactly one change and keep everything else identical.`, editWho(e), `CHANGE: ${e.change}`, EDIT_KEEP, EDIT_DONT].filter(Boolean).join("\n\n"); }
+function editPrompt(e) { const f = (typeof RAW_BEATS !== "undefined" ? RAW_BEATS : []).find(x => x.ref === e.ref); const word = !(f && f.onScreen) ? "" : f.onScreen.font ? `KEEP THE WORD: the on-screen word "${f.onScreen.w}" stays exactly as it is — the same letters, spelling, colour, size and place.` : (() => { const n = wordLines(String(f.onScreen.w)).length; return `KEEP THE TEXT: if the image shows the on-screen text "${f.onScreen.w}"${n > 1 ? ` (on ${n} lines)` : ""}, it stays exactly as it is — the same letters, line breaks, spelling, colours, size and place, with nothing moving in front of it; if the image has no text, add none.`; })(); return [`EDIT THIS IMAGE — make exactly one change and keep everything else identical.`, editWho(e), `CHANGE: ${e.change}`, EDIT_KEEP, word, EDIT_DONT].filter(Boolean).join("\n\n"); }
 
 // Revision rounds: one batch per round of feedback; entries list the refs to regenerate.
 const REVISIONS = [
-  {"batch":"Build 1 — 2026-10-05 · first full build (compiler v19)","entries":[]},
+  {"batch":"Build 1 — 2026-10-09 · first full build (compiler v24)","entries":[]},
 ];
 
 // ── COMPILER ───────────────────────────────────────────────────────────
@@ -1645,7 +1717,8 @@ function castLock(b) {
   if (!names.length) return "CHARACTER COUNT: exactly 0. No person, head, face, hand or silhouette anywhere in this frame.";
   const upper = names.map(n => n.toUpperCase()).join(", ");
   if (b.shotSize === "HANDS") return `CHARACTER COUNT: exactly ${names.length} (${upper}), seen only as hands and forearms entering the frame; no head or face anywhere in the frame.`;
-  return `CHARACTER COUNT: exactly ${names.length}: ${upper}. No other person, head or silhouette anywhere in the frame.`;
+  const figs = (b.props || []).map(e => String(e).replace(/^\d+x\s+/i, "").trim()).filter(k => PROP[k] && PROP[k].drawnFigure).map(k => PROP[k].drawnFigure);
+  return `CHARACTER COUNT: exactly ${names.length}: ${upper}. No other person, head or silhouette anywhere in the frame${figs.length ? `, apart from ${figs.join(" and ")}` : ""}.`;
 }
 
 function heightBlock(b) {
@@ -1656,7 +1729,7 @@ function heightBlock(b) {
   const out = [];
   if (adults.length && teens.length) { const her = adults.length === 1 ? (/\b(woman|her|she)\b/i.test((ROLE[Object.keys(ROLE).find(r => r.toUpperCase() === adults[0])] || {}).text || "") ? "hers" : "his") : "the adults'"; out.push(`HEIGHTS: ${teens.join(" and ")} stand${teens.length > 1 ? "" : "s"} clearly shorter than ${adults.join(" and ")}, as in the MOM-and-SON height sheet — standing together, the teenager's chin is at about the adult's shoulder and his face sits clearly lower than ${her}; seated or cropped, the teenager still reads as the younger, leaner one.`); }
   const kidRole = k => ROLE[Object.keys(ROLE).find(r => r.toUpperCase() === k)] || {};
-  names.forEach(n => { const R = mustRole(n, b); if (R.heightText) out.push(`${n.toUpperCase()}: ${R.heightText}`); }); // v19: a role can state its own size (a toddler, a very tall uncle)
+  names.forEach(n => { const R = mustRole(n, b); if (R.heightText) out.push(`${n.toUpperCase()}: ${R.heightText}`.replace(/[.\s]*$/, ".")); }); // v19: a role can state its own size (a toddler, a very tall uncle)
   const kidsDefault = kids.filter(k => !kidRole(k).heightText);
   if (kidsDefault.length) out.push(`${kidsDefault.join(" and ")} ${kidsDefault.length > 1 ? "are young children whose heads reach" : "is a young child whose head reaches"} only about halfway up an adult's standing height, with ${kidsDefault.every(k => (ROLE[k.charAt(0) + k.slice(1).toLowerCase()] || ROLE[Object.keys(ROLE).find(r => r.toUpperCase() === k)] || {}).from === "Son") ? "the head a little bigger for the body than SON's — about one-third of the height — with a young child's short body" : "the head about one-fifth of their height"}, short arms and legs — never an oversized bobble head.`);
   return out.join(" ");
@@ -1686,6 +1759,31 @@ function propItems(b) {
 
 // colourEl(b) — v19: the frame's ONE colour element, from the plan field ce ("PHONE", "PHONE case", "none").
 // Default: the hero object (its coloured part); for a face or figure hero, the first object not marked plain; else none.
+// v22 two tones (Thomas: colour used intentionally — important objects, actions or surprises deliberately brighter):
+// heroKey(b) is the frame's hero object; toneText swaps each TONE colour in a text to its calm tone, or to its bright tone
+// when the text belongs to the accent object of an accent frame (b.accent).
+function heroKey(b) {
+  const ce = String((b.plan && b.plan.ce) || "").trim();
+  if (/^none$/i.test(ce)) return null;
+  if (ce) { const m = ce.match(/^([A-Z0-9_]+)/); return m && PROP[m[1]] ? m[1] : null; }
+  if (PROP[b.hero]) return b.hero;
+  return (b.props || []).map(e => String(e).replace(/^\d+x\s+/i, "").trim()).find(k => PROP[k] && !(b.plain || []).includes(k)) || null;
+}
+// v24: the colour focus is bright by default ("stronger, brighter, and more vibrant colors on important objects");
+// cm (calm: true) keeps a deliberately quiet beat in the calm tone. ce2 names a second coloured object, only when needed.
+function isAccentKey(b, key) { return !!(b && key && !b.calm && heroKey(b) === key); }
+function ce2Key(b) { const c = String((b.plan && b.plan.ce2) || "").trim(); const m = c.match(/^[A-Z0-9_]+/); return m && PROP[m[0]] ? m[0] : null; }
+let _TONE_RE = null;
+function toneText(b, key, s) {
+  if (!s || typeof s !== "string" || !Object.keys(TONE).length) return s;
+  const bright = isAccentKey(b, key);
+  const W = `(?:${_CM.slice(3, -1)}|${_CW.slice(3, -1)}|burnt|tiger|leaf|electric|vivid|dusky|antique|crayon|carrot|water|storm|mustard)`;
+  return Object.entries(TONE).reduce((t, [hex, T]) => {
+    const re = new RegExp(`(?:\\b${W}[ -])*(?:${W}\\s)?\\(${hex}\\)`, "gi");
+    const [nm, hx] = bright ? T.bright : T.calm;
+    return t.replace(re, `${nm} (${hx})`);
+  }, s);
+}
 function colourEl(b) {
   const ce = String((b.plan && b.plan.ce) || "").trim();
   if (/^none$/i.test(ce)) return null;
@@ -1699,24 +1797,50 @@ function colourEl(b) {
   if (!key) return null;
   const P = PROP[key];
   if (/^#(FFFFFF|F4F1E8)$/i.test(P.hex) && !P.part && !part) return { key, white: true, text: P.name, hex: P.hex };
-  const text = part ? `${poss(P.name)} ${part} in ${P.colour ? P.colour + " " : ""}(${P.hex})` : P.part ? P.part : `${P.name} in ${P.colour ? P.colour + " " : ""}(${P.hex})`;
+  const text = toneText(b, key, part ? `${poss(P.name)} ${part} in ${P.colour ? P.colour + " " : ""}(${P.hex})` : P.part ? P.part : `${P.name} in ${P.colour ? P.colour + " " : ""}(${P.hex})`);
   return { key, text, hex: P.hex };
 }
 // lineText — an object that is not the frame's colour element is drawn in black line on white: its colour words come out.
-const _CW = "(?:red|orange|yellow|green|blue|teal|turquoise|violet|purple|pink|raspberry|lime|amber|brown|walnut|slate|grey|gray|tan|cork|white|lemon|sunflower|emerald|cobalt|indigo|grape|mauve|navy|sky|gold|golden|ochre|aqua|mint|sage|cream|beige|black|silver|steel|stone|wood|biscuit|cardboard|tangerine|danger|holiday|berry|rose|coral|peach|apricot|olive|plum|lilac|lavender|charcoal|cyan|magenta|crimson|scarlet|maroon|khaki|honey|caramel|chocolate|copper|bronze|ivory|pearl|sea|ice|denim|butter|heather|periwinkle|oak|paper)";
-const _CM = "(?:flat|bright|shiny|saturated|vivid|deep|warm|muted|pale|light|soft|dark|dim|dusty|clear|bold|glossy|matte|very|spring|electric|storm)";
+const _CW = "(?:graphite|red|orange|yellow|green|blue|teal|turquoise|violet|purple|pink|raspberry|lime|amber|brown|walnut|slate|grey|gray|tan|cork|white|lemon|sunflower|emerald|cobalt|indigo|grape|mauve|navy|sky|gold|golden|ochre|aqua|mint|sage|cream|beige|black|silver|steel|stone|wood|biscuit|cardboard|tangerine|danger|holiday|berry|rose|coral|peach|apricot|olive|plum|lilac|lavender|charcoal|cyan|magenta|crimson|scarlet|maroon|khaki|honey|caramel|chocolate|copper|bronze|ivory|pearl|sea|ice|denim|butter|heather|periwinkle|oak|paper)";
+const _CM = "(?:flat|bright|shiny|saturated|vivid|deep|warm|muted|pale|light|soft|dark|dim|dusty|clear|bold|glossy|matte|very|spring|electric|storm|calm|pressure|emergency|tiger|teacher's)";
 const _COLOUR_PHRASE = new RegExp(`(?:\\s+in)?\\s+(?:${_CM}[ -])*${_CW}(?:-${_CW})*(?:\\s${_CW}(?:-${_CW})*)*\\s\\(#[0-9A-Fa-f]{6}\\)`, "gi");
 function lineText(key, base) {
   if (PROP[key].lineText) return PROP[key].lineText;
   return String(base).replace(_COLOUR_PHRASE, "").replace(/\s{2,}/g, " ").replace(/\s+([,.;])/g, "$1").replace(/,,+/g, ",").trim() + " Here it is drawn only in black ink line with white fill.";
 }
 
+// v24: an object keeps the same locked colour whenever it carries colour (RECURRING CONSISTENCY); in a frame where it is not
+// the focus (ce) or the second object (ce2) it is black line with white fill. (v20 coloured every story object — Thomas: "not
+// too many strong colored elements in the same scene".)
+function neutralFrame(b) { return false; }
+// v24 ("not too many strong colored elements in the same scene"): only the colour focus (ce) and, when named, ce2 carry
+// colour; every other story object is black line with white fill. A frame whose ce is "none" is face-led: all line.
+// v25: on a PEAK colour field, an object (or a mark, or a word) in the field's own hue would vanish into it — it is drawn white
+// with its bold black outline instead, so it stands out sharply (the red F on a red field becomes a white F).
+function _sat(hex) { const v = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255), mx = Math.max(...v), mn = Math.min(...v); return mx ? (mx - mn) / mx : 0; }
+function clashesField(b, hex) {
+  if (moodOf(b.mood) !== "PEAK" || !/^#[0-9A-Fa-f]{6}$/.test(String(hex || ""))) return false;
+  const f = framePalette(b).ground[1]; if (_sat(f) < 0.25 || _sat(hex) < 0.25) return false;
+  const d = Math.abs(hueOf(f) - hueOf(hex)); return Math.min(d, 360 - d) < 30;
+}
+function fieldIsLight(b) { return moodOf(b.mood) === "PEAK" && hexToLab(framePalette(b).ground[1])[0] >= 68; }
+const isPlain = (b, k) => (b.plain || []).includes(k) || (heroKey(b) !== k && ce2Key(b) !== k) || clashesField(b, PROP[k] && PROP[k].hex);
+function colouredItems(b) {
+  if (neutralFrame(b)) return [];
+  const ce = colourEl(b), seen = [];
+  propItems(b).forEach(i => { if (!seen.includes(i.key)) seen.push(i.key); });
+  return seen.filter(k => !isPlain(b, k) && (!/^#(FFFFFF|F4F1E8)$/i.test(PROP[k].hex) || PROP[k].part)).map(k => {
+    const P = PROP[k], hero = !!(ce && ce.key === k);
+    return { key: k, hero, text: hero && !ce.white ? ce.text : toneText(b, k, P.part || `${P.name} in ${P.colour ? P.colour + " " : ""}(${P.hex})`) };
+  });
+}
 function propLock(b) {
   const items = propItems(b);
-  if (!items.length) return "OBJECTS: none beyond the outline set pieces named in the setting.";
-  const ce = colourEl(b), total = items.reduce((t, i) => t + i.qty, 0);
-  const list = items.map(i => { const base = (b.propText && b.propText[i.key]) || PROP[i.key].text; return (i.qty > 1 ? `${i.qty} of ` : "") + (ce && !ce.white && ce.key === i.key ? base : (ce && ce.white && ce.key === i.key) ? base : lineText(i.key, base)); }).join(" ");
-  return `OBJECTS: exactly ${total} story object${total > 1 ? "s" : ""}, plus the outline set pieces named in the setting. ${list}`;
+  if (!items.length) return "OBJECTS: none beyond the set pieces named in the setting.";
+  const neutral = neutralFrame(b), total = items.reduce((t, i) => t + i.qty, 0);
+  const lit = k => !!PROP[k].screen || /PHONE|TABLET/.test(k); // v21/v24: at night a phone's screen is the light in the room (violet = digital), its glow drawn
+  const list = items.map(i => { const base = toneText(b, i.key, (b.propText && b.propText[i.key]) || PROP[i.key].text); const lt = moodOf(b.mood) === "NIGHT" && lit(i.key) && !isPlain(b, i.key) ? " At night its screen is switched on: a bright light-purple (#C9A6FF) panel — the brightest thing in the dark room — ringed by short drawn light-purple strokes, throwing one wide, flat, clean-edged wedge of pale purple light (#B48CF0) across the face and hands nearest it." : ""; return (i.qty > 1 ? `${i.qty} of ` : "") + (neutral || isPlain(b, i.key) ? lineText(i.key, base) : base) + lt; }).join(" ");
+  return `OBJECTS: exactly ${total} story object${total > 1 ? "s" : ""}, plus the set pieces named in the setting. ${list}`;
 }
 
 function heroName(b) {
@@ -1754,31 +1878,51 @@ function pieceList(b) {
   const W = WORLD[b.world]; if (!W || !W.parts) return [];
   return W.parts.filter(p => (b.pieces || []).includes(p[0]));
 }
+function theLabel(l) { return /^(a|an|the)\s/i.test(l) || /^[A-Z][A-Z ]*'s\b/.test(l) ? l : "the " + l; }
 function placeLabel(b) { const W = WORLD[b.world]; return W ? (W.label || (W.set && SET[W.set] && SET[W.set].label) || "") : ""; }
 
 function worldBlock(b) {
   const names = roleList(b), items = propItems(b), key = moodOf(b.mood), P = framePalette(b);
   const face = names.length && b.shotSize !== "HANDS";
-  if (b.shotSize === "WORD") return `SETTING: a plain, clean, pure white (#FFFFFF) frame, flat and empty from edge to edge${items.length ? ", with only the one small object named here, small and low in the frame, resting on nothing" : ""}; it holds the space for one on-screen word that is added later in the edit.`;
+  if (b.shotSize === "WORD") return `SETTING: a plain, clean, pure white (#FFFFFF) frame, flat and empty from edge to edge${items.length ? ", with only the one small object named here, small and low in the frame, resting on nothing" : ""}${b.onScreen ? "; the only thing on it is the word named under TEXT" : ""}.`;
   const W = WORLD[b.world];
   if (!W) throw new Error(`Unknown WORLD "${b.world}" in ${b.ref}`);
   if (key === "WHITE") return `SETTING: a plain, clean, pure white (#FFFFFF) background from edge to edge — open white space around ${face ? "the characters" : names.length ? "the hands" : "the object"}${items.length && names.length ? " and the story objects named here" : ""}, with nothing drawn behind them. ${face ? "The face and its expression carry the whole frame." : names.length ? "The hands and what they do carry the whole frame." : "The story object carries the whole frame."}`;
-  const g = `${P.ground[0]} (${P.ground[1]})`, ln = `${P.line[0]} (${P.line[1]})`;
+  let g = `${P.ground[0]} (${P.ground[1]})`; const ln = `${P.line[0]} (${P.line[1]})`;
   const wider = WIDER.includes(b.shotSize) || (b.shotSize === "OBJECT" && !pieceList(b).length);
   const parts = W.parts ? pieceList(b).map(p => outlineText(p[2])) : [];
   const idea = !W.parts && W.text ? outlineText(W.text).replace(/[;,.]?\s*nothing else\.?\s*$/i, "").replace(/[.\s]+$/, "") : "";
-  const hasGround = /ground line|horizon/i.test(idea);
+  const hasGround = /ground line|floor line|horizon/i.test(idea);
   const label = parts.length ? placeLabel(b) : "";
   if (b.shotSize === "XCLOSE") return `SETTING: only the plain, flat ${g} ${key === "CLEAN" ? "ground" : "field"} behind the head — the camera is so close that nothing of the place is in frame.`;
-  if (key === "CLEAN") {
-    const pcs = parts.length ? `${label ? `the ${label}, ` : ""}shown only by ${parts.length > 1 ? "these outline pieces" : "this outline piece"}: ${parts.join("; ")}. ` : idea ? `${idea}. ` : "";
-    const rule = parts.length || idea ? `Every set piece is drawn only as a thin soft-grey (${P.line[1]}) outline with white fill — a complete, closed line drawing, not a coloured object. ` : "";
-    return `SETTING: ${pcs}${rule}The ground is ${g}, flat and even from edge to edge${wider && !hasGround ? `, with one thin soft-grey ground line behind the figures instead of a filled floor` : ""}; the rest of the space is plain and open.`;
+  if (key === "CLEAN" || key === "MEMORY") {
+    // v24: every drawn piece is thin black line with white fill on the white ground, with one ground line on wider shots (the
+    // v22 soft fills and floor planes were cut by Thomas); a close face shot may show one slice of the place behind the head;
+    // absence (mute) turns the place quiet cool grey-blue — the grey atmosphere Thomas approved.
+    const MUTE_FILL = "filled flat in quiet cool grey-blue (#AEB8C4)";
+    const fillOf = p => b.mute ? (/^white\b/.test(p[3] || "") ? p[3] : MUTE_FILL) : "with white fill"; // v24: set pieces are black line on white — no soft fills
+    if (b.mute) g = "very light cool grey (#F1F3F5)"; // v22: absence is cool — the light ground too
+    const pl = W.parts ? pieceList(b) : [];
+    const fl = b.mute ? ["pale cool grey", "#E4E7EA"] : null; // v24: no coloured floor or grass plane (Thomas: "the ground does not also need to be colored")
+    const outdoor = W.kind === "OUTDOOR", floorWord = outdoor ? "ground" : "floor";
+    const floorTxt = fl && wider && pl.length ? ` The ${outdoor ? "sky" : "wall"} is ${g}, plain and light; the ${floorWord} is one flat ${fl[0]} (${fl[1]}) plane from the ground line down to the bottom edge of the frame.` : "";
+    if (b.slice && pl.length) {
+      const p = pl[0];
+      return `SETTING: behind ${face ? "the head" : names.length ? "the hands" : "the object"}, cut off by the frame edge, one slice of ${theLabel(label || placeLabel(b) || "the place")}: part of ${outlineText(p[2])}, ${fillOf(p)} — just enough to place the moment, drawn in thin ${P.line[0]} (${P.line[1]}) line and set a little to one side so the ${face ? "face" : "subject"} stays clear; the rest is the plain ${g} background, and nothing else is drawn.`;
+    }
+    if (b.shotSize === "XCLOSE") return `SETTING: only the plain, flat ${g} ground behind the head — the camera is so close that nothing of the place is in frame.`;
+    const pt = pl.map(p => outlineText(p[2]) + ", " + fillOf(p));
+    const pcs = pt.length ? `${label ? `${theLabel(label)}, ` : ""}told by ${pt.length > 1 ? "these pieces" : "this piece"}: ${pt.join("; ")}. ` : idea ? `${idea}. ` : "";
+    const rule = pt.length ? `Every set piece is a clear, complete drawing in thin ${P.line[0]} (${P.line[1]}) line, standing firmly on the ${floorWord}, ${b.mute ? "all in the same quiet cool grey-blue — the place quiet, never empty" : "thinner than the characters' outlines, with plain white fill — never coloured, never shaded"}. ` : idea ? `Every piece is a clear, complete drawing in thin ${P.line[0]} (${P.line[1]}) line. ` : "";
+    const bg = floorTxt || ` The background is ${g}, flat and even${wider && !hasGround ? `, with one thin ${P.line[0]} ground line that the figures${pt.length ? " and the furniture" : ""} stand on` : ""}.`;
+    return `SETTING: ${pcs}${rule}${bg.trim()} Nothing else is drawn; the rest of the space stays plain and open.`;
   }
-  const fieldWord = key === "NIGHT" ? "night" : key === "MEMORY" ? "memory" : "emotional peak";
-  const head = key === "MEMORY" ? `the whole ${fieldWord} sits on one flat ${g} ground from edge to edge, as if the colour has drained out of it` : `one flat, even ${g} colour field fills the whole background from edge to edge — the colour of this ${fieldWord}`;
-  const pcs = parts.length ? `; ${label ? `the ${label} is shown` : "the place is shown"} only by ${parts.length > 1 ? "these outline pieces" : "this outline piece"}: ${parts.join("; ")} — ${parts.length > 1 ? "each" : ""} drawn as a thin ${ln} outline on the ${key === "MEMORY" ? "ground" : "field"}, a complete, closed line drawing in its own colour family` : idea ? `; ${idea}, drawn in thin ${ln} lines` : "";
-  return `SETTING: ${head}${pcs}${wider && !hasGround ? `; one thin ${P.line[0]} ground line runs behind the figures` : ""}; the rest of the ${key === "MEMORY" ? "ground" : "field"} is plain and open.`;
+  const fieldWord = key === "NIGHT" ? "night" : "emotional peak";
+  const head = `one flat, even ${g} colour field fills the whole background from edge to edge — the colour of this ${fieldWord}`;
+  const fillTxt = key === "NIGHT" ? `a solid flat shape filled in ${P.fill[0]} (${P.fill[1]}) with a ${P.line[0]} (${P.line[1]}) outline` : `a solid flat shape filled in ${P.line[0]} (${P.line[1]}) with a thin darker outline`;
+  const lineOnly = !parts.length && /^(?:one|a) [a-z ]*\b(?:floor|ground) line$/i.test(idea); // the place is only its ground line
+  const pcs = parts.length ? `; ${label ? `${theLabel(label)} is told` : "the place is told"} by ${parts.length > 1 ? "these pieces" : "this piece"}: ${parts.join("; ")} — ${parts.length > 1 ? "each" : ""} drawn as ${fillTxt}, complete and standing firmly on the ground, never a pale or glowing outline` : lineOnly ? `; ${idea} in ${P.line[0]} (${P.line[1]}) runs under the figures` : idea ? `; ${idea}, drawn as ${fillTxt}` : "";
+  return `SETTING: ${head}${pcs}${wider && !hasGround && !lineOnly ? `; one ${P.line[0]} ground line runs under the figures` : ""}; the rest of the field is plain and open.`;
 }
 
 // Version 7: a story object that hangs on the wall is the one exception to plain space
@@ -1789,53 +1933,117 @@ function bgShort(b) {
   const key = moodOf(b.mood), P = framePalette(b);
   if (b.shotSize === "WORD" || key === "WHITE") return "clean pure white space";
   const pcs = b.shotSize === "XCLOSE" ? [] : pieceList(b).map(p => p[0]);
-  const pl = pcs.length ? ` with ${pcs.length > 1 ? pcs.slice(0, -1).map(x => "the " + x).join(", ") + " and the " + pcs[pcs.length - 1] : "the " + pcs[0]} as thin ${P.line[0]} outlines` : "";
-  if (key === "CLEAN") return `a ${P.ground[0]} ground${pl}`;
+  const pl = pcs.length ? ` with ${pcs.length > 1 ? pcs.slice(0, -1).map(x => "the " + x).join(", ") + " and the " + pcs[pcs.length - 1] : "the " + pcs[0]} as ${key === "NIGHT" ? "solid slate-navy shapes" : key === "PEAK" ? "solid darker shapes" : "clear line drawings"}` : "";
+  if (key === "CLEAN") return `a ${P.ground[0]} background${pl}`;
   if (key === "PEAK") return `one flat ${P.ground[0]} field${pl}`;
   if (key === "NIGHT") return `night navy${pl}`;
-  return `a faded grey memory${pl}`;
+  return `a faded memory on ${P.ground[0]}${pl}`;
 }
 
+// v22: the bright tone of an accent that has no object (a few marks on the action), by meaning
+const ACCENT_COL = { YELLOW: ["bright yellow", "#FFD21F"], RED: ["vivid red", "#E8322B"], GREEN: ["vivid green", "#22D35E"], BLUE: ["vivid blue", "#2F7DF0"], VIOLET: ["vivid violet", "#8A2BE2"], AMBER: ["bright warm amber", "#FFA62B"], GOLD: ["bright gold", "#F2B705"], ORANGE: ["vivid orange", "#FF7A1F"] };
+// v22 light as feeling (Thomas: colours create life, emotion and light): one flat, clean-edged light shape
+const LIGHT = {
+  warm: ["pale warm amber", "#FBE3B8", "the warmth of this moment"],
+  cool: ["pale cool blue", "#D6E2F0", "the loneliness of this moment"],
+  dusk: ["pale dusk rose", "#F1D6CF", "the quiet end of a day"],
+};
+function lightBlock(b) {
+  if (!b.light || !LIGHT[b.light.kind]) return "";
+  const L = LIGHT[b.light.kind], night = moodOf(b.mood) === "NIGHT";
+  return `LIGHT: one flat, clean-edged shape of ${night && b.light.kind === "warm" ? "warm lamplight" : b.light.kind === "cool" ? "cool window light" : "light"} in ${L[0]} (${L[1]})${b.light.where ? ` — ${b.light.where}` : ""} — ${L[2]}; the light itself is a flat shape with a sharp edge — never a soft glow, gradient or beam.`;
+}
+function fgBlock(b) {
+  return b.fg ? `FOREGROUND: ${b.fg} — close to the camera at one edge of the frame, cut off by the frame edge and drawn in the same flat style and line, nearer than the characters; it frames the moment and covers no face.` : "";
+}
+// v24 glow (Thomas: "the colours can glow much more strongly, almost like a rainbow effect when it fits"): drawn, never
+// rendered — gl: "halo" | "rays" | "rainbow" on the colour focus.
+const GLOW = {
+  halo: "a drawn halo — two clean-edged rings in paler versions of its own colour hugging its outline, flat shapes, never a soft blur",
+  rays: "a ring of short, straight radiating strokes in a paler version of its own colour, like a drawn shine — flat ink strokes, never a soft blur",
+  rainbow: "a burst of short, straight radiating strokes in several bright colours — yellow, orange, pink, green, blue and purple — like a joyful drawn shine, flat strokes, never a soft blur",
+};
+function glowText(b, hero, whiteKey) {
+  const g = b.glow && GLOW[b.glow]; if (!g) return "";
+  const who = hero ? (PROP[hero.key] || {}).name : whiteKey ? (PROP[whiteKey] || {}).name : b.accentMark ? "the action" : ""; if (!who) return "";
+  return `GLOW: around ${who}, ${whiteKey && b.glow !== "rainbow" ? g.replace(/paler versions? of its own colou?r/, "white") : g}.`;
+}
+// v24 zoom plan (Thomas: "reuse the same material with different zoom levels and framing"): the targets of the planned
+// Premiere reframes are drawn crisp and complete, so a crop of the still holds up. Descriptive only — never an instruction.
+function clarityLine(b) {
+  const z = (b.zooms || []).map(x => String(x.to || "").trim()).filter(Boolean); if (!z.length || b.shotSize === "XCLOSE" || b.eyesOnly) return "";
+  const u = [...new Set(z)];
+  return `CLARITY: ${u.length > 1 ? u.slice(0, -1).join(", ") + " and " + u[u.length - 1] : u[0]} ${u.length > 1 ? "are drawn crisp, complete and clearly readable, each on its own." : "is drawn crisp, complete and clearly readable."}`;
+}
 // colourBlock(b) — v19, positive phrasing (Google's guidance, R3 §8): name the background, then the ONE coloured element;
 // "everything else is drawn in black or soft-grey line with white fill" (style-and-colour-v19.md §7). A face hero with no colour element: "Nothing carries colour; the white face … carries the frame."
 function colourBlock(b) {
   const key = moodOf(b.mood), P = framePalette(b), names = roleList(b), hands = b.shotSize === "HANDS";
   const ce = colourEl(b), acc = names.some(n => ROLE[n] && (ROLE[n].wear || []).length) ? ", apart from the characters' own small accessories in their muted locked colours" : "";
-  const subject = hands && !PROP[b.hero] ? "the white mitten hands" : b.hero === "FACE" || b.hero === "FIGURE" ? `the white ${b.hero === "FACE" ? "face" : "figure"} of ${(b.heroWho || names[0] || "the character").toUpperCase()}` : PROP[b.hero] ? PROP[b.hero].name : "the subject";
+  const subject = hands && !PROP[b.hero] ? "the white mitten hands" : (b.hero === "FACE" || b.hero === "FIGURE") && names.length > 1 && !CLOSE_FACE.includes(b.shotSize) ? `the white figures of ${names.map(n => n.toUpperCase()).join(" and ")}` : b.hero === "FACE" || b.hero === "FIGURE" ? `the white ${b.hero === "FACE" ? "face" : "figure"} of ${(b.heroWho || names[0] || "the character").toUpperCase()}` : PROP[b.hero] ? PROP[b.hero].name : "the subject";
   const chars = !names.length ? "" : hands ? " The hands are white mittens with bold black outlines on thin black forearm lines." : b.eyesOnly ? " The eyes are white circles with black pupils inside the white head, drawn with bold black outlines — the strongest contrast in the frame." : CLOSE_FACE.includes(b.shotSize) ? " The face is white with a bold black outline — the strongest contrast in the frame." : " The characters are white — white heads, white mitten hands and white oval feet with bold black outlines and thin black line bodies — the strongest contrast in the frame.";
-  const one = ce && !ce.white ? `The only coloured element in the whole image is ${ce.text}` : null;
-  const none = ce && ce.white ? `Nothing carries colour; ${ce.text}, white with one bold black outline, carries the frame` : `Nothing carries colour; ${subject} with its bold black outline carries the frame`;
-  if (b.shotSize === "WORD") return `COLOUR: The whole frame is pure white (#FFFFFF). ${one ? one + "; everything else is white." : "Nothing in it carries colour."}`;
-  if (key === "CLEAN" || key === "WHITE") {
-    const bg = key === "WHITE" ? "The background is pure white (#FFFFFF), clean and empty from edge to edge." : `The background is ${P.ground[0]} (${P.ground[1]}), flat and even from edge to edge, and the set pieces are thin soft-grey (${P.line[1]}) lines with white fill.`;
-    return `COLOUR: ${bg} ${one ? `${one}; everything else is drawn in black or soft-grey line with white fill${acc}.` : `${none}; everything else is drawn in black or soft-grey line with white fill${acc}.`}${chars}`;
+  // v24: the colour focus is bright (calm only with cm); ce2, when named, keeps its own clear colour, quieter; everything else,
+  // set pieces included, is black line with white fill; walls, floors and grass are never coloured.
+  const items = colouredItems(b), hero = items.find(i => i.hero), rest = items.filter(i => !i.hero);
+  // v25: a focus in the PEAK field's own hue turns white with its bold outline (clashesField)
+  const hk = heroKey(b), whiteHero = !hero && hk && key === "PEAK" && clashesField(b, (colourEl(b) || {}).hex || PROP[hk].hex) ? hk : null;
+  const accent = !b.calm, markCol = b.accentMark ? ACCENT_COL[String(b.accentCol || "YELLOW").toUpperCase()] || ACCENT_COL.YELLOW : null; // v24: bright by default
+  const mark = markCol && clashesField(b, markCol[1]) ? ["bold black ink", "#1A1A1A"] : markCol;
+  const plural = i => /[^S']S$/.test((PROP[i.key] || {}).name || "");
+  const after = names.length && !hands ? "right after the faces" : names.length ? "right after the hands" : "first";
+  const fieldName = key === "PEAK" ? `${P.ground[0]} field` : "";
+  const heroLine = hero ? (accent ? `THE BRIGHT COLOUR FOCUS in this frame is ${hero.text} — vivid, saturated, crisp-edged and full of life, deliberately the brightest colour in the picture, so the eye goes to it ${after}.` : `The one colour in this frame is ${hero.text}, in ${plural(hero) ? "their" : "its"} calm, deeper tone — a deliberately quiet moment.`) : whiteHero ? `THE FOCUS in this frame is ${PROP[whiteHero].name}, drawn white with a bold black outline so it stands out sharply against the ${fieldName}, so the eye goes to it ${after}.` : mark ? `${mark === markCol ? "THE BRIGHT ACCENT" : "THE ACCENT"} in this frame is ${b.accentMark}, in ${mark[0]} (${mark[1]}) — ${mark === markCol ? "vivid and deliberate" : "bold and deliberate against the field"}, so the eye goes to the action ${after}.` : "";
+  // v25: drawn marks may sit beside a coloured focus — they carry the feeling of the action (Thomas: "emotional moments need stronger, brighter colors")
+  const markLine = mark && (hero || whiteHero) ? `MARKS: at the point of action, ${b.accentMark}, in ${mark[0]} (${mark[1]}) — a few bold drawn strokes that carry the feeling of the action, never decoration.` : "";
+  const restLine = rest.length ? `${rest.map(i => i.text).join("; ")} — ${rest.length > 1 ? "each in its" : plural(rest[0]) ? "in their" : "in its"} own clear colour, quieter than ${hero || mark || whiteHero ? "the focus" : "the faces"}.` : "";
+  const wcK = String((b.onScreen && b.onScreen.col) || "BLACK").toUpperCase();
+  const wordCol = b.onScreen && !b.onScreen.font && !["BLACK", "WHITE", "GREY"].includes(wcK) && !(WORD_COLOUR[wcK] && clashesField(b, WORD_COLOUR[wcK][1])); // a coloured word is the one allowed exception
+  // set pieces are black line on the light stages only: at night and on a peak they are solid tonal shapes, in absence quiet grey
+  const linePieces = ["CLEAN", "WHITE", "MEMORY"].includes(key) && !b.mute;
+  const except = [key === "PEAK" ? "the field" : "", markLine ? "the marks" : "", wordCol ? "the word named under TEXT" : ""].filter(Boolean);
+  const others = propItems(b).filter(i => i.key !== hk && !items.some(x => x.key === i.key)).length; // story objects left in black line
+  const apart = except.length ? `, apart from ${except.length > 1 ? except.slice(0, -1).join(", ") + " and " + except[except.length - 1] : except[0]}` : "";
+  const calmTail = !(items.length || mark || whiteHero) ? "" : linePieces ? `Every other object and every set piece is black line with white fill — no other strong colour anywhere in the frame${apart}.` : others ? `Every other story object is black line with white fill — no other strong colour anywhere in the frame${apart}.` : `No other strong colour anywhere in the frame${apart}.`;
+  const glowLine = glowText(b, hero, whiteHero);
+  const none = !items.length && !mark && !whiteHero ? (ce && ce.white ? `Nothing carries strong colour; ${ce.text}, white with one bold black outline, carries the frame.` : `Nothing carries strong colour; ${subject} with ${/^the white figures/.test(subject) ? "their bold black outlines carry" : "its bold black outline carries"} the frame.`) : "";
+  const capCol = wordCol ? textInk(b, b.onScreen) : "";
+  const none2 = none && capCol ? none.replace("Nothing carries strong colour;", `Nothing carries strong colour except the on-screen keyword in ${capCol};`) : none;
+  const accLine = acc ? " The characters' own small accessories keep their muted locked colours." : "";
+  const pcsShown = b.shotSize !== "XCLOSE" || b.slice ? pieceList(b) : [];
+  if (b.shotSize === "WORD") return `COLOUR: The whole frame is pure white (#FFFFFF). ${hero ? heroLine + " Everything else is white." : capCol ? `Only the word carries colour, in ${capCol}; everything else is white.` : "Nothing in it carries colour."}`;
+  if (key === "CLEAN" || key === "WHITE" || key === "MEMORY") {
+    const bg = key === "WHITE" ? "The background is pure white (#FFFFFF), clean and empty from edge to edge." : `The background is plain ${b.mute ? "very light cool grey (#F1F3F5)" : `${P.ground[0]} (${P.ground[1]})`}, flat and even from edge to edge.`;
+    const setLine = key === "WHITE" || !pcsShown.length ? "" : b.mute ? "" : ` The place reads at a glance without any colour on walls, floor or furniture.`;
+    const mem = (key === "MEMORY" ? ` This is a memory: the set pieces are faded and soft, like an old photograph, with warm grey lines.${names.length ? (hands ? " The mitten hands stay pure white with bold black outlines." : " The characters stay pure white with bold black outlines, exactly as on a white page.") : ""}` : "") + (b.mute ? ` This moment is drained of warmth on purpose — absence: the place is quiet cool grey-blue and the other objects are black line.` : "");
+    return clean([`COLOUR: ${bg}`, heroLine, markLine, glowLine, restLine, none2, calmTail, setLine, mem, accLine, chars]);
   }
   const white = names.length ? (hands ? " The mitten hands stay pure white with bold black outlines." : " The characters stay pure white with bold black outlines, exactly as on a white page — never tinted by the field.") : "";
-  const tail = one ? ` ${one.replace("The only coloured element in the whole image is", "The only other coloured element is")}.` : ` No object carries colour; ${key === "MEMORY" ? "everything is black ink and white on the faded grey" : "the field and the white faces carry the frame"}.`;
-  if (key === "PEAK") return `COLOUR: The background is one flat, even ${P.ground[0]} (${P.ground[1]}) field filling the whole frame — the colour of this emotional peak; set pieces are thin ${P.line[0]} (${P.line[1]}) lines on it.${white}${tail}`;
-  if (key === "NIGHT") return `COLOUR: The background is one flat ${P.ground[0]} (${P.ground[1]}) field — the night is deep navy and slate blue, a flat colour rather than a photo filter or a border, never grey, never black-and-white; set pieces are thin ${P.line[0]} (${P.line[1]}) lines.${white}${names.length && !hands ? " Every character keeps solid black (#1A1A1A) hair." : ""}${tail}`;
-  return `COLOUR: The background is a faded light grey (${P.ground[1]}), as if the colour has drained out of the memory; set pieces are thin ${P.line[0]} (${P.line[1]}) lines.${white}${one ? ` ${one}.` : " Nothing carries colour; everything is black ink and white on the faded grey."}`;
+  const objs = items.length || mark || whiteHero ? clean([heroLine, markLine, glowLine, restLine, key === "NIGHT" && !accent ? "Story objects keep their own colours, only a shade darker for the night, and stay clearly visible against the set pieces." : "", calmTail]) : "No object carries colour; the field and the white faces carry the frame.";
+  if (key === "PEAK") return clean([`COLOUR: The background is one flat, even ${P.ground[0]} (${P.ground[1]}) field filling the whole frame — the colour of this emotional peak, bold and saturated, flat from edge to edge with no gradient, texture or vignette; set pieces are solid flat shapes in ${P.line[0]} (${P.line[1]}) with a thin darker outline.${white}`, objs, accLine]);
+  return clean([`COLOUR: The background is one flat ${P.ground[0]} (${P.ground[1]}) field — the night is deep navy, a flat colour rather than a photo filter or a border, never grey, never black-and-white; set pieces are solid flat shapes in ${P.fill[0]} (${P.fill[1]}) with ${P.line[0]} (${P.line[1]}) outlines, never pale or glowing outlines.${white}${names.length && !hands ? " Every character keeps solid black (#1A1A1A) hair." : ""}`, objs, accLine]);
 }
 
 // visualOrder(b): the order line matches the frame — people first; a face alone on white; or an object with no characters.
 function visualOrder(b) {
   const ce = colourEl(b);
   if (b.shotSize === "WORD") return "";
-  if (!roleList(b).length) return `VISUAL ORDER: the story object first, then the place. ${ce && !ce.white ? "The object carries the one colour and" : "The object carries"} the strongest contrast in the frame; any outline pieces stay thin, soft and quiet.`;
-  if (b.shotSize === "HANDS") return `VISUAL ORDER: first the hands and what they do${ce && !ce.white ? ", then the one colour element" : ""}, last the place. The white mitten hands with bold black outlines are the strongest contrast in the frame; any outline pieces stay thin, soft and quiet.`;
-  if (moodOf(b.mood) === "WHITE" && CLOSE_FACE.includes(b.shotSize)) return `VISUAL ORDER: the face and its expression first${ce && !ce.white ? ", then the one colour element" : ""}. The white face holds the frame with its bold black outline on the clean white background.`;
-  return ce && !ce.white ? COLOUR_HIERARCHY : COLOUR_HIERARCHY.replace(", then the one colour element", "");
+  if (!roleList(b).length) return `VISUAL ORDER: the story object first, then the place. ${ce && !ce.white ? "The object carries the strongest colour and" : "The object carries"} the strongest contrast in the frame; any set pieces stay thin and quiet.`;
+  if (b.shotSize === "HANDS") return `VISUAL ORDER: first the hands and what they do${ce && !ce.white ? ", then the strongest colour" : ""}, last the place. The white mitten hands with bold black outlines are the strongest contrast in the frame; any set pieces stay thin and quiet.`;
+  if (moodOf(b.mood) === "WHITE" && CLOSE_FACE.includes(b.shotSize)) return `VISUAL ORDER: the face and its expression first${ce && !ce.white ? ", then the strongest colour" : ""}. The white face holds the frame with its bold black outline on the clean white background.`;
+  return ce && !ce.white ? COLOUR_HIERARCHY : COLOUR_HIERARCHY.replace(", then the story object with the strongest colour", "");
 }
 // objectFocus(b) — after the characters the eye must find the story object: big enough to read at once, in clean space,
 // never overlapped, outlined like the characters.
 function objectFocus(b) {
   if (b.focus === "door" || b.metaphor === "door") return "OBJECT FOCUS: after the faces the eye goes to the door — the one set piece drawn with the same bold black outline as the characters, clearly showing how far open or shut it stands; any other object stays small and quiet.";
   const items = propItems(b); if (!items.length) return "";
-  const heroIsProp = !!PROP[b.hero], P = PROP[heroIsProp ? b.hero : items[0].key];
+  const ceK = (() => { const ce = String((b.plan && b.plan.ce) || "").trim(); const k = (ce.match(/^[A-Z0-9_]+/) || [""])[0]; return PROP[k] && items.some(i => i.key === k) ? k : null; })();
+  const heroIsProp = !!(ceK || PROP[b.hero]), P = PROP[ceK || (PROP[b.hero] ? b.hero : items[0].key)];
   const white = moodOf(b.mood) === "WHITE" || b.shotSize === "WORD";
   const space = white ? "with clean white space around it" : "with plain open space around it";
-  if (!heroIsProp || b.shotSize === "XCLOSE") return `OBJECT FOCUS: after the faces the eye goes next to ${P.name} — clearly visible, ${space}.`;
-  if (b.focus === "light" || (P.small && !["DOMINANT", "OVERWHELMING"].includes(b.scale))) return `OBJECT FOCUS: after the faces the eye goes next to ${P.name} — small on purpose at its natural size, with a bold black outline so it still reads clearly, ${space}.`;
+  if (heroIsProp && P.mark) return `OBJECT FOCUS: ${roleList(b).length ? "after the faces the eye goes straight to" : "the eye goes straight to"} ${P.name} — bright and clear at exactly the size its description gives, ${space}, flat paint with no black outline round it; other objects smaller and quieter.`;
+  if (!heroIsProp || b.shotSize === "XCLOSE") return `OBJECT FOCUS: ${roleList(b).length ? "after the faces the eye goes next to" : "the eye goes straight to"} ${P.name} — clearly visible, ${space}.`;
+  if (b.focus === "light" || (P.small && !["DOMINANT", "OVERWHELMING"].includes(b.scale) && !["OBJECT", "HANDS"].includes(b.shotSize))) return `OBJECT FOCUS: ${roleList(b).length ? "after the faces the eye goes next to" : "the eye goes straight to"} ${P.name} — small on purpose at its natural size, with a bold black outline so it still reads clearly, ${space}.`;
   const size = ["DOMINANT", "OVERWHELMING"].includes(b.scale) ? "at the size the SCALE line gives" : ["HANDS", "OBJECT"].includes(b.shotSize) ? "large and central" : b.shotSize === "FACE_HANDS" ? "clear in the hands at its natural size" : "a little larger than life, so it reads at a glance";
   const oneHand = b.shotSize === "HANDS" && roleList(b).length === 1 && !/hands\b/i.test(b.map || "");
   const lead = !roleList(b).length ? `${P.name} is the first thing the eye finds` : b.shotSize === "HANDS" ? `${oneHand ? "beside the hand" : "between the hands"} the eye goes straight to ${P.name}` : `after the faces the eye goes straight to ${P.name}`;
@@ -1860,7 +2068,7 @@ function closeLogic(b) {
   out.push(b.eyesOnly ? "The crop is clean and deliberate: both eyes and both eyebrows stay whole inside the frame." : b.shotSize === "XCLOSE" ? "The crop is clean and deliberate: the eyes, the eyebrows and the mouth stay whole inside the frame and read at once." : `The whole head shape stays inside the frame and readable — the round head outline, the hair silhouette and ${b.angle === "PROFILE" ? "the ear on the camera side" : "both ears"}.`);
   if (ctx) {
     const t = _refsOut(ctx);
-    if (/^(follows|after)\b/i.test(ctx) && /\b(wide|wider|establish|S\d+)/i.test(ctx)) out.push("The place and who stands where were already shown in the wider frame just before, so this close-up needs nothing of the room — only the face and what it reacts to.");
+    if (/^(follows|after)\b/i.test(ctx) && /\b(wide|wider|establish|S\d+)/i.test(ctx)) out.push(b.slice ? "The place and who stands where were already shown in the wider frame just before, so only a slice of the place shows, to one side — the face and what it reacts to carry the frame." : "The place and who stands where were already shown in the wider frame just before, so this close-up needs nothing of the room — only the face and what it reacts to.");
     else if (/over the shoulder|\bOTS\b/i.test(ctx)) out.push("The other person's shoulder and the back of their head sit in the near foreground, so it is clear who is listening and who is speaking.");
     else out.push(`Also in the frame, so the reaction has its cause: ${t}.`);
   }
@@ -1881,25 +2089,42 @@ function shotBlock(b) {
   if (face === undefined) throw new Error(`Unknown face "${b.face}" in ${b.ref}`);
   const sc = SCALE[b.scale || "ORDINARY"];
   if (sc === undefined) throw new Error(`Unknown scale "${b.scale}" in ${b.ref}`);
-  const scale = sc ? sc.replace("{HERO}", heroName(b)) : "";
+  const hn = heroName(b), pl = /[^S']S$/.test(hn);
+  const scale = sc ? sc.replace("{HERO}", hn).replace(" towers over", pl ? " tower over" : " towers over").replace(" is drawn oversized", pl ? " are drawn oversized" : " is drawn oversized").replace("keeping its exact", pl ? "keeping their exact" : "keeping its exact") : "";
   return clean([`CAMERA: ${size}, ${ang}. ${b.framing}`, b.cam && CAMERA_LIB[b.cam] ? CAMERA_LIB[b.cam] : "", perspective(b), face, scale]);
 }
 
+function isDarkField(b) { const m = moodOf(b.mood); return m === "NIGHT" || (m === "PEAK" && !fieldIsLight(b)); }
+// letters on an object (the teacher's handwritten grade) keep that object's own ink
+function objectInk(b, w) { const k = String(w.col || "BLACK").toUpperCase(); const c = WORD_COLOUR[k] && k !== "GREY" ? WORD_COLOUR[k] : WORD_COLOUR.BLACK; return `${c[0]} (${c[1]})`; }
+// a word of three or more parts breaks into two lines
+function wordLines(txt) { const parts = String(txt).split(" "); if (parts.length >= 3) { const h = Math.ceil(parts.length / 2); return [parts.slice(0, h).join(" "), parts.slice(h).join(" ")]; } return [String(txt)]; }
+function spelled(txt) { return txt.split(" ").map(x => x.split("").join("-")).join(", then a space, then "); }
+// v25: a word in the PEAK field's own hue would vanish — it takes the plain ink of that field (white on a dark field, black on a light one)
+function textInk(b, w) { const k = String(w.col || "BLACK").toUpperCase(), same = WORD_COLOUR[k] && clashesField(b, WORD_COLOUR[k][1]); if (isDarkField(b)) return k === "BLACK" || !WORD_COLOUR[k] || same ? "plain white (#FFFFFF)" : `${WORD_COLOUR[k][0]} (${WORD_COLOUR[k][1]})`; const c = same || !WORD_COLOUR[k] ? WORD_COLOUR.BLACK : WORD_COLOUR[k]; return `${c[0]} (${c[1]})`; }
 function textLock(b) {
+  if (b._cardSpace) return `TEXT: no readable words, letters, numbers, labels or signs anywhere in this frame. Keep the space where the word goes — ${b._cardSpace} — clear and empty; the word is added there later in the edit.`;
+  if (b.onScreen) { const w = b.onScreen, txt = String(w.w);
+    if (w.font) return `TEXT: the only readable text in this frame is "${txt}" — ${w.font}, in ${objectInk(b, w)}, set ${w.at}, in clear space on that surface with nothing else written there, spelled exactly ${spelled(txt)}. No other words, letters, numbers or labels anywhere.`;
+    const L = wordLines(txt), ink = textInk(b, w), where = w.at || "in open space near the top of the frame, toward whichever top corner is empty";
+    const keep = "with open space all round, touching and overlapping no character, hand, face or object, sharp and readable at a glance even on a phone screen";
+    const lines = L.length > 1 ? `, on two lines: ${L[0]} on top and ${L[1]} below it` : ", on one line";
+    return `TEXT: the only readable text in this frame is the short word "${txt}" — ${HAND_LETTER}, large: the capital letters about ${w.big ? "one sixth" : "one eighth"} of the frame height tall, in ${ink}${lines}. Set ${where}, ${keep}; it belongs to the drawn world and lands like an emotional beat. Spelled exactly ${spelled(txt)}. No other words, letters, numbers or labels anywhere.`; }
   if (b.requiredText) return `TEXT: the only readable text in this frame is exactly "${b.requiredText}", in ${TYPOGRAPHY}, placed on the surface described above. No other words, letters, numbers or labels.`;
   return "TEXT: no readable words, letters, numbers, labels or signs anywhere in this frame.";
 }
-
 // WORD frames: a short prompt — pure white, nothing drawn (or the one small object named).
+// WORD frames — v24.1 (Muhammad: the text goes in the image prompts, never a separate image): a pure white frame with the
+// line's word hand-lettered into it (or the one small object named), generated like any other frame.
 function wordPrompt(b) {
-  const items = propItems(b);
+  const items = propItems(b), w = b.onScreen;
   return clean([
-    `ONE single 16:9 landscape frame for a mature, understated parenting explainer: ${items.length ? "a plain, clean, pure white (#FFFFFF) frame with one small object drawn in flat 2D style with one medium-thin black ink outline, small and low in the frame." : "a plain, clean, pure white (#FFFFFF) frame, flat and empty from edge to edge."}`,
+    `ONE single 16:9 landscape frame for a modern parenting explainer: a plain, clean, pure white (#FFFFFF) frame${w ? ` holding one big hand-lettered word, "${String(w.w)}", as the whole picture` : ""}${items.length ? `, with one small object drawn in flat 2D style with one medium-thin black ink outline, small and low in the frame` : ""}.`,
     items.length ? propLock(b) : "",
     worldBlock(b), colourBlock(b),
     "CHARACTER COUNT: exactly 0. No person, head, face, hand or silhouette anywhere in this frame.",
     textLock(b),
-    "FLAT 2D STYLE: matte flat fills, no gradients, shading, cast shadows, glow, texture, 3D or blur.",
+    "FLAT 2D STYLE: matte flat fills, no gradients, shading, cast shadows, soft glow, texture, 3D or blur.",
   ]);
 }
 
@@ -1910,25 +2135,35 @@ function buildPrompt(b) {
   // Order is load-bearing (reworked after the Video 4 hook renders): the reference anchor first, then the story moment —
   // camera, close-up logic, action, expression, interaction, objects, setting — so the idea is never buried, then a short
   // construction block that agrees with the reference images, colour, the restated locks and the avoid list.
-  const parts = [SINGLE_FRAME];
+  const parts = [b.onScreen ? SINGLE_FRAME.replace(", captions, subtitles or printed words", " or subtitle bars — the only words are those named under TEXT") : SINGLE_FRAME];
   if (b.picture) parts.push(`THE PICTURE: ${b.picture}${b.touch ? " " + b.touch : ""}`);
+  // v22: the place and its colours come right after the picture, so the image model weighs them (they sat 40–60% deep before)
   if (hasHumans) parts.push(refLock(b));
-  parts.push(castLock(b), TIER[b.tier], shotBlock(b), b.map ? `PLACEMENT, left to right: ${b.map}` : "", CLOSE_ANY.includes(b.shotSize) && b.picture ? "FRAME LIMIT: this is a close shot — only what the camera and placement name is in frame; any full-body or place description below applies only to the part that is visible." : "", closeLogic(b), `ACTION: ${b.action}${b.touch ? " " + b.touch : ""}`);
+  parts.push(worldBlock(b), colourBlock(b), lightBlock(b), fgBlock(b));
+  if (b.master) parts.push(b.master === b.ref ? `PLACE MASTER: this frame shows the ${placeLabel(b) || "place"} with its set pieces exactly as the setting describes them; the same pieces keep the same shapes in every later frame of this place.` : `PLACE REFERENCE: the attached image shows this same place — keep the shape and position of every set piece the setting names here; draw only the pieces this setting names, even if the attached image shows more.`);
+  parts.push(castLock(b), TIER[b.tier], shotBlock(b), CLOSE_ANY.includes(b.shotSize) && b.picture ? "FRAME LIMIT: this is a close shot — only what the camera and placement name is in frame; any full-body or place description applies only to the part that is visible." : "", closeLogic(b), `ACTION: ${b.action}${b.touch ? " " + b.touch : ""}`);
   if (hasHumans && b.performance) parts.push(`PERFORMANCE: ${b.performance}`);
   if (hasFace) parts.push(b.eyesOnly ? EXPRESSION_STRENGTH.EYES : (EXPRESSION_STRENGTH[b.tier] || EXPRESSION_STRENGTH.SIMPLE));
   const dist = b.plan && DISTANCE[b.plan.dist] ? ` DISTANCE: ${DISTANCE[b.plan.dist]}.` : "";
   if (hasFace && names.length > 1) parts.push(b.oneSided ? `ONE-SIDED MOMENT: ${b.oneSided} The gap between them is the story.${dist}` : INTERACTION + dist);
   else if (names.length > 1 && dist) parts.push(`DISTANCE:${dist.replace(/^ DISTANCE:/, "")}`);
   if (hasFace && !b.eyesOnly && (CLOSE_FACE.includes(b.shotSize) || b.angle === "OTS")) parts.push("BODIES IN A CLOSE CROP: below each head only thin black line necks and arms show, exactly as in the references — never shoulders or bodies drawn as white filled shapes.");
-  parts.push(propLock(b), worldBlock(b));
-  if (b.master) parts.push(b.master === b.ref ? `PLACE MASTER: this frame shows the ${placeLabel(b) || "place"} with its outline pieces exactly as the setting describes them; the same pieces keep the same shapes in every later frame of this place.` : `PLACE REFERENCE: the attached image shows this same place — keep the shape and position of every outline piece the setting names here; draw only the pieces this setting names, even if the attached image shows more.`);
+  parts.push(propLock(b), objectFocus(b), clarityLine(b));
   if (hasFace) parts.push(CORE_CONSTRUCTION, HAND_LOCK, roleText(b), heightBlock(b));
   if (hasFace && (names.length > 1 || ["WIDE", "MEDWIDE"].includes(b.shotSize) || ["PROFILE", "OTS", "HIGH", "OVERHEAD"].includes(b.angle))) parts.push(RECOGNITION);
   else if (hasHumans && !hasFace) parts.push(HANDS_ONLY_CONSTRUCTION, HAND_LOCK); // hands-only: no head, hair or face text to tempt a head into frame
-  parts.push(colourBlock(b), objectFocus(b), visualOrder(b), wallObjects(b) ? DETAIL_CAP.replace("no wall art,", `no wall art apart from ${wallObjects(b)} (the story object),`) : DETAIL_CAP);
-  if (hasFace) parts.push(CONSTRUCTION_RESTATED, b.eyesOnly ? EXPRESSION_EYES : ["WIDE", "MEDWIDE"].includes(b.shotSize) ? EXPRESSION_SMALL : PERFORMANCE_AND_EXPRESSION);
+  { let cap = wallObjects(b) ? DETAIL_CAP.replace("no wall art,", `no wall art apart from ${wallObjects(b)} (the story object),`) : DETAIL_CAP;
+    if (!propItems(b).length) cap = cap.replace("one strong object, one strong face, one strong gesture", "one strong face, one strong gesture");
+    else if (!names.length) cap = cap.replace("one strong object, one strong face, one strong gesture", "one strong object");
+    if (propItems(b).some(i => i.key === "PLANT")) cap = cap.replace(" plants,", "");
+    if (b.fg) cap = cap.replace("only the characters, objects and set pieces named here", "only the characters, objects, set pieces and foreground named here");
+    parts.push(cap); }
+  if (hasFace) parts.push(b.eyesOnly ? EXPRESSION_EYES : ["WIDE", "MEDWIDE"].includes(b.shotSize) ? EXPRESSION_SMALL : PERFORMANCE_AND_EXPRESSION);
+  if (hasFace) parts.push(CONSTRUCTION_RESTATED);
   parts.push(RECURRING_CONSISTENCY, FLAT_STYLE, textLock(b));
-  { let av = b.eyesOnly ? GLOBAL_AVOID.replace(" a face with no mouth;", "") : GLOBAL_AVOID; if (WORLD[b.world] && (WORLD[b.world].set === "KITCHEN" || /kitchen/i.test(placeLabel(b)))) av = av.replace("busy rooms,", "busy rooms, a sink, tap, cooker or cupboards,"); parts.push(av); }
+  { let av = b.eyesOnly ? GLOBAL_AVOID.replace(" a face with no mouth;", "") : GLOBAL_AVOID; { const AV_COL = "coloured walls, floors, grass or furniture, a whole room in one colour tone, or strong colour anywhere except on what the colour line names;", mk = moodOf(b.mood); // v25: the avoid line agrees with a colour stage
+    if (mk === "PEAK" || mk === "NIGHT") av = av.replace(AV_COL, "walls, floors, grass or furniture in any colour other than the one flat field and its deeper tone, or strong colour anywhere except on what the colour line names;");
+    else if (b.mute) av = av.replace(AV_COL, "walls, floors, grass or furniture in any colour other than the quiet grey, or strong colour anywhere except on what the colour line names;"); } if (b.onScreen) av = av.replace("printed words, letters, captions or signs;", "any other printed words, letters, captions or signs, or a misspelled word;"); if (WORLD[b.world] && (WORLD[b.world].set === "KITCHEN" || /kitchen/i.test(placeLabel(b)))) av = av.replace("busy rooms,", "busy rooms, a sink, tap, cooker or cupboards,"); parts.push(av); }
   if (b.check) parts.push(`THE PICTURE IN SHORT: ${b.check.replace(/\{BG(WALL)?\}/g, bgShort(b))}`); // restates the shot at the end (descriptive, never instruction-shaped)
   return clean(parts);
 }
@@ -1955,14 +2190,24 @@ function buildOverlayPrompt(key) {
   ]);
 }
 
-const BEATS = RAW_BEATS.map(b => ({ ...b, mood: moodOf(b.mood), ...(MOOD_ALIAS[b.mood] && !b.moodWas ? { moodWas: b.mood } : {}), script: b.script || SCRIPT[b.n - 1] || "" }));
-const PROMPTS = BEATS.map(b => ({ ...b, prompt: buildPrompt(b) }));
+// v21: every frame carries the reason for its strongest colour (COLOUR_LOGIC), shown on the Copy page
+function _ceKey(b) { const ce = String((b.plan && b.plan.ce) || "").trim(); if (/^none$/i.test(ce)) return null; const k = (ce.match(/^[A-Z0-9_]+/) || [""])[0]; return PROP[k] ? k : (PROP[b.hero] ? b.hero : null); }
+function colourWhy(b) { if (b.colourReason) return b.colourReason; const k = _ceKey(b), P = k && PROP[k]; const m = P ? (P.why || (P.fam && COLOUR_LOGIC[P.fam] ? `${P.fam.toLowerCase()} = ${COLOUR_LOGIC[P.fam]}` : "")) : (b.accentMark && b.accentCol ? `${String(b.accentCol).toLowerCase()} = ${COLOUR_LOGIC[String(b.accentCol).toUpperCase()] || ""}` : ""); const F = moodOf(b.mood) === "PEAK" && EMOTION_FIELD[b.peakCol], st = F ? `stage: ${F.field[0]} field (${String(b.peakCol).toLowerCase()} = ${F.means})` : ""; if (b.mute && !k) return ["grey = " + COLOUR_LOGIC.GREY, st].filter(Boolean).join(" · "); if (!k && !b.accentMark) return st; if (k && F && clashesField(b, P.hex)) return [`white on its own colour stage (${P.fam ? P.fam.toLowerCase() : "its colour"} would vanish into the field)`, st].join(" · "); return [`${b.calm ? "calm" : "bright"}${b.accent ? " — " + b.accent : ""}${m ? " (" + m + ")" : ""}${b.glow ? " · glow: " + b.glow : ""}`, st].filter(Boolean).join(" · "); }
+const BEATS = RAW_BEATS.map(b => ({ ...b, mood: moodOf(b.mood), ...(MOOD_ALIAS[b.mood] && !b.moodWas ? { moodWas: b.mood } : {}), script: b.script || SCRIPT[b.n - 1] || "", colourReason: colourWhy(b) }));
+// v24.1: the word is part of the frame prompt; if Flow misspells it, the word-fix edit repairs it on the same image
+function wordFixPrompt(b) {
+  const w = b.onScreen, txt = String(w.w);
+  return [`EDIT THIS IMAGE — make exactly one change and keep everything else identical.`, `CHANGE: redraw the ${w.font ? `letter ${w.at ? "set " + w.at : "on the object"}` : "on-screen word"} so it reads exactly "${txt}" — spelled ${spelled(txt)} — in the same ${w.font ? "handwritten marker strokes" : "bold hand-lettered capitals"}, the same colour, size and place; any missing, doubled or misshapen letter is redrawn correctly, and nothing else is added.`, EDIT_KEEP, EDIT_DONT.replace("add any object, text, letters,", "add any object, other text or letters,")].join("\n\n");
+}
+const PROMPTS = BEATS.map(b => ({ ...b, prompt: buildPrompt(b), ...(b.onScreen ? { wordFix: wordFixPrompt(b) } : {}) }));
 
 const POP_CUES = PROMPTS.filter(p => p.pop).map(p => ({ ref: p.ref, script: p.script, ...p.pop }));
+// v24: the Premiere reframes of each still (zm) — reuse before regenerating
+const ZOOM_CUES = PROMPTS.filter(p => p.zooms && p.zooms.length).map(p => ({ ref: p.ref, script: p.script, zooms: p.zooms }));
 const INSERT_PROMPTS = INSERT_BEATS.map(b => ({ ...b, mood: moodOf(b.mood), script: SCRIPT[b.n - 1], prompt: buildPrompt({ ...b, mood: moodOf(b.mood) }) }));
 // Sequence steps: the extra images of a sequence, each an image edit of an earlier image of the same scene.
 const SEQ_PROMPTS = SEQUENCES.flatMap(s => s.images.filter(im => im.type === "step").map(im => { const a = RAW_BEATS.find(x => x.ref === im.ref); return { seq: s.id, title: s.title, i: im.i, of: s.images.length, ref: im.ref, on: im.on, from: im.from, change: im.change, script: a ? SCRIPT[a.n - 1] : "", prompt: editPrompt({ ref: im.ref, change: im.change }) }; }));
-const EDIT_PROMPTS = EDIT_CUES.map(e => { const a = RAW_BEATS.find(x => x.ref === e.ref); return { ...e, script: a ? SCRIPT[a.n - 1] : "", prompt: editPrompt(e) }; });
+const EDIT_PROMPTS = EDIT_CUES.map(e => { const a = RAW_BEATS.find(x => x.ref === e.ref); return { ...e, script: a ? SCRIPT[a.n - 1] : "", prompt: editPrompt(e), ...(e.changeNoText ? { promptNoText: editPrompt({ ...e, change: e.changeNoText }) } : {}) }; });
 // Camera-move cues for the edit: one per frame, applied to the still in Premiere. Never part of the prompt.
 const MOVE_TYPES = {
   PUSH_IN: "slow push-in toward the hero (scale up about 5–10%)",
@@ -2196,7 +2441,7 @@ export default function App() {
               </table>
             </div>
             <h3 style={S.h3}>Insert frames — cut into the frame of the same line, on the word</h3>
-            {INSERT_PROMPTS.map(p => <PromptBox key={p.ref} label={`${p.ref} · “${p.script}” · cut in on “${p.move.on}”`} meta={p.meaning} text={p.prompt} />)}
+            {INSERT_PROMPTS.map(p => <PromptBox key={p.ref} label={`${p.ref} · “${p.script}” · cut in on “${p.cutIn || p.move.on}”`} meta={p.meaning} text={p.prompt} />)}
             <h3 style={S.h3}>Edit prompts — dynamic changes inside the scene</h3>
             <div style={S.note}>Don't generate a new frame for these. Open the frame's generated image in the image editor, paste the edit prompt, and keep the result. In the edit, show the original image, then cut to the edited one on the cue word.</div>
             {EDIT_PROMPTS.map(p => <PromptBox key={p.ref} label={`${p.ref} · edit, cut on “${p.on}”`} meta={`“${p.script}”`} text={p.prompt} />)}

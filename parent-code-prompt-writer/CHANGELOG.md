@@ -4,6 +4,83 @@ Every update gets a new version number and an entry here: what was added, why (w
 what it replaces. The newest version is at the top. The version is also written at the top of
 SKILL.md and in the package file name (parent-code-prompt-writer-vN.skill).
 
+## v25 — 9 Oct 2026 · the colour-intensity ladder, the fewest pieces, every audit finding fixed
+
+**Why:** Muhammad, after the audit: "the default background is white… whenever a scene or a script segment occurs where we
+have to show the emotion intensity and the overall scenario then we convert to colors… staying minimalistic… not
+monotonous… fully engaged video"; "don't try to show too much furniture… just show the visuals that can show the overall
+scenario"; the Video 08 timestamp gap was a misunderstanding; go on without the v23.1 notes and the release plan; then
+"analyze all details, steps, and logics as we are performing a QA… each single thing". The audit (Reports A–L) had found a
+ground regression, 314 prompts that contradicted themselves, checks blind to that, old rules in the v19 bodies, no way to
+author inserts, marks that vanished beside a coloured object and no check on repeated camera moves.
+
+**Added**
+- **The intensity ladder** (`v24-standard.md` §2a; RULES-CARD §3; style §1.3; shot-plan pass H): white stage by default;
+  colour on the feeling (`mk`, `gl`, `li`, a coloured word, the oversized bright focus) when it rises; on a line that
+  carries the intensity the stage turns into one flat field in the emotion's colour — new key **`pc`**: RED conflict,
+  YELLOW surprise/aha, BLUE safety/relief, GREEN growth, VIOLET the screen's pull, GREY emptiness (`EMOTION_FIELD`) — the
+  close-up on white, then back to white. A red field is allowed now; no orange, amber or peach field; one moment, one
+  colour; the colour follows the emotion, not the chapter.
+- **Nothing vanishes on a field:** a focus, mark or word in the field's own hue is drawn white (words black on a light
+  field) — `clashesField`, `fieldIsLight`, `textInk`.
+- **The fewest pieces of furniture** (`v24-standard.md` §2): the piece the character uses, the one that says where we are;
+  qa-v24 lists a close shot with more than one piece and any shot with more than three.
+- **Marks beside a coloured focus** (`MARKS:` line; the "no other strong colour" sentence names its exceptions).
+- **Inserts** — `I(n, {in: "word", …})` in `assemble.cjs`; the INSERT_BEATS block is filled at last; inserts on the Copy
+  page, in the checks and in `timestamp-map.cjs` ("S14+S14b").
+- **`scripts/qa-contradictions.cjs`**, run by `qa-all.cjs`: fails any prompt whose sentences disagree (15 rules, inserts
+  included).
+- qa-v24: INTENSITY (peaks reach colour on the line or beside it; a colour stage names its `pc`; one moment one colour;
+  more than five fields in a row; about half a minute with no colour lift), the fewest pieces, three strong colours, the
+  same camera move four frames running, insert cue words. Every new check is a WARN to read, except the insert cue (FAIL).
+- Regression sample chapter 02 (S12–S15, insert S14b): the red fight, the white close-up, the warm insert, the yellow aha;
+  TESTS.md tests 13–22.
+- `references/archive/` with a README: the six superseded files (old SKILL.md, v16–v18 colour systems, v17 system, the
+  Video 05 walk-through) moved out of the live references.
+- Ledger O6–O11 (Muhammad's 9 Oct decisions); honest statuses for C1, D1, D2, E3b, E7, E8.
+- **The close-up of a colour stage is white:** a punch reframe into a face on a PEAK field would leave the face on the
+  field, so qa-v24 warns on it and no longer counts it as the peak's close-up; a WHITE close-up insert does count. The
+  colour-stage peaks of the samples get their close-up as a white insert (regression S15b, Seven Things S14b, car-ride
+  S11b).
+- Inserts are read by every per-frame check (qa-v19 plan fields, seven features, look and ctx; qa-render-risk;
+  qa-consistency), not only by qa-v24 and the contradiction scan — the first run found two incomplete insert performances.
+
+**Fixed (the v24.4 polish, now applied, and more)**
+- `CLEAN_GROUND` back to #F7F6F3, the clean warm white Video 08 was approved on (v24.3 had #FFFFFF; audit F1).
+- The prompt contradictions (audit F2): line pieces claimed on night, peak and absence stages; "plain white" on colour
+  fields; a coloured word against "no other strong colour"; the AVOID line banning coloured furniture on stages whose
+  pieces are coloured (the old absence replacement never matched); LIGHT's "never… a beam of rays" against a drawn glow;
+  a doubled ground line on line-only idea places; "every other story object" when there is none.
+- The old rules in the v19 bodies (audit F4): soft-grey outlines, one colour element, words added in Premiere, no motion
+  lines, red for danger only — rewritten to the current standard.
+- SKILL.md "When renders come back" (audit F11).
+- An independent read-only review of every live document (run as a second pass) found 16 more stale or conflicting lines;
+  all fixed: red "for danger only" and "words added in Premiere" in v19-principles; "no words in the image" in three v19
+  files; danger-only red in the props file and in qa.cjs's messages (the `danger` flag now means red by meaning); "never a
+  glow" for love lines (a flat warm light or a drawn shine is allowed); the chapter's single peak colour in the camera and
+  shot-plan examples; the turquoise phone and the `cleanGround: "#FFFFFF"` example in the compiler README; `pc` added to
+  the shot-plan order and field table; ledger table fixes. The 17 older lookup files get a v25 banner naming the current
+  rules, and their remaining soft-grey, Premiere-word, danger-red, glow, turquoise and bigger-head lines are corrected.
+- Older checks taught the new rules: the white focus (qa, qa-v19, qa-consistency, qa-colour-v17), inserts and reframes as
+  changes (qa), the CLEAN ground's own name (qa-consistency); a comment that broke qa-colour-v17 fixed.
+- Samples (audit F9): the Seven Things phone purple; its peak (S14 `pc: RED`) and car-ride's (S11 `pc: GREY`) on the
+  ladder, with a punch to the face; the Seven Things key lines lifted with marks and warm light; furniture trimmed;
+  `assets/build-template.jsx` recompiled with the current compiler; the ground strip marked as history.
+
+**Not changed, on purpose:** prompt length and block order (load-bearing since the Video 4 renders; shortening waits for a
+render comparison); the timestamp estimate (the gap was a misunderstanding); per-line voice-over timing (not needed).
+
+**Replaces:** v19's "PEAK is rare… each chapter's peak colour differs… never a red field"; `CHAPTER.emo` as the way to pick
+a peak colour (kept only for older builds); the ≥4-pieces rule; "the same move four running" and "long stretch on one kind
+of background" as removed checks (back as WARNs to read).
+
+**Verified (9 Oct 2026):** all eight check scripts pass on every sample, `build-template.jsx` and the compiler smoke test;
+Video 08 recompiled passes the contradiction scan and the intensity checks and fails only on its numbered titles, title card,
+plaque and furniture; two planted-mistake builds trigger every new check; the compiler rejects an unknown `pc`, `pc` with
+another mood, an insert without its line's frame or cue word; the Copy page renders the new cards with no errors, and
+the React review page of every build server-renders without errors. **No
+image has been rendered** — every result is about the prompts.
+
 ## v24.3 — 9 Oct 2026 · the line-by-line pass over everything Muhammad shared
 
 **Why:** Muhammad: "check all things that i have shared cuz each line of them explains what we have to do". A second pass,

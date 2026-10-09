@@ -1,11 +1,11 @@
 ---
 name: "parent-code-prompt-writer"
-description: "Turns a line-broken script for The Parent Code — Thomas Kolonjak's parenting and teen-psychology stick-figure YouTube channel — into a shot plan and one AI image prompt per line, delivered as a Copy page and an Edit page. Core rule: in-scene changes are image-edit prompts, objects appear with mask reveals. Thomas's v24 standard built in: a white stage with black-line places and only the objects a scene needs; bright colour by meaning on the important object; objects two or three times larger; characters never too small, close-ups and zoom plans that reuse stills; strong faces and real interaction; everyday situations; mature props; humour; short playful hand-lettered words, never numbered titles. Lines and timing arrive final from Muhammad. Use whenever a Parent Code, Thomas or Kolonjak script is pasted, prompts or edit prompts are requested, or a batch is revised against his feedback, even without the word skill. Supersedes kolonjak-parenting-channel; never for the Innes channel."
+description: "Turns a line-broken script for The Parent Code — Thomas Kolonjak's parenting and teen-psychology stick-figure YouTube channel — into a shot plan and one AI image prompt per line, delivered as a Copy page and an Edit page. Core rule: in-scene changes are image-edit prompts, objects appear with mask reveals. Thomas's standard built in: a white stage, black-line places, the fewest pieces; at emotional peaks the stage turns the emotion's colour, then back to white; bright colour by meaning on the key object; objects two or three times larger; characters never too small; sudden close-ups and zooms that reuse stills; strong faces, real interaction, everyday situations, mature props, humour; short playful hand-lettered words, never numbered titles. Lines and timing come final from Muhammad. Use whenever a Parent Code, Thomas or Kolonjak script is pasted, prompts or edit prompts are requested, or a batch is revised against his feedback. Supersedes kolonjak-parenting-channel; not for the Innes channel."
 ---
 
 # Parent Code — prompt writer
 
-**Version 24.3** (9 Oct 2026). What each version added is in `CHANGELOG.md`. Whenever this skill is updated: bump the
+**Version 25.0** (9 Oct 2026). What each version added is in `CHANGELOG.md`. Whenever this skill is updated: bump the
 version here, add an entry at the top of `CHANGELOG.md` (what was added, why, what it replaces), name the package
 `parent-code-prompt-writer-vN.skill`, and list the additions in the reply.
 
@@ -14,8 +14,10 @@ version here, add an entry at the top of `CHANGELOG.md` (what was added, why, wh
 **`references/v24-standard.md` comes first.** It holds Thomas's final word after Video 08 (approved 9 Oct 2026), quoted
 exactly: bright colour on important objects; more zoom-ins and close-ups; characters never too small; only short, playful
 words — no numbered titles; dynamic visuals that reuse stills through zooms and framing; white ground, black-line places,
-every object necessary; colour by meaning; drawn glow; objects two or three times larger and exaggerated cutaways. It wins
-over every other file. Start the first reply by naming the skill version in use; an attached `.skill` file wins over the
+every object necessary; colour by meaning; drawn glow; objects two or three times larger and exaggerated cutaways — and,
+from v25, Muhammad's direction on top of it (§2a, §2): **white by default; when a line carries the emotional intensity the
+stage converts to the emotion's colour, then back to white — minimal, never monotonous; places told by their fewest
+pieces.** It wins over every other file. Start the first reply by naming the skill version in use; an attached `.skill` file wins over the
 installed copy.
 
 **`references/v19-principles.md` is the law for everything v24 does not change.** It holds Thomas's direction of 5 Oct 2026, quoted exactly, and Muhammad's
@@ -34,7 +36,7 @@ rules for applying it. Where any other file in this skill says something differe
 - **Plan before production.** Every video gets a shot plan before any prompt is written.
 - **Better, not more. Less, but stronger.** One strong object, one strong face, one strong gesture.
 
-Then read `references/RULES-CARD.md` (the whole system on one card, v24) and `view` the reference images in
+Then read `references/RULES-CARD.md` (the whole system on one card, v25) and `view` the reference images in
 `assets/characters/`. Open the other files when the step you are on needs them:
 
 | File | Open it for |
@@ -42,7 +44,7 @@ Then read `references/RULES-CARD.md` (the whole system on one card, v24) and `vi
 | `references/client-feedback-ledger.md` | every point Thomas made (and Muhammad's decisions), each traced to its rule and its check — read before a video, extend after every feedback round |
 | `references/v24-standard.md` | Thomas's final standard: white stage and black-line places, bright colour by meaning, glow, scale and exaggerated cutaways, characters never small, zoom plans, hand-lettered words, the Video 08 test cases |
 | `references/shot-plan-v19.md` | the plan: the order of decisions, the plan fields, ideation, the whole-film passes, a worked example |
-| `references/style-and-colour-v19.md` | the five moods, NIGHT, MEMORY, PEAK, how prompts phrase colour (v24 changes the ground, the line and the focus brightness) |
+| `references/style-and-colour-v19.md` | the five moods, NIGHT, MEMORY, PEAK (the colour stage, `pc`), how prompts phrase colour |
 | `references/camera-and-closeups-v19.md` | shot types, natural angles, close-up logic, back-to-back changes, screen sides, composition variety, line types |
 | `references/acting-and-interaction-v19.md` | the seven face-and-body features, verbs not states, interaction, distance, love and trust through behaviour |
 | `references/everyday-situations-v19.md` | real moments parents and teens recognise, and the method to turn any line into one |
@@ -50,15 +52,14 @@ Then read `references/RULES-CARD.md` (the whole system on one card, v24) and `vi
 | `references/props-symbols-metaphors-v19.md` | the maturity test, the symbols that are out, mature props, metaphors, recurring objects |
 | `references/humour-text-contrast-v19.md` | humour, on-screen idea words, contrast, pattern interrupts, pacing by emotion |
 | `references/director-read-template.md` | the form for the director's read of the whole script |
-| `assets/compiler-v24/README.md` | the data files, every key (v24 adds `cm gl mk li mu tx ol zm fg sx ce2`), the moods and shot types, the checks and how to run them |
+| `assets/compiler-v24/README.md` | the data files, every key (v24 adds `cm gl mk li mu tx ol zm fg sx ce2`; v25 adds `pc` and inserts `I()`), the moods and shot types, the checks and how to run them |
 
 The older references (`director-framework.md`, `director-rules.md`, `emotion-and-performance.md`, `metaphor-bank.md`,
 `visual-library.md`, `staging-and-props.md`, `motion-and-energy.md`, `aha-humour-popins.md`, `story-structure.md`,
 `idea-not-object.md`, `characters.md`, `constants.md`, `data-fields-and-build.md`, `jsx-template.md`,
 `render-lessons.md`, `qa-lessons-v18_3.md`, `client-standards.md`) carry a v19 banner and were cleaned to agree with v19.
-Use them to look a detail up with `grep`, never to overrule a v19 file. `colour-direction.md`,
-`contrast-and-detail-v18_2.md`, `colour-and-text-v17.md`, `system-v17.md` and `video05-worked-example.md` are superseded
-and kept for their history. `references/history-v16-v18.md` (the old SKILL.md) and `assets/legacy/` are history only —
+Use them to look a detail up with `grep`, never to overrule a v19 or v24 file. `references/archive/` (the superseded
+colour systems, the v17 system, the Video 05 walk-through and the old SKILL.md) and `assets/legacy/` are history only —
 never copy from them.
 
 ## QUICK START — what happens when Muhammad pastes a script
@@ -74,21 +75,25 @@ never copy from them.
    unexpected angle), keep going until one is clearly the strongest, keep it in `idea` and the runner-ups in `alt`; the
    camera, with `look` and `ctx` on every close shot; the interaction (`ia`) and distance (`dist`) whenever two or more
    people are in the frame; the contrast (`cx`); the interrupt (`ip`); an idea word (`kw`) only at a strong moment; the
-   colour focus (`ce`, bright by default; `ce2` only when two objects must both carry colour), the mood, and `pk` on a
-   planned peak; the object-necessity pass (every set piece and prop tells the story, carries the emotion or makes the
+   colour focus (`ce`, bright by default; `ce2` only when two objects must both carry colour); the rung of the colour
+   ladder (`v24-standard.md` §2a): the white stage by default, colour on the feeling (`mk`, `gl`, `li`) where it rises, and
+   on a line that carries the intensity `pk` + `pc` — the stage in the emotion's colour on the wider frame, the close-up on
+   white, then back to white; the object-necessity pass with the fewest pieces of furniture (every set piece and prop tells the story, carries the emotion or makes the
    moment understandable — or it goes); then edits, reveals, reframes (`zm`) and moves. Then run the
    whole-film passes (emotional curve, distance script, contrast map, interrupt flow, word moments, motif evolution,
-   composition variety, colour script, life, humour and cast) and revise what they flag.
+   composition variety, colour script along the ladder, life, humour and cast) and revise what they flag.
 4. **Cast, places and props.** Places are black-line pieces on white, only the ones the frame needs. Design every character the story needs with `cast-design-v19.md` (the cast grows with the
    story; never bald, never a featureless round head; each with its own hair outline). Places are outline cues — only the
    pieces a frame names. Every prop passes the maturity test.
 5. **Write the video folder.** Copy `assets/compiler-v24/` to a working folder for the video and replace its example data:
    `script.txt` (the exact lines), `dicts.cjs` (PROJECT, ROLE, EDIT_WHO, WORLD, PROP, STORY, PLAN, MOTIFS, REVISIONS…)
-   and `segs/segNN.cjs` (one file per chapter: frames `F()`, edits `E()`, sequences `Q()`), with every plan field filled.
-   `assets/v24-samples/video08-regression/` shows every v24 key; `assets/build-template.jsx` and `assets/v19-samples/`
-   are older worked examples (their colours and grounds predate v24).
+   and `segs/segNN.cjs` (one file per chapter: frames `F()`, inserts `I()`, edits `E()`, sequences `Q()`), with every plan
+   field filled. `assets/v24-samples/video08-regression/` shows every v24 and v25 key (its second chapter is the colour
+   ladder); `assets/build-template.jsx` and `assets/v19-samples/` are older worked examples, compiled with the current
+   compiler (their plans predate v24).
 6. **Build:** `node assemble.cjs` inside the folder (or `node assemble.cjs --data <folder>`) → `out/build.jsx`.
-7. **Check:** `node <skill>/scripts/qa-all.cjs out/build.jsx` until every check passes. Then read every compiled prompt
+7. **Check:** `node <skill>/scripts/qa-all.cjs out/build.jsx` until every check passes (eight scripts, the contradiction
+   scan among them; read every warning — each is a question, never a quota). Then read every compiled prompt
    against v24-standard.md, v19-principles.md and the RULES-CARD — at least three full QA rounds before anything is shared (Muhammad's
    standing rule). A green suite is evidence about the prompts, never about the pictures.
 8. **Pages:** `copy-page.cjs` and `edit-page.cjs` (in `<skill>/scripts/`) make the Copy page — the one page Muhammad
@@ -154,13 +159,17 @@ Staying under the chat length limit:
 `qa-all.cjs` runs every check script. Each check passes or fails by a rule (plan fields present, close-up logic fields,
 interaction fields, the seven features in every performance, CLEAN frames free of tinted walls and furniture, full colour
 only with `pk` or at night, no symbol props, cast hair rules, no repeated composition, back-to-back changes, screen sides
-inside a scene, edits, reveals, sequences, prompt order, teeth, hands from the bottom edge…). Distributions are printed as
+inside a scene, edits, reveals, sequences, prompt order, teeth, hands from the bottom edge, the colour ladder, the fewest
+pieces, inserts…), and `qa-contradictions.cjs` fails any prompt whose own sentences disagree. Distributions are printed as
 information only — never a target.
 
 The read-through asks what a script cannot:
 - Does every frame make the viewer feel its `ft`? Is the idea the strongest of the directions explored?
-- Is every object and set piece necessary? Is the ground white and every set piece black line? Is the important object
-  bright, and is nothing else competing with it?
+- Is every object and set piece necessary — the fewest pieces that show the scenario? Is the ground white and every set
+  piece black line? Is the important object bright, and is nothing else competing with it?
+- Does every line that carries the intensity reach its colour — the stage in the emotion's colour on the wider frame, the
+  close-up on white — and does the film come back to white after it? Is any colour stage there only for decoration? Is any
+  long stretch flat without reason?
 - Is any character too small to read? Does every chapter have its sudden close-up? Would a reframe of an earlier still
   do the job of a new frame?
 - Does every place change have a story reason, and does every aside keep its one look?
@@ -180,8 +189,9 @@ The read-through asks what a script cannot:
 
 Before Muhammad generates the rest, recommend test renders: the lineup of any new characters, the opening frame, a face
 close-up on white, a frame where the bright colour focus carries the moment, a place frame (black line on white, nothing
-extra), a frame with a hand-lettered word, and one planned reframe cropped in Premiere. (Thomas chose the white ground in
-Video 08, so the v19 ground strip is history.)
+extra), a colour-stage frame (the field flat, the characters white, nothing vanishing into it), a frame with a
+hand-lettered word, and one planned reframe cropped in Premiere. (Thomas approved the clean warm-white
+ground of Video 08, so the v19 ground strip is history.)
 
 ## When renders come back
 
@@ -204,8 +214,8 @@ catch it, to the checks.
 ## Revisions against Thomas's feedback
 
 Timestamp notes (Frame.io): map each note to its frames with `node <skill>/scripts/timestamp-map.cjs out/build.jsx
-"02:30-02:40"` — add `--anchor S140=04:42` with a few real times from the Premiere timeline, because the word-count estimate
-drifts. Fix the frames the note names, then apply the rule the note shows across the whole script (`v24-standard.md` §16
+"02:30-02:40"` — the times come from the word count, so add `--anchor S140=04:42` with a real time from the Premiere
+timeline whenever an exact frame matters. Fix the frames the note names, then apply the rule the note shows across the whole script (`v24-standard.md` §16
 is the model). Add every new point to `client-feedback-ledger.md`. Removing extras from an already-rendered frame in
 Photoshop is an accepted, cheaper fix (Thomas, 9 Oct) — say which fixes are Photoshop or Premiere work and which need new
 prompts.
@@ -230,7 +240,9 @@ refs — never from intent. When Thomas's example refers to a scene from another
 - Don't write vague edits ("he reacts") — spell out the from-and-to and what stays exactly the same.
 - Don't decide anything creative by a number, and don't turn a seed list into a menu.
 - Don't colour rooms, walls, floors, grass or furniture; places are thin black line pieces with white fill on the white
-  ground, and only the pieces the frame needs. Don't put a full-colour field behind a face close-up.
+  ground, and only the fewest pieces the frame needs. Don't put a full-colour field behind a face close-up.
+- Don't use a colour stage for decoration or variety, don't change its colour inside one moment, don't use an orange,
+  amber or peach field, and don't stay on a colour field for long — it is earned by the line and returns to white.
 - Don't leave the important object in a dull, calm tone — it is bright and vivid unless the beat is deliberately quiet —
   and don't colour everything else to match it.
 - Don't show characters so small that their faces can't be read.

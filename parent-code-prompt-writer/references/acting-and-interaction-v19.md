@@ -151,8 +151,9 @@ Thomas wants expressions stronger than real life. **Scale up the features, not t
   head pulled right back; a body curled very small.
 - Never: teeth (bared, gritted or smiling); a snarl; bulging or popping eyes; a stretched or warped face; tears;
   a lopsided smug grin with drooping lids; horror or rage caricature.
-- No cartoon effects of any kind: sweat drops, steam, stars or swirls round the head, anger marks, motion lines, blush
-  marks. They read as a kids' channel. The face and body do the work.
+- No cartoon effects on the face or head: sweat drops, steam, stars or swirls round the head, anger veins, blush marks,
+  tears. They read as a kids' channel. The face and body do the work. (v24: drawn speed or impact lines at the point of
+  action — a moving ball, a hand hitting the table — are allowed; `v24-standard.md` §3.)
 
 ---
 
@@ -589,8 +590,8 @@ Each seed gives the `ia` and a `dist`. Seeds, not a menu.
 ## 8. Love, trust, attention and safety — staged through behaviour
 
 **The rule:** a line about love, trust, attention or emotional safety is staged as a behaviour first. A metaphor is
-used only if it adds meaning and passes the maturity test (`props-symbols-metaphors-v19.md`). Never a heart, a glow, a
-sparkle or a symbol. Thomas: "If we want to show love, attention, or connection, it should come more through real
+used only if it adds meaning and passes the maturity test (`props-symbols-metaphors-v19.md`). Never a heart, a soft rendered
+glow, a sparkle or a symbol — a flat warm light shape or a drawn shine on the reward is allowed (v24, `v24-standard.md` §3). Thomas: "If we want to show love, attention, or connection, it should come more through real
 situations, behavior, closeness, eye contact, gestures, and reactions, not through simple standard symbols." The
 summary he approved: "Love, trust and attention will come from behaviour: a parent sitting next to the teen, a hand
 reaching out, eye contact, hesitation, distance between people, a parent pausing before reacting."

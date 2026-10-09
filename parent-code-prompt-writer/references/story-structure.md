@@ -1,5 +1,13 @@
 # Story structure — the plan, the cold open, finished scenes, motifs, explainer lines
 
+> **v25 — lookup only.** `v24-standard.md` and `RULES-CARD.md` win over everything below, then `v19-principles.md`.
+> Where this file says otherwise, the current rule is: the CLEAN ground is the clean warm white #F7F6F3 and set pieces
+> are thin **black** ink lines with white fill (never soft grey), the fewest the frame needs; the colour focus is bright;
+> at most two coloured objects (`ce`, `ce2`); colour by meaning (red = conflict, frustration, stress, danger; phones
+> purple); white by default, and an intense line turns the whole stage to its emotion's colour (`pc`, `v24-standard.md`
+> §2a); words are short, playful and hand-lettered **inside the frame's own image prompt** — never added in Premiere,
+> never numbers or titles; drawn glow and action marks are allowed; "larger heads" means sudden close-ups.
+
 > "Our strongest advantage should remain the emotional parent–teen dynamic." — Thomas
 > "We want clear peaks throughout the story so it feels like a real visual journey and not just a
 > sequence of illustrations." — Thomas, Video 4 brief
@@ -78,8 +86,8 @@ Two meanings, both enforced.
 
 **In the picture.** Every shape is finished: closed outlines, no sketch lines, no half-drawn or faded
 patches, furniture whole, and nothing cut off except by the frame edge. A place drawn as an outline is
-finished too: a complete, closed thin soft-grey line drawing with white fill (`style-and-colour-v19.md`).
-Write it that way ("drawn only as a thin soft-grey outline with white fill: a complete, closed line
+finished too: a complete, closed thin black ink line drawing with white fill (v24) (`style-and-colour-v19.md`).
+Write it that way ("drawn only as a thin black ink outline with white fill: a complete, closed line
 drawing"); don't undercut it with words like "suggested", "implied", "partial" or "sketched" in beat
 text.
 

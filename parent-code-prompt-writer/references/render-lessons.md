@@ -1,5 +1,13 @@
 # Render lessons (v17–v18) — what the image generator follows, proven on test renders
 
+> **v25 — lookup only.** `v24-standard.md` and `RULES-CARD.md` win over everything below, then `v19-principles.md`.
+> Where this file says otherwise, the current rule is: the CLEAN ground is the clean warm white #F7F6F3 and set pieces
+> are thin **black** ink lines with white fill (never soft grey), the fewest the frame needs; the colour focus is bright;
+> at most two coloured objects (`ce`, `ce2`); colour by meaning (red = conflict, frustration, stress, danger; phones
+> purple); white by default, and an intense line turns the whole stage to its emotion's colour (`pc`, `v24-standard.md`
+> §2a); words are short, playful and hand-lettered **inside the frame's own image prompt** — never added in Premiere,
+> never numbers or titles; drawn glow and action marks are allowed; "larger heads" means sudden close-ups.
+
 > **v19:** the lessons still hold; the "Rule now" column has been brought up to v19 where the old rule was a tinted-room
 > rule. Background, colour and outline places: `style-and-colour-v19.md`. Close-ups: `camera-and-closeups-v19.md`.
 
@@ -15,7 +23,7 @@
 | A fixed room layout with a master image keeps rooms stable | living room, rounds 1–3 | Every place has one layout (left · centre · right) of outline cues; a master, when used, is a minimal outline drawing |
 | "Final check" wording reads as a hidden instruction | skill QA | Close with THE PICTURE IN SHORT — a plain description |
 | Muhammad: close-ups wanted, no weird angles | Oct 2026 | Close-ups wherever the emotion calls for them (Thomas, 5 Oct: "Bring the camera closer"), each one making sense — a reason, the place known, the gaze matched, the head whole; natural angles only |
-| White characters vanish on white; strong rooms steal the eye (v18.2) | Seven Things test renders, Oct 2026 | v18.2 tinted the wall behind the characters — Thomas rejected the result on 5 Oct ("completely built around one color tone"). v19: bold black character outlines on a very light neutral ground, set pieces in thinner soft-grey outlines with white fill, nothing white-filled overlapping a character's outline; pure white for face-only, object-only and word frames |
+| White characters vanish on white; strong rooms steal the eye (v18.2) | Seven Things test renders, Oct 2026 | v18.2 tinted the wall behind the characters — Thomas rejected the result on 5 Oct ("completely built around one color tone"). v24: bold black character outlines on the clean warm white (#F7F6F3), set pieces in thinner black ink outlines with white fill, nothing white-filled overlapping a character's outline; pure white for face-only, object-only and word frames |
 | Warm materials render stronger than written | honey floor #D2A26C came out #D99B46 and swallowed the tangerine jar lid; a straw wall came out mustard | Keep large areas cool or clean near an orange spine object; no wood, honey, mustard or peach behind it |
 | "Counter" becomes a sink, taps and cabinets; listed furniture fills every frame | Seven Things kitchen renders | No automatic anchor piece; a piece appears only when the frame names it; counters described as a flat top on a plain block |
 | An attached room master copies its furniture into every later frame | Seven Things, Versions 3–5 | Minimal outline masters; the room reference draws only the pieces the setting names |

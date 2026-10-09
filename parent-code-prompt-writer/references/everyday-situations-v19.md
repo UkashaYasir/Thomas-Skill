@@ -51,12 +51,14 @@ new frame whose gaze matches the geography (`look`, `ctx`).
 does not say, or contradict it (that is where the humour lives).
 
 **Production limits.**
-- No words in the image. What people say is the voice-over; on screen, speech is a mouth shape. Phone screens show plain
+- No words in the image except the one short hand-lettered word the plan names (`tx`/`kw`, `v24-standard.md` §7). What
+  people say is the voice-over; on screen, speech is a mouth shape. Phone screens show plain
   grey message bars or one simple drawn picture, never words. No speech or thought bubbles holding pictures.
 - No garments. Nobody wears a hoodie, a coat or shoes; a bag is carried, not worn. (Write "the backpack hanging from his
   mitten", not "his backpack on".)
-- Places are thin soft-grey outlines with white fill — one door, one table, one bed, one car seat — and the one colour
-  element sits on the object that matters, or nothing carries colour and the face holds the frame
+- Places are thin black line pieces with white fill — one door, one table, one bed, one car seat — only the ones the
+  moment needs; the bright colour focus sits on the object that matters, or nothing carries colour and the face holds the
+  frame (v24)
   (`style-and-colour-v19.md`).
 - Props that appear on a word are revealed with a flat-shape mask, so they sit apart from hands and bodies.
 

@@ -1,5 +1,13 @@
 # Emotion and performance — the channel's main rule, made concrete
 
+> **v25 — lookup only.** `v24-standard.md` and `RULES-CARD.md` win over everything below, then `v19-principles.md`.
+> Where this file says otherwise, the current rule is: the CLEAN ground is the clean warm white #F7F6F3 and set pieces
+> are thin **black** ink lines with white fill (never soft grey), the fewest the frame needs; the colour focus is bright;
+> at most two coloured objects (`ce`, `ce2`); colour by meaning (red = conflict, frustration, stress, danger; phones
+> purple); white by default, and an intense line turns the whole stage to its emotion's colour (`pc`, `v24-standard.md`
+> §2a); words are short, playful and hand-lettered **inside the frame's own image prompt** — never added in Premiere,
+> never numbers or titles; drawn glow and action marks are allowed; "larger heads" means sudden close-ups.
+
 > "Before designing a scene, ask: what should the viewer FEEL here? Then build facial expression,
 > eyes, body language, hands, distance, camera framing, object and colour around that emotion.
 > The characters should never feel like they are simply standing in a scene while the narration

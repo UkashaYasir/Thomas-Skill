@@ -57,9 +57,11 @@ Ask each question. A prop that fails is replaced, not softened.
    to it — and not through a symbol printed on it? A phone turned face-down, not a phone showing a heart.
 3. **Does it have a characterful detail** that makes it this family's object? A chip on the mug's rim, a crack across
    the phone's corner, a sticker on the laptop lid, a keyring, an eraser worn down to a stub. One detail, not decoration.
-4. **Colour only if it is the frame's colour element** (`ce`). Otherwise the hero object keeps a bold black outline with
-   white fill, and secondary objects are thin soft-grey outlines with white fill (`style-and-colour-v19.md`).
-5. **No words, numbers or logos on it.** Text is added only in Premiere. Screens show plain grey bars or one simple
+4. **Colour only if it is the frame's colour focus** (`ce`, bright by default) or the second object (`ce2`). Otherwise the
+   hero object keeps a bold black outline with white fill, and secondary objects and set pieces are thin black lines with
+   white fill (`style-and-colour-v19.md`).
+5. **No words, numbers or logos on it** — except a single letter that is the story itself (the red F, `ol`). Words are
+   hand-lettered into the frame prompt as short playful moments (`v24-standard.md` §7), never labels on objects. Screens show plain grey bars or one simple
    drawn picture.
 6. **Would it look at home in a grown-up film or an editorial illustration?** No faces or eyes on objects, no sparkles
    or shine stars, no hearts or stars printed on things, no cartoon gloss.
@@ -151,8 +153,8 @@ A prop earns its place through its state or its use. Seeds, not a menu; any real
 - *The ignition key turned off* — staying in the car to talk.
 
 **School and homework**
-- *The test paper* — with the teacher's circle. Red counts as the danger colour: use it only when the grade is the
-  threat in the scene.
+- *The test paper* — with the teacher's circle. Red means conflict, frustration, stress and danger (v24): use it when
+  the grade is the pressure or the threat in the scene.
 - *Permission slip* — forgotten, unsigned, handed over at the last moment.
 - *School letter in an envelope* — handed over without eye contact.
 - *Eraser* — worn down to a stub (perfectionism).
@@ -177,7 +179,7 @@ A prop earns its place through its state or its use. Seeds, not a menu; any real
 - *A book* — left open on the bed.
 
 **Money and work**
-- *The bill envelope* — its stamp in danger red only when money is the threat.
+- *The bill envelope* — its stamp in red only when money is the stress or the threat.
 - *Work laptop open at the dinner table* — work in the family's space.
 
 **Grandparents**
@@ -190,12 +192,14 @@ A prop earns its place through its state or its use. Seeds, not a menu; any real
 
 ## 4. Colour on props
 
-- Each frame names one colour element (`ce`): a prop, one part of a prop, or none (the face carries the frame). "If
-  the phone is important, let the phone stand out."
+- Each frame names its colour focus (`ce`): a prop, one part of a prop, or none (the face carries the frame), in its
+  bright tone unless the beat is quiet (`cm`); `ce2` only when two objects both matter. "If the phone is important, let
+  the phone stand out." Colour by meaning (`style-and-colour-v19.md` §5.3): phones purple, conflict red, surprise yellow…
 - A recurring hero object keeps one fixed colour all film long, so it is recognised when it returns.
-- Everything that is not the colour element is outline: the hero object a bold black outline with white fill;
-  secondary objects and set pieces thin soft-grey outlines with white fill.
-- Red stays for danger only.
+- Everything that is not the colour focus is line: the hero object a bold black outline with white fill; secondary
+  objects and set pieces thin black lines with white fill.
+- Red is conflict, frustration, stress and danger — a focus colour, never decoration.
+- An important object may be two or three times larger for a moment (`sl: "DOMINANT"`).
 - Prompt phrasing lives in `style-and-colour-v19.md`.
 
 ---
@@ -257,7 +261,7 @@ picture would only draw the noun, or when it needs a generic symbol.
 - A character is inside the metaphor and reacts to it. A metaphor with nobody in it is a diagram.
 - No faces on objects, no eyes on scribbles, no hearts or stars inside the metaphor (the juggling of a heart, a sand
   timer and a stop paddle failed on both counts).
-- One idea per frame, readable with the sound off, one colour element.
+- One idea per frame, readable with the sound off, one bright colour focus.
 - It grows out of the story's own objects where possible — the video's spine object or a motif.
 
 **Childish → mature (seeds):**
@@ -351,7 +355,7 @@ Each theme: mature seeds (a real object with a twist) → how it can evolve. See
 7. **Plan its change** as an image edit (it grows, closes, cracks, lifts) and decide whether it returns. If it returns,
    plan the evolution (§6).
 8. **Test it:** mature (§1); amplifies, not illustrates (§5.1); readable with the sound off; one idea, not a pile of
-   props; one colour element.
+   props; one bright colour focus.
 9. **Record it:** `idea`, the other ideas in `alt`, the motif entry. After the video, add it to §7.
 
 ---

@@ -1,5 +1,13 @@
 # Staging and props — every frame tells the story (brought up to v19)
 
+> **v25 — lookup only.** `v24-standard.md` and `RULES-CARD.md` win over everything below, then `v19-principles.md`.
+> Where this file says otherwise, the current rule is: the CLEAN ground is the clean warm white #F7F6F3 and set pieces
+> are thin **black** ink lines with white fill (never soft grey), the fewest the frame needs; the colour focus is bright;
+> at most two coloured objects (`ce`, `ce2`); colour by meaning (red = conflict, frustration, stress, danger; phones
+> purple); white by default, and an intense line turns the whole stage to its emotion's colour (`pc`, `v24-standard.md`
+> §2a); words are short, playful and hand-lettered **inside the frame's own image prompt** — never added in Premiere,
+> never numbers or titles; drawn glow and action marks are allowed; "larger heads" means sudden close-ups.
+
 > **v19:** `v19-principles.md` wins over anything here. Props, symbols and metaphors: `props-symbols-metaphors-v19.md`.
 > Close-ups: `camera-and-closeups-v19.md`. Interaction: `acting-and-interaction-v19.md`. Thomas, 5 Oct: "one strong
 > object, one strong face, one strong gesture… The viewer should always know immediately where to look."
@@ -52,8 +60,8 @@ their distance (`dist`), and their eye line (met or refused).
 ## 6. Props and marks are used, not displayed
 A prop in a character frame is held, used, looked at or reacted to — never just present. A sheet, list or calendar
 carries marks (ticks, lines, one red circle), never readable words: SON adds a tick to the agreement, MOM taps the fridge
-sheet, the clock's hands are what make SON get up. On-screen idea words are added by Muhammad in Premiere
-(`humour-text-contrast-v19.md`), never drawn into the image.
+sheet, the clock's hands are what make SON get up. On-screen idea words are short and hand-lettered inside the
+frame's own prompt (v24.1, `v24-standard.md` §7) — never a separate image.
 
 ## 7. Explainer lines — stage them as a real moment
 When the voice explains ("the consequence can become bigger than the behaviour"), stage it first as a real everyday
@@ -64,7 +72,7 @@ diagram, label or icon standing in for a reaction.
 ## 8. Minimal, but detailed where the eye goes
 Few elements, each finished and specific: the phone has its camera dot and a switched-on screen, the lockbox has its
 exact padlock count, the clock shows its hands at the exact time. Detail goes on the hero and the story objects;
-backgrounds stay white or very light neutral, with thin soft-grey outline cues only where the place must be shown.
+backgrounds stay white, with thin black ink outline cues only where the place must be shown (v24).
 
 ## 9. No unfinished scenes, emotion all the way through
 Every segment reaches a result, every problem gets a reaction, every setup pays off. The cold open drops the viewer into

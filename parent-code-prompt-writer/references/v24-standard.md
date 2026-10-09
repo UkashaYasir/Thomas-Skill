@@ -1,5 +1,9 @@
 # Version 24 standard — Thomas's final word after Video 08 (read first; wins over every other file)
 
+> **v25 (9 Oct 2026, Muhammad):** §2a adds the colour-intensity ladder — white by default, the stage converts to the
+> emotion's colour when a line carries the intensity, then back to white — and §2 tells every place with its fewest
+> pieces. Both are Muhammad's direction after the audit; they sit on top of Thomas's standard and change nothing else.
+
 Source: Thomas's messages on Video 08, "Seven Types of Parents" (6–9 Oct 2026), and the build Muhammad rendered from
 (`seven-types-build_3.jsx`, compiler v19 with the v20–v23 changes made during that video). Thomas approved Video 08 on
 9 Oct with five points "for the next video… implemented from the very beginning". This file holds those points, quoted
@@ -25,6 +29,7 @@ judged by the moment; v19's rule against invented quotas still holds for everyth
 | T7 | 9 Oct, 00:07 | remove the fridge, furniture and cabinets; keep the window "with black outlines on a white background"; "ask yourself whether every object is actually necessary… simply remove it" |
 | T8 | 9 Oct, 00:11 | "more zoom-ins, close-ups, and camera movements… reuse the same material with different zoom levels and framing" |
 | T9 | 9 Oct, 12:40 | **approval** and the five standards for the next video (§1) |
+| M1 | 9 Oct, after the audit | Muhammad: white by default, the stage converts to colour at emotional intensity, minimal but never monotonous (§2a); the fewest pieces of furniture (§2); the timestamp gap was a misunderstanding (§13) |
 
 ---
 
@@ -51,8 +56,10 @@ consistently from the start, without requiring repeated revisions."
 ## 2. Background and places — white stage, black line, nothing extra
 
 - **The ground is white.** "The clean white background is very good and should stay" (T1); "Our backgrounds should
-  remain white and minimalistic" (T3). CLEAN is now pure white (`CLEAN_GROUND = #FFFFFF`); this closes v19's open
-  ground-strip decision.
+  remain white and minimalistic" (T3). The white Thomas praised is the clean warm white Video 08 was built on
+  (`CLEAN_GROUND` #F7F6F3, a hair below pure white) — it stays, because pure white everywhere risks the white characters
+  fading ("they partly disappear against very light or white backgrounds", 3 Oct). Pure white (#FFFFFF) is the WHITE mood:
+  faces, objects, words and white breaks. This closes v19's open ground-strip decision.
 - **Set pieces are black line on white.** "black and white is enough for those elements" (T6); "simple with black
   outlines on a white background" (T7). Every set piece is a thin black ink outline with white fill — thinner than the
   characters' bold outlines, finished and closed. No fills, no tinted furniture, no coloured trees.
@@ -64,6 +71,12 @@ consistently from the start, without requiring repeated revisions."
   emotion, make the moment understandable, or carry the humour, symbol or contrast the frame is built on? Otherwise it is
   cut. The study scene is the model: the character and the colourful books; one window outline to say "home"; no fridge,
   no counter, no cabinets.
+- **The fewest pieces tell the place** (Muhammad, 9 Oct: "don't try to show too much furniture… we are trying to just
+  show the visuals that we have to show, that can show the overall scenario"). The piece the character uses comes first
+  (the table he slams, the bed she sits on); a second piece only if the place can't be read without it (one window says
+  "home"); a third only on a wider shot. A close shot shows at most one slice of the place. Thomas's approved study is the
+  measure: the table, the chair, one window. A check lists frames that draw more (a close shot more than one piece, any
+  other shot more than three) — a list to read, never a quota to fill; fewer is always fine.
 - **The question every frame answers first:** why does this image exist, what should the viewer understand or feel at
   once, and which visible things are needed for that? The answer sorts the frame: the **focus** (the face, the action or the
   object that carries the line — `ce`, the hero), the **support** (only what the focus needs — `ce2`, a second person,
@@ -84,6 +97,67 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
 
 ---
 
+## 2a. White by default, colour when the feeling peaks — the intensity ladder (v25)
+
+Muhammad, 9 Oct 2026: "the default background is white… whenever a scene or a script segment occurs where we have to show
+the emotion intensity and the overall scenario, then we convert to colours" — for retention, to hit the viewer —
+"staying minimalistic… we are not trying to go monotonous… we will try to go fully engaged video."
+
+It joins Thomas's own words: "Neutral first. Color with purpose. Never color just to fill empty space" (Video 4); "full
+coloured scenes stay for emotional peaks and night scenes" (5 Oct); "key objects and emotional moments need stronger,
+brighter colors" (T3); the colours were "too dry and slightly boring… they still need more life" (T5).
+
+**The ladder.** How far colour goes is set by how intense the line is — read from the script, line by line:
+
+| Rung | When | What changes | Keys |
+|---|---|---|---|
+| **1. White stage** | most lines: information, everyday moments, set-ups, calm on purpose | the white stage, black-line pieces, the important object bright | `m: CLEAN` or `WHITE`, `ce` |
+| **2. Colour on the feeling** | the feeling rises: a reaction, tension building, warmth, a small surprise — or the peak is one object (the red F alone on white) | drawn marks on the action, a drawn glow on the object, a flat light shape, a coloured word, the bright focus two or three times larger | `mk`, `gl`, `li`, a `tx` colour, `sl: DOMINANT` |
+| **3. Colour stage** | the line carries the intensity — the fight, the breaking point, the aha, the breakthrough, the screen taking over, the emptiness — or the scenario itself is night or absence | the whole stage turns into one flat field in the emotion's colour; the pieces become solid darker shapes of it; the characters stay pure white | `pk` + `pc` (which sets `m: PEAK`); `NIGHT`; `mu` |
+| **Back to white** | right after | the film returns to the white stage — very often as the sudden close-up on pure white | `m: WHITE` close-up, then CLEAN |
+
+**The stage colours** (`pc`) — one colour, one meaning, for the whole video (the same meanings as §3):
+
+| `pc` | Field | Means |
+|---|---|---|
+| `RED` | vivid red #E2443A | conflict, anger, frustration, stress — the breaking point |
+| `YELLOW` | bright lemon yellow #FFE04A | surprise, discovery, the aha, sudden energy |
+| `BLUE` | clear bright blue #4D9BEA | trust, safety, relief — the calm after the storm |
+| `GREEN` | fresh bright green #3CC46E | growth, the breakthrough, the step forward |
+| `VIOLET` | vivid violet #8D5CDF | the screen's pull, digital overwhelm |
+| `GREY` | flat cool grey #A3ABB5 | emptiness, numbness, absence at its strongest |
+
+**How it is used:**
+- **Earned by the line.** A colour stage carries `pk` and the line's feeling. It is never chosen to fill space, for
+  variety, or because a chapter "needs colour".
+- **The stage shows the scenario; the face goes white.** The colour stage is the wider frame of the intense moment
+  (MEDIUM, MEDWIDE, WIDE): the whole situation in the emotion's colour, so the viewer reads it at once. A face close-up
+  never sits on a colour field ("If the face is important, keep almost everything else neutral" — Thomas): the close-up
+  cuts to pure white — the next frame, or an insert inside the line (`I()`), never a punch reframe into the field — and the
+  jump from the field to white is itself the sudden change that grabs attention.
+- **One moment, one colour.** Frames of the same moment keep the same field until the film returns to white. More than
+  about five colour frames in a row stop being a shock (a check lists them).
+- **Nothing vanishes on the field.** An object, a mark or a word in the field's own hue is drawn white with its bold
+  black outline instead (the red F on a red field becomes a white F; red marks on red become black ink); words on a light
+  field (yellow) are black, on a dark one white. The compiler does this by itself.
+- **No warm fields.** Orange, amber and peach fields render stronger than written and swallow warm objects
+  (`render-lessons.md`): warmth is a flat warm light shape (`li: warm`) on the white stage.
+- **A red field is allowed now** — red means conflict, and the fight takes it. This replaces v19's "never a red field"
+  and "each chapter's peak colour differs": the colour follows the emotion, not the chapter (`CHAPTER.emo` remains only
+  for older builds).
+- **Not monotonous.** About half a minute with no colour lift at all is read again: if a line in it carries the feeling,
+  it gets its rung; if the calm is the point, it stays calm. A check lists such stretches and never forces them.
+- **Minimal still.** A colour stage is one flat field and the few pieces the moment needs as solid shapes — nothing more.
+
+**Scenario stages** follow the same rule of returning to white: NIGHT (navy) for night, MEMORY for the past, `mu` grey for
+absence.
+
+A check warns when a peak (`pk`) never leaves the white stage on its line or the frames beside it, when a colour stage
+names no emotion colour, when one moment changes field colour, when colour fields run long, and when a long stretch has
+no colour lift.
+
+---
+
 ## 3. Colour — psychological, bright on the important thing, quiet everywhere else
 
 - **Bright by default on the important object.** "Use stronger, brighter, and more vibrant colors on important objects"
@@ -95,7 +169,8 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
 - **Emotional moments carry colour too, not only objects.** "key objects and emotional moments need stronger, brighter
   colors" (T3). When the feeling has an object, that object carries the feeling's colour (the red F, the purple phone);
   when it has none, a few drawn marks at the action carry it (`mk`: red impact strokes, yellow surprise strokes), or a flat
-  light shape (`li`: warm for warmth, cool for loneliness); a marked emotional peak may take its full-colour field (PEAK).
+  light shape (`li`: warm for warmth, cool for loneliness); at an emotional peak the whole stage converts to the
+  emotion's colour (§2a).
 - **Few strong colours per frame.** "not too many strong colored elements in the same scene" (T6); "We do not want
   everything colorful" (T3). One colour focus; a second coloured object only when the moment needs both (`ce2`, e.g. the
   phone and the F in one argument). Every other story object is black line with white fill. One object may hold several
@@ -176,8 +251,9 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
   film, so the same shocked or smiling face never repeats; it reads at a glance even at phone size.
 - **"larger heads" (T3) means the camera closer** — decided by Muhammad on 9 Oct: "Larger head means camera close or like
   the closeup to get a sudden visual change to grab the audience attention." So the reference proportions stay locked, and
-  a big head on screen comes from a **sudden close-up**: a REACTION or XCLOSE frame, or a punch reframe (`zm`) to the face,
-  placed where the line turns, a feeling peaks or attention might drift. Every chapter with characters has at least one
+  a big head on screen comes from a **sudden close-up**: a REACTION or XCLOSE frame, a close-up insert (`I()`), or a punch
+  reframe (`zm`) to the face — never a punch into a face on a colour stage, where the close-up is a WHITE frame or insert
+  (§2a) — placed where the line turns, a feeling peaks or attention might drift. Every chapter with characters has at least one
   such moment (a check warns when one has none).
 - "Keep the current hand-drawn stick-figure style. Avoid overly polished or AI-generated-looking visuals" (T3).
 - "Maintain consistent character proportions, line thickness, facial features, colors, and object styling throughout the
@@ -195,7 +271,10 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
   zooms and different framing" (T9). Each frame can carry a **zoom plan** (`zm`): Premiere reframes of the same image on
   cue words — punch to the face, the eyes, the hands or the object. A frame with a planned reframe is composed for it: the
   target large and clear enough to survive the crop (a face reframed to the eyes starts at MEDIUM or closer). Order of
-  choice for more rhythm: reframe the still → a crop to a face or object → an edit of the image → a new frame.
+  choice for more rhythm: reframe the still → a crop to a face or object → an edit of the image → an insert → a new frame.
+- **An insert is a second image inside one line** (`I(n, {in: "word", …})`, v25): a cutaway, the object big, the hands,
+  or a sudden close-up the line's frame cannot give by a crop — cut in on its word. Use one only when a reframe or an
+  edit cannot show it; it is a new generation.
   A reframe needs pixels: generate the frame at the highest resolution Flow offers (or upscale it) before cropping, and
   keep a reframe to a crop the image can carry — a medium shot punches to a face, not to one eye.
 - **Different angles, all natural.** "Use different camera angles, zooms, reactions, object movements, and surprising
@@ -204,7 +283,8 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
 - **A meaningful change about every 3–5 seconds.** "Aim for a meaningful visual change approximately every 3–5 seconds…
   However, every movement should support the story. Avoid unnecessary animation" (T3). A change is a new frame, an edit, a
   reveal, a reframe or a camera move with a reason. It is an editing guideline, not a count of generated images.
-- **Vary the moves.** Zoom and pan "selectively, not exactly the same way on every image" (Video 05) still holds.
+- **Vary the moves.** Zoom and pan "selectively, not exactly the same way on every image" (Video 05) still holds; a check
+  warns when the same move runs on four frames in a row.
 - **Action sequences move big and read easily.** "The basketball sequence could benefit from stronger movement and more
   expressive reactions"; "Keep the bicycle sequence clear and easy to follow" (T4). Each still in an action sequence is a
   big, clear change of pose (wind-up → throw → miss → reaction), with speed lines on the moving part; the camera and the
@@ -281,6 +361,8 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
 | sophistication | corporate presentation graphics (headings, underlines, clean fonts) | hand-lettered, playful, in the drawn world |
 | exaggeration | random chaos | exaggerate the one thing the line is about |
 | close-ups everywhere | no idea where we are | the place first, then the sudden close-up |
+| colour at the peaks (§2a) | colour fields everywhere, or one field for minutes; colour as decoration | the stage converts only where the line is intense, keeps one colour for the moment and returns to white |
+| fewer pieces of furniture | a place nobody can recognise | the piece the character uses, plus the one that says where we are |
 
 ---
 
@@ -332,6 +414,13 @@ These were Thomas's notes on single scenes. They are kept as regression examples
 
 1. "larger heads" = the camera close: a sudden close-up that grabs attention (§5).
 2. Words live inside the frame's image prompt, never a separate image or a Premiere overlay (§7).
+3. White is the default background; when a line carries emotional intensity the stage converts to the emotion's colour,
+   then returns to white — minimal, never monotonous (§2a, v25).
+4. Places use the fewest pieces of furniture — only what shows the scenario (§2, v25).
+5. The ground stays the clean warm white Video 08 was approved on (#F7F6F3); pure white (#FFFFFF) is the WHITE mood.
+6. The gap between Thomas's 02:10–03:10 notes and the script estimate was a misunderstanding, not a timing problem — the
+   timestamp tool needs no calibration from it.
+7. The v20–v23.1 notes and the release plan from other chats are not needed; the skill goes on from what is here.
 
 ---
 
@@ -343,24 +432,26 @@ the line itself decides the rest. Nothing here is a quota: a moment uses an extr
 | Moment | Camera | Stage and colour | Extras (scale, glow, marks, light) | Word | Motion |
 |---|---|---|---|---|---|
 | **Hook, the opening line** | the strongest picture of the video: a big object or a big face in the first frame | CLEAN or WHITE; the focus bright | an oversized object or an exaggerated cutaway; a drawn glow if it shines | only if one word lands the promise | push in, or punch to the face on the key word |
-| **Chapter turn (a new point)** | a fresh place or a new state of the motif — never a title card | CLEAN; the chapter's colour by meaning | the chapter's signature object, bigger | a short playful word for the feeling, never a number or a title | a change in kind: a white break, a big face |
+| **Chapter turn (a new point)** | a fresh place or a new state of the motif — never a title card | CLEAN; the turn's object bright, its colour by meaning | the chapter's signature object, bigger | a short playful word for the feeling, never a number or a title | a change in kind: a white break, a big face |
 | **Explanation, a statement** | a real everyday moment at MEDIUM; sizes switch often | CLEAN; the object the line is about bright | a metaphor only if it adds meaning; scale on the object | usually none; the idea word if the line turns on it | a reframe to the face or the object every few seconds; an edit for a small action |
 | **Dialogue, an everyday moment** | a two-shot, over the shoulder and reaction close-ups in turn — never one framing for the whole exchange; both faces readable | CLEAN; the object at stake bright | — | a reaction word (WAIT…, WHY?) only at the turn | a 3–5-still sequence if it is a key moment, else one edit |
 | **Action, sport, play** | the setup readable, then big pose changes still by still, ending on a reacting face | CLEAN; the ball, bike or toy bright | speed lines on the moving part; exaggerated poses | rarely | a 3–5-still sequence, same camera and place, the action moving one way |
 | **Opening a metaphor or an explanation** | a change in kind: the object bursting in big, or a snap to white | WHITE or CLEAN; the object bright by meaning | sudden scale | the idea word if it lands it | SNAP_ZOOM or SHAKE on the word; never a slow drift |
 | **Humour, exaggeration** | the setup wide enough to read, then a punch to the reacting face | CLEAN; yellow for surprise | impossible scale, the cutaway, an exaggerated reaction | AHA! or WAIT… if it sharpens the joke | SHAKE or SNAP_ZOOM on the word; the reaction as an edit |
-| **Conflict, frustration** | closer and tighter; faces pushed full | CLEAN; a red focus or red tension marks (`mk`) | the object of the fight bigger | ENOUGH! or WHY? in red | SHAKE on the hit word; the reaction as an edit |
-| **Sadness, loneliness, absence** | open space around the person, then a slow push to the face; the figure still readable | `mu` grey for absence; the focus calm (`cm`) | the object that stands for the missing person (the crossed-off calendar) | rarely; a quiet word if any | HOLD or a slow push; tier Q |
-| **Pressure, worry, fear** | the object looming over the figure, then the face | CLEAN, or PEAK at the peak; orange or red | the pressure object two or three times larger | PRESSURE | a slow push; the object grows across an edit |
-| **Realisation, surprise, aha** | a sudden close-up: XCLOSE or REACTION | a WHITE break; a yellow focus | rays, or a rainbow burst for delight, on what was found | AHA! or WAIT… | SNAP_ZOOM on the word |
-| **Warmth, reward, repair** | people closer, touching; a softer push; after a conflict, one held beat first | CLEAN; a warm light shape (`li`); green for growth, warm amber for warmth | rays on the reward; a rainbow burst for real joy | rarely (SAFE, TRUST) | a slow push; the hug as a sequence when it is the payoff |
+| **Conflict, frustration** | closer and tighter; faces pushed full | CLEAN; a red focus or red tension marks (`mk`); at the breaking point the wider frame turns RED (`pc`), then a close-up on white | the object of the fight bigger | ENOUGH! or WHY? in red | SHAKE on the hit word; the reaction as an edit |
+| **Sadness, loneliness, absence** | open space around the person, then a slow push to the face; the figure still readable | `mu` grey for absence; the focus calm (`cm`); at its deepest a GREY stage (`pc`) | the object that stands for the missing person (the crossed-off calendar) | rarely; a quiet word if any | HOLD or a slow push; tier Q |
+| **Pressure, worry, fear** | the object looming over the figure, then the face | CLEAN with the pressure object bright; at the peak the stage turns RED (`pc`) — never an orange field | the pressure object two or three times larger | PRESSURE | a slow push; the object grows across an edit |
+| **Realisation, surprise, aha** | a sudden close-up: XCLOSE or REACTION | a WHITE break; a yellow focus; for the big aha the wider frame turns YELLOW (`pc`) | rays, or a rainbow burst for delight, on what was found | AHA! or WAIT… | SNAP_ZOOM on the word |
+| **Warmth, reward, repair** | people closer, touching; a softer push; after a conflict, one held beat first | CLEAN; a warm light shape (`li`); green for growth, warm amber for warmth; the breakthrough may turn GREEN, safety BLUE (`pc`) | rays on the reward; a rainbow burst for real joy | rarely (SAFE, TRUST) | a slow push; the hug as a sequence when it is the payoff |
 | **Memory, the past** | as the moment needs | MEMORY | — | none | HOLD or a slow drift |
 | **Imagined, "what if"** | bookended by the imagining face, close | WHITE; exaggeration welcome | big cutaway objects | WHY? or the like | cut in and out on the words |
+| **The screen takes over** | the phone looming, then the lost face | CLEAN with the purple phone; when it swallows the moment the stage turns VIOLET (`pc`) and the phone is drawn white | the phone two or three times larger | rarely | a slow push |
 | **Night** | close; the screen-lit face | NIGHT; the screen the only light, with drawn rays | — | none, or a white word | a slow push |
 | **Rapid list** | one quick real still per item, the same person, sizes varied | CLEAN; each item its own colour | — | none | the cuts are the motion |
 | **Ending, the question** | short: the motif object or the face | WHITE or CLEAN | a halo on the motif | the closing question, big (WHICH DIAL?) | a push in; no outro |
 
 Wherever the line turns, a feeling peaks or attention could drift, the next frame or reframe is a sudden close-up (§5).
+Wherever the line carries the intensity, the stage converts to its colour and comes back to white (§2a).
 Wherever a still would hold well past five seconds, a reframe, an edit or a move with a reason comes in (§6).
 
 ---
@@ -386,8 +477,8 @@ too much or get random. All scenes or story do still feel connected."
 ## 16. The rule behind every Video 08 timestamp note
 
 Thomas's Frame.io notes were about single scenes, but each one shows a rule. The scene fix stays in §12 as a test case;
-the rule applies to every video. To find the frames a note means, use `scripts/timestamp-map.cjs` (with `--anchor` times
-from the timeline — on Video 08 the 02:10–03:10 notes sit about 80 seconds earlier than the word-count estimate).
+the rule applies to every video. To find the frames a note means, use `scripts/timestamp-map.cjs` (add `--anchor` times
+from the timeline when an exact frame matters; the estimate comes from the word count).
 
 | Time | Thomas | The rule for every video | Where it lives |
 |---|---|---|---|
@@ -398,7 +489,7 @@ from the timeline — on Video 08 the 02:10–03:10 notes sit about 80 seconds e
 | 01:10–01:20 | "Increase the humor and exaggeration. The basketball sequence could benefit from stronger movement and more expressive reactions." | Action sequences: big pose changes, speed lines, a reaction still; humour exaggerates the pose. | §6; §3 drawn marks; §14 action |
 | 01:40–01:50 | "The darker atmosphere works well. Make the smartphone glow more noticeable." | Night stays navy; the screen is the brightest thing, with drawn rays. | §3; compiler night screen |
 | 02:10–02:20 | "The oversized F is a strong concept… brighter red… Keep the exaggerated contrast in size." | A letter on an object when the letter is the story, bright, two to three times larger. | §4; `ol`, `sl`, TONE |
-| 02:30–02:40 | "Important emotional moment! Increase the child's facial expression and consider a short dramatic close-up. Make the smartphone stand out clearly." | Every emotional peak gets a short dramatic close-up on its line; the object at stake stays the bright focus. | §5; qa-v24: peaks have a close face |
+| 02:30–02:40 | "Important emotional moment! Increase the child's facial expression and consider a short dramatic close-up. Make the smartphone stand out clearly." | Every emotional peak gets a short dramatic close-up on its line; the object at stake stays the bright focus. | §5, §2a (on a colour stage the close-up is a WHITE frame or insert); qa-v24: peaks have a close face |
 | 02:50–03:10 | "Strengthen the positive emotions with subtle warm color accents. Make the achievement feel more rewarding and visually meaningful." | Positive beats: a warm light shape or warm accent, a proud face close, the reward with rays — never a trophy icon. | §3; §14 warmth |
 | 03:50–04:10 | "Create a stronger emotional contrast between frustration and the positive interaction that follows. Focus on facial reactions and timing." | Conflict → repair changes face, distance and colour together, with a held beat between. | §8; §14 warmth |
 | 04:30–04:40 | "The text is readable but looks relatively ordinary. Improve its visual impact while keeping the typography simple and professional." | (Refined by T5 and T9.) Words are hand-lettered, bold, coloured by meaning, placed beside what they are about. | §7 |

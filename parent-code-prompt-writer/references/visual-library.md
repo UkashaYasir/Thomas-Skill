@@ -1,5 +1,13 @@
 # Visual library — choose the device, don't reach for the preset
 
+> **v25 — lookup only.** `v24-standard.md` and `RULES-CARD.md` win over everything below, then `v19-principles.md`.
+> Where this file says otherwise, the current rule is: the CLEAN ground is the clean warm white #F7F6F3 and set pieces
+> are thin **black** ink lines with white fill (never soft grey), the fewest the frame needs; the colour focus is bright;
+> at most two coloured objects (`ce`, `ce2`); colour by meaning (red = conflict, frustration, stress, danger; phones
+> purple); white by default, and an intense line turns the whole stage to its emotion's colour (`pc`, `v24-standard.md`
+> §2a); words are short, playful and hand-lettered **inside the frame's own image prompt** — never added in Premiere,
+> never numbers or titles; drawn glow and action marks are allowed; "larger heads" means sudden close-ups.
+
 Muhammad, after the Video 4 hook renders: the scenes feel generic — no explainer direction, no story
 context, the same few presets (the orange living room from the front, the navy hallway, a plain colour
 field, a big face). This file is the wider vocabulary. For every line, ask **what the viewer has to
@@ -78,7 +86,7 @@ Each: **KEY** — what it explains — how to stage it in this style.
 - **FACE_HANDS** — the face and the hands that carry the feeling in one frame.
 - **REACTION_SHOT** — the listener's face answering what was just said or done; the interaction's second
   half.
-- **WORD_FRAME** — a pure white frame for an on-screen idea word, added in Premiere.
+- **WORD_FRAME** — a pure white frame with a short idea word hand-lettered into its own prompt (v24.1).
 
 **Relationship and power**
 - **BEHAVIOUR** — love, trust, attention or safety shown as a real behaviour: a parent quietly sitting
@@ -122,10 +130,10 @@ story.
 
 ## 4. Colour logic (v19 — details in `style-and-colour-v19.md`)
 - "White or very light neutral backgrounds as the default." The ground is CLEAN (very light neutral) or
-  WHITE; places are thin soft-grey outlines with white fill.
+  WHITE; places are thin black ink outlines with white fill (v24).
 - "Only the important object or emotional element should carry strong color" — one colour element per
-  frame (the turquoise phone on white), or none when the face carries the frame.
-- Full-colour fields only for planned emotional peaks (PEAK, `pk: true`) and night (NIGHT), rarely, and
+  frame (the purple phone on white), or none when the face carries the frame.
+- Full-colour fields only for lines that carry the emotional intensity (PEAK, `pk` + `pc` — the v25 ladder) and night (NIGHT), and
   never behind a face close-up. A **hotspot** (one lit window in a NIGHT house) and a colour arriving on a
   peak are good uses of colour; colour used only to fill space is not.
 - No one-frame colour flicker inside a continuous scene.

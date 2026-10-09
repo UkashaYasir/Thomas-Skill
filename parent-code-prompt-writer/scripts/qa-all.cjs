@@ -10,6 +10,7 @@ const RUNS = [
   ["qa.cjs", argv.includes("--partial") ? ["--partial"] : []],
   ["qa-v19.cjs", []],
   ["qa-v24.cjs", []],
+  ["qa-contradictions.cjs", []],
   ["qa-render-risk.cjs", []],
   ["qa-consistency.cjs", []],
   ["qa-colour-v17.cjs", []],

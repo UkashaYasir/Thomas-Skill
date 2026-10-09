@@ -1,5 +1,13 @@
 # Idea, not object — "don't illustrate the sentence"
 
+> **v25 — lookup only.** `v24-standard.md` and `RULES-CARD.md` win over everything below, then `v19-principles.md`.
+> Where this file says otherwise, the current rule is: the CLEAN ground is the clean warm white #F7F6F3 and set pieces
+> are thin **black** ink lines with white fill (never soft grey), the fewest the frame needs; the colour focus is bright;
+> at most two coloured objects (`ce`, `ce2`); colour by meaning (red = conflict, frustration, stress, danger; phones
+> purple); white by default, and an intense line turns the whole stage to its emotion's colour (`pc`, `v24-standard.md`
+> §2a); words are short, playful and hand-lettered **inside the frame's own image prompt** — never added in Premiere,
+> never numbers or titles; drawn glow and action marks are allowed; "larger heads" means sudden close-ups.
+
 Before writing or reviewing any frame, ask:
 
 > **"What should the viewer FEEL and understand after seeing this frame?"**
@@ -37,7 +45,7 @@ way to visually tell this sentence?"*
 |---|---|---|---|
 | "Your teen has so many interests." | a boy at a desk with five hobby objects | being pulled in every direction | the boy small in the centre while a huge guitar, camera, laptop and books tower over him (his own example) |
 | "He did not stop caring. He stopped trying to be heard." | a sad boy on his bed | the process of giving up | tries to speak → talked over → tries again → hand drops → eyes leave her (his own example, as a sequence) |
-| "It wasn't obedience. It was influence." | a hug | voluntary choice vs control | the mother speaks calmly, he looks away, then turns back on his own (an on-screen idea word can land in Premiere; never drawn into the image) |
+| "It wasn't obedience. It was influence." | a hug | voluntary choice vs control | the mother speaks calmly, he looks away, then turns back on his own (an on-screen idea word can be hand-lettered into the frame's own prompt — v24.1) |
 | "Teens need to feel in control." | a teen holding a steering wheel icon | autonomy where it's safe | he's actually driving on a clearly safe empty road, her hands relaxed in her lap |
 | "Small moments add up." | a clock | deposits into a relationship | a coin dropping into a jar that fills a little more each time |
 | "Pressure builds." | a stressed face | invisible build-up | the kettle on the hob coming to the boil while the family eats in silence |

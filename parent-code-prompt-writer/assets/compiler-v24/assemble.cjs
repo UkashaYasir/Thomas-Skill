@@ -4,8 +4,8 @@
 //
 //   --data DIR    a video folder holding segs/, dicts.cjs and script.txt (each missing one falls back to this folder's own);
 //                 the default output is then DIR/out/build.jsx. Env DATA, SEGS, DICTS, SCRIPT do the same as the flags.
-//   CLEAN_GROUND=#F7F6F3  (env) or PROJECT.cleanGround in dicts.cjs swaps the CLEAN ground (v24 default: pure white #FFFFFF,
-//                 Thomas's choice in Video 08; other prepared options #F7F6F3, #F4F2EE, #F2F4F5).
+//   CLEAN_GROUND=#FFFFFF  (env) or PROJECT.cleanGround in dicts.cjs swaps the CLEAN ground for a test (default #F7F6F3, the
+//                 clean warm white Video 08 was approved on; other prepared options #FFFFFF, #F4F2EE, #F2F4F5).
 //
 // Frames: F(n, {short keys}) · edits: E(ref, on, change) · sequences: Q(id, title, base, images). Short keys: see README.md.
 const fs = require("fs"), path = require("path"), vm = require("vm");
@@ -23,7 +23,7 @@ const SCRIPT = fs.readFileSync(SCRIPT_FILE, "utf8").split("\n").map(s => s.repla
 const J = v => JSON.stringify(v);
 const TEMPLATE = fs.readFileSync(path.join(ROOT, "template.jsx"), "utf8");
 // the template's own constants are the single source for moods and shot types
-const T = vm.runInNewContext(TEMPLATE.slice(0, TEMPLATE.indexOf("// ── DICTIONARIES")).replace(/^\s*import[^\n]*\n/gm, "") + ";({MOOD, MOOD_ALIAS, SHOT, ANGLE})", {});
+const T = vm.runInNewContext(TEMPLATE.slice(0, TEMPLATE.indexOf("// ── DICTIONARIES")).replace(/^\s*import[^\n]*\n/gm, "") + ";({MOOD, MOOD_ALIAS, SHOT, ANGLE, EMOTION_FIELD})", {});
 const SIZE = { WIDE: "wide shot", MEDWIDE: "medium-wide shot", MEDIUM: "medium shot", CLOSE: "close shot", XCLOSE: "extreme close-up", FACE_HANDS: "face-and-hands close-up", REACTION: "reaction close-up", HANDS: "hands-only close shot", OBJECT: "object shot", WORD: "plain white word frame" };
 const ANG = { EYE: "at eye level", LOW: "at a small child's height", HIGH: "from a little above head height", OTS: "over the shoulder", PROFILE: "from the side at eye level", SQUARE: "straight on at eye level" };
 const CAM = { LOW: "CHILD_EYE", HIGH: "SLIGHTLY_ABOVE", OTS: "OTS" };
@@ -42,16 +42,18 @@ const iaText = s => String(s).trim().split(/\s*(?:→|->)\s*/).filter(Boolean).j
 const B = [], E = [], Q = [], INS = [];
 const masters = {};
 let SEQ = "";
-const api = {
-  seg(name) { SEQ = name; },
-  F(n, o) {
-    const ref = "S" + n, size = o.sz, ang = o.an || "EYE";
+// makeBeat: one frame record from the short keys — used by F() (the line's frame) and I() (an insert inside the line)
+function makeBeat(n, o, ref) {
+    const size = o.sz, ang = o.an || "EYE";
     if (!SIZE[size] || !T.SHOT[size]) throw new Error(ref + " bad size " + size);
     if (!ANG[ang] && !T.ANGLE[ang]) throw new Error(ref + " bad angle " + ang);
     const word = size === "WORD";
     const world = o.w || (word ? "WORD" : undefined);
     const W = word ? {} : D.WORLD[world]; if (!W) throw new Error(ref + " unknown world " + o.w);
-    const moodIn = word ? "WHITE" : (o.m || "CLEAN"), mood = canon(moodIn);
+    // v25: pc (the emotion's colour family) turns the stage into that colour — it implies m: "PEAK"
+    if (o.pc !== undefined && !T.EMOTION_FIELD[String(o.pc).toUpperCase()]) throw new Error(ref + " pc must be one of " + Object.keys(T.EMOTION_FIELD).join(", "));
+    if (o.pc && o.m && canon(o.m) !== "PEAK") throw new Error(ref + " pc (a colour stage) needs m: \"PEAK\" (or no m), not " + o.m);
+    const moodIn = word ? "WHITE" : (o.m || (o.pc ? "PEAK" : "CLEAN")), mood = canon(moodIn);
     if (!T.MOOD[mood]) throw new Error(ref + " unknown mood " + o.m);
     const roles = o.r || "No characters";
     let master = null;
@@ -95,6 +97,7 @@ const api = {
     if (o.kw && !o.tx) b.onScreen = { w: o.kw[0], on: o.kw[1], col: (o.kw[2] || "BLACK").toUpperCase(), ...(word ? { at: "in the centre of the white frame", big: true } : {}) };
     if (o.eo) b.editOnly = { seq: o.eo[0], from: o.eo[1] };
     // ── v24 keys (references/v24-standard.md; README.md) ──
+    if (o.pc) b.peakCol = String(o.pc).toUpperCase(); // v25: the PEAK field in the emotion's colour (EMOTION_FIELD)
     if (o.cm) b.calm = true; // the colour focus in its calm tone — a deliberately quiet beat (default: bright)
     if (o.ac) b.accent = o.ac; // why this frame's colour is pushed (shown on the Copy page)
     if (o.gl) { if (!["halo", "rays", "rainbow"].includes(o.gl)) throw new Error(ref + " gl must be halo, rays or rainbow"); b.glow = o.gl; }
@@ -107,8 +110,24 @@ const api = {
     if (o.ol) b.onScreen = { w: o.ol[0], on: o.ol[1], col: (o.ol[2] || "BLACK").toUpperCase(), at: o.ol[3], font: o.ol[4] || "a big, thick handwritten capital letter in marker strokes" }; // a letter on an object: [letter, cue, colour, on what, how drawn]
     if (o.zm) b.zooms = o.zm.map(z => ({ on: z[0], to: z[1], kind: z[2] || "punch" })); // Premiere reframes of this still: [[cue, target, punch|push]]
     if (!b.cam) delete b.cam;
+    return b;
+}
+const api = {
+  seg(name) { SEQ = name; },
+  F(n, o) {
+    const ref = "S" + n;
     if (B.some(x => x.ref === ref)) throw new Error("duplicate " + ref);
-    B.push(b);
+    B.push(makeBeat(n, o, ref));
+  },
+  // v25 insert: a second generated image inside line n (a cutaway, the object big, a sudden close-up), cut in on the word
+  // `in` — I(n, {in: "cue", …the same keys as F}). Refs run S12b, S12c… An insert is a new image, so use one only when a
+  // reframe (zm) or an edit (E) of the line's frame cannot show it.
+  I(n, o) {
+    if (!o || !o.in) throw new Error("S" + n + " insert needs in: the cue word it cuts in on");
+    const ref = "S" + n + "bcdefgh"[INS.filter(x => x.n === n).length];
+    const b = makeBeat(n, o, ref); b.cutIn = o.in; b.insert = true;
+    if (b.move.type === "HOLD" && !b.move.on) b.move.on = o.in;
+    INS.push(b);
   },
   E(ref, on, change) { if (E.some(e => e.ref === ref)) throw new Error("dup edit " + ref); E.push({ ref, on, change }); },
   Q(id, title, base, images) { Q.push({ id, title, base, images: images.map((im, i) => ({ i: i + 1, ...im })) }); },
@@ -119,9 +138,11 @@ for (const f of segs) { const p = path.join(SEGS, f); delete require.cache[requi
 B.sort((a, b) => a.n - b.n);
 E.sort((a, b) => Number(a.ref.slice(1)) - Number(b.ref.slice(1)));
 
+if (INS.some(i => !B.some(b => b.n === i.n))) throw new Error("an insert I(n) needs the frame F(n) of its line: " + INS.filter(i => !B.some(b => b.n === i.n)).map(i => i.ref).join(" "));
+INS.sort((a, b) => a.n - b.n || a.ref.localeCompare(b.ref));
 // Set pieces by need (v19): a piece is drawn only in the frames whose own action, placement, edits or sequence steps name it
 // (close shots: their own action and placement only). No anchor piece is added automatically.
-for (const b of B) {
+for (const b of [...B, ...INS]) {
   const W = D.WORLD[b.world]; if (!W || !W.parts) { b.pieces = []; continue; }
   const close = !W.close && ["CLOSE", "XCLOSE", "FACE_HANDS", "REACTION"].includes(b.shotSize);
   const own = [b.action, b.map].join(" ");
@@ -131,7 +152,7 @@ for (const b of B) {
 }
 // THE PICTURE, the camera line and THE PICTURE IN SHORT ({BG} is filled by the compiler from the frame's mood and pieces)
 const OPEN = { CLEAN: "in open space", PEAK: "on one flat colour field", NIGHT: "against the night navy", MEMORY: "in a faded grey memory" };
-for (const b of B) {
+for (const b of [...B, ...INS]) {
   const r = b._raw; delete b._raw;
   if (b.shotSize === "WORD") { b.picture = "a plain, clean, pure white word frame with nothing drawn on it."; b.framing = "Plain white word frame, flat and empty."; b.check = "a plain pure white frame; {BG}."; continue; }
   const W = D.WORLD[b.world], s = SIZE[b.shotSize], a = ANG[b.angle] || T.ANGLE[b.angle];
@@ -168,7 +189,7 @@ const REVISIONS0 = [{ batch: `Build 1 — ${new Date().toISOString().slice(0, 10
 const GROUND = process.env.CLEAN_GROUND || (D.PROJECT && D.PROJECT.cleanGround) || "";
 if (GROUND && !/^#[0-9A-Fa-f]{6}$/.test(GROUND)) throw new Error("CLEAN_GROUND must be a #RRGGBB hex, got " + GROUND);
 
-function writeAll(beats) {
+function writeAll(beats, inserts) {
   src = TEMPLATE;
   src = src.replace(/\/\/ THE PARENT CODE — prompt build[^\n]*/, `// THE PARENT CODE — prompt build · ${String(D.PROJECT.title).replace(/^The Parent Code — /, "")} (compiler v24)`);
   if (GROUND) src = src.replace(/^const CLEAN_GROUND = "#[0-9A-Fa-f]{6}";/m, `const CLEAN_GROUND = "${GROUND.toUpperCase()}"; // test strip: set by CLEAN_GROUND / PROJECT.cleanGround`);
@@ -186,7 +207,7 @@ function writeAll(beats) {
   replaceBlock("MOTIFS", arr("MOTIFS", D.MOTIFS || []) + "\n\n// The director's read — the first deliverable: written before any frame; every frame's `why` traces back to it.\nconst DIRECTOR_READ = " + J(D.DIRECTOR_READ || null) + ";\n// The key lines (each gets a composition used nowhere else) and the moments told as sequences.\nconst KEY_LINES = " + J(D.KEY_LINES || []) + ";\nconst HELD_MOMENTS = " + J([...new Set(Q.flatMap(s => s.images.map(i => i.ref)))]) + ";");
   replaceBlock("SKETCH", arr("SKETCH", beats.map(sketch)));
   replaceBlock("RAW_BEATS", "const RAW_BEATS = [\n" + beats.map(serBeat).join("\n") + "\n];");
-  replaceBlock("INSERT_BEATS", "const INSERT_BEATS = [\n" + INS.map(serBeat).join("\n") + "\n];");
+  replaceBlock("INSERT_BEATS", "const INSERT_BEATS = [\n" + (inserts || []).map(serBeat).join("\n") + "\n];");
   replaceBlock("SEQUENCES", arr("SEQUENCES", Q));
   replaceBlock("EDIT_CUES", "const EDIT_CUES = [\n" + E.map(e => `  { ref: ${J(e.ref)}, on: ${J(e.on)}, change: ${J(e.change)} },`).join("\n") + "\n];");
   replaceBlock("EDIT_WHO", `const EDIT_WHO = ${J(D.EDIT_WHO || {})};`);
@@ -195,10 +216,10 @@ function writeAll(beats) {
 }
 const clean = beats => beats.map(b => { const c = { ...b }; if (c.reveal) { c.reveal = { ...c.reveal }; delete c.reveal._surf; delete c.reveal._at; } return c; });
 // pass 1 (covers unknown) → evaluate palettes → pass 2
-writeAll(clean(B));
+writeAll(clean(B), clean(INS));
 let code = src.slice(0, src.indexOf("/* ===== UI ===== */")).replace(/^\s*import[^\n]*\n/gm, "");
 const M = vm.runInNewContext(code + ";({framePalette, moodOf, WORLD, PROP})", {});
-for (const b of B) {
+for (const b of [...B, ...INS]) {
   if (!b.reveal) continue;
   // v19 cover colour: the ground (or field) the element sits on; "FURN" = it sits on an outline piece's white fill (CLEAN only)
   const pal = M.framePalette(b), onPiece = /^(FURN|PIECE)$/i.test(String(b.reveal._surf || "")) && b.mood === "CLEAN";
@@ -208,5 +229,5 @@ for (const b of B) {
   b.reveal.cover = hex;
   b.reveal.how = `Premiere: draw a flat ${nm} (${hex}) shape over ${wname}${b.reveal._at ? " " + b.reveal._at : ""}; take it away on “${b.reveal.on}”. Eyedropper the ${surf} right beside it if the render differs.`;
 }
-writeAll(clean(B));
-console.log(`${path.relative(process.cwd(), OUT) || OUT}: ${B.length} beats, ${E.length} edits, ${Q.length} sequences${Object.keys(masters).length ? ", masters " + J(masters) : ""}${GROUND ? ", CLEAN ground " + GROUND : ""}`);
+writeAll(clean(B), clean(INS));
+console.log(`${path.relative(process.cwd(), OUT) || OUT}: ${B.length} beats, ${INS.length ? INS.length + " inserts, " : ""}${E.length} edits, ${Q.length} sequences${Object.keys(masters).length ? ", masters " + J(masters) : ""}${GROUND ? ", CLEAN ground " + GROUND : ""}`);

@@ -1,5 +1,13 @@
 # Director Rules — The Parent Code
 
+> **v25 — lookup only.** `v24-standard.md` and `RULES-CARD.md` win over everything below, then `v19-principles.md`.
+> Where this file says otherwise, the current rule is: the CLEAN ground is the clean warm white #F7F6F3 and set pieces
+> are thin **black** ink lines with white fill (never soft grey), the fewest the frame needs; the colour focus is bright;
+> at most two coloured objects (`ce`, `ce2`); colour by meaning (red = conflict, frustration, stress, danger; phones
+> purple); white by default, and an intense line turns the whole stage to its emotion's colour (`pc`, `v24-standard.md`
+> §2a); words are short, playful and hand-lettered **inside the frame's own image prompt** — never added in Premiere,
+> never numbers or titles; drawn glow and action marks are allowed; "larger heads" means sudden close-ups.
+
 The story-craft, camera and construction rules for The Parent Code — what makes the frames read
 as a film. Built around Thomas's emotion-first rule, his priority order, his tests, and his taste for
 scale, purposeful colour and surprise.
@@ -218,7 +226,7 @@ and never sits behind a face close-up (`style-and-colour-v19.md`).
 The eye meets things in this order: 1 main idea (the hero), 2 supporting object or second character,
 3 background, 4 details. If details compete with the main idea, remove them. Colour follows the same
 order: only the important object or emotional element carries strong colour; the background is white or
-very light neutral with thin soft-grey outlines.
+the clean warm white with thin black ink outlines (v24).
 
 ### 31. Body language and face together
 People read posture faster than faces, and Thomas also wants faces that read instantly. Build both:
@@ -321,9 +329,9 @@ All apply globally, to every frame with a character. Their exact wording lives i
 - **44.89 Human-plausible poses.** Everyday, grounded, physically believable — dramatic through
   camera and expression, never through acrobatics.
 - **44.9 Complete furniture.** Any furniture a character uses has a full top and legs to the floor; a
-  seated character has a seat. It is drawn as a complete, closed thin soft-grey outline with white fill —
+  seated character has a seat. It is drawn as a complete, closed thin black ink outline with white fill —
   simple, never incomplete, never coloured.
-- **44.91 Flat colour, no light effects.** No gradients, shading, glow, light rays or blur. "Lit up"
+- **44.91 Flat colour, no light effects.** No gradients, shading, soft glow or blur (a drawn halo or short radiating strokes are allowed — v24 `gl`). "Lit up"
   is shown with flat colour, a bolder outline, size, or a few short ink dashes around the object.
 - **44.915 Expression variety.** Vary brow tilt, brow gap and mouth shape frame to frame; never
   reuse one default face.
@@ -369,7 +377,7 @@ textured brush. Finished, while still hand-drawn.
 ### 50.5 Settings
 Backgrounds stay simple: the very light neutral ground (or pure white), and — only when the place must
 be shown — the one outline cue that says where we are (a door, a bed, a chair, a bus-stop post), drawn
-as a thin soft-grey line with white fill, with one thin ground line in wider shots. Thomas, 5 Oct: "We do
+as a thin black ink line with white fill (v24), with one thin ground line in wider shots. Thomas, 5 Oct: "We do
 not need to fully illustrate every location… The story should stay focused on the characters." No
 decorative scenery, no tinted walls, no coloured furniture. A generator fills any *named* place with
 stereotypical decor (clocks, posters, globes, plants), so settings are described by their elements,
@@ -397,8 +405,8 @@ abstract system; that he rejected. Plan them as MOTIFS with an arc of states and
 ### 54. One visual language
 No mixing of realistic illustration, 3D, watercolour, comic shading, painterly work or photo cut-outs
 inside a video. Thomas, 5 Oct, on real objects: "let's leave real objects out… keep refining and
-strengthening our own visual language." On-screen words keep one consistent style, added in Premiere
-(`humour-text-contrast-v19.md`): no random fonts, styles or effects.
+strengthening our own visual language." On-screen words keep one consistent hand-lettered style, inside the
+frame's own image prompt (`v24-standard.md` §7): no random fonts, styles or effects.
 
 ### 55. Simplicity is a feature
 Simple drawings are the identity of the channel. Simplicity of **elements** — never simplicity of
@@ -423,10 +431,10 @@ emotion, colour or scale.
 □ Teen clearly shorter than adult; child clearly a child
 □ Two or more characters: an action and a visible reaction; distance stated and planned
 □ One colour element (or none on a face frame); white or very light neutral ground; places as outlines
-□ No strong red unless danger/warning
+□ No strong red unless it means conflict, frustration, stress or danger (v24)
 □ Only named objects; furniture complete as outlines; no clutter, texture, background people or
   childish symbols
 □ Recurring objects restated with colour, size and counted details
-□ No text in the image; on-screen idea words are added in Premiere
+□ No text in the image except the short hand-lettered word the plan names (`tx`/`kw`, inside the frame's own prompt — v24.1)
 □ No shadows, gradients, glow, blur
 □ Prompt free of instruction-shaped wording

@@ -5,7 +5,7 @@
 // conflict (red marks, ENOUGH!), the bike (only the bike green), absence (grey), the hug (warm light) and WHICH DIAL?.
 // Cast, places and props are copied from the Video 08 build with the v22 colour fills removed.
 module.exports = {
-PROJECT: { title: "The Parent Code — v24 regression sample (Video 08 notes, not for publishing)", runtimeSec: 38 },
+PROJECT: { title: "The Parent Code — v24 regression sample (Video 08 notes, not for publishing)", runtimeSec: 53 },
 ROLE: {
   "Mom": {
     "age": "adult",
@@ -385,7 +385,8 @@ TONE: {
 },
 OVERLAY: {},
 STORY: { idea: "Test frames for the v24 standard.", arc: "campfire → helicopter → phone → study → night → the F → conflict → bike → absence → hug → which dial", ending: "WHICH DIAL? on the dials." },
-PLAN: [{ sequence: "01 Video 08 notes", purpose: "Every v24 rule in one short run", feel: "the full range: curiosity, comedy, conflict, ache, warmth", mood: "CLEAN", metaphor: "the helicopter cutaway; the dials" }],
+PLAN: [{ sequence: "01 Video 08 notes", purpose: "Every v24 rule in one short run", feel: "the full range: curiosity, comedy, conflict, ache, warmth", mood: "CLEAN", metaphor: "the helicopter cutaway; the dials" },
+  { sequence: "02 The intensity ladder", purpose: "White by default, colour at the peak, back to white (v25)", feel: "a fight in red, fear on white, warmth, a yellow aha — CLEAN → PEAK red → WHITE → CLEAN → PEAK yellow", mood: "CLEAN", metaphor: "none — the colour stage carries the feeling" }],
 MOTIFS: [{ key: "SON_PHONE", meaning: "attention pulled away", arc: ["S3 · state: in his hands, taken · now means: the fight over attention · picture: medium, then a reframe to his eyes", "S5 · state: the only light at night · now means: the pull · picture: night medium"] }],
 REVISIONS: [],
 };

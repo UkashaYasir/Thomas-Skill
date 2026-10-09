@@ -1,4 +1,4 @@
-# RULES CARD — v24.3 (the whole system on one card)
+# RULES CARD — v25 (the whole system on one card)
 
 **Principles:** Thomas's five standards after Video 08 (`v24-standard.md` §1) — bright colour on important objects; more
 zoom-ins and close-ups on faces, eyes, hands and objects; characters never too small; only short, playful words, never
@@ -13,7 +13,7 @@ detail. Creative choices are judged by the moment; the only numbers are Thomas's
 meaningful visual change approximately every 3–5 seconds") and technical ones. Every list is seed examples plus a method.
 
 ## 0. Before anything
-- Say which skill version is in use (this card: v24.3). `client-feedback-ledger.md` lists every client point with its rule
+- Say which skill version is in use (this card: v25). `client-feedback-ledger.md` lists every client point with its rule
   and check. If Muhammad attached a `.skill` file, it wins over the installed copy.
 
 ## 1. Input and output
@@ -34,9 +34,18 @@ meaningful visual change approximately every 3–5 seconds") and technical ones.
 - Consistent proportions, line thickness, faces, colours and object styling from the first frame to the last.
 
 ## 3. Background and colour (`v24-standard.md` §2–§3)
-- **CLEAN** (default): a pure white ground; the place told by the fewest **thin black line pieces with white fill** —
+- **White by default; colour when the feeling peaks** (Muhammad, 9 Oct — `v24-standard.md` §2a). Most lines play on the
+  white stage. When a line carries the intensity — the fight, the breaking point, the aha, the breakthrough, the screen
+  taking over, the emptiness — the stage converts to the emotion's colour: `pk` + `pc` (RED conflict · YELLOW surprise ·
+  BLUE safety · GREEN growth · VIOLET the screen's pull · GREY emptiness), one flat field, pieces as solid darker shapes,
+  characters pure white. Then back to white — usually the sudden close-up on pure white. In between, colour rides on the
+  feeling: marks (`mk`), glow (`gl`), a light shape (`li`), a coloured word. Minimal, never monotonous; never decoration.
+- **CLEAN** (default): the clean warm white Video 08 was approved on (#F7F6F3); the place told by the fewest **thin black line pieces with white fill** —
   only the pieces the frame names; one thin ground line on wider shots. Never a coloured floor, grass, wall or furniture.
   **WHITE**: nothing drawn behind — face-only, object-only, word frames and white breaks.
+- **The fewest pieces of furniture** (Muhammad, 9 Oct): the piece the character uses; a second only if the place can't be
+  read without it; a third only on a wider shot; a close shot one slice at most. Thomas's approved study: the table, the
+  chair, one window.
 - **Object necessity:** every set piece and prop tells the story, carries the emotion or makes the moment understandable
   — or it is cut. Decide this ourselves, before writing the frame.
 - **The colour focus** (`ce`) is **bright and vivid by default** ("stronger, brighter, and more vibrant colors on
@@ -48,15 +57,19 @@ meaningful visual change approximately every 3–5 seconds") and technical ones.
 - **Glow is drawn:** a halo of clean-edged rings or short radiating strokes (`gl`), or a rainbow burst for delight —
   never a soft gradient or bloom. At night a screen is the light in the room.
 - **Drawn marks carry action, never decoration:** speed lines on a moving ball or arm, impact strokes where a hand hits,
-  buzz dashes round a phone, shine strokes. No sweat drops, steam, stars, anger veins, blush marks or tears.
+  buzz dashes round a phone, shine strokes — beside a coloured focus too. No sweat drops, steam, stars, anger veins, blush
+  marks or tears.
 - **White and place moments balance** in every chapter. **Phones are purple.**
 - **Positive looks different from stressful:** warm accent and light shape, people closer · red focus, tension marks,
   tighter framing, people apart · grey and negative space for sadness and absence.
-- Full colour fields only for **PEAK** (`pk`) and **NIGHT**, never behind a face close-up. **MEMORY** is the faded past.
+- Colour fields only for **PEAK** (`pk` + `pc`, the intensity ladder) and **NIGHT**, never behind a face close-up; one
+  moment keeps one field colour; no orange, amber or peach field (warmth is `li: warm`). On a field, anything in the
+  field's own hue is drawn white (the compiler does it). **MEMORY** is the faded past; `mu` grey is absence.
 
 ## 4. Camera, close-ups and zooms (`camera-and-closeups-v19.md`, `v24-standard.md` §5–§6)
-- **Sudden close-ups grab attention** (Thomas's "larger heads" = the camera close): a REACTION or XCLOSE frame, or a punch
-  reframe to the face, where the line turns, a feeling peaks or attention could drift — in every chapter with people.
+- **Sudden close-ups grab attention** (Thomas's "larger heads" = the camera close): a REACTION or XCLOSE frame, a close-up
+  insert, or a punch reframe to the face, where the line turns, a feeling peaks or attention could drift — in every chapter
+  with people. On a colour stage the close-up is a WHITE frame or insert, never a punch into the field.
 - "Bring the camera closer": wide, medium-wide, medium, close-up, extreme close-up, face + hands, reaction, hands, object,
   word frame. "Avoid showing characters too small or too far away": WIDE only when distance or place is the point, and
   even then every face reads; MEDWIDE is the usual full-figure shot.
@@ -64,8 +77,10 @@ meaningful visual change approximately every 3–5 seconds") and technical ones.
   (`ctx`); open space on the side the eyes look; the head shape whole; no random crops.
 - **Zoom plan** (`zm`): reframes of the same still in Premiere on cue words — to a face, the eyes, the hands, the object.
   Reuse before regenerating. A frame with a planned reframe is composed so the target survives the crop.
-- A meaningful change about every 3–5 seconds — a frame, an edit, a reveal, a reframe or a move with a reason; moves
-  varied, never the same on every image.
+- A meaningful change about every 3–5 seconds — a frame, an edit, a reveal, a reframe, an insert or a move with a reason;
+  moves varied, never the same move four frames running.
+- **Inserts** (`I(n, {in: "word", …})`): a second generated image inside one line — a cutaway, the object big, the hands —
+  only when a reframe or an edit can't show it.
 - The same character back to back changes size or angle clearly; screen sides kept inside a scene; no composition comes
   back unchanged; natural camera positions only.
 
@@ -126,16 +141,19 @@ meaningful visual change approximately every 3–5 seconds") and technical ones.
 | `ce` / `ce2` | the colour focus (bright by default), or "none" / a second coloured object, only when needed |
 | `cx` | the contrast this frame makes (or "affinity — " and why) |
 | `ip` | the interrupt type, when the frame is one |
-| `pk` | true on a planned emotional peak (required for PEAK) |
+| `pk` | true on a line that carries the emotional intensity (required for PEAK); it reaches colour (§3) |
+| `pc` | the stage colour of an intense line: RED, YELLOW, BLUE, GREEN, VIOLET or GREY (sets the PEAK mood) |
 | `kw` / `tx` | a short word at a strong moment, lettered into this frame's image prompt (`tx` adds colour, place, size) |
 
 Frame keys added in v24 (assemble short keys, `assets/compiler-v24/README.md`): `cm` calm tone · `gl` glow (halo, rays,
 rainbow) · `mk` accent marks on an action · `li` flat light shape · `mu` absence (grey) · `tx` hand-lettered word ·
-`ol` letter on an object · `zm` zoom plan · `fg` foreground · `sx` slice of the place behind a close face.
+`ol` letter on an object · `zm` zoom plan · `fg` foreground · `sx` slice of the place behind a close face. Added in v25:
+`pc` the colour stage of an intense line · `I()` an insert inside a line · `mk` now works beside a coloured focus.
 
 ## 10. Build, checks and delivery
-- Build with `assets/compiler-v24/` (`node assemble.cjs`), check with `scripts/qa-all.cjs` until every check passes, then
-  read every prompt against `v24-standard.md` and v19 at least three times.
+- Build with `assets/compiler-v24/` (`node assemble.cjs`), check with `scripts/qa-all.cjs` until every check passes —
+  including the contradiction scan, which fails any prompt whose sentences disagree — then read every prompt against
+  `v24-standard.md` and v19 at least three times.
 - Make the Copy page and Edit page (`scripts/copy-page.cjs`, `scripts/edit-page.cjs`), publish both, deliver the build.
 - Feedback rounds: report each point as done / partly / not, checked against the build with frame refs, before saying a
   round is finished.

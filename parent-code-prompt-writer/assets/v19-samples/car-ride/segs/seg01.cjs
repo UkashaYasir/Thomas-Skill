@@ -1,5 +1,5 @@
 // v19 test script "The car ride" — every frame planned with the v19 fields.
-module.exports = ({ seg, F, E, Q }) => {
+module.exports = ({ seg, F, I, E, Q }) => {
 seg("01 The car ride");
 
 // ── MOM's car (front three-quarter view: MOM driving at the left, SON at the right; the road ahead is to the left) ──
@@ -85,7 +85,7 @@ F(7, { sc: "Grandma's car, evening", t: "E", r: "Grandma, Lily", p: [], h: "FIGU
   ia: "LILY slams the door and folds her arms, staring out of the side window → GRANDMA glances at her once, then back at the road", dist: "close",
   ce: "none", cx: "a dusk pitch → the dark car",
   sz: "MEDIUM", an: "EYE", w: "CAR", m: "NIGHT", wh: "in the car",
-  L: "GRANDMA in the driver's seat, large, both mitten hands on the steering wheel", C: "the windscreen frame", R: "LILY in the passenger seat, large, arms folded, turned to the side window",
+  L: "GRANDMA in the driver's seat, large, both mitten hands on the steering wheel", C: "the gap between them", R: "LILY in the passenger seat, large, arms folded, turned to the side window",
   a: "LILY sits slumped in the passenger seat with her arms folded, staring out of the side window; GRANDMA, at the steering wheel, glances at her once.",
   pf: "LILY: eyes narrowed and fixed, eyebrows pulled down hard, mouth a tight flat line, head turned away to the side window, both mitten hands tucked into folded arms, posture slumped low in the seat, pupils on the dark outside. GRANDMA: eyes calm with a flicker of concern, eyebrows lifting a little in the middle, mouth a quiet closed line, head steady, both mitten hands on the steering wheel, posture upright, pupils glancing toward LILY.",
   st: "PROBLEM", mv: ["HOLD", "", "hold — the silence"], dv: "SILENT_BEAT", sti: "silence is the beat; the edit tightens it",
@@ -120,7 +120,7 @@ F(10, { sc: "Grandma's car, years ago", t: "E", r: "Grandma, Young Mom", p: ["RA
   ia: "YOUNG MOM folds her arms and stares out of the side window → GRANDMA keeps her eyes on the road and turns THE RADIO DIAL down", dist: "close",
   ce: "none", cx: "the present night → the faded past; LILY's pose repeated by her mother", ip: "short-metaphor",
   sz: "MEDIUM", an: "EYE", w: "CAR", m: "MEMORY", wh: "in the car",
-  L: "GRANDMA at the steering wheel, large, one mitten hand on THE RADIO DIAL", C: "the windscreen frame", R: "YOUNG MOM in the passenger seat, large, arms folded, turned to the side window",
+  L: "GRANDMA at the steering wheel, large, one mitten hand on THE RADIO DIAL", C: "the gap between them", R: "YOUNG MOM in the passenger seat, large, arms folded, turned to the side window",
   a: "YOUNG MOM sits in the passenger seat with her arms folded, staring out of the side window; GRANDMA, at the steering wheel, turns THE RADIO DIAL down with one mitten hand.",
   pf: "YOUNG MOM: eyes narrowed, eyebrows pulled down, mouth a tight flat line, head turned to the side window, both mitten hands tucked into folded arms, posture slumped, pupils on the window. GRANDMA: eyes calm, eyebrows soft, mouth a knowing curve, head facing the road, one mitten hand on the dial and the other on the steering wheel, posture upright, pupils on the road ahead.",
   mv: ["DRIFT", "", "slow drift into the memory"], dv: "REPEAT_WITH_VARIATION", sti: "a held memory",
@@ -131,13 +131,25 @@ F(11, { sc: "The pitch, that afternoon", t: "H", r: "Lily, Coach", p: [], h: "FI
   idea: "The field turns the colour of the hurt: COACH walks away with his clipboard; LILY stands frozen by the bench, her bag sliding off her shoulder.",
   alt: ["LILY's name crossed off a list (words in the image)", "an empty team shirt on a hook (clothing as a prop, and a symbol)"],
   ia: "COACH walks away with his clipboard under his arm → LILY stands frozen by the bench, her bag sliding off her shoulder", dist: "far",
-  ce: "none", cx: "the faded memory → the one full-colour field", ip: "strong-pose",
-  sz: "WIDE", an: "EYE", w: "PITCH", m: "PEAK", wh: "at the edge of the football pitch",
-  L: "COACH walking away, small, a clipboard under one arm, his back half-turned", C: "the empty ground between them, a goal far off", R: "LILY standing by the bench, small, frozen, her bag sliding off her shoulder",
+  ce: "none", cx: "the faded memory → the whole stage drained to grey", ip: "strong-pose",
+  sz: "WIDE", an: "EYE", w: "PITCH", pc: "GREY", wh: "at the edge of the football pitch",
+  L: "COACH walking away, a clipboard under one arm, his back half-turned", C: "the empty ground between them, a goal far off", R: "LILY standing by the bench, frozen, her bag sliding off her shoulder",
   a: "COACH walks away across the pitch with a clipboard under one arm; LILY stands frozen by the bench, her sports bag sliding off her shoulder.",
   pf: "LILY: eyes wide and stunned, eyebrows tilted up in the middle, mouth a open downturned shape, head dropped forward, one mitten hand letting the bag slide, posture frozen stiff, pupils on COACH's back. COACH: eyes on the clipboard, eyebrows flat and busy, mouth a short closed line, head down, one arm clamping the clipboard, posture walking away, pupils on his clipboard.",
-  st: "PROBLEM", mv: ["PULL_OUT", "", "slow pull out — she gets smaller"], dv: "DISTANCE",
-  y: "The peak of the story gets its only full-colour field, on a wide frame." });
+  st: "PROBLEM", mv: ["PULL_OUT", "", "slow pull out — the gap between them grows"], dv: "DISTANCE",
+  y: "The line that carries the story's intensity converts the stage to grey — being left out, emptiness (v25 ladder)." });
+// v25: the peak's sudden close-up on pure white, cut in on "dropped" (a crop of S11 would leave her face on the grey field)
+I(11, { in: "dropped", sc: "The pitch, that afternoon", t: "H", r: "Lily", p: [], h: "FACE",
+  ft: "The sting, up close.", ln: "peak-close-up",
+  idea: "LILY's face alone on pure white: eyes wide and stunned, mouth falling open.",
+  alt: ["a punch into S11 (her face would sit on the grey field)", "the clipboard close (the hurt is hers)"],
+  look: "toward COACH walking away, out of frame left", ctx: "follows S11 (the wide grey pitch): the same moment, the camera suddenly in on her face", ce: "none", cx: "a wide grey stage → one stunned face on white", ip: "snap-to-white",
+  sz: "CLOSE", an: "EYE", w: "PITCH", m: "WHITE",
+  L: "white space", C: "LILY's face, large", R: "white space",
+  a: "LILY's face fills the frame, stunned, one mitten hand clutching the strap of her bag.",
+  pf: "LILY: eyes wide and stunned, eyebrows tilted up in the middle, mouth a falling open downturned shape, head dropped a little forward, one mitten hand clutching her bag strap, shoulders sinking, pupils pressed toward frame left.",
+  mv: ["SNAP_ZOOM", "dropped", "snap in"], dv: "DISTANCE",
+  y: "A face close-up never sits on a colour field: the peak's close-up is an insert on white." });
 E("S11", "team", "LILY sinks down to sit on the bench, her bag on the ground beside her, both mitten hands gripping the edge of the bench and her head bowed; COACH is further away now, small near the goal. The pitch, the colour field and the camera stay exactly as they are.");
 
 // ── MOM's car, another day (MOM at the left, SON at the right) ──

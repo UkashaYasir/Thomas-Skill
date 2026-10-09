@@ -54,8 +54,8 @@ video, add the characters that rendered well.
 7. **Faces stay clean.** The same eyes, eyebrows and mouth as the reference; no wrinkles, freckles, blush, make-up,
    eyelashes or nose; no teeth.
 8. **Hair is solid black; accessories are dark and quiet.** An accessory takes a dark, nearly neutral tone (slate,
-   graphite, dark navy) so it reads as identity and never competes with the frame's one colour element. Never red (red
-   is for danger only). Older-age option, to test in the lineup: hair in solid soft grey with the black outline.
+   graphite, dark navy) so it reads as identity and never competes with the frame's bright colour focus. Never red (red
+   is a focus colour for conflict and danger). Older-age option, to test in the lineup: hair in solid soft grey with the black outline.
 9. **Check every new character in a lineup render** with MOM and SON before the video's frames are generated (§4).
 10. **One design per character.** Once locked, the ROLE text does not change inside the video. A character who returns
     in later videos gets an approved image from Muhammad, added to `assets/characters/`.
@@ -134,7 +134,7 @@ Generate one lineup in Flow with the MOM and SON references attached, before any
 
 **Lineup prompt (fill in the ROLE texts):**
 > A character lineup for a mature, understated animated explainer for parents and teenagers. Flat 2D, clean ink
-> outlines, no shading. The background is plain pure white (#FFFFFF) with one thin soft-grey ground line. Standing in
+> outlines, no shading. The background is plain pure white (#FFFFFF) with one thin black ground line. Standing in
 > one row, front view, a little apart, feet on the ground line, from left to right: MOM, exactly as the attached MOM
 > reference; SON, exactly as the attached SON reference; then [NAME — ROLE text] … for each new character, each drawn
 > by copying the named reference exactly and changing only what their description says. Everyone has the same round

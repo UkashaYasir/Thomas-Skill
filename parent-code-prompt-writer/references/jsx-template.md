@@ -1,5 +1,13 @@
 # The build file — fields, compiler, UI
 
+> **v25 — lookup only.** `v24-standard.md` and `RULES-CARD.md` win over everything below, then `v19-principles.md`.
+> Where this file says otherwise, the current rule is: the CLEAN ground is the clean warm white #F7F6F3 and set pieces
+> are thin **black** ink lines with white fill (never soft grey), the fewest the frame needs; the colour focus is bright;
+> at most two coloured objects (`ce`, `ce2`); colour by meaning (red = conflict, frustration, stress, danger; phones
+> purple); white by default, and an intense line turns the whole stage to its emotion's colour (`pc`, `v24-standard.md`
+> §2a); words are short, playful and hand-lettered **inside the frame's own image prompt** — never added in Premiere,
+> never numbers or titles; drawn glow and action marks are allowed; "larger heads" means sudden close-ups.
+
 > **v19:** new videos compile with `assets/compiler-v24/` (its README lists the exact keys, moods, shot types and checks;
 > `data-fields-and-build.md` has the summary). `v19-principles.md` wins over anything here. The field list below is the
 > v18 beat object with the v19 plan keys added; lines that encoded retired rules have been rewritten.
@@ -81,7 +89,7 @@ tab. Full guidance: `story-structure.md`.
   metaphor: "",                // on metaphor frames (fn CONCEPT): the family, e.g. "lockbox-grows" — the families set in the PLAN
   reveal: null,                // or { what: "PHONE", on: "phone", method: "MASK", cover: "#hex", how: "Premiere: draw a … shape over …; take it away on “phone”." } (motion-and-energy.md §9)
   link: "",                    // setup / callback / consequence tying this frame to another segment; name refs ("pays off at S140") — QA checks they exist
-  keyword: null,               // { word, on } — an on-screen idea word added in Premiere (TRUST, SHAME, NOT REJECTION…), never in the image, never a chapter number
+  keyword: null,               // { word, on } — an on-screen idea word (TRUST, SHAME…) — since v24.1 lettered into the frame's own image prompt; never a chapter number
   requiredText: "",            // legacy — images stay text-free in v19
 }
 ```
@@ -104,7 +112,7 @@ how a scene is imagined. A lazily filled `action` produces a lazy prompt exactly
   (`camera-and-closeups-v19.md`).
 - Props: every prop listed in a character frame is used, held, looked at or reacted to in the action.
 - Text: none in the image. Sheets, lists and calendars carry marks (ticks, lines), never readable words;
-  on-screen idea words go in `keyword` and are added in Premiere.
+  on-screen idea words go in `kw`/`tx` and are lettered into the frame's own prompt (v24.1).
 - Don't restate what a constant already says (construction, no shadows, colour hierarchy) in the beat
   text — the compiler adds it. Beat text is the specific moment.
 
