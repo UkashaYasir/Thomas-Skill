@@ -125,6 +125,10 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
 - **Metaphors that are understood at once.** The control dials (Video 08) are the model: "a good visual concept"; make the
   entrance "more impactful and surprising" and keep the link to the conflict visible (the dial on the wall showing the
   current setting).
+- **Save the biggest picture for the peak.** A recurring object's biggest, brightest version belongs to its peak; earlier
+  returns stay smaller (Video 05: the phone drawn huge in thirteen frames cheapened the one where it became a wall).
+- **Names stay off objects.** A prop's name or text never names a character who is not in the frame ("SON's phone" in a
+  frame without SON pulls SON in) — call it "the phone" or "his phone" (a check warns).
 - **Letters on an object.** A single letter or number drawn on an object is allowed when the letter *is* the story — the
   oversized red F was "a strong concept" (T4). Never a label, a sign or a sentence.
 
@@ -138,10 +142,11 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
 - "Push facial expressions and body language further. Use dramatic close-ups, exaggerated reactions, expressive eyes,
   active hands, and stronger emotional contrasts" (T3). Strength still matches the beat: a quiet sadness is held (tier Q),
   a conflict or a comic surprise is pushed to full.
-- "larger heads" (T3) is read as **larger on screen** — the camera closer — because the final standard (T9) is about
-  characters "too small or too far away" and the reference proportions are locked ("Keep the current hand-drawn
-  stick-figure style"). If Thomas means bigger heads in the character design, that is a new reference sheet, not a prompt
-  change (open question for Muhammad).
+- **"larger heads" (T3) means the camera closer** — decided by Muhammad on 9 Oct: "Larger head means camera close or like
+  the closeup to get a sudden visual change to grab the audience attention." So the reference proportions stay locked, and
+  a big head on screen comes from a **sudden close-up**: a REACTION or XCLOSE frame, or a punch reframe (`zm`) to the face,
+  placed where the line turns, a feeling peaks or attention might drift. Every chapter with characters has at least one
+  such moment (a check warns when one has none).
 - "Keep the current hand-drawn stick-figure style. Avoid overly polished or AI-generated-looking visuals" (T3).
 - "Maintain consistent character proportions, line thickness, facial features, colors, and object styling throughout the
   video" (T3).
@@ -163,6 +168,8 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
   However, every movement should support the story. Avoid unnecessary animation" (T3). A change is a new frame, an edit, a
   reveal, a reframe or a camera move with a reason. It is an editing guideline, not a count of generated images.
 - **Vary the moves.** Zoom and pan "selectively, not exactly the same way on every image" (Video 05) still holds.
+- **No fragments at the frame edge.** A metaphor or story object in a close-up is either whole in the frame or left out —
+  never a strip of it along the top of a face (Video 05: a cloud edge above four close-ups read as an error).
 
 ---
 
@@ -185,8 +192,11 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
   clean, the letters slightly uneven in a hand-made way, never a geometric presentation font; flat, no outline, shadow,
   3D, underline, badge or number; black, or the meaning colour of the moment (red ENOUGH!, yellow AHA!, blue SAFE);
   about one eighth of the frame height, in open space beside what it is about, never over a face.
-- **Where it is made:** lettered into the image (the compiler writes the word and also a no-text version of the prompt),
-  or set by Muhammad in Premiere in the same hand-lettered look — whichever reads better in the render.
+- **Where it is made: inside the frame's own image prompt, always** — decided by Muhammad on 9 Oct: "need text in image
+  prompts not separate images". The word is lettered into the line's frame (`tx`, or `kw`, which compiler v24.1 letters
+  in too). A WORD frame is a white frame with the word lettered into it, generated like any other frame — never an empty
+  white image with the word added later. If Flow misspells a word, the Copy page's **word-fix edit** redraws it on the
+  same image.
 
 ---
 
@@ -260,8 +270,53 @@ These were Thomas's notes on single scenes. They are kept as regression examples
 
 ---
 
-## 13. Open questions for Muhammad (not decided by this file)
+## 13. Decided by Muhammad (9 Oct 2026)
 
-1. "larger heads" (T3): camera proximity (this file's reading), or a new reference sheet with bigger heads?
-2. The hand-lettered words: lettered into the image, or set in Premiere with a marker-style font? Both are supported; the
-   first renders decide.
+1. "larger heads" = the camera close: a sudden close-up that grabs attention (§5).
+2. Words live inside the frame's image prompt, never a separate image or a Premiere overlay (§7).
+
+---
+
+## 14. Scene by scene — how each rule is used, depending on the moment
+
+Every frame starts with the feeling (`ft`) and the kind of moment. The table gives the starting choice for each kind;
+the line itself decides the rest. Nothing here is a quota: a moment uses an extra only when it makes the feeling land.
+
+| Moment | Camera | Stage and colour | Extras (scale, glow, marks, light) | Word | Motion |
+|---|---|---|---|---|---|
+| **Hook, the opening line** | the strongest picture of the video: a big object or a big face in the first frame | CLEAN or WHITE; the focus bright | an oversized object or an exaggerated cutaway; a drawn glow if it shines | only if one word lands the promise | push in, or punch to the face on the key word |
+| **Chapter turn (a new point)** | a fresh place or a new state of the motif — never a title card | CLEAN; the chapter's colour by meaning | the chapter's signature object, bigger | a short playful word for the feeling, never a number or a title | a change in kind: a white break, a big face |
+| **Explanation, a statement** | a real everyday moment at MEDIUM; sizes switch often | CLEAN; the object the line is about bright | a metaphor only if it adds meaning; scale on the object | usually none; the idea word if the line turns on it | a reframe to the face or the object every few seconds; an edit for a small action |
+| **Dialogue, an everyday moment** | MEDIUM or over the shoulder, then reaction close-ups; both faces readable | CLEAN; the object at stake bright | — | a reaction word (WAIT…, WHY?) only at the turn | a 3–5-still sequence if it is a key moment, else one edit |
+| **Humour, exaggeration** | the setup wide enough to read, then a punch to the reacting face | CLEAN; yellow for surprise | impossible scale, the cutaway, an exaggerated reaction | AHA! or WAIT… if it sharpens the joke | SHAKE or SNAP_ZOOM on the word; the reaction as an edit |
+| **Conflict, frustration** | closer and tighter; faces pushed full | CLEAN; a red focus or red tension marks (`mk`) | the object of the fight bigger | ENOUGH! or WHY? in red | SHAKE on the hit word; the reaction as an edit |
+| **Sadness, loneliness, absence** | open space around the person, then a slow push to the face; the figure still readable | `mu` grey for absence; the focus calm (`cm`) | the object that stands for the missing person (the crossed-off calendar) | rarely; a quiet word if any | HOLD or a slow push; tier Q |
+| **Pressure, worry, fear** | the object looming over the figure, then the face | CLEAN, or PEAK at the peak; orange or red | the pressure object two or three times larger | PRESSURE | a slow push; the object grows across an edit |
+| **Realisation, surprise, aha** | a sudden close-up: XCLOSE or REACTION | a WHITE break; a yellow focus | rays, or a rainbow burst for delight, on what was found | AHA! or WAIT… | SNAP_ZOOM on the word |
+| **Warmth, reward, repair** | people closer, touching; a softer push | CLEAN; a warm light shape (`li`); green for growth, warm amber for warmth | rays on the reward; a rainbow burst for real joy | rarely (SAFE, TRUST) | a slow push; the hug as a sequence when it is the payoff |
+| **Memory, the past** | as the moment needs | MEMORY | — | none | HOLD or a slow drift |
+| **Imagined, "what if"** | bookended by the imagining face, close | WHITE; exaggeration welcome | big cutaway objects | WHY? or the like | cut in and out on the words |
+| **Night** | close; the screen-lit face | NIGHT; the screen the only light, with drawn rays | — | none, or a white word | a slow push |
+| **Rapid list** | one quick real still per item, the same person, sizes varied | CLEAN; each item its own colour | — | none | the cuts are the motion |
+| **Ending, the question** | short: the motif object or the face | WHITE or CLEAN | a halo on the motif | the closing question, big (WHICH DIAL?) | a push in; no outro |
+
+Wherever the line turns, a feeling peaks or attention could drift, the next frame or reframe is a sudden close-up (§5).
+Wherever a still would hold well past five seconds, a reframe, an edit or a move with a reason comes in (§6).
+
+---
+
+## 15. Organised, never random (Muhammad's direction, Video 05)
+
+Muhammad, 28 Sep 2026: "there should be no random scenes etc each and everything must be organized and there will be no
+random vibes"; and, on the one-week structure that fixed it: "Perfect… add more scenes if we can, but it doesn't drift
+too much or get random. All scenes or story do still feel connected."
+
+- **A story world in the director's read.** One family, one stretch of time (a day, a week, an evening), and a spine
+  object whose state we always know. A list script ("seven types…") gets this container so the points never feel like
+  separate illustrations.
+- **A place changes only when the story moves there** — time passes, or someone walks into another room — never for
+  variety. Inside a scene the camera moves around the place instead of jumping to a new one.
+- **Asides look the same every time and have a way in and out:** the past is MEMORY; an imagined or "what if" moment is
+  bookended by the imagining face and plays on WHITE; a jump forward is CLEAN with the change shown in the people.
+- The whole-film pass **J. Where and when** (`shot-plan-v19.md` §4) checks every place change against these rules.
+

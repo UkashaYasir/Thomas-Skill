@@ -453,7 +453,7 @@ function placeLabel(b) { const W = WORLD[b.world]; return W ? (W.label || (W.set
 function worldBlock(b) {
   const names = roleList(b), items = propItems(b), key = moodOf(b.mood), P = framePalette(b);
   const face = names.length && b.shotSize !== "HANDS";
-  if (b.shotSize === "WORD") return `SETTING: a plain, clean, pure white (#FFFFFF) frame, flat and empty from edge to edge${items.length ? ", with only the one small object named here, small and low in the frame, resting on nothing" : ""}; it holds the space for one on-screen word that is added later in the edit.`;
+  if (b.shotSize === "WORD") return `SETTING: a plain, clean, pure white (#FFFFFF) frame, flat and empty from edge to edge${items.length ? ", with only the one small object named here, small and low in the frame, resting on nothing" : ""}${b.onScreen ? "; the only thing on it is the word named under TEXT" : ""}.`;
   const W = WORLD[b.world];
   if (!W) throw new Error(`Unknown WORLD "${b.world}" in ${b.ref}`);
   if (key === "WHITE") return `SETTING: a plain, clean, pure white (#FFFFFF) background from edge to edge — open white space around ${face ? "the characters" : names.length ? "the hands" : "the object"}${items.length && names.length ? " and the story objects named here" : ""}, with nothing drawn behind them. ${face ? "The face and its expression carry the whole frame." : names.length ? "The hands and what they do carry the whole frame." : "The story object carries the whole frame."}`;
@@ -565,7 +565,7 @@ function colourBlock(b) {
   const none2 = none && capCol ? none.replace("Nothing carries strong colour;", `Nothing carries strong colour except the on-screen keyword in ${capCol};`) : none;
   const accLine = acc ? " The characters' own small accessories keep their muted locked colours." : "";
   const pcsShown = b.shotSize !== "XCLOSE" || b.slice ? pieceList(b) : [];
-  if (b.shotSize === "WORD") return `COLOUR: The whole frame is pure white (#FFFFFF). ${hero ? heroLine + " Everything else is white." : "Nothing in it carries colour."}`;
+  if (b.shotSize === "WORD") return `COLOUR: The whole frame is pure white (#FFFFFF). ${hero ? heroLine + " Everything else is white." : capCol ? `Only the word carries colour, in ${capCol}; everything else is white.` : "Nothing in it carries colour."}`;
   if (key === "CLEAN" || key === "WHITE" || key === "MEMORY") {
     const bg = key === "WHITE" ? "The background is pure white (#FFFFFF), clean and empty from edge to edge." : `The background is plain ${b.mute ? "very light cool grey (#F1F3F5)" : `${P.ground[0]} (${P.ground[1]})`}, flat and even from edge to edge.`;
     const setLine = key === "WHITE" || !pcsShown.length ? "" : b.mute ? "" : ` Every set piece is a thin black line drawing with plain white fill, and the ground stays plain ${P.ground[0]} — the place reads at a glance without any colour.`;
@@ -668,15 +668,17 @@ function textLock(b) {
   return "TEXT: no readable words, letters, numbers, labels or signs anywhere in this frame.";
 }
 // WORD frames: a short prompt — pure white, nothing drawn (or the one small object named).
+// WORD frames — v24.1 (Muhammad: the text goes in the image prompts, never a separate image): a pure white frame with the
+// line's word hand-lettered into it (or the one small object named), generated like any other frame.
 function wordPrompt(b) {
-  const items = propItems(b);
+  const items = propItems(b), w = b.onScreen;
   return clean([
-    `ONE single 16:9 landscape frame for a modern parenting explainer: ${items.length ? "a plain, clean, pure white (#FFFFFF) frame with one small object drawn in flat 2D style with one medium-thin black ink outline, small and low in the frame." : "a plain, clean, pure white (#FFFFFF) frame, flat and empty from edge to edge."}`,
+    `ONE single 16:9 landscape frame for a modern parenting explainer: a plain, clean, pure white (#FFFFFF) frame${w ? ` holding one big hand-lettered word, "${String(w.w)}", as the whole picture` : ""}${items.length ? `, with one small object drawn in flat 2D style with one medium-thin black ink outline, small and low in the frame` : ""}.`,
     items.length ? propLock(b) : "",
     worldBlock(b), colourBlock(b),
     "CHARACTER COUNT: exactly 0. No person, head, face, hand or silhouette anywhere in this frame.",
     textLock(b),
-    "FLAT 2D STYLE: matte flat fills, no gradients, shading, cast shadows, glow, texture, 3D or blur.",
+    "FLAT 2D STYLE: matte flat fills, no gradients, shading, cast shadows, soft glow, texture, 3D or blur.",
   ]);
 }
 
@@ -744,7 +746,12 @@ function buildOverlayPrompt(key) {
 function _ceKey(b) { const ce = String((b.plan && b.plan.ce) || "").trim(); if (/^none$/i.test(ce)) return null; const k = (ce.match(/^[A-Z0-9_]+/) || [""])[0]; return PROP[k] ? k : (PROP[b.hero] ? b.hero : null); }
 function colourWhy(b) { if (b.colourReason) return b.colourReason; const k = _ceKey(b), P = k && PROP[k]; const m = P ? (P.why || (P.fam && COLOUR_LOGIC[P.fam] ? `${P.fam.toLowerCase()} = ${COLOUR_LOGIC[P.fam]}` : "")) : (b.accentMark && b.accentCol ? `${String(b.accentCol).toLowerCase()} = ${COLOUR_LOGIC[String(b.accentCol).toUpperCase()] || ""}` : ""); if (b.mute && !k) return "grey = " + COLOUR_LOGIC.GREY; if (!k && !b.accentMark) return ""; return `${b.calm ? "calm" : "bright"}${b.accent ? " — " + b.accent : ""}${m ? " (" + m + ")" : ""}${b.glow ? " · glow: " + b.glow : ""}`; }
 const BEATS = RAW_BEATS.map(b => ({ ...b, mood: moodOf(b.mood), ...(MOOD_ALIAS[b.mood] && !b.moodWas ? { moodWas: b.mood } : {}), script: b.script || SCRIPT[b.n - 1] || "", colourReason: colourWhy(b) }));
-const PROMPTS = BEATS.map(b => ({ ...b, prompt: buildPrompt(b), ...(b.onScreen && !b.onScreen.font ? { promptNoText: buildPrompt({ ...b, onScreen: null, keyword: null, _cardSpace: b.onScreen.at || "near the top of the frame" }) } : {}) }));
+// v24.1: the word is part of the frame prompt; if Flow misspells it, the word-fix edit repairs it on the same image
+function wordFixPrompt(b) {
+  const w = b.onScreen, txt = String(w.w);
+  return [`EDIT THIS IMAGE — make exactly one change and keep everything else identical.`, `CHANGE: redraw the ${w.font ? `letter ${w.at ? "set " + w.at : "on the object"}` : "on-screen word"} so it reads exactly "${txt}" — spelled ${spelled(txt)} — in the same ${w.font ? "handwritten marker strokes" : "bold hand-lettered capitals"}, the same colour, size and place; any missing, doubled or misshapen letter is redrawn correctly, and nothing else is added.`, EDIT_KEEP, EDIT_DONT.replace("add any object, text, letters,", "add any object, other text or letters,")].join("\n\n");
+}
+const PROMPTS = BEATS.map(b => ({ ...b, prompt: buildPrompt(b), ...(b.onScreen ? { wordFix: wordFixPrompt(b) } : {}) }));
 
 const POP_CUES = PROMPTS.filter(p => p.pop).map(p => ({ ref: p.ref, script: p.script, ...p.pop }));
 // v24: the Premiere reframes of each still (zm) — reuse before regenerating

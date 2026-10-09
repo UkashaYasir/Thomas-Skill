@@ -89,9 +89,21 @@ const underline = P.filter(p => /\bunderline\b(?! and no box)/i.test(block(p.pro
 underline.length ? fail("underlined words — Thomas: \"the underline should be removed\": " + refs(underline)) : ok("no underlined word");
 const formal = P.filter(p => p.onScreen && !p.onScreen.font && /sans-serif|geometric headline|Poppins|condensed|editorial|caption/i.test(block(p.prompt, "TEXT").replace(/never a geometric presentation font/gi, ""))).map(p => p.ref);
 formal.length ? fail("words in a presentation font — Thomas: \"too cold, too formal and too much like a slide presentation\": " + refs(formal)) : ok("every lettered word uses the hand-lettered style");
+const premiere = D.filter(b => b.keyword && b.keyword.word && !b.onScreen).map(b => `${b.ref}("${b.keyword.word}")`);
+premiere.length ? fail("words left for a separate image or Premiere — Muhammad: the text goes in the image prompt; letter it into the frame (tx, or kw in compiler v24.1): " + refs(premiere)) : ok("every word is lettered into its frame's own prompt");
 const cueMiss = W.filter(b => !inLine(b.onScreen ? b.onScreen.on : b.keyword.on, b.script || SCRIPT[b.n - 1])).map(b => b.ref);
 cueMiss.length ? warn("word cues not found in their script line — the word lands on the spoken word: " + refs(cueMiss)) : ok("every word lands on a word of its line");
 info(`${W.length} words: ${W.map(b => `${b.ref} ${wordOf(b)}`).join(" · ") || "none"}`);
+
+// a sudden close-up grabs attention (Thomas: "larger heads"; "more frequent zoom-ins and close-ups on faces, eyes, hands")
+const CLOSE_FACE = ["CLOSE", "XCLOSE", "FACE_HANDS", "REACTION"];
+const faceTarget = z => /face|eyes|head/i.test(String(z.to || ""));
+const segs = [...new Set(D.map(b => b.sequence))];
+const noPunch = segs.filter(q => { const F = D.filter(b => b.sequence === q); return F.some(b => roleList(b).length) && !F.some(b => (CLOSE_FACE.includes(b.shotSize) && roleList(b).length) || (b.zooms || []).some(faceTarget)); });
+noPunch.length ? warn("chapters with characters but no close face and no punch to a face — a sudden close-up is how this channel grabs attention: " + refs(noPunch)) : ok("every chapter with characters has a close face or a punch to a face");
+// a prop text that names a character who is not in the frame pulls that character in (Video 05: 29 frames)
+const absentName = D.flatMap(b => { const here = roleList(b).map(r => r.toUpperCase()); return propKeys(b).filter(k => PROP[k]).flatMap(k => { const t = String(PROP[k].name) + " " + String((b.propText && b.propText[k]) || PROP[k].text); return Object.keys(M.ROLE).map(r => r.toUpperCase()).filter(r => !here.includes(r) && new RegExp("\\b" + r.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(?:'S|'s)?\\b").test(t) && !here.some(h => h.includes(r) && h !== r)).map(r => `${b.ref}(${k}: ${r})`); }); });
+absentName.length ? warn("object texts that name a character who is not in the frame — the name can pull that character into the picture; rename the prop or say \"his phone\": " + refs([...new Set(absentName)])) : ok("no object text names a character who is not in its frame");
 
 // ════════════════════════════════════════════════════════════════
 head("ZOOMS — reuse a still (v24-standard.md §6)");

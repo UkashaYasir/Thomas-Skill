@@ -4,6 +4,9 @@
 > Thomas: "define the emotional beats, camera angles, reactions, and visual contrasts very clearly before production
 > starts." No creative numbers here: every row is judged by the script.
 
+**0. Story world** (v24) — one family, one stretch of time, the spine object and where it is in each chapter; how a list
+script becomes one connected story; the look and the way in and out of each kind of aside (`v24-standard.md` §15).
+
 **1. The film in one sentence** — what the viewer should understand and feel by the end.
 
 **2. Emotional curve** — one row per chapter: chapter · what happens · what the viewer should feel · strength (quiet,
@@ -37,8 +40,10 @@ peaks that get a PEAK field; the night scenes (NIGHT); the past (MEMORY).
 **10. Recurring objects** — each one's reason, how it evolves, and what it means each time it returns (it never returns
 only because it looks good).
 
-**11. On-screen words** — the idea words at the strong moments (TRUST, SAFE, LISTEN, SHAME, MISREAD, NOT REJECTION…),
-never chapter numbers, not constantly.
+**11. On-screen words** — short, playful, hand-lettered words at the strong moments (WAIT…, ENOUGH!, SAFE, TRUST,
+PRESSURE, WHY?, AHA!…), lettered into the frame's own prompt; never numbers or titles, not constantly.
+
+**11b. Attention punches** — where each chapter's sudden close-ups land (a REACTION or XCLOSE frame, or a punch reframe).
 
 **12. Risks** — the extremes Thomas would correct (rooms built around one colour, full rooms, symbols instead of behaviour,
 the camera stuck at medium/wide, a repeated composition, too much text, too random, too literal) and how this video

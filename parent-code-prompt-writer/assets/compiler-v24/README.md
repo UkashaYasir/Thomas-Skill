@@ -11,7 +11,8 @@ mask reveals, reframes and the Copy and Edit pages. It puts Thomas's final word 
 - **Glow is drawn** (`gl`: halo, rays, rainbow); at night a screen is the light in the room.
 - **Objects two or three times larger** (`sl: "DOMINANT"`), and exaggerated cutaways (the helicopter).
 - **Characters never too small:** wide and medium-wide frames keep every face readable.
-- **Words are short, playful and hand-lettered** (`tx`), with a no-text prompt as well; a letter on an object (`ol`) only
+- **Words are short, playful and hand-lettered, inside the frame's own prompt** (`tx`, `kw`), with a word-fix edit if
+  Flow misspells one; a letter on an object (`ol`) only
   when the letter is the story. No numbers, section titles, underlines or presentation fonts.
 - **Zoom plans** (`zm`) reuse a still with new framing in Premiere; the targets are drawn crisp so the crop holds.
 - **The checks pass or fail by a rule.** `scripts/qa-v24.cjs` adds the v24 checks; `qa-all.cjs` runs everything.
@@ -53,7 +54,7 @@ This folder's own data is still the v19 smoke test "I'm fine"; `../v24-samples/v
 | `mk` | Accent marks on an action when no object carries the colour: `["three short jagged strokes above DAD's head", "RED"]`. |
 | `li` | A flat, clean-edged light shape: `["warm" \| "cool" \| "dusk", "where"]` — warm for positive moments. |
 | `mu` | `true`: absence — the place in quiet cool grey, every object black line except `ce`. |
-| `tx` | A hand-lettered word: `[WORD, cue word, COLOUR, where, big]` — COLOUR from WORD_COLOUR (BLACK, RED, YELLOW, BLUE, GREEN, VIOLET…); `big` for an ending or a peak. |
+| `tx` | A hand-lettered word in this frame's own prompt (never a separate image): `[WORD, cue word, COLOUR, where, big]` — COLOUR from WORD_COLOUR (BLACK, RED, YELLOW, BLUE, GREEN, VIOLET…); `big` for an ending or a peak. |
 | `ol` | A letter on an object: `[LETTER, cue word, COLOUR, on what, how it is drawn]` — the red F. |
 | `zm` | Reframes of this still in Premiere: `[[cue word, target, "punch" \| "push"], …]` — the target is a character or object in the frame. |
 | `fg` | A near foreground piece at one edge of the frame. |
@@ -244,7 +245,7 @@ line-type word, it is still read as the link. Use `lk` for the link from now on.
 | `dv` | The storytelling device. It is an open library, so new keys are only listed. |
 | `pop` | A pop-in: `[KEY, cue word, ADD or PUNCH, motion]`. Use story objects only; emoji-style icons fail the checks. |
 | `rv` | A mask reveal: `[KEY, cue word, surface, where]`. The surface `"FURN"` means it sits on an outline piece's white fill. Otherwise the cover is the ground or field colour. |
-| `kw` | The on-screen word for Premiere, in the v24 hand-lettered look: `[WORD, cue word]`. It must be an idea word: never "NUMBER …", digits or a sentence. |
+| `kw` | A short word: `[WORD, cue word, COLOUR]`. Compiler v24.1 letters it into this frame's image prompt (on a WORD frame, big in the centre of the white frame); use `tx` to set its place and size. It must be an idea word: never "NUMBER …", digits or a sentence. |
 | `mf` | The metaphor family. It also sets `fn: CONCEPT`. |
 | `mo` | The moment, e.g. "humour: …". |
 | `st` | The scene stage: START, PROBLEM, REACTION or RESULT. |

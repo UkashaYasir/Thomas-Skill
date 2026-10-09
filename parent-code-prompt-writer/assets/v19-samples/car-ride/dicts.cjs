@@ -50,7 +50,7 @@ WORLD: {
 },
 
 PROP: {
-  "CAR": { name: "THE CAR", hex: "#F2B705", colour: "sunflower yellow", danger: false, nouns: ["car"], part: "THE CAR's sunflower yellow (#F2B705) body", lineText: "THE CAR: GRANDMA's small rounded car seen from the side, drawn in bold black line with white fill, with two windows and two round wheels.", text: "THE CAR: GRANDMA's small rounded car seen from the side, its body in flat sunflower yellow (#F2B705), with two plain white windows and two round black wheels." },
+  "CAR": { name: "THE CAR", hex: "#F2B705", colour: "sunflower yellow", danger: false, nouns: ["car"], part: "THE CAR's sunflower yellow (#F2B705) body", lineText: "THE CAR: a small rounded car seen from the side, drawn in bold black line with white fill, with two windows and two round wheels.", text: "THE CAR: a small rounded car seen from the side, its body in flat sunflower yellow (#F2B705), with two plain white windows and two round black wheels." },
   "RADIO": { small: true, name: "THE RADIO DIAL", hex: "#E8A317", colour: "amber", danger: false, nouns: ["radio"], text: "THE RADIO DIAL: one round car-radio dial in flat amber (#E8A317) with one short black pointer line, set into the dashboard." },
 },
 

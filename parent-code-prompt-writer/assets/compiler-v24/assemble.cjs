@@ -90,7 +90,9 @@ const api = {
     if (o.os) b.oneSided = o.os; // a one-sided beat replaces the interaction rule
     if (o.na) b.noAnchor = true; // (older builds) no anchor piece — v19 never adds one automatically
     if (o.px) { b.propText = {}; for (let i = 0; i < o.px.length; i += 2) b.propText[o.px[i]] = o.px[i + 1]; } // px: ["KEY", "full object text for this frame"]
-    if (o.kw) b.keyword = { word: o.kw[0], on: o.kw[1] };
+    // v24.1 (Muhammad: text goes in the image prompts, not separate images): kw is lettered into this frame's own prompt,
+    // like tx — on a WORD frame it is the big word in the centre of the white frame
+    if (o.kw && !o.tx) b.onScreen = { w: o.kw[0], on: o.kw[1], col: (o.kw[2] || "BLACK").toUpperCase(), ...(word ? { at: "in the centre of the white frame", big: true } : {}) };
     if (o.eo) b.editOnly = { seq: o.eo[0], from: o.eo[1] };
     // ── v24 keys (references/v24-standard.md; README.md) ──
     if (o.cm) b.calm = true; // the colour focus in its calm tone — a deliberately quiet beat (default: bright)

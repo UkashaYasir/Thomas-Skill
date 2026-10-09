@@ -5,7 +5,7 @@ description: "Turns a line-broken script for The Parent Code — Thomas Kolonjak
 
 # Parent Code — prompt writer
 
-**Version 24** (9 Oct 2026). What each version added is in `CHANGELOG.md`. Whenever this skill is updated: bump the
+**Version 24.1** (9 Oct 2026). What each version added is in `CHANGELOG.md`. Whenever this skill is updated: bump the
 version here, add an entry at the top of `CHANGELOG.md` (what was added, why, what it replaces), name the package
 `parent-code-prompt-writer-vN.skill`, and list the additions in the reply.
 
@@ -64,11 +64,12 @@ never copy from them.
 
 1. **Read.** v24-standard.md, v19-principles.md, RULES-CARD.md, the character images. Any newer character images Muhammad shares are
    viewed too.
-2. **Director's read** (`director-read-template.md`). Read the whole script once as a viewer. Write down the film in one
+2. **Director's read** (`director-read-template.md`). Read the whole script once as a viewer. Write down the story world
+   (one family, one stretch of time, the spine object — `v24-standard.md` §15), the film in one
    sentence, the feeling of each chapter, the emotional peaks, the everyday situations the script touches, the people the
    story needs, and the recurring objects with what each comes to mean.
-3. **Shot plan for every line** (`shot-plan-v19.md`), in this order: the line type (`ln`); what the viewer should feel
-   (`ft`); the idea — explore every direction (real moment, behaviour, reaction, object, contrast, humour, metaphor,
+3. **Shot plan for every line** (`shot-plan-v19.md`, with the scene-by-scene starting choices in `v24-standard.md` §14),
+   in this order: the line type (`ln`); what the viewer should feel (`ft`); the idea — explore every direction (real moment, behaviour, reaction, object, contrast, humour, metaphor,
    unexpected angle), keep going until one is clearly the strongest, keep it in `idea` and the runner-ups in `alt`; the
    camera, with `look` and `ctx` on every close shot; the interaction (`ia`) and distance (`dist`) whenever two or more
    people are in the frame; the contrast (`cx`); the interrupt (`ip`); an idea word (`kw`) only at a strong moment; the
@@ -159,7 +160,9 @@ The read-through asks what a script cannot:
 - Does every frame make the viewer feel its `ft`? Is the idea the strongest of the directions explored?
 - Is every object and set piece necessary? Is the ground white and every set piece black line? Is the important object
   bright, and is nothing else competing with it?
-- Is any character too small to read? Would a reframe of an earlier still do the job of a new frame?
+- Is any character too small to read? Does every chapter have its sudden close-up? Would a reframe of an earlier still
+  do the job of a new frame?
+- Does every place change have a story reason, and does every aside keep its one look?
 - Is every word short, playful and needed — no numbers, titles or labels?
 - Does every close-up make sense — the place shown before, the gaze matching, open space on the side the eyes look, the
   head shape whole, the cause visible or clearly placed?
@@ -220,7 +223,8 @@ refs — never from intent. When Thomas's example refers to a scene from another
 - Don't change head sizes: proportions come from the reference images (MOM's head about one-fifth of her height, SON's
   about one-quarter); a bigger face on screen is always the camera moving closer.
 - Don't put numbers, section titles, underlines, presentation fonts or textbook terms on screen. Words are short,
-  playful, hand-lettered (`tx`, or `kw` for Premiere) and only where they genuinely support the moment; no signs to read;
+  playful, hand-lettered, always inside the frame's own image prompt (`tx` or `kw`) — never a separate image — and only
+  where they genuinely support the moment; no signs to read;
   a letter on an object only when the letter is the story (the F).
 - Don't write "finger", anatomy or clothing words, or soft-lighting words (shadow, gradient, bloom) that fight the flat
   style — a glow is a drawn halo or radiating strokes (`gl`); mouths are shapes, never letters; no teeth.

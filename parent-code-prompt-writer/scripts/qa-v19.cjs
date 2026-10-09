@@ -112,7 +112,7 @@ P.filter(p => ["CLEAN", "WHITE"].includes(moodOf(p.mood))).forEach(p => {
 });
 tinted.length ? fail("CLEAN/WHITE frames with tinted-room wording (a coloured wall, tinted room or furniture colour): " + refs(tinted)) : ok("CLEAN and WHITE frames carry no tinted wall, room or furniture wording");
 extraHex.length ? fail("CLEAN/WHITE settings that colour a set piece or the place (only the white ground, the black line and white fill are allowed there — Thomas: \"black and white is enough\"): " + refs(extraHex)) : ok("CLEAN and WHITE settings are the white ground, black-line pieces and white fill only");
-const noOne = P.filter(p => !/THE BRIGHT COLOUR FOCUS in this frame is|The one colour in this frame is|THE BRIGHT ACCENT in this frame is|The only (?:other )?coloured element|Nothing (?:in it )?carries (?:strong )?colou?r|No object carries colou?r|Only .{1,80} keeps its colou?r|Everything is black ink and white/.test(block(p.prompt, "COLOUR", NEXT_COL))).map(p => p.ref);
+const noOne = P.filter(p => !/THE BRIGHT COLOUR FOCUS in this frame is|The one colour in this frame is|THE BRIGHT ACCENT in this frame is|The only (?:other )?coloured element|Nothing (?:in it )?carries (?:strong )?colou?r|No object carries colou?r|Only .{1,80} keeps its colou?r|Only the word carries colou?r|Everything is black ink and white/.test(block(p.prompt, "COLOUR", NEXT_COL))).map(p => p.ref);
 noOne.length ? fail("colour blocks that do not name one colour element (or say that nothing carries colour): " + refs(noOne)) : ok("every colour block names its one colour element, or says that nothing carries colour");
 info("colour elements " + dist(D, b => { const ce = String(plan(b).ce || "").trim(); return ce ? (/^none$/i.test(ce) ? "none" : (ce.match(/^[A-Z0-9_]+/) || [ce])[0]) : PROP[b.hero] ? b.hero + " (default)" : "none (default)"; }));
 const roomWhite = D.filter(b => moodOf(b.mood) === "WHITE" && closeFace(b)).filter(b => /\b(table|chair|counter|fridge|wall|door(way)?|stairs?|rail|sofa|bed|shelf|floor|window|desk)\b/i.test(stripProps([b.action, b.map].join(" ")))).map(b => b.ref);
@@ -147,7 +147,7 @@ D.filter(b => roleList(b).length && !isWord(b)).forEach(b => {
 });
 sevenMiss.length ? fail("performances that do not name all seven features — eyes, eyebrows, mouth, head position, hand gesture, posture, eye direction (hands-only frames: the hands; eyes-only: eyes, eyebrows, eye direction; a face turned away: head, hands, posture): " + refs(sevenMiss)) : ok("every performance names the seven features for every visible character");
 const words = D.filter(isWord);
-const wordNoKw = words.filter(b => !b.keyword || !String(b.keyword.word || "").trim()).map(b => b.ref);
+const wordNoKw = words.filter(b => !(b.keyword && String(b.keyword.word || "").trim()) && !(b.onScreen && String(b.onScreen.w || "").trim())).map(b => b.ref);
 wordNoKw.length ? fail("WORD frames without their on-screen word (kw: [\"WORD\", \"cue word\"]): " + refs(wordNoKw)) : ok(`every WORD frame carries its word (${words.length})`);
 const wordCast = words.filter(b => roleList(b).length).map(b => b.ref);
 wordCast.length ? fail("WORD frames with characters — a word frame is pure white with nothing drawn (or one small object): " + refs(wordCast)) : ok("WORD frames carry no characters");

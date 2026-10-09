@@ -164,6 +164,10 @@ sides kept inside each scene and varied between scenes.
 peaks; NIGHT only at night; MEMORY only in the past; each `ce` pulls the eye to the right place; red only for danger
 (references/style-and-colour-v19.md).
 
+**J. Where and when** (v24, Muhammad's "no random scenes"). Read the place and time of every frame along the film: each
+place change has a story reason (time passed, someone walked there); asides (memory, imagined, future) use their one look
+and their way in and out; the spine object's state is always known (`v24-standard.md` §15).
+
 **I. Life, humour and cast.** Everyday situations and humour beats spread through the film rather than clustering in one
 chapter; every character the story needs is designed (references/cast-design-v19.md).
 

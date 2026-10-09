@@ -3,7 +3,8 @@
 > **v24 (9 Oct 2026) — `v24-standard.md` §7 wins over §2 of this file:** words are short, playful, emotional and
 > hand-lettered ("WAIT…", "ENOUGH!", "SAFE", "TRUST", "PRESSURE", "WHY?", "INVISIBLE", "AHA!"); never numbers, section
 > titles, underlines, a cold presentation font or textbook terms; readable on a phone. They may be lettered into the image
-> (`tx`, with a no-text prompt as well) or set in Premiere in the same hand-lettered look (`kw`). Humour and exaggeration
+> (`tx` or `kw`) — **always inside the frame's own image prompt, never a separate image** (Muhammad, 9 Oct); a WORD frame
+> is a white frame with the word lettered in. Humour and exaggeration
 > are "essential parts of our channel identity" (Thomas, Video 08) — exaggerated reactions and impossible scale are in.
 
 Read with `v19-principles.md` §5. Where `aha-humour-popins.md`, `colour-and-text-v17.md` or `motion-and-energy.md` say
@@ -137,7 +138,7 @@ his words — listen, attention, safe, trusting — with nothing on screen.
   the boundary is held with the arm still round him), the closing message. No count.
 - **Never chapter numbers as the text moment.** "Number one…" is navigation, not an idea. The keyword field holds idea
   words only; a new chapter is marked by its picture (a new place, a new state of the motif).
-- **One consistent style, added by Muhammad in Premiere,** never drawn into the image (prompts keep their no-text rule).
+- *(v24.1: superseded — words are hand-lettered inside the frame's own image prompt; see the banner and `v24-standard.md` §7.)* **One consistent style, added by Muhammad in Premiere,** never drawn into the image (prompts keep their no-text rule).
   A clean cut or a soft scale-in reads as adult; a bouncing pop reads as kids' content *(our inference from "We are not
   creating a kids channel")*. Black, or the colour of the frame's colour element.
 - **The word stays at least until the end of the spoken phrase** it belongs to *(our inference; a key word needs time to

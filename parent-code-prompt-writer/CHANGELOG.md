@@ -4,6 +4,39 @@ Every update gets a new version number and an entry here: what was added, why (w
 what it replaces. The newest version is at the top. The version is also written at the top of
 SKILL.md and in the package file name (parent-code-prompt-writer-vN.skill).
 
+## v24.1 — 9 Oct 2026 · Muhammad's two decisions, the scene playbook, the Video 05 lessons
+
+**Why:** Muhammad settled the two open questions of v24 — "Larger head means camera close or like the closeup to get a
+sudden visual change to grab the audience attention" and "need text in image prompts not seperate images" — and asked for
+the skill to hold every instruction and the logic of how each one is used depending on the scene.
+
+**Added**
+- `v24-standard.md` §14 **Scene by scene**: for each kind of moment (hook, chapter turn, explanation, dialogue, humour,
+  conflict, sadness and absence, pressure, aha, warmth, memory, imagined, night, rapid list, ending) the starting camera,
+  stage and colour, extras (scale, glow, marks, light), word and motion.
+- `v24-standard.md` §15 **Organised, never random** (Muhammad's Video 05 direction): a story world in the director's read,
+  a place changes only when the story moves there, one look and a way in and out for every kind of aside; whole-film pass
+  **J. Where and when** (`shot-plan-v19.md`); director's-read rows 0 (story world) and 11b (attention punches).
+- Video 05 lessons as rules: no fragment of an object along a close-up's edge; a recurring object's biggest picture saved
+  for its peak; no prop name or text naming a character who is not in the frame.
+- Checks (`qa-v24.cjs`): words left for Premiere or a separate image fail; chapters with characters but no close face and
+  no punch to a face warn; object texts naming an absent character warn.
+- Compiler: `wordFixPrompt` (an edit that redraws a misspelt word on the same image), shown on the Copy page as "Copy
+  word-fix edit".
+
+**Changed**
+- "larger heads" = the camera close: a sudden close-up (REACTION or XCLOSE, or a punch reframe) where the line turns, a
+  feeling peaks or attention could drift.
+- Words always live in the frame's own image prompt: `kw` is lettered in like `tx`; a WORD frame is a white frame with the
+  word lettered in and is generated like any other frame; the no-text prompt is gone.
+- The template and car-ride samples no longer name a character inside a prop text ("one slim rectangular smartphone",
+  "a small rounded car").
+
+**Replaces:** v24's "lettered into the image or set in Premiere" and its open questions.
+
+**Verified (9 Oct 2026):** every check passes on all five samples; the planted mistakes are still caught (seven fails);
+Video 08 compiled with v24.1 still fails on its numbered titles, title card and plaque, and the new name check finds S116.
+
 ## v24 — 9 Oct 2026 · Thomas's final word after Video 08 ("Seven Types of Parents")
 
 **Why:** Thomas approved Video 08 on 9 Oct 2026 and set five standards "for the next video… from the very beginning":

@@ -1,4 +1,4 @@
-# RULES CARD — v24 (the whole system on one card)
+# RULES CARD — v24.1 (the whole system on one card)
 
 **Principles:** Thomas's five standards after Video 08 (`v24-standard.md` §1) — bright colour on important objects; more
 zoom-ins and close-ups on faces, eyes, hands and objects; characters never too small; only short, playful words, never
@@ -13,7 +13,7 @@ detail. Creative choices are judged by the moment; the only numbers are Thomas's
 meaningful visual change approximately every 3–5 seconds") and technical ones. Every list is seed examples plus a method.
 
 ## 0. Before anything
-- Say which skill version is in use (this card: v24). If Muhammad attached a `.skill` file, it wins over the installed copy.
+- Say which skill version is in use (this card: v24.1). If Muhammad attached a `.skill` file, it wins over the installed copy.
 
 ## 1. Input and output
 - Input: Muhammad's script split into lines (and chapters), optionally the voice-over timing and Thomas's editor briefing.
@@ -51,6 +51,8 @@ meaningful visual change approximately every 3–5 seconds") and technical ones.
 - Full colour fields only for **PEAK** (`pk`) and **NIGHT**, never behind a face close-up. **MEMORY** is the faded past.
 
 ## 4. Camera, close-ups and zooms (`camera-and-closeups-v19.md`, `v24-standard.md` §5–§6)
+- **Sudden close-ups grab attention** (Thomas's "larger heads" = the camera close): a REACTION or XCLOSE frame, or a punch
+  reframe to the face, where the line turns, a feeling peaks or attention could drift — in every chapter with people.
 - "Bring the camera closer": wide, medium-wide, medium, close-up, extreme close-up, face + hands, reaction, hands, object,
   word frame. "Avoid showing characters too small or too far away": WIDE only when distance or place is the point, and
   even then every face reads; MEDWIDE is the usual full-figure shot.
@@ -77,15 +79,22 @@ meaningful visual change approximately every 3–5 seconds") and technical ones.
   voice-over names a vivid image, an **exaggerated cutaway** shows it big and bright behind the character, who reacts.
 - **Metaphors understood at once**, tied to the story's own objects, with a character inside reacting.
 - **Letters on an object** only when the letter is the story (the red F) — never labels or signs.
-- **Recurring objects** evolve and return with a new picture. "One strong object, one strong face, one strong gesture."
+- **Recurring objects** evolve and return with a new picture; the biggest version is saved for the peak. "One strong
+  object, one strong face, one strong gesture."
+- No prop name or text names a character who is not in the frame; no fragment of an object along a close-up's edge.
+- **Organised, never random** (`v24-standard.md` §15): one story world; a place changes only when the story moves there;
+  asides keep one look.
+- **Scene by scene:** `v24-standard.md` §14 gives the starting camera, colour, extras, word and motion for each kind of
+  moment (hook, chapter turn, explanation, dialogue, humour, conflict, sadness, pressure, aha, warmth, memory, imagined,
+  night, list, ending).
 
 ## 7. Humour, words, contrast, interrupts (`humour-text-contrast-v19.md`, `v24-standard.md` §7–§8)
 - Humour and exaggeration are channel identity — exaggerated reactions, impossible scale, the funny contradiction — never
   childish symbols.
 - **Words** (`tx`): short, playful, emotional, hand-lettered — WAIT…, ENOUGH!, SAFE, TRUST, PRESSURE, WHY?, INVISIBLE,
   AHA! — only where they genuinely support the moment; never numbers, section titles, underlines, presentation fonts,
-  textbook terms or sentences; readable on a phone; lettered into the image (with a no-text prompt too) or set in Premiere
-  in the same look.
+  textbook terms or sentences; readable on a phone; **always lettered into the frame's own image prompt — never a separate
+  image**; a WORD frame is a white frame with the word lettered in; a misspelt word is fixed with the word-fix edit.
 - Contrast (`cx`) and pattern interrupts (`ip`) as in v19; frustration, sadness, humour, surprise and warmth clearly
   different from each other. Every frame creates emotion, gives value, builds curiosity or entertains.
 
@@ -110,7 +119,7 @@ meaningful visual change approximately every 3–5 seconds") and technical ones.
 | `cx` | the contrast this frame makes (or "affinity — " and why) |
 | `ip` | the interrupt type, when the frame is one |
 | `pk` | true on a planned emotional peak (required for PEAK) |
-| `kw` | an idea word for Premiere, only at a strong moment (or `tx` to letter it into the image) |
+| `kw` / `tx` | a short word at a strong moment, lettered into this frame's image prompt (`tx` adds colour, place, size) |
 
 Frame keys added in v24 (assemble short keys, `assets/compiler-v24/README.md`): `cm` calm tone · `gl` glow (halo, rays,
 rainbow) · `mk` accent marks on an action · `li` flat light shape · `mu` absence (grey) · `tx` hand-lettered word ·
