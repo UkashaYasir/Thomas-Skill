@@ -1,4 +1,4 @@
-# RULES CARD — v24.1 (the whole system on one card)
+# RULES CARD — v24.2 (the whole system on one card)
 
 **Principles:** Thomas's five standards after Video 08 (`v24-standard.md` §1) — bright colour on important objects; more
 zoom-ins and close-ups on faces, eyes, hands and objects; characters never too small; only short, playful words, never
@@ -13,7 +13,8 @@ detail. Creative choices are judged by the moment; the only numbers are Thomas's
 meaningful visual change approximately every 3–5 seconds") and technical ones. Every list is seed examples plus a method.
 
 ## 0. Before anything
-- Say which skill version is in use (this card: v24.1). If Muhammad attached a `.skill` file, it wins over the installed copy.
+- Say which skill version is in use (this card: v24.2). `client-feedback-ledger.md` lists every client point with its rule
+  and check. If Muhammad attached a `.skill` file, it wins over the installed copy.
 
 ## 1. Input and output
 - Input: Muhammad's script split into lines (and chapters), optionally the voice-over timing and Thomas's editor briefing.
@@ -46,6 +47,9 @@ meaningful visual change approximately every 3–5 seconds") and technical ones.
   positive highlights · grey absence.
 - **Glow is drawn:** a halo of clean-edged rings or short radiating strokes (`gl`), or a rainbow burst for delight —
   never a soft gradient or bloom. At night a screen is the light in the room.
+- **Drawn marks carry action, never decoration:** speed lines on a moving ball or arm, impact strokes where a hand hits,
+  buzz dashes round a phone, shine strokes. No sweat drops, steam, stars, anger veins, blush marks or tears.
+- **White and place moments balance** in every chapter. **Phones are purple.**
 - **Positive looks different from stressful:** warm accent and light shape, people closer · red focus, tension marks,
   tighter framing, people apart · grey and negative space for sadness and absence.
 - Full colour fields only for **PEAK** (`pk`) and **NIGHT**, never behind a face close-up. **MEMORY** is the faded past.
@@ -95,6 +99,10 @@ meaningful visual change approximately every 3–5 seconds") and technical ones.
   AHA! — only where they genuinely support the moment; never numbers, section titles, underlines, presentation fonts,
   textbook terms or sentences; readable on a phone; **always lettered into the frame's own image prompt — never a separate
   image**; a WORD frame is a white frame with the word lettered in; a misspelt word is fixed with the word-fix edit.
+- **Every emotional peak gets a short dramatic close-up; every metaphor enters with a surprise and stays visible in the
+  real scene; action sequences move big (one camera, one place, one clear change per still); conflict → repair changes
+  face, distance and colour with a held beat between; calm → action handovers are made big.** (`v24-standard.md` §16 —
+  the rule behind each Video 08 timestamp note.)
 - Contrast (`cx`) and pattern interrupts (`ip`) as in v19; frustration, sadness, humour, surprise and warmth clearly
   different from each other. Every frame creates emotion, gives value, builds curiosity or entertains.
 

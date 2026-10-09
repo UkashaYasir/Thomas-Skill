@@ -5,7 +5,7 @@ description: "Turns a line-broken script for The Parent Code — Thomas Kolonjak
 
 # Parent Code — prompt writer
 
-**Version 24.1** (9 Oct 2026). What each version added is in `CHANGELOG.md`. Whenever this skill is updated: bump the
+**Version 24.2** (9 Oct 2026). What each version added is in `CHANGELOG.md`. Whenever this skill is updated: bump the
 version here, add an entry at the top of `CHANGELOG.md` (what was added, why, what it replaces), name the package
 `parent-code-prompt-writer-vN.skill`, and list the additions in the reply.
 
@@ -39,6 +39,7 @@ Then read `references/RULES-CARD.md` (the whole system on one card, v24) and `vi
 
 | File | Open it for |
 |---|---|
+| `references/client-feedback-ledger.md` | every point Thomas made (and Muhammad's decisions), each traced to its rule and its check — read before a video, extend after every feedback round |
 | `references/v24-standard.md` | Thomas's final standard: white stage and black-line places, bright colour by meaning, glow, scale and exaggerated cutaways, characters never small, zoom plans, hand-lettered words, the Video 08 test cases |
 | `references/shot-plan-v19.md` | the plan: the order of decisions, the plan fields, ideation, the whole-film passes, a worked example |
 | `references/style-and-colour-v19.md` | the five moods, NIGHT, MEMORY, PEAK, how prompts phrase colour (v24 changes the ground, the line and the focus brightness) |
@@ -164,6 +165,9 @@ The read-through asks what a script cannot:
   do the job of a new frame?
 - Does every place change have a story reason, and does every aside keep its one look?
 - Is every word short, playful and needed — no numbers, titles or labels?
+- Does every emotional peak have its short dramatic close-up? Does every metaphor enter with a surprise and stay visible
+  in the real scene? Do action sequences move big and read easily? Does a conflict turn into repair with a held beat?
+- Is every phone purple, and does every chapter balance white moments with place moments?
 - Does every close-up make sense — the place shown before, the gaze matching, open space on the side the eyes look, the
   head shape whole, the cause visible or clearly placed?
 - Does every face clearly react, and does every shared frame show an action and a visible reaction?
@@ -187,6 +191,13 @@ Video 08, so the v19 ground strip is history.)
   first, and anything that needs Muhammad's or Thomas's decision.
 
 ## Revisions against Thomas's feedback
+
+Timestamp notes (Frame.io): map each note to its frames with `node <skill>/scripts/timestamp-map.cjs out/build.jsx
+"02:30-02:40"` — add `--anchor S140=04:42` with a few real times from the Premiere timeline, because the word-count estimate
+drifts. Fix the frames the note names, then apply the rule the note shows across the whole script (`v24-standard.md` §16
+is the model). Add every new point to `client-feedback-ledger.md`. Removing extras from an already-rendered frame in
+Photoshop is an accepted, cheaper fix (Thomas, 9 Oct) — say which fixes are Photoshop or Premiere work and which need new
+prompts.
 
 Before saying a round is finished, report every point as **done / partly / not**, checked against the build with frame
 refs — never from intent. When Thomas's example refers to a scene from another video, say so and apply the principle.

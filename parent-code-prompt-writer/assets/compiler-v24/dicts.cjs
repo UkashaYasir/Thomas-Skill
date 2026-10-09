@@ -36,7 +36,7 @@ WORLD: {
 },
 
 PROP: {
-  "PHONE": { name: "THE PHONE", hex: "#00B3B8", colour: "turquoise", part: "THE PHONE's turquoise (#00B3B8) case", danger: false, nouns: ["phone"], text: "THE PHONE: one slim rectangular smartphone in a flat turquoise (#00B3B8) case with rounded corners and one small round camera dot at its top corner; its screen one plain dark panel with no picture and no words." },
+  "PHONE": { fam: "VIOLET", screen: true, name: "THE PHONE", hex: "#8A2BE2", colour: "vivid purple", part: "THE PHONE's vivid purple (#8A2BE2) case", danger: false, nouns: ["phone"], text: "THE PHONE: one slim rectangular smartphone in a flat vivid purple (#8A2BE2) case with rounded corners and one small round camera dot at its top corner; its screen one plain dark panel with no picture and no words." },
   "MUG": { name: "THE MUG", hex: "#E07A2E", colour: "warm amber", danger: false, nouns: ["mug", "tea"], text: "THE MUG: one plain round mug in flat warm amber (#E07A2E) with one round handle, and two short wavy ink lines of steam above it." },
 },
 

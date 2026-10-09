@@ -60,6 +60,10 @@ consistently from the start, without requiring repeated revisions."
   Before a frame is written, every set piece and every prop answers yes to one of: does it tell the story, carry the
   emotion, or make the moment understandable? Otherwise it is cut. The study scene is the model: the character and the
   colourful books; one window outline to say "home"; no fridge, no counter, no cabinets.
+- **Balance white moments and place moments.** "the balance between minimal white scenes and environmental scenes will be
+  very important" (Thomas, approving the plan for Video 08). Faces, objects and words land on WHITE; real moments keep
+  their few black-line pieces on CLEAN. Neither runs a whole chapter alone (a check warns when a chapter has no white
+  moment).
 - **Keep it clean even when colours get stronger.** "please be careful not to fill each scene too much… The main focus
   must always remain on the characters and the important objects" (T6).
 
@@ -99,6 +103,12 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
   clean-edged rings, or a ring of short radiating strokes, in a lighter tint of the object's colour. A **rainbow burst** is
   a ring of short radiating strokes in several bright colours — for delight, discovery or reward only. Never a soft
   gradient, bloom or blur. At night a screen is the light in the room: its flat light wedge stays.
+- **Drawn marks carry action, never decoration.** Video 08's approved frames used them: short ink dashes round a buzzing
+  phone, dashes flicking off the flames, speed dashes on the rotor. Allowed, at the point of action: a few speed lines
+  behind a moving ball, bike or arm; short impact strokes where a hand hits a table; buzz dashes round a phone; shine strokes
+  (`gl`). Still out: sweat drops, steam, stars or swirls round a head, anger veins, blush marks, tears — and any graphic
+  that only fills space ("No unnecessary… decorative elements", T9). Crying is drawn by the face and body (screwed-up
+  eyes, a wobbling open mouth, shoulders up, mitten hands at the eyes), not by tears — as Video 08 did.
 - **Positive moments look different from stressful ones.** "Positive scenes should feel visually different from the more
   stressful moments" (T4); "subtle warm color accents" on the hug and the achievement; "subtle visual highlights instead of
   maintaining exactly the same calm presentation" (T4). Warm: a flat warm light shape, the warm accent, people closer.
@@ -122,9 +132,14 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
   a symbol icon.
 - **Humour and exaggeration are channel identity.** "Humor and exaggeration are essential parts of our channel identity"
   (T3). Exaggerated reactions and impossible scale are in; childish symbols stay out.
-- **Metaphors that are understood at once.** The control dials (Video 08) are the model: "a good visual concept"; make the
-  entrance "more impactful and surprising" and keep the link to the conflict visible (the dial on the wall showing the
-  current setting).
+- **Metaphors understood at once.** The control dials (Video 08) are the model: "a good visual concept".
+- **A metaphor or an explanation enters with a surprise.** "Make the transition into this explanation more impactful and
+  surprising" (T4, 07:20). The frame that opens it is a change in kind — a snap to white, the object bursting in big, a
+  sudden jump in scale, a SNAP_ZOOM on its word — never a slow drift into a diagram. Its plan names the interrupt (`ip`);
+  a check warns when the first frame of a metaphor family has none.
+- **The metaphor stays visible inside the real scene.** "Strengthen the… contrast between the dial settings and the
+  conflict" (T4, 07:40): when the story returns to the real moment, the metaphor object sits in it, showing the state that
+  explains the moment (the dial on the wall turned to "control" while the argument plays).
 - **Save the biggest picture for the peak.** A recurring object's biggest, brightest version belongs to its peak; earlier
   returns stay smaller (Video 05: the phone drawn huge in thirteen frames cheapened the one where it became a wall).
 - **Names stay off objects.** A prop's name or text never names a character who is not in the frame ("SON's phone" in a
@@ -168,6 +183,12 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
   However, every movement should support the story. Avoid unnecessary animation" (T3). A change is a new frame, an edit, a
   reveal, a reframe or a camera move with a reason. It is an editing guideline, not a count of generated images.
 - **Vary the moves.** Zoom and pan "selectively, not exactly the same way on every image" (Video 05) still holds.
+- **Action sequences move big and read easily.** "The basketball sequence could benefit from stronger movement and more
+  expressive reactions"; "Keep the bicycle sequence clear and easy to follow" (T4). Each still in an action sequence is a
+  big, clear change of pose (wind-up → throw → miss → reaction), with speed lines on the moving part; the camera and the
+  place stay the same across the stills, the action moves one way across the frame, and the last still is a face reacting.
+- **Conversations change framing.** "Add more variety in framing and camera perspectives" (T4, 06:30): an exchange moves
+  between a two-shot, over the shoulder and reaction close-ups — never one framing for the whole talk.
 - **No fragments at the frame edge.** A metaphor or story object in a close-up is either whole in the frame or left out —
   never a strip of it along the top of a face (Video 05: a cloud edge above four close-ups read as an error).
 
@@ -207,7 +228,12 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
 - "Every scene should create emotion, provide value, build curiosity, or entertain" (T3). A frame that does none of these
   is cut or merged into its neighbour's still with a reframe.
 - "Create a stronger emotional contrast between frustration and the positive interaction that follows. Focus on facial
-  reactions and timing" (T4).
+  reactions and timing" (T4). The turn from conflict to repair shows in three things at once — the faces, the distance
+  (apart → close or touching) and the colour (red → warm) — with a held beat (tier Q, or a HOLD) between them so the
+  change lands.
+- "The indoor scene feels relatively calm. Create a stronger contrast with the exaggerated playground action that
+  follows" (T4, 00:30): when a calm scene hands over to an action scene, the jump is made big on purpose — held and close
+  before, exaggerated, bright and moving after.
 
 ---
 
@@ -287,13 +313,15 @@ the line itself decides the rest. Nothing here is a quota: a moment uses an extr
 | **Hook, the opening line** | the strongest picture of the video: a big object or a big face in the first frame | CLEAN or WHITE; the focus bright | an oversized object or an exaggerated cutaway; a drawn glow if it shines | only if one word lands the promise | push in, or punch to the face on the key word |
 | **Chapter turn (a new point)** | a fresh place or a new state of the motif — never a title card | CLEAN; the chapter's colour by meaning | the chapter's signature object, bigger | a short playful word for the feeling, never a number or a title | a change in kind: a white break, a big face |
 | **Explanation, a statement** | a real everyday moment at MEDIUM; sizes switch often | CLEAN; the object the line is about bright | a metaphor only if it adds meaning; scale on the object | usually none; the idea word if the line turns on it | a reframe to the face or the object every few seconds; an edit for a small action |
-| **Dialogue, an everyday moment** | MEDIUM or over the shoulder, then reaction close-ups; both faces readable | CLEAN; the object at stake bright | — | a reaction word (WAIT…, WHY?) only at the turn | a 3–5-still sequence if it is a key moment, else one edit |
+| **Dialogue, an everyday moment** | a two-shot, over the shoulder and reaction close-ups in turn — never one framing for the whole exchange; both faces readable | CLEAN; the object at stake bright | — | a reaction word (WAIT…, WHY?) only at the turn | a 3–5-still sequence if it is a key moment, else one edit |
+| **Action, sport, play** | the setup readable, then big pose changes still by still, ending on a reacting face | CLEAN; the ball, bike or toy bright | speed lines on the moving part; exaggerated poses | rarely | a 3–5-still sequence, same camera and place, the action moving one way |
+| **Opening a metaphor or an explanation** | a change in kind: the object bursting in big, or a snap to white | WHITE or CLEAN; the object bright by meaning | sudden scale | the idea word if it lands it | SNAP_ZOOM or SHAKE on the word; never a slow drift |
 | **Humour, exaggeration** | the setup wide enough to read, then a punch to the reacting face | CLEAN; yellow for surprise | impossible scale, the cutaway, an exaggerated reaction | AHA! or WAIT… if it sharpens the joke | SHAKE or SNAP_ZOOM on the word; the reaction as an edit |
 | **Conflict, frustration** | closer and tighter; faces pushed full | CLEAN; a red focus or red tension marks (`mk`) | the object of the fight bigger | ENOUGH! or WHY? in red | SHAKE on the hit word; the reaction as an edit |
 | **Sadness, loneliness, absence** | open space around the person, then a slow push to the face; the figure still readable | `mu` grey for absence; the focus calm (`cm`) | the object that stands for the missing person (the crossed-off calendar) | rarely; a quiet word if any | HOLD or a slow push; tier Q |
 | **Pressure, worry, fear** | the object looming over the figure, then the face | CLEAN, or PEAK at the peak; orange or red | the pressure object two or three times larger | PRESSURE | a slow push; the object grows across an edit |
 | **Realisation, surprise, aha** | a sudden close-up: XCLOSE or REACTION | a WHITE break; a yellow focus | rays, or a rainbow burst for delight, on what was found | AHA! or WAIT… | SNAP_ZOOM on the word |
-| **Warmth, reward, repair** | people closer, touching; a softer push | CLEAN; a warm light shape (`li`); green for growth, warm amber for warmth | rays on the reward; a rainbow burst for real joy | rarely (SAFE, TRUST) | a slow push; the hug as a sequence when it is the payoff |
+| **Warmth, reward, repair** | people closer, touching; a softer push; after a conflict, one held beat first | CLEAN; a warm light shape (`li`); green for growth, warm amber for warmth | rays on the reward; a rainbow burst for real joy | rarely (SAFE, TRUST) | a slow push; the hug as a sequence when it is the payoff |
 | **Memory, the past** | as the moment needs | MEMORY | — | none | HOLD or a slow drift |
 | **Imagined, "what if"** | bookended by the imagining face, close | WHITE; exaggeration welcome | big cutaway objects | WHY? or the like | cut in and out on the words |
 | **Night** | close; the screen-lit face | NIGHT; the screen the only light, with drawn rays | — | none, or a white word | a slow push |
@@ -320,3 +348,36 @@ too much or get random. All scenes or story do still feel connected."
   bookended by the imagining face and plays on WHITE; a jump forward is CLEAN with the change shown in the people.
 - The whole-film pass **J. Where and when** (`shot-plan-v19.md` §4) checks every place change against these rules.
 
+
+---
+
+## 16. The rule behind every Video 08 timestamp note
+
+Thomas's Frame.io notes were about single scenes, but each one shows a rule. The scene fix stays in §12 as a test case;
+the rule applies to every video. To find the frames a note means, use `scripts/timestamp-map.cjs` (with `--anchor` times
+from the timeline — on Video 08 the 02:10–03:10 notes sit about 80 seconds earlier than the word-count estimate).
+
+| Time | Thomas | The rule for every video | Where it lives |
+|---|---|---|---|
+| 00:00–00:10 | "The opening should immediately attract attention and create an emotional reaction." | The first frame is the strongest picture of the video: a big bright object or a big face, and a clear feeling. | §14 hook; qa: frame 1 is a hook |
+| 00:20 | "Keep the smartphone visually distinctive with a strong purple color. Make the child's facial reaction more expressive and exaggerated." | Phones are purple in every video; a reaction to the phone is pushed to full. | §3 colours; qa-v24: phones purple |
+| 00:30–00:40 | "Create a stronger contrast with the exaggerated playground action that follows." | Calm → action handovers are made big on purpose. | §8; pass C (contrast map) |
+| 00:50–01:00 | "Strengthen the mother's facial expression, especially through her eyes, eyebrows, and head position." | In a close-up the head moves too — tilted, dropped, turned — never a straight neutral head. | §5; the seven features (qa-v19) |
+| 01:10–01:20 | "Increase the humor and exaggeration. The basketball sequence could benefit from stronger movement and more expressive reactions." | Action sequences: big pose changes, speed lines, a reaction still; humour exaggerates the pose. | §6; §3 drawn marks; §14 action |
+| 01:40–01:50 | "The darker atmosphere works well. Make the smartphone glow more noticeable." | Night stays navy; the screen is the brightest thing, with drawn rays. | §3; compiler night screen |
+| 02:10–02:20 | "The oversized F is a strong concept… brighter red… Keep the exaggerated contrast in size." | A letter on an object when the letter is the story, bright, two to three times larger. | §4; `ol`, `sl`, TONE |
+| 02:30–02:40 | "Important emotional moment! Increase the child's facial expression and consider a short dramatic close-up. Make the smartphone stand out clearly." | Every emotional peak gets a short dramatic close-up on its line; the object at stake stays the bright focus. | §5; qa-v24: peaks have a close face |
+| 02:50–03:10 | "Strengthen the positive emotions with subtle warm color accents. Make the achievement feel more rewarding and visually meaningful." | Positive beats: a warm light shape or warm accent, a proud face close, the reward with rays — never a trophy icon. | §3; §14 warmth |
+| 03:50–04:10 | "Create a stronger emotional contrast between frustration and the positive interaction that follows. Focus on facial reactions and timing." | Conflict → repair changes face, distance and colour together, with a held beat between. | §8; §14 warmth |
+| 04:30–04:40 | "The text is readable but looks relatively ordinary. Improve its visual impact while keeping the typography simple and professional." | (Refined by T5 and T9.) Words are hand-lettered, bold, coloured by meaning, placed beside what they are about. | §7 |
+| 04:40–05:00 | "The gray atmosphere fits the serious topic. Emphasize loneliness through stronger framing, body language, and emotional close-ups." | Absence is grey (`mu`); loneliness shows in open space, a curled body and a close face — the figure still readable. | §3; §14 sadness |
+| 05:10–05:30 | "Make the sadness more visually powerful… The calendar could also be emphasized as a symbol of missing time or absence." | Sadness gets a close face; an everyday object that shows time passing carries the absence. | §14 sadness |
+| 06:00–06:20 | "Good exaggeration and character movement! Push the father's facial expression further… Keep the bicycle sequence clear and easy to follow." | Conflict faces pushed full; sequences keep one camera, one place, one clear change per still. | §6; §14 conflict |
+| 06:30–06:50 | "Add more variety in framing and camera perspectives. Positive scenes should feel visually different from the more stressful moments." | Conversations change framing; positive scenes look warmer, closer and calmer than stressful ones. | §6; §3 |
+| 07:20–07:30 | "The control dials are a good visual concept. Make the transition into this explanation more impactful and surprising." | A metaphor or explanation enters with a surprise. | §4; qa-v24: metaphor entrances |
+| 07:40–07:50 | "Strengthen the emotional reaction and contrast between the dial settings and the emotional conflict. This has the potential to become a memorable scene." | The metaphor stays visible inside the real scene, showing the state that explains it. | §4 |
+| 08:10–08:30 | "Increase emotional expressions and make the positive interaction feel more rewarding. Use subtle visual highlights instead of maintaining exactly the same calm presentation." | Positive interactions get highlights (warm light, rays, closer faces), not the same calm frame again. | §3; §14 warmth |
+| 08:50–08:57 | "The concept works. Check text size, contrast, and readability, especially on mobile screens. Keep the ending short and impactful without adding an unnecessary outro." | The closing question is big and readable on a phone; the ending is short; no outro. | §7; §14 ending |
+| Priorities | "Consistent, impactful typography and emotional keywords. Stronger facial expressions and emotional close-ups. More strategic use of bright colors and contrast. Greater visual variety, humor, and exaggeration. Maintain our clean, recognizable hand-drawn style." | All five, as above. | §3–§7 |
+| Scope | "These are targeted improvements, not a request to rebuild the entire video. Please preserve the elements that already work well." | A timestamp round changes only the frames it names; everything that works stays. | SKILL.md revisions |
+| Runtime | "The current runtime of 8:57 is approved." / "Our videos can run up to 9:00 minutes" | Up to about nine minutes is fine; the script's timing stays final. | RULES-CARD §1 |

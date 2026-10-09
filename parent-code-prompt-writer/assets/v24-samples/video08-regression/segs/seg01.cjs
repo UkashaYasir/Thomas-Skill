@@ -95,7 +95,7 @@ F(7, { sc: "The kitchen, dinner", t: "H", r: "Dad, Son", p: [], h: "FACE", hr: "
   L: "DAD standing at the table, large, one mitten hand slammed flat on it", C: "the table between them", R: "SON sitting, large, leaning away",
   a: "DAD slams one mitten hand flat on the table; across the table SON leans away with both mitten hands raised.",
   pf: "DAD: eyes wide and furious, eyebrows slammed down in a deep V, mouth a big open shouting shape, head thrust forward, one mitten hand slammed flat on the table and the other clenched, posture leaning over the table, pupils on SON. SON: eyes squeezed half shut, eyebrows shot up, mouth a startled open oval, head pulled back, both mitten hands raised near his face, posture leaning far back, pupils on DAD.",
-  mv: ["SHAKE", "slams", "short shake"], dv: "CONTEXT",
+  mv: ["SHAKE", "slams", "short shake"], dv: "CONTEXT", zm: [["slams", "SON's face", "punch"]],
   y: "Red marks the conflict; the word is short, playful in style and lands on the spoken word." });
 
 // 06:00 bike — "too much green… The bike, ground, and trees do not all need to compete"

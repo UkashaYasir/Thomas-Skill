@@ -64,6 +64,11 @@ softGlow.length ? warn("beat text asking for a soft glow, bloom or gradient — 
 const calm = D.filter(b => b.calm).length, bright = D.filter(b => !b.calm && M.heroKey(b)).length;
 info(`colour focus: ${bright} bright · ${calm} calm (quiet beats) · ${D.filter(b => !M.heroKey(b)).length} face-led or no colour · glow: ${D.filter(b => b.glow).map(b => b.ref + " " + b.glow).join(" · ") || "none"}`);
 
+// phones are purple in every video (Thomas, 00:20: "Keep the smartphone visually distinctive with a strong purple color")
+const hue = h => { const r = parseInt(h.slice(1, 3), 16) / 255, g = parseInt(h.slice(3, 5), 16) / 255, bl = parseInt(h.slice(5, 7), 16) / 255, mx = Math.max(r, g, bl), mn = Math.min(r, g, bl), d = mx - mn; if (!d) return -1; let x = mx === r ? ((g - bl) / d) % 6 : mx === g ? (bl - r) / d + 2 : (r - g) / d + 4; return (x * 60 + 360) % 360; };
+const phones = Object.entries(PROP).filter(([k, p]) => /(^|_)(PHONE|SMARTPHONE|TABLET)(_|$)/.test(k) || (p.nouns || []).some(n => /^(smart)?phones?$|^tablets?$/i.test(n))).filter(([k, p]) => /^#[0-9a-f]{6}$/i.test(p.hex || "") && !(hue(p.hex) >= 250 && hue(p.hex) <= 300)).map(([k, p]) => `${k}(${p.hex})`);
+phones.length ? warn("phones that are not purple — Thomas: \"Purple: Smartphones and digital distractions\": " + refs(phones)) : ok("every phone is purple");
+
 // ════════════════════════════════════════════════════════════════
 head("SIZE — never too small; bigger objects (v24-standard.md §4–§5)");
 const smallWide = P.filter(p => ["WIDE", "MEDWIDE"].includes(p.shotSize) && roleList(p).length && !/large enough that (?:every face|their faces)|every face reads|faces read/.test(p.prompt)).map(p => p.ref);
@@ -101,6 +106,17 @@ const faceTarget = z => /face|eyes|head/i.test(String(z.to || ""));
 const segs = [...new Set(D.map(b => b.sequence))];
 const noPunch = segs.filter(q => { const F = D.filter(b => b.sequence === q); return F.some(b => roleList(b).length) && !F.some(b => (CLOSE_FACE.includes(b.shotSize) && roleList(b).length) || (b.zooms || []).some(faceTarget)); });
 noPunch.length ? warn("chapters with characters but no close face and no punch to a face — a sudden close-up is how this channel grabs attention: " + refs(noPunch)) : ok("every chapter with characters has a close face or a punch to a face");
+// every emotional peak gets a short dramatic close-up (Thomas, 02:30: "Important emotional moment!… consider a short dramatic close-up")
+const isCloseFace = b => b && CLOSE_FACE.includes(b.shotSize) && roleList(b).length > 0;
+const peakNoClose = D.filter(b => (b.peak || plan(b).ln === "peak") && roleList(b).length).filter(b => { const nx = D.find(x => x.n === b.n + 1); return !isCloseFace(b) && !(b.zooms || []).some(faceTarget) && !(nx && nx.sequence === b.sequence && isCloseFace(nx)); }).map(b => b.ref);
+peakNoClose.length ? warn("emotional peaks without a short dramatic close-up on the line or the next frame (a close face or a punch to the face): " + refs(peakNoClose)) : ok("every emotional peak has its dramatic close-up");
+// a metaphor or explanation enters with a surprise (Thomas, 07:20: "Make the transition into this explanation more impactful and surprising")
+const famSeen = new Set(), flatEntry = [];
+D.forEach(b => { const fam = b.metaphor || (/^METAPHOR/.test(String(b.device || "")) ? "dv:" + (PROP[b.hero] ? b.hero : b.ref) : null); if (!fam || famSeen.has(fam)) return; famSeen.add(fam); if (!plan(b).ip) flatEntry.push(b.ref); });
+flatEntry.length ? warn("metaphors that enter without a surprise — the first frame of each metaphor names its interrupt (ip): a snap to white, the object bursting in big, a sudden scale jump: " + refs(flatEntry)) : ok("every metaphor enters with a surprise");
+// the balance between minimal white scenes and environmental scenes (Thomas, approving the Video 08 plan)
+const noWhite = segs.filter(q => { const F = D.filter(b => b.sequence === q); return F.length > 1 && !F.some(b => moodOf(b.mood) === "WHITE" || b.shotSize === "WORD"); });
+noWhite.length ? warn("chapters with no white moment (a face, an object or a word on pure white) — balance white moments with place moments: " + refs(noWhite)) : ok("every chapter balances white moments with place moments");
 // a prop text that names a character who is not in the frame pulls that character in (Video 05: 29 frames)
 const absentName = D.flatMap(b => { const here = roleList(b).map(r => r.toUpperCase()); return propKeys(b).filter(k => PROP[k]).flatMap(k => { const t = String(PROP[k].name) + " " + String((b.propText && b.propText[k]) || PROP[k].text); return Object.keys(M.ROLE).map(r => r.toUpperCase()).filter(r => !here.includes(r) && new RegExp("\\b" + r.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(?:'S|'s)?\\b").test(t) && !here.some(h => h.includes(r) && h !== r)).map(r => `${b.ref}(${k}: ${r})`); }); });
 absentName.length ? warn("object texts that name a character who is not in the frame — the name can pull that character into the picture; rename the prop or say \"his phone\": " + refs([...new Set(absentName)])) : ok("no object text names a character who is not in its frame");

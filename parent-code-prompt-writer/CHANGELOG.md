@@ -4,6 +4,34 @@ Every update gets a new version number and an entry here: what was added, why (w
 what it replaces. The newest version is at the top. The version is also written at the top of
 SKILL.md and in the package file name (parent-code-prompt-writer-vN.skill).
 
+## v24.2 — 9 Oct 2026 · every client point traced; the rule behind each timestamp note
+
+**Why:** Muhammad: "I dont think so that you applied all suggestions, key points, and logics that the client said, and the
+detailed feedback with time stamp". An audit of every sentence Thomas wrote from 5 to 9 Oct found that the Frame.io notes
+were kept only as single-scene test cases, and that several of their rules, the white/place balance and the drawn marks of
+the approved Video 08 frames were missing or contradicted by an older v19 rule.
+
+**Added**
+- `references/client-feedback-ledger.md` — every point (A1–P7), Thomas's exact words, the rule, the check and the status.
+- `v24-standard.md` §16 — the rule behind every timestamp note, for every video; §2 white/place balance; §3 drawn marks
+  carry action (speed lines, impact strokes, buzz dashes, shine) and crying without tears; §4 metaphors enter with a
+  surprise and stay visible in the real scene; §6 action sequences move big and read easily, conversations change framing;
+  §8 conflict → repair with a held beat, calm → action handovers made big; §14 rows for action and for opening a metaphor.
+- `scripts/timestamp-map.cjs` — maps "02:30-02:40" to its frames from the voice-over length, with `--anchor` times from the
+  timeline (on Video 08 the 02:10–03:10 notes sit about 80 s earlier than the estimate — the tool says so).
+- Checks (`qa-v24.cjs`): phones are purple; every emotional peak has a dramatic close-up on its line or the next frame;
+  every metaphor enters with a surprise (`ip`); every chapter has a white moment.
+- Compiler: FLAT_STYLE allows a few drawn speed lines or ink strokes at the point of action.
+- SKILL.md: the timestamp workflow (map → fix → apply the rule everywhere → ledger), Photoshop fixes as accepted post work,
+  and the new read-through questions.
+
+**Changed**
+- `acting-and-interaction-v19.md`: v24 banner — drawn action marks allowed (v19 banned "motion lines"); tears stay out.
+- The template's phone is vivid purple (it was turquoise, from a superseded Video 05 example).
+
+**Verified (9 Oct 2026):** every check passes on the template and the regression sample; the older v19 samples pass with
+warnings that point at real v19-era choices (a turquoise phone, a peak without a close-up), as expected.
+
 ## v24.1 — 9 Oct 2026 · Muhammad's two decisions, the scene playbook, the Video 05 lessons
 
 **Why:** Muhammad settled the two open questions of v24 — "Larger head means camera close or like the closeup to get a
