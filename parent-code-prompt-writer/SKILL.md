@@ -5,7 +5,7 @@ description: "Turns a line-broken script for The Parent Code — Thomas Kolonjak
 
 # Parent Code — prompt writer
 
-**Version 24.2** (9 Oct 2026). What each version added is in `CHANGELOG.md`. Whenever this skill is updated: bump the
+**Version 24.3** (9 Oct 2026). What each version added is in `CHANGELOG.md`. Whenever this skill is updated: bump the
 version here, add an entry at the top of `CHANGELOG.md` (what was added, why, what it replaces), name the package
 `parent-code-prompt-writer-vN.skill`, and list the additions in the reply.
 
@@ -165,6 +165,8 @@ The read-through asks what a script cannot:
   do the job of a new frame?
 - Does every place change have a story reason, and does every aside keep its one look?
 - Is every word short, playful and needed — no numbers, titles or labels?
+- Does any frame repeat a weakness already listed in `client-feedback-ledger.md` (§F, §P)?
+- Could a reframe, a crop or an edit do what a new frame would?
 - Does every emotional peak have its short dramatic close-up? Does every metaphor enter with a surprise and stay visible
   in the real scene? Do action sequences move big and read easily? Does a conflict turn into repair with a held beat?
 - Is every phone purple, and does every chapter balance white moments with place moments?
@@ -180,6 +182,15 @@ Before Muhammad generates the rest, recommend test renders: the lineup of any ne
 close-up on white, a frame where the bright colour focus carries the moment, a place frame (black line on white, nothing
 extra), a frame with a hand-lettered word, and one planned reframe cropped in Premiere. (Thomas chose the white ground in
 Video 08, so the v19 ground strip is history.)
+
+## When renders come back
+
+When Muhammad shares rendered frames, look at the images — never assume a prompt worked. For each frame compare the
+picture with its plan: the feeling (`ft`), the focus and its colour, nothing extra in the place, faces readable, the word
+spelled right, the characters on model. Then choose the smallest fix that solves it, in this order: a Photoshop clean-up
+(remove an extra piece, recolour a floor), the word-fix edit, an image-edit prompt on that frame, a crop or reframe, and
+only then a new prompt. If a failure could happen again, add it to `client-feedback-ledger.md` §P and, where a script can
+catch it, to the checks.
 
 ## Delivery
 

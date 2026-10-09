@@ -66,11 +66,13 @@ Checks: `qa-v24`, `qa-v19`, `qa` (scripts/…cjs).
 | E1 | "Keep the current hand-drawn stick-figure style. Avoid overly polished or AI-generated-looking visuals." | V24 §5; SINGLE_FRAME "never glossy, never vector-perfect or AI-polished" | — | Rule |
 | E2 | "facial expressions, larger heads, expressive eyebrows, active hands, exaggerated reactions, and natural character interactions" | V24 §5 ("larger heads" = sudden close-ups, Muhammad 9 Oct) | qa-v24 attention punch; qa-v19 seven features | Rule + check |
 | E3 | Yellow surprise/energy/discoveries · red conflict/frustration/danger · blue trust/safety/calmness · purple smartphones/digital distractions · green positive development/selected objects | V24 §3; `COLOUR_LOGIC` | qa-v24 phones purple | Rule + check |
+| E3b | "Our backgrounds should remain white and minimalistic, but key objects and emotional moments need stronger, brighter colors." | V24 §3 "emotional moments carry colour too" (`mk`, `li`, PEAK) | — | Rule |
 | E4 | "We do not want everything colorful. Use bright colors strategically to create contrast, attract attention, and strengthen emotions." | V24 §3 | qa-v24 at most two coloured objects | Rule + check |
 | E5 | "Objects can also become two or three times larger when it improves the storytelling." | V24 §4; `SCALE.DOMINANT` | — | Rule |
 | E6 | "Use dramatic close-ups, exaggerated reactions, expressive eyes, active hands, and stronger emotional contrasts. Humor and exaggeration are essential parts of our channel identity." | V24 §4–§5, §14 | qa-v24 peaks have a close-up | Rule + check |
 | E7 | "Aim for a meaningful visual change approximately every 3–5 seconds… every movement should support the story. Avoid unnecessary animation." | V24 §6 | qa-v24 long-holding stills | Rule + check |
 | E8 | "different camera angles, zooms, reactions, object movements, and surprising visual elements" | V24 §6, §14; edits; `zm` | qa-v24 reframes | Rule + check |
+| E8b | "different camera angles" | V24 §6 "different angles, all natural" | qa-render-risk natural angles | Rule + check |
 | E9 | "clean, bold, highly readable text that works immediately, even on mobile devices" · "sophisticated does not necessarily mean more effective" | V24 §7; `HAND_LETTER` | qa-v24 presentation fonts | Rule + check |
 | E10 | "distinguish between professional section headings and short, emotional keywords" | — | — | Superseded by I1–I4 and N4 (no section headings) |
 | E11 | "Use text to strengthen important psychological moments, not simply decorate the scene." | V24 §7 | qa-v24 words | Rule + check |
@@ -79,6 +81,9 @@ Checks: `qa-v24`, `qa-v19`, `qa` (scripts/…cjs).
 | E14 | "approximately 8:57 is absolutely fine… up to 9:00 minutes" | RC §1 | — | Rule |
 | E15 | "Every scene should create emotion, provide value, build curiosity, or entertain." | V24 §8; plan `ft` | qa-v19 `ft` | Rule + check |
 | E16 | "establish a consistent visual standard that we can apply from the beginning of every future production" | SKILL.md; this ledger | — | Rule |
+| E17 | "Our goal is to create a recognizable animation style that combines psychology, emotions, humor, and excellent viewer retention." | V24 §1 | — | Rule |
+| E18 | "Please keep the strong elements of this version. We do not need to redesign everything. We need to refine the details." · "I can clearly see the improvements in character interactions, facial expressions, humor, exaggeration, and overall visual storytelling" | V24 §10 (what stays); SKILL.md revisions | — | Rule |
+| E19 | Muhammad, 8 Oct 01:24: "i have added much sophisticated text font… As our videos target adults" | — | — | Superseded by E9 ("sophisticated does not necessarily mean more effective") and I2 |
 
 ## F. Thomas, Frame.io timestamp notes on Video 08 (T4)
 
@@ -108,6 +113,7 @@ The single-scene fixes are test cases in the regression sample (V24 §12). Summa
 | F19 | 08:50 WHICH DIAL?: readable on mobile, short, no outro | Rule + check + test case S11 |
 | F20 | Main priorities (typography, expressions, colour, variety, hand-drawn style) | Rule + checks as above |
 | F21 | "targeted improvements, not a request to rebuild… preserve the elements that already work well" | Rule (SKILL.md revisions) |
+| F0 | "The overall visual direction is improving. Please focus on refining these specific moments while keeping everything that already works well." | Rule (SKILL.md revisions; V24 §10) |
 
 ## G. Muhammad, 8 Oct 19:30 — the standard he promised Thomas
 
@@ -119,6 +125,9 @@ The single-scene fixes are test cases in the regression sample (V24 §12). Summa
 | G4 | "A meaningful visual change every 3–5 seconds." | Rule + check (E7) |
 | G5 | "Clean, bold text planned at the script stage: professional section headings, plus short emotional keywords" | Words planned in the director's read (row 11): Rule. Section headings: Superseded by I1–I4 |
 | G6 | "Consistent characters, colours and objects from start to finish." | Rule + check (E13) |
+| G7 | "Adding the new bold style onto frames that were already built didn't look natural, so I'd rather build it properly from the start." | Rule — words are planned in the director's read and written into the frame prompts (V24 §7) |
+| G8 | 8 Oct 23:16: "Now the colours are much better, have better sharpness, contrast… before i was using sort of dull colours." | Rule — bright means saturated, crisp-edged, high in contrast (V24 §3; compiler "crisp-edged") |
+| G9 | 9 Oct 01:01: "I have removed all unnecessary things… now every scene do show the visuals And our focus go directly to the action" | Rule — the question every frame answers first (V24 §2) |
 
 ## I. Thomas, 8 Oct 21:20 (T5)
 
@@ -178,6 +187,7 @@ The single-scene fixes are test cases in the regression sample (V24 §12). Summa
 | N4 | "Text: No unnecessary numbering, large titles, or decorative elements. Only short, playful words when they genuinely support the scene." | V24 §7, §3 drawn marks | qa-v24 words | Rule + check |
 | N5 | "Dynamic visuals: Keep scenes engaging through movement, camera changes, character reactions, and visual variety. Reuse existing visuals creatively through zooms and different framing." | V24 §6 | qa-v24 long-holding stills, reframes | Rule + check |
 | N6 | "For the next production, I expect these improvements to be applied consistently from the start, without requiring repeated revisions." | SKILL.md | the whole suite | Rule |
+| N7 | "You did a good job removing unnecessary numbers, distracting text, and extra graphic elements. The scenes now feel cleaner, more focused, and easier to follow." | V24 §3 drawn marks never decoration; §7 | qa-v24 words | Rule + check |
 
 ## O. Muhammad's decisions
 
@@ -200,6 +210,71 @@ The single-scene fixes are test cases in the regression sample (V24 §12). Summa
 | P5 | Coloured set pieces and floor planes, calm-by-default colour, underlined captions and numbered headings (Video 08 build) | V24 §11 | qa-v24 | Rule + check |
 | P6 | Name the skill version in the first reply; an attached `.skill` wins (Video 05) | SKILL.md; RC §0 | — | Rule |
 | P7 | Report every feedback point as done / partly / not, checked against the build (Video 05) | SKILL.md revisions | — | Rule |
+
+## Q. The Video 05 chat (28 Sep – 3 Oct) — Thomas's and Muhammad's lines
+
+Already absorbed by v16–v19; listed so nothing from that chat is lost. "Superseded" names what replaced it.
+
+| # | Who, when | The line | Status |
+|---|---|---|---|
+| Q1 | Muhammad, 28 Sep | "Don't go according to percentage, just check where we need what, and what will be best to show the visuals" | Rule (V19 §0.2) |
+| Q2 | Muhammad, 28 Sep | "I want my visual story, story, and visuals display best like there should be no random scenes… each and everything must be organized" | Rule (V24 §15) |
+| Q3 | Muhammad, 28 Sep | "make it more expand… add more scenes… but it doesnt drift too much or get random. All scenes or story do still feels connected." | Rule (V24 §15, pass J) |
+| Q4 | Muhammad, 30 Sep | "I dont want too much random colours… a better organized theme… not too less but also not too much… dont have weired colour combination" | Rule (V24 §3 one colour, one meaning) |
+| Q5 | Muhammad, 30 Sep | "make the visual metaphor strong and each metaphor must makes sense according to the visual… no extra props… no complex themes… every scene must makes sense" | Rule (V19 §4; V24 §2, §4) |
+| Q6 | Thomas, 30 Sep | "Less color, but use it more intentionally… 70–80% neutral and clean, 20–30% targeted color accents… Neutral first. Color with purpose. Never color just to fill empty space." | Rule (V24 §2–§3); the shares superseded by V19 §0.2 and the white stage |
+| Q7 | Thomas, 30 Sep | "if the smartphone is important in a scene, it can be a strong turquoise" | Superseded by E3 (purple for phones) |
+| Q8 | Thomas, 30 Sep | "The darker blue/grey tones in the nighttime scenes work very well" | Rule (NIGHT) |
+| Q9 | Thomas, 30 Sep | "much bolder with objects and visual ideas… unusual visual metaphors and surprising objects… Pressure → a huge, heavy backpack… Lack of trust → a large wall… Phone addiction → an oversized smartphone… Time pressure → a giant clock… Too many messages → a huge mountain of messages" | Rule (V24 §4; `props-symbols-metaphors-v19.md` §5) — the examples are seeds, used only where they amplify |
+| Q10 | Thomas, 30 Sep | "The goal is not simply to illustrate what the voice-over says. We need to visually amplify the voice-over." | Rule (`props-symbols-metaphors-v19.md` §5.1) |
+| Q11 | Thomas, 30 Sep | "approximately every 20–30 seconds, I want a fresh visual stimulus" | Superseded by E7 (a change about every 3–5 seconds) |
+| Q12 | Thomas, 30 Sep | "it should never become chaotic. Sometimes fewer elements are actually stronger" | Rule (V19 §0.8; V24 §9) |
+| Q13 | Thomas, 30 Sep | "let's increase the percentage of visual metaphors even more" | Superseded by Thomas, 5 Oct: "The rule is not: every scene needs a metaphor" (V19 §4) |
+| Q14 | Thomas, 1 Oct | "Make the objects more interesting and less generic" | Rule (props §1 characterful detail) |
+| Q15 | Thomas, 1 Oct | "Some scenes still feel too empty or plain. Add more character to the surroundings, but keep the clean and simple style." | Superseded by J1–K3 (the fewest black-line pieces); the "character" now comes from the one characterful piece |
+| Q16 | Thomas, 1 Oct | "replace normal explanatory scenes with more creative visual ideas. The domino scene is a good example" | Rule (V19 §4; the dominoes stay a seed) |
+| Q17 | Thomas, 1 Oct | "Let the characters interact more with the objects… Instead of simply standing next to them" | Rule + check (qa: props nobody uses) |
+| Q18 | Thomas, 1 Oct | "Add more visual movement… avoid a PowerPoint feeling. More should happen inside the scene." | Rule + check (edits, sequences, reframes; qa-v24 long-holding stills) |
+| Q19 | Thomas, 1 Oct | "Use more interesting perspectives and compositions" | Rule + check (composition variety; natural angles) |
+| Q20 | Thomas, 1 Oct | "instead of showing something like 'NOT UPSET' on a paper, try to communicate the same idea visually" | Rule + check (qa-v24: no labels on objects; words only as short playful moments) |
+| Q21 | Thomas, 1 Oct | "When the narration says something powerful, the visual should also feel more powerful and memorable." | Rule (V19 §2 "important emotional lines should visually feel important"; V24 §16 peaks) |
+| Q22 | Thomas, 1 Oct | "Add small creative or humorous visual moments" | Rule (V19 §5; V24 §4) |
+| Q23 | Thomas, 1 Oct | "Keep the characters exactly in this direction" | Rule (characters locked to the references) |
+| Q24 | Thomas, 1 Oct | the static vs movement examples ("The child looks at the phone → the mother enters → takes the phone → the child reaches for it → the mother reacts") | Rule (sequences; sample S3) |
+| Q25 | Thomas, 1 Oct | "Using 3–5 sequential image shots within one scene is a very good solution… Not every scene needs 3–5 images… especially for important or emotional moments… Simpler scenes can still remain simple… zoom and pan selectively, not exactly the same way on every image… Characters and objects should visibly change or interact between the sequential frames… avoid the feeling of a PowerPoint presentation… the viewer feels that the visual story is constantly progressing" | Rule (SKILL.md core rule 3–4; V24 §6) |
+
+## R. The master prompt Muhammad wrote — each part and where it lives
+
+The master prompt asked for a full skill-upgrade process. Its useful parts are built into the skill; its process parts
+were adapted to this skill's real structure rather than run as written (it assumed a generic multi-client skill).
+
+| Part | What it asks | Where it lives | Status |
+|---|---|---|---|
+| Preamble | review all history, prompts, feedback, decisions, accepted and rejected approaches, mistakes; say what is missing | this ledger; V24 §11; "What this ledger cannot cover" | Done |
+| 1 | learn what was corrected, why, and how to prevent it; better decisions, not more instructions | V24 §9, §11, §16 | Rule |
+| 2 | audit the skill first; checkpoint; preserve what works | the v19.1 baseline commit; V24 §10 | Done |
+| 3 | per-message extraction, chronology, superseded vs refined, no silent skips | this ledger (A–R) | Done |
+| 4 | simplicity ≠ dullness; vivid ≠ overload; sophisticated ≠ corporate; exaggeration ≠ chaos; more movement ≠ better | V24 §9 | Rule |
+| 5 | hand-drawn identity, consistent strokes and proportions, no photo-real, 3D, vector polish or AI look | V24 §5; SINGLE_FRAME, FLAT_STYLE, GLOBAL_AVOID | Rule |
+| 6 | expression procedure: emotion, intensity, coordinated features, posture, readable small; variety; strength matched | V19 §3; V24 §5; EXPRESSION_STRENGTH tiers | Rule + check |
+| 7 | interaction: distance, orientation, eye contact, gestures, action and reaction | V19 §3; `ia`, `dist`, `look` | Rule + check |
+| 8 | psychological colour, selective emphasis, colour QA questions | V24 §3; SKILL.md read-through | Rule + check |
+| 9 | object necessity audit A–F; primary / secondary / background / removable; white-background principle | V24 §2 | Rule + check |
+| 10 | exaggeration only with a purpose; metaphors understood at once | V24 §4 | Rule |
+| 11 | emotional contrast recipes (stress, reassurance, sadness, humour) | V24 §8, §14 | Rule |
+| 12 | still composition vs editing; editing-aware art; resolution; reuse before regenerating; 3–5 s rhythm as editing | V24 §6 | Rule + check |
+| 13 | typography from the latest decisions; the text decision procedure; text quality | V24 §7 | Rule + check |
+| 14 | a scene intelligence record per frame | the shot-plan fields (`ft idea alt ia dist look ctx ce ce2 cx ip pk`, `y`) + V24 §2 question | Rule + check |
+| 15 | Video 08 notes as a regression suite | V24 §12, §16; `assets/v24-samples/video08-regression/` | Done |
+| 16 | the independent decision questions | SKILL.md read-through | Rule |
+| 17 | rule levels (universal, style, client, video) | standing rules (V24) vs test cases (V24 §12) vs production notes; single-client skill, never for the Innes channel | Adapted |
+| 18 | pipeline: script → scene → art direction → prompt → image evaluation → targeted correction → editing handoff | SKILL.md quick start, "When renders come back", Copy and Edit pages | Rule |
+| 19 | guard rails against contradictory rules (six failure examples) | V24 §9 | Rule |
+| 20 | modular changes, no duplication | v24 files + banners on the v19 files | Done |
+| 21 | twelve regression tests | `assets/v24-samples/video08-regression/TESTS.md` | Done (visual tests need renders) |
+| 22 | traceability for every requirement | this ledger | Done |
+| 23 | deliverables A–J | ledger (A, F, H), V24 (B), SKILL.md + compiler README (C, E), the files (D), QA + read-through (G), TESTS.md (I), CHANGELOG (J) | Done |
+| 24 | efficiency rules | followed | — |
 
 ## What this ledger cannot cover
 

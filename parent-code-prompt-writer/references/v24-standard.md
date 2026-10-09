@@ -39,6 +39,9 @@ judged by the moment; v19's rule against invented quotas still holds for everyth
 5. "**Dynamic visuals:** Keep scenes engaging through movement, camera changes, character reactions, and visual variety.
    Reuse existing visuals creatively through zooms and different framing."
 
+The aim behind them (T3): "Our goal is to create a recognizable animation style that combines psychology, emotions, humor,
+and excellent viewer retention. Every scene should create emotion, provide value, build curiosity, or entertain."
+
 And the standing instruction behind them (T7, T9): "start making these creative decisions independently… rather than
 waiting for me to point out individual objects." "For the next production, I expect these improvements to be applied
 consistently from the start, without requiring repeated revisions."
@@ -58,8 +61,15 @@ consistently from the start, without requiring repeated revisions."
 - **Object necessity, decided by us.** "Review each scene carefully and ask yourself whether every object is actually
   necessary. If an element doesn't contribute to the story, emotion, or visual understanding, simply remove it" (T7).
   Before a frame is written, every set piece and every prop answers yes to one of: does it tell the story, carry the
-  emotion, or make the moment understandable? Otherwise it is cut. The study scene is the model: the character and the
-  colourful books; one window outline to say "home"; no fridge, no counter, no cabinets.
+  emotion, make the moment understandable, or carry the humour, symbol or contrast the frame is built on? Otherwise it is
+  cut. The study scene is the model: the character and the colourful books; one window outline to say "home"; no fridge,
+  no counter, no cabinets.
+- **The question every frame answers first:** why does this image exist, what should the viewer understand or feel at
+  once, and which visible things are needed for that? The answer sorts the frame: the **focus** (the face, the action or the
+  object that carries the line — `ce`, the hero), the **support** (only what the focus needs — `ce2`, a second person,
+  one piece of the place) and **everything else**, which is left out. If the answer is unclear, the idea is reworked
+  before the prompt is written. Muhammad's test after the final fix: "every scene do show the visuals And our focus go
+  directly to the action".
 - **Balance white moments and place moments.** "the balance between minimal white scenes and environmental scenes will be
   very important" (Thomas, approving the plan for Video 08). Faces, objects and words land on WHITE; real moments keep
   their few black-line pieces on CLEAN. Neither runs a whole chapter alone (a check warns when a chapter has no white
@@ -79,7 +89,13 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
 - **Bright by default on the important object.** "Use stronger, brighter, and more vibrant colors on important objects"
   (T9); the colours were "too dry and slightly boring… they still need more life" (T5). The frame's colour focus (`ce`)
   is drawn in its **bright, vivid tone** unless the moment is deliberately quiet (sadness, absence, a held beat — then
-  `calm`). The v22 default of a "calm, deeper everyday tone" is what read as dry.
+  `calm`). The v22 default of a "calm, deeper everyday tone" is what read as dry; Muhammad, after the fix: "Now the colours
+  are much better, have better sharpness, contrast… before i was using sort of dull colours." Bright means saturated,
+  crisp-edged and high in contrast against the white.
+- **Emotional moments carry colour too, not only objects.** "key objects and emotional moments need stronger, brighter
+  colors" (T3). When the feeling has an object, that object carries the feeling's colour (the red F, the purple phone);
+  when it has none, a few drawn marks at the action carry it (`mk`: red impact strokes, yellow surprise strokes), or a flat
+  light shape (`li`: warm for warmth, cool for loneliness); a marked emotional peak may take its full-colour field (PEAK).
 - **Few strong colours per frame.** "not too many strong colored elements in the same scene" (T6); "We do not want
   everything colorful" (T3). One colour focus; a second coloured object only when the moment needs both (`ce2`, e.g. the
   phone and the F in one argument). Every other story object is black line with white fill. One object may hold several
@@ -156,7 +172,8 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
   frame that every face reads. MEDWIDE is the usual full-figure shot.
 - "Push facial expressions and body language further. Use dramatic close-ups, exaggerated reactions, expressive eyes,
   active hands, and stronger emotional contrasts" (T3). Strength still matches the beat: a quiet sadness is held (tier Q),
-  a conflict or a comic surprise is pushed to full.
+  a conflict or a comic surprise is pushed to full. The emotion is chosen precisely for each beat and varies across the
+  film, so the same shocked or smiling face never repeats; it reads at a glance even at phone size.
 - **"larger heads" (T3) means the camera closer** — decided by Muhammad on 9 Oct: "Larger head means camera close or like
   the closeup to get a sudden visual change to grab the audience attention." So the reference proportions stay locked, and
   a big head on screen comes from a **sudden close-up**: a REACTION or XCLOSE frame, or a punch reframe (`zm`) to the face,
@@ -179,6 +196,11 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
   cue words — punch to the face, the eyes, the hands or the object. A frame with a planned reframe is composed for it: the
   target large and clear enough to survive the crop (a face reframed to the eyes starts at MEDIUM or closer). Order of
   choice for more rhythm: reframe the still → a crop to a face or object → an edit of the image → a new frame.
+  A reframe needs pixels: generate the frame at the highest resolution Flow offers (or upscale it) before cropping, and
+  keep a reframe to a crop the image can carry — a medium shot punches to a face, not to one eye.
+- **Different angles, all natural.** "Use different camera angles, zooms, reactions, object movements, and surprising
+  visual elements" (T3) — the variety comes from the natural set (eye level, a child's height, a little above, over the
+  shoulder, profile, square-on) and from distance, never from tilted or extreme views, which render badly.
 - **A meaningful change about every 3–5 seconds.** "Aim for a meaningful visual change approximately every 3–5 seconds…
   However, every movement should support the story. Avoid unnecessary animation" (T3). A change is a new frame, an edit, a
   reveal, a reframe or a camera move with a reason. It is an editing guideline, not a count of generated images.
@@ -209,6 +231,11 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
   they genuinely support the scene" (T9). A word is a reaction or a feeling (WAIT…, ENOUGH!, WHY?) or the one idea of the
   line (TRUST, PRESSURE, INVISIBLE); never a term from a textbook ("FRUSTRATION TOLERANCE", "AUTHORITATIVE PARENTING"),
   never a sentence, never a number. A short closing question works ("WHICH DIAL?" — "The concept works").
+- **Before a word goes in:** does the picture already say it clearly? Then no word. If a word would strengthen the
+  psychological moment ("Use text to strengthen important psychological moments, not simply decorate the scene", T3), pick
+  the shortest one, on the word the voice says, in open space beside its cause, readable on a phone — and check that it
+  looks drawn into the world, not pasted on a slide. Words are planned in the director's read, not added to finished
+  frames (Muhammad, 8 Oct: "Adding the new bold style onto frames that were already built didn't look natural").
 - **The look:** bold hand-lettered capitals, like a thick marker in the same black ink as the stick figures — lively but
   clean, the letters slightly uneven in a hand-made way, never a geometric presentation font; flat, no outline, shadow,
   3D, underline, badge or number; black, or the meaning colour of the moment (red ENOUGH!, yellow AHA!, blue SAFE);
@@ -249,6 +276,11 @@ v19 checks had flagged it; v24 makes it impossible in the compiler and keeps the
 | bigger objects | everything oversized | two or three times larger *for a moment*, where it tells the story |
 | glow | soft rendered bloom, gradients | a drawn halo or a few radiating strokes |
 | more movement | motion with no reason | every change supports the story |
+| simplicity | dull, lifeless frames | simple, but the focus bright, big and acting |
+| vividness | visual overload | vivid on one or two things; everything else black line on white |
+| sophistication | corporate presentation graphics (headings, underlines, clean fonts) | hand-lettered, playful, in the drawn world |
+| exaggeration | random chaos | exaggerate the one thing the line is about |
+| close-ups everywhere | no idea where we are | the place first, then the sudden close-up |
 
 ---
 

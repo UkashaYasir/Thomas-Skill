@@ -1,4 +1,4 @@
-# RULES CARD — v24.2 (the whole system on one card)
+# RULES CARD — v24.3 (the whole system on one card)
 
 **Principles:** Thomas's five standards after Video 08 (`v24-standard.md` §1) — bright colour on important objects; more
 zoom-ins and close-ups on faces, eyes, hands and objects; characters never too small; only short, playful words, never
@@ -13,7 +13,7 @@ detail. Creative choices are judged by the moment; the only numbers are Thomas's
 meaningful visual change approximately every 3–5 seconds") and technical ones. Every list is seed examples plus a method.
 
 ## 0. Before anything
-- Say which skill version is in use (this card: v24.2). `client-feedback-ledger.md` lists every client point with its rule
+- Say which skill version is in use (this card: v24.3). `client-feedback-ledger.md` lists every client point with its rule
   and check. If Muhammad attached a `.skill` file, it wins over the installed copy.
 
 ## 1. Input and output

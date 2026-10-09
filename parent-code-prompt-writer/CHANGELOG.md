@@ -4,6 +4,31 @@ Every update gets a new version number and an entry here: what was added, why (w
 what it replaces. The newest version is at the top. The version is also written at the top of
 SKILL.md and in the package file name (parent-code-prompt-writer-vN.skill).
 
+## v24.3 — 9 Oct 2026 · the line-by-line pass over everything Muhammad shared
+
+**Why:** Muhammad: "check all things that i have shared cuz each line of them explains what we have to do". A second pass,
+line by line, over the Video 08 client messages, Muhammad's own replies, the master prompt and the Video 05 chat.
+
+**Added**
+- Lines that were still missing: "key objects and emotional moments need stronger, brighter colors" (V24 §3 — marks,
+  light shapes, PEAK when there is no object); Muhammad's "before i was using sort of dull colours" (bright = saturated,
+  crisp-edged, high contrast; compiler "crisp-edged"); "focus go directly to the action" and the master prompt's scene
+  question (V24 §2: why the image exists, what the viewer must get, which things are needed — focus, support, everything
+  else out); humour, symbol or contrast as valid reasons to keep an object; "different camera angles" within the natural
+  set (V24 §6); generating at full resolution before reframing; the text decision procedure and words planned in the
+  director's read, not added to finished frames (V24 §7); expression variety (V24 §5); the five "do not confuse"
+  distinctions (V24 §9); Thomas's aim — "psychology, emotions, humor, and excellent viewer retention" (V24 §1).
+- SKILL.md "When renders come back": look at the images, compare with the plan, choose the smallest fix (Photoshop, the
+  word-fix edit, an image edit, a reframe, a new prompt), add new failures to the ledger and the checks; two more
+  read-through questions.
+- `client-feedback-ledger.md`: rows E3b, E8b, E17–E19, F0, G7–G9, N7; §Q — 25 lines from the Video 05 chat with what
+  replaced the superseded ones; §R — every part of the master prompt and where it lives.
+- `assets/v24-samples/video08-regression/TESTS.md` — the master prompt's twelve tests, run on the prompts, with evidence;
+  visual tests marked not executed.
+
+**Verified (9 Oct 2026):** every check passes on all five samples; seven planted mistakes fail; Video 08 compiled with
+v24.3 colours only the phone in its study frame and fails on its numbered titles, title card and plaque.
+
 ## v24.2 — 9 Oct 2026 · every client point traced; the rule behind each timestamp note
 
 **Why:** Muhammad: "I dont think so that you applied all suggestions, key points, and logics that the client said, and the
