@@ -1,5 +1,13 @@
 # Constants — the construction contract and the dictionary patterns (v19)
 
+> **v25 — lookup only.** `v24-standard.md` and `RULES-CARD.md` win over everything below, then `v19-principles.md`.
+> Where this file says otherwise, the current rule is: the CLEAN ground is the clean warm white #F7F6F3 and set pieces
+> are thin **black** ink lines with white fill (never soft grey), the fewest the frame needs; the colour focus is bright;
+> at most two coloured objects (`ce`, `ce2`); colour by meaning (red = conflict, frustration, stress, danger; phones
+> purple); white by default, and an intense line turns the whole stage to its emotion's colour (`pc`, `v24-standard.md`
+> §2a); words are short, playful and hand-lettered **inside the frame's own image prompt** — never added in Premiere,
+> never numbers or titles; drawn glow and action marks are allowed; "larger heads" means sudden close-ups.
+
 Every frame is generated independently with no memory of any other, so anything not restated in
 every prompt gets re-invented. The shared constants below are compiled into every prompt by the
 compiler. **The live text is in `assets/compiler-v24/template.jsx`; the block below is a copy of it
@@ -296,8 +304,8 @@ faded light grey with only the story object coloured. Old names still compile (`
   places.
 
 ### PROP — every story object
-- `name` ("THE PHONE"), `hex` (its locked colour), `colour` (a plain name for it), `danger` (true only for
-  danger/warning objects — the only ones allowed strong red), `nouns` (the words a script line would use
+- `name` ("THE PHONE"), `hex` (its locked colour), `colour` (a plain name for it), `danger` (true for
+  objects whose red carries conflict, frustration, stress or danger — the only ones allowed strong red, v24), `nouns` (the words a script line would use
   for it; the checks use them to list noun-in-hands frames), `part` (the coloured part when only part of
   the object is the colour element), `mature` (false for a symbol prop) and `text`.
 - `text` is a **build spec with numbers** (a technical consistency count, not a creative quota): exact

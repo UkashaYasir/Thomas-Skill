@@ -1,5 +1,13 @@
 # Motion and energy — the Video 4 standard, brought up to v19
 
+> **v25 — lookup only.** `v24-standard.md` and `RULES-CARD.md` win over everything below, then `v19-principles.md`.
+> Where this file says otherwise, the current rule is: the CLEAN ground is the clean warm white #F7F6F3 and set pieces
+> are thin **black** ink lines with white fill (never soft grey), the fewest the frame needs; the colour focus is bright;
+> at most two coloured objects (`ce`, `ce2`); colour by meaning (red = conflict, frustration, stress, danger; phones
+> purple); white by default, and an intense line turns the whole stage to its emotion's colour (`pc`, `v24-standard.md`
+> §2a); words are short, playful and hand-lettered **inside the frame's own image prompt** — never added in Premiere,
+> never numbers or titles; drawn glow and action marks are allowed; "larger heads" means sudden close-ups.
+
 > **v19:** `v19-principles.md` wins over anything here. The Video 4 pushes below still stand as directions; their old
 > numbers (shares, minimums, frames-per-window rules) are retired — every choice is judged by the moment. Close-ups:
 > `camera-and-closeups-v19.md`. Pattern interrupts and contrast: `humour-text-contrast-v19.md`. Colour:
@@ -102,7 +110,7 @@ pop-ins were generic symbols (question marks, ticks, numbers) and only a minorit
 - Prefer `PUNCH` on an object already in the frame (a scale bump, a buzz, a slide toward the character) or a mask reveal
   — it ties the animation to the story instead of floating a symbol over it.
 - Generic overlays (?, !, ticks, emoji-style icons, hearts, stars) are out: "generic symbols" are on Thomas's "Less" list.
-  The one other text moment is an on-screen idea word added in Premiere (`humour-text-contrast-v19.md`).
+  The one other text moment is a short hand-lettered idea word inside the frame's own prompt (`humour-text-contrast-v19.md`, `v24-standard.md` §7).
 - The `on` word is the important word of the line — the noun or verb carrying its meaning — never a filler word.
 
 ## 5. No static middle

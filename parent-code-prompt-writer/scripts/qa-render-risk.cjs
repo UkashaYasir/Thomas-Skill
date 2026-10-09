@@ -4,8 +4,10 @@
 // full-colour PEAK and NIGHT frames must keep the characters pure white.
 const fs = require("fs"), vm = require("vm");
 let s = fs.readFileSync(process.argv[2], "utf8"); s = s.slice(0, s.indexOf("/* ===== UI ===== */")).replace(/^\s*import[^\n]*\n/gm, "");
-const M = vm.runInNewContext(s + ";({RAW_BEATS,PROMPTS,PROP,WORLD,SET,MOOD,MOOD_ALIAS:(typeof MOOD_ALIAS==='undefined'?{}:MOOD_ALIAS),CAMERA_LIB:(typeof CAMERA_LIB==='undefined'?{}:CAMERA_LIB)})", {});
+const M = vm.runInNewContext(s + ";({RAW_BEATS,PROMPTS,INSERT_PROMPTS:(typeof INSERT_PROMPTS==='undefined'?[]:INSERT_PROMPTS),PROP,WORLD,SET,MOOD,MOOD_ALIAS:(typeof MOOD_ALIAS==='undefined'?{}:MOOD_ALIAS),CAMERA_LIB:(typeof CAMERA_LIB==='undefined'?{}:CAMERA_LIB)})", {});
 const moodOf = m => M.MOOD[m] ? m : (M.MOOD_ALIAS[m] || m);
+// v25: inserts (I) are checked like every other frame, in line order
+M.RAW_BEATS = [...M.RAW_BEATS, ...M.INSERT_PROMPTS].sort((a, b) => a.n - b.n || String(a.ref).localeCompare(String(b.ref))); M.PROMPTS = [...M.PROMPTS, ...M.INSERT_PROMPTS];
 const B = M.RAW_BEATS, NEW = B.filter(b => b.picture), P = r => M.PROMPTS.find(p => p.ref === r).prompt;
 let fails = 0, warns = 0; const ok = m => console.log("  ok    " + m), fail = m => { fails++; console.log("  FAIL  " + m); }, warn = m => { warns++; console.log("  WARN  " + m); };
 const roles = b => b.roles === "No characters" ? [] : b.roles.split(",").map(x => x.trim()).filter(Boolean);

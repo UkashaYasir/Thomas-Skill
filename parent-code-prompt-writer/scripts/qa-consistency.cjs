@@ -4,8 +4,10 @@
 // added: every plan field reaches its prompt block (INTERACTION BEAT, DISTANCE, CLOSE-UP LOGIC, the colour element).
 const fs = require("fs"), vm = require("vm");
 let s = fs.readFileSync(process.argv[2], "utf8"); s = s.slice(0, s.indexOf("/* ===== UI ===== */")).replace(/^\s*import[^\n]*\n/gm, "");
-const M = vm.runInNewContext(s + ";({RAW_BEATS,PROMPTS,PROP,ROLE,WORLD,EDIT_CUES,SEQUENCES,MOOD,MOOD_ALIAS:(typeof MOOD_ALIAS==='undefined'?{}:MOOD_ALIAS),CLEAN_GROUND:(typeof CLEAN_GROUND==='undefined'?'':CLEAN_GROUND)})", {});
+const M = vm.runInNewContext(s + ";({RAW_BEATS,PROMPTS,INSERT_PROMPTS:(typeof INSERT_PROMPTS==='undefined'?[]:INSERT_PROMPTS),PROP,ROLE,WORLD,EDIT_CUES,SEQUENCES,MOOD,MOOD_ALIAS:(typeof MOOD_ALIAS==='undefined'?{}:MOOD_ALIAS),CLEAN_GROUND:(typeof CLEAN_GROUND==='undefined'?'':CLEAN_GROUND)})", {});
 const moodOf = m => M.MOOD[m] ? m : (M.MOOD_ALIAS[m] || m);
+// v25: inserts (I) are checked like every other frame, in line order
+M.RAW_BEATS = [...M.RAW_BEATS, ...M.INSERT_PROMPTS].sort((a, b) => a.n - b.n || String(a.ref).localeCompare(String(b.ref))); M.PROMPTS = [...M.PROMPTS, ...M.INSERT_PROMPTS];
 let fails = 0; const out = (ok, msg, list) => { if (ok) console.log("  ok    " + msg); else { fails++; console.log("  FAIL  " + msg + ": " + list.join(" ")); } };
 const ed = r => [...M.EDIT_CUES.filter(e => e.ref === r).map(e => e.change), ...M.SEQUENCES.flatMap(q => q.images.filter(i => i.ref === r && i.change).map(i => i.change))].join(" ");
 const props = Object.values(M.PROP).map(p => p.name).sort((a, b) => b.length - a.length), strip = t => props.reduce((x, n) => x.split(n).join(" "), t);
@@ -13,7 +15,7 @@ const B = M.RAW_BEATS, txt = b => strip([b.action, b.map, b.performance].join(" 
 const whiteClose = B.filter(b => moodOf(b.mood) === "WHITE" && cast(b).length && ["CLOSE", "XCLOSE", "FACE_HANDS", "REACTION"].includes(b.shotSize));
 const room = /\b(table|chair|counter|fridge|wall|door(way)?|stairs?|rail|sofa|bed|shelf|floor|window|desk|kitchen|hall)\b/i;
 let l = whiteClose.filter(b => room.test(txt(b))).map(b => `${b.ref}(${txt(b).match(room)[0]})`); out(!l.length, "pure-white face close-ups name no room part (an outline place belongs on CLEAN)", l);
-l = String(M.CLEAN_GROUND).toUpperCase() === "#FFFFFF" ? [] : M.PROMPTS.filter(p => !["WHITE"].includes(moodOf(p.mood)) && p.shotSize !== "WORD" && /white (space|wall|background)|almost-white|frosty blue/i.test(strip(p.prompt))).map(p => p.ref); out(!l.length, "frames that are not WHITE never call their ground white space or a white background (whole prompt)", l);
+l = String(M.CLEAN_GROUND).toUpperCase() === "#FFFFFF" ? [] : M.PROMPTS.filter(p => !["WHITE"].includes(moodOf(p.mood)) && p.shotSize !== "WORD" && /white (space|background)|white wall(?! (calendar|clock|chart))|almost-white|frosty blue/i.test(strip(p.prompt).split(M.MOOD.CLEAN.ground[0]).join("the clean ground"))).map(p => p.ref); out(!l.length, "frames that are not WHITE never call their ground white space or a white background — only the CLEAN ground's own name (whole prompt)", l);
 const gone = /\b(rug|carpet|poster|potted plant|crayon drawings?|wall hooks?|doormat|floor lamp|skirting)\b/i;
 l = B.filter(b => gone.test(txt(b))).map(b => `${b.ref}(${txt(b).match(gone)[0]})`); out(!l.length, "no removed room dress is named", l);
 l = M.PROMPTS.filter(p => /\bplank|tiles?\b|brick|wood grain/i.test((p.prompt.match(/SETTING:[^]*?(Nothing else|nothing else)/) || [""])[0])).map(p => p.ref); out(!l.length, "settings carry no texture", l);
@@ -35,7 +37,7 @@ const plan = b => b.plan || {};
 l = P.filter(p => plan(p).ia && !/INTERACTION BEAT: /.test(p.prompt)).map(p => p.ref); out(!l.length, "every ia reaches the ACTION as an INTERACTION BEAT", l);
 l = P.filter(p => plan(p).dist && cast(p).length > 1 && !/DISTANCE: /.test(p.prompt)).map(p => p.ref); out(!l.length, "every planned distance reaches the prompt (DISTANCE)", l);
 l = P.filter(p => (plan(p).look || plan(p).ctx) && cast(p).length && ["CLOSE", "XCLOSE", "FACE_HANDS", "REACTION"].includes(p.shotSize) && !/CLOSE-UP LOGIC: /.test(p.prompt)).map(p => p.ref); out(!l.length, "every close shot with look/ctx carries its CLOSE-UP LOGIC", l);
-l = P.filter(p => { const ce = String(plan(p).ce || "").trim(); if (!ce || /^none$/i.test(ce)) return false; const k = (ce.match(/^[A-Z0-9_]+/) || [""])[0]; return M.PROP[k] && !/#FFFFFF/i.test(M.PROP[k].hex) && !new RegExp("(?:coloured element (in the whole image )?is|COLOUR FOCUS in this frame is|The one colour in this frame is) " + M.PROP[k].name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "|Only " + M.PROP[k].name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).test(p.prompt); }).map(p => p.ref); out(!l.length, "every ce is the colour element the colour block names", l);
+l = P.filter(p => { const ce = String(plan(p).ce || "").trim(); if (!ce || /^none$/i.test(ce)) return false; const k = (ce.match(/^[A-Z0-9_]+/) || [""])[0]; return M.PROP[k] && !/#FFFFFF/i.test(M.PROP[k].hex) && !new RegExp("(?:coloured element (in the whole image )?is|COLOUR FOCUS in this frame is|The one colour in this frame is|THE FOCUS in this frame is) " + M.PROP[k].name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "|Only " + M.PROP[k].name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).test(p.prompt); }).map(p => p.ref); out(!l.length, "every ce is the colour element the colour block names", l);
 l = P.filter(p => /^none$/i.test(String(plan(p).ce || "").trim()) && /The only (other )?coloured element/.test(p.prompt)).map(p => p.ref); out(!l.length, "frames with ce: none name no colour element", l);
 l = P.filter(p => ["CLEAN", "WHITE"].includes(moodOf(p.mood)) && /never tinted by the field|colour field fills/.test(p.prompt)).map(p => p.ref); out(!l.length, "CLEAN and WHITE prompts never describe a colour field", l);
 l = P.filter(p => /\bsky \(#[0-9A-Fa-f]{6}\) sky\b/.test(p.prompt)).map(p => p.ref); out(!l.length, "no doubled 'sky (#…) sky'", l);

@@ -1,5 +1,13 @@
 # Metaphor bank and metaphor engine — The Parent Code
 
+> **v25 — lookup only.** `v24-standard.md` and `RULES-CARD.md` win over everything below, then `v19-principles.md`.
+> Where this file says otherwise, the current rule is: the CLEAN ground is the clean warm white #F7F6F3 and set pieces
+> are thin **black** ink lines with white fill (never soft grey), the fewest the frame needs; the colour focus is bright;
+> at most two coloured objects (`ce`, `ce2`); colour by meaning (red = conflict, frustration, stress, danger; phones
+> purple); white by default, and an intense line turns the whole stage to its emotion's colour (`pc`, `v24-standard.md`
+> §2a); words are short, playful and hand-lettered **inside the frame's own image prompt** — never added in Premiere,
+> never numbers or titles; drawn glow and action marks are allowed; "larger heads" means sudden close-ups.
+
 How to use: **grep** this file for the idea in the line (`grep -i "trust\|secret" references/metaphor-bank.md`),
 never read it whole in the chat. If nothing fits, run the **metaphor engine** (§1) — it turns any new idea
 into a bold, physical picture that belongs to this video's story.
@@ -101,7 +109,7 @@ after it is only for a line that is about the idea itself and still passes the m
 | cyberbullying | messages landing on him like stones · the phone lighting up again and again while he lies facing the wall · a hallway of turned backs | another message lands |
 | gaming | the controller as a steering wheel of a rocket · a game world swallowing the room · the homework pushed off the edge of the screen | the room turns into the game |
 | screen time limits | a charging basket by the door that fills each evening · the phones parked face down in a row | the last phone goes in |
-| sleep and screens | the lit phone screen in flat pale turquoise as the only colour in a dark bedroom · the bedside clock hands at midnight beside a teen still scrolling | the clock hands move on · the screen stays lit |
+| sleep and screens | the lit phone screen in flat light purple as the only colour in a dark bedroom · the bedside clock hands at midnight beside a teen still scrolling | the clock hands move on · the screen stays lit |
 | online danger | a stranger at the screen's window · a trapdoor under the scroll · a fishing hook in a message | the hook tugs |
 
 ### Rules, discipline and consequences

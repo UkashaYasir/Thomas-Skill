@@ -1,5 +1,13 @@
 # Building a new video — data fields and steps (v18 fields, with the v19 additions)
 
+> **v25 — lookup only.** `v24-standard.md` and `RULES-CARD.md` win over everything below, then `v19-principles.md`.
+> Where this file says otherwise, the current rule is: the CLEAN ground is the clean warm white #F7F6F3 and set pieces
+> are thin **black** ink lines with white fill (never soft grey), the fewest the frame needs; the colour focus is bright;
+> at most two coloured objects (`ce`, `ce2`); colour by meaning (red = conflict, frustration, stress, danger; phones
+> purple); white by default, and an intense line turns the whole stage to its emotion's colour (`pc`, `v24-standard.md`
+> §2a); words are short, playful and hand-lettered **inside the frame's own image prompt** — never added in Premiere,
+> never numbers or titles; drawn glow and action marks are allowed; "larger heads" means sudden close-ups.
+
 > **v19:** new videos build with `assets/compiler-v24/` (see its README for the exact keys, moods, shot types and
 > checks); `assets/legacy/compiler-v18_3/` is kept as legacy. `v19-principles.md` wins over anything here. The v18 fields below
 > still work; where a v18 field encoded a rule v19 retired, it is marked.
@@ -24,9 +32,9 @@
   DARK) · MEMORY (faded light grey; old ICY). The old calm moods BRIGHT, WARM, EVENING, COOL, DUSK, NEUTRAL and ACCENT are
   aliases of CLEAN.
 - **Shot types:** WIDE, MEDWIDE, MEDIUM, CLOSE, XCLOSE (incl. eyes-only), FACE_HANDS, REACTION, HANDS, OBJECT, WORD (a
-  white frame for an on-screen word; the text is added in Premiere).
-- **Places:** set pieces are outline cues — "drawn only as a thin soft-grey outline with white fill: a complete, closed
-  line drawing, not a coloured object"; wider shots get one thin soft-grey ground line instead of a filled floor; a piece
+  white frame with the on-screen word hand-lettered into its own prompt — v24.1).
+- **Places:** set pieces are outline cues — "drawn only as a thin black ink outline with white fill (v24): a complete, closed
+  line drawing, not a coloured object"; wider shots get one thin black ground line instead of a filled floor; a piece
   appears only when the frame names it (no automatic anchor furniture). SET tints and chapter accents no longer colour
   CLEAN frames.
 
@@ -61,23 +69,23 @@ v13–v18 fields:
   is uncoloured by default.
 - `colourReason` — legacy: why a frame carries more than one strong colour. In v19 a frame has one colour element; an
   exception needs a story reason.
-- `keyword` — { word, on }: an on-screen idea word added in Premiere (never in the image) — TRUST, SAFE, LISTEN, SHAME,
+- `keyword` — { word, on }: an on-screen idea word — since v24.1 lettered into the frame's own image prompt (`kw`/`tx`), never a separate image — TRUST, SAFE, LISTEN, SHAME,
   MISREAD, NOT REJECTION…, only at strong moments, never a chapter number.
 - `editOnly` — { seq, from }: the line has no base image; its picture is an edit of an earlier image.
-v18.2 fields and structures (see `contrast-and-detail-v18_2.md`):
+v18.2 fields and structures (see `archive/contrast-and-detail-v18_2.md`):
 - `pieces` — computed by the assembler: the WORLD parts this frame's own action, placement, edits or sequence steps name.
 - `focus` (segment key `fo`) — "light" when the story object is small on purpose; "door" when the door is the story object.
 - `SET[place].moods` — legacy (v18.2): { BRIGHT, WARM, EVENING, COOL, DUSK }: { wall, floor, furn } per calm mood. v19 does
   not tint CLEAN frames with them. `CHAPTER[ch].accent` — legacy; `CHAPTER[ch].emo` — the chapter's PEAK field colour.
 - `WORLD` rooms — { kind, set, text, head, closeHead, close, parts: [[key, regex, text, anchor?]], tail }: in v19 every
-  part, including the old anchor, is drawn only when `pieces` includes it, as a thin soft-grey outline with white fill.
+  part, including the old anchor, is drawn only when `pieces` includes it, as a thin black ink outline with white fill (v24).
 Moods (v18, legacy names): WHITE, NEUTRAL, ACCENT, the calm moods, and the meaning colours. In v19 they map onto CLEAN,
 WHITE, PEAK, NIGHT and MEMORY as listed at the top of this file.
 
 ## Places (`WORLD`)
 `{ kind: "INDOOR" | "OUTDOOR", set: SET key (for real places), text }`. The text describes one fixed layout (LEFT · CENTRE
 · RIGHT) of outline cues with "nothing else"; in v19 the {WALL}/{FLOOR}/{FURN} colour placeholders are filled with the
-light ground and soft-grey outlines on CLEAN frames, and with the field colour and darker tonal outlines on PEAK and NIGHT
+light ground and thin black ink outlines on CLEAN frames, and with the field colour and darker tonal outlines on PEAK and NIGHT
 frames. Close shots usually show no place at all: the viewer already knows where we are from the frame before
 (`ctx`), and a face alone on white is often the strongest choice (`camera-and-closeups-v19.md`).
 

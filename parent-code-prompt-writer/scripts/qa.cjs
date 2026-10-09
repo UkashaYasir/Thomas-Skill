@@ -194,7 +194,7 @@ Object.entries(ROLE).forEach(([k, v]) => {
   (v.wear || []).forEach(w => {
     if (!w || !w.item || !/^#[0-9a-f]{6}$/i.test(String(w.hex))) { wearIssues.push(`${k}(accessory needs item + hex)`); return; }
     if (!new RegExp("\\b" + w.item + "\\b", "i").test(v.text) || !String(v.text).toUpperCase().includes(String(w.hex).toUpperCase())) wearIssues.push(`${k}(${w.item} not described with its hex in the ROLE text)`);
-    if (isRed(w.hex)) wearIssues.push(`${k}(${w.item} is strong red — red is for danger only)`);
+    if (isRed(w.hex)) wearIssues.push(`${k}(${w.item} is strong red — red carries conflict, stress or danger, never an accessory)`);
     if (chroma(w.hex) > 0.6) wearLoud.push(`${k}(${w.item} ${w.hex})`);
   });
 });
@@ -281,15 +281,16 @@ D.forEach(b => {
   const k = ceKey(b); if (!k || !PROP[k]) return; const h = PROP[k].hex, bg = bgHex(b); if (!bg) return;
   if (/^#(FFFFFF|F4F1E8)$/i.test(h) && !PROP[k].part) return; // a white object is a line drawing, not a colour element
   if (chroma(h) < 0.45) lowHero.push(`${b.ref}(${k} ${h})`);
+  const pr = (P.find(x => x.ref === b.ref) || {}).prompt || ""; if (/THE FOCUS in this frame is [^.]*drawn white/.test(pr)) return; // v25: drawn white on its colour stage
   if (chroma(bg) > 0.12 && hueDiff(h, bg) < 35 && chroma(h) - chroma(bg) < 0.3) sameFamily.push(`${b.ref}(${k} on ${moodOf(b.mood)} ${bg})`);
 });
 lowHero.length ? fail("colour elements not saturated enough to lead the eye: " + refs(lowHero)) : ok("every colour element is saturated");
 sameFamily.length ? fail("colour element in the same colour family as its background field: " + refs(sameFamily)) : ok("no colour element sits in its background's colour family");
 info(`mood mix ${dist(D, b => moodOf(b.mood))} · peaks marked: ${D.filter(b => b.peak).length}`);
 const redBad = [...Object.entries(PROP), ...Object.entries(OVERLAY)].filter(([, v]) => isRed(v.hex) && !v.danger).map(([k]) => k);
-redBad.length ? fail("strong red on objects not flagged as danger: " + redBad.join(" ")) : ok("strong red only on danger objects");
+redBad.length ? fail("strong red on objects not flagged danger: true — red means conflict, frustration, stress or danger (Thomas, 8 Oct); flag the object when its red carries that meaning, otherwise change its colour: " + redBad.join(" ")) : ok("strong red only on objects whose red carries conflict, stress or danger");
 const redFrames = D.filter(b => propKeys(b).some(k => PROP[k] && isRed(PROP[k].hex)) || /DANGER_RED|#D32F2F/i.test(b.action)).map(b => b.ref);
-info("frames with danger red: " + (refs(redFrames) || "none"));
+info("frames with red by meaning (conflict, stress, danger): " + (refs(redFrames) || "none"));
 const forced = P.filter(p => /at least three (large )?areas|must carry (the )?colou?r|three large areas of solid/i.test(p.prompt)).map(p => p.ref);
 forced.length ? fail("forced-saturation quota language (the Video 2 single-hue bug): " + refs(forced)) : ok("no forced-saturation quota language");
 const noColourBlock = P.filter(p => !/COLOUR: /.test(p.prompt)).map(p => p.ref);
@@ -332,8 +333,9 @@ dupEdit.length ? fail("CORE RULE — more than one edit on the same frame: " + r
 const noCharEdit = EC.filter(e => { const b = D.find(x => x.ref === e.ref); return b && b.roles === "No characters" && !/appears?/i.test(e.change); }).map(e => e.ref);
 noCharEdit.length ? warn("edits on frames with no characters that don't make something appear: " + refs(noCharEdit)) : ok("edits change a character or make something appear");
 const editSet = new Set(EC.map(e => e.ref));
-const peakNoMotion = D.filter(b => b.peak && b.roles !== "No characters" && b.shotSize !== "XCLOSE" && !editSet.has(b.ref) && !b.pop && !b.reveal && !b.still).map(b => b.ref);
-peakNoMotion.length ? warn("emotional peaks with a character but no edit, pop, reveal or stated stillness (sti): " + refs(peakNoMotion)) : ok("every character peak has an edit, pop, reveal or a stated stillness");
+const insLines = new Set((INSERT_BEATS || []).map(i => i.n)); // v25: an insert is a change inside its line
+const peakNoMotion = D.filter(b => b.peak && b.roles !== "No characters" && b.shotSize !== "XCLOSE" && !editSet.has(b.ref) && !b.pop && !b.reveal && !b.still && !(b.zooms && b.zooms.length) && !insLines.has(b.n)).map(b => b.ref);
+peakNoMotion.length ? warn("emotional peaks with a character but no edit, pop, reveal, reframe, insert or stated stillness (sti): " + refs(peakNoMotion)) : ok("every character peak has an edit, pop, reveal or a stated stillness");
 const revAll = D.filter(b => b.reveal);
 const heldMask = revAll.filter(b => b.reveal.method === "MASK" && !/on the sheet|on the page|display|screen|dial|paper/i.test(b.reveal.how || "") && String(b.reveal.what).split("+").some(w => PROP[w] && new RegExp("(holds?|grips?|clutch\\w*|in (his|her) (mitten )?hand)[^.;]*" + (PROP[w].name || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i").test(b.action))).map(b => b.ref);
 heldMask.length ? warn("mask reveals on an object someone is holding — the cover shape would cut into the hand; keep the object on a surface or in the air: " + refs(heldMask)) : ok("no mask reveal on an object held in a hand");
@@ -345,7 +347,7 @@ revWord.length ? (SCRIPT_OK ? fail : warn)("reveal words that aren't in the line
 const revFill = revAll.filter(b => !/^#[0-9A-Fa-f]{6}$/.test(String(b.reveal.cover || b.reveal.fill || ""))).map(b => b.ref);
 revFill.length ? warn("reveals without the exact background fill colour for touch-ups: " + refs(revFill)) : ok("every reveal gives the exact background colour for touch-ups");
 info(`in-scene edits ${EC.length} · mask reveals ${revAll.length} · pop-ins ${cues.length} · sequences ${(SEQUENCES || []).length} · still on purpose (sti) ${D.filter(b => b.still).length}`);
-const noLife = D.filter(b => !editSet.has(b.ref) && !b.pop && !b.reveal && !b.still && !(b.zooms && b.zooms.length) && !b.onScreen && !isWord(b)).map(b => b.ref); // v24: a planned reframe (zm) or a landing word is a change
+const noLife = D.filter(b => !editSet.has(b.ref) && !b.pop && !b.reveal && !b.still && !(b.zooms && b.zooms.length) && !b.onScreen && !isWord(b) && !insLines.has(b.n)).map(b => b.ref); // v24: a planned reframe (zm) or a landing word is a change
 noLife.length ? warn("frames with no edit, reveal, pop-in, reframe or word and no stated stillness (sti) — say why the frame is still, or let something change: " + refs(noLife)) : ok("every frame changes on screen or says why it is still");
 const DEVICES = ["CONTEXT", "CUTAWAY_MAP", "THROUGH_FRAME", "AFTERMATH", "ESCALATION_RAMP", "CONSTANT_VS_CHANGE", "REPEAT_WITH_VARIATION", "TIME_MARKER", "CAUSE_EFFECT_CUT", "BEFORE_AFTER", "SCALE_SHIFT", "OBJECT_POV", "INSERT_DETAIL", "METAPHOR_OBJECT", "METAPHOR_WORLD", "SILENT_BEAT", "OTS_REACTION", "POWER_ANGLE", "DISTANCE", "MIRROR", "TUG_OF_WAR", "SPLIT_STATE", "HYPOTHETICAL", "LIST_DEVICE", "CALLBACK"];
 const withDev = D.filter(b => b.device);

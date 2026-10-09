@@ -8,7 +8,7 @@ Status: **Rule + check** — in the rules and enforced by a script · **Rule** �
 **Superseded** — replaced by a later point (named) · **Production** — Photoshop or Premiere work, outside the prompts ·
 **Test case** — a single-scene fix kept in `assets/v24-samples/video08-regression/`.
 Files: V24 = `references/v24-standard.md`, V19 = `references/v19-principles.md`, RC = `references/RULES-CARD.md`.
-Checks: `qa-v24`, `qa-v19`, `qa` (scripts/…cjs).
+Checks: `qa-v24`, `qa-v19`, `qa`, `qa-contradictions` (scripts/…cjs).
 
 ---
 
@@ -42,9 +42,9 @@ Checks: `qa-v24`, `qa-v19`, `qa` (scripts/…cjs).
 
 | # | Thomas | Where | Check | Status |
 |---|---|---|---|---|
-| C1 | "think psychologically when using colours… create life, action, emotion and light. They should not just be decoration." | V24 §3 colour table; `COLOUR_LOGIC` | Copy page colour reason | Rule + check |
+| C1 | "think psychologically when using colours… create life, action, emotion and light. They should not just be decoration." | V24 §3 colour table, §2a stage colours; `COLOUR_LOGIC`, `EMOTION_FIELD` | the colour reason is shown on the Copy page (not judged by a script); qa-v24 phones purple | Rule (shown) |
 | C2 | Yellow attention/energy/surprise · red danger/stress/conflict · green energetic/positive/unexpected · blue calm/trustworthy/digital · dark violet for a smartphone | V24 §3 (blue for digital refined by T3: purple for phones) | qa-v24 phones purple | Rule + check |
-| C3 | "not everything should be colourful. The clean white background is very good and should stay." | V24 §2; `CLEAN_GROUND` #FFFFFF | qa-v24 white ground | Rule + check |
+| C3 | "not everything should be colourful. The clean white background is very good and should stay." | V24 §2; `CLEAN_GROUND` #F7F6F3 (the approved clean warm white) | qa-v24 white ground | Rule + check |
 | C4 | "because the background is simple, selected colours can become much more powerful" | V24 §3 bright focus | qa-v24 at most two coloured objects | Rule + check |
 | C5 | the helicopter "large exaggerated yellow or bright green… behind the character for a few seconds… does not always have to look completely realistic" | V24 §4 exaggerated cutaways; sample S2 | — | Rule |
 | C6 | "the fire could easily be twice as big… Important objects should sometimes dominate the scene for a moment." | V24 §4; `SCALE.DOMINANT` | qa-v24 oversized needs an object | Rule + check |
@@ -55,8 +55,8 @@ Checks: `qa-v24`, `qa-v19`, `qa` (scripts/…cjs).
 
 | # | Thomas | Where | Check | Status |
 |---|---|---|---|---|
-| D1 | "colors are not simply used more, but… intentionally and psychologically" | V24 §3 | Copy page colour reason | Rule + check |
-| D2 | "Important objects, actions, or surprising moments can deliberately be brighter" | V24 §3 bright focus; `mk` for actions; §14 aha | — | Rule |
+| D1 | "colors are not simply used more, but… intentionally and psychologically" | V24 §2a, §3 | the colour reason is shown on the Copy page; qa-v24 INTENSITY | Rule + check (v25) |
+| D2 | "Important objects, actions, or surprising moments can deliberately be brighter" | V24 §3 bright focus; `mk` for actions (beside a focus too, v25); §2a, §14 aha | qa-v24 peaks reach colour | Rule + check (v25) |
 | D3 | "text moments: fewer, but exactly at the right moments" | V24 §7 | qa-v24 words land on their word | Rule + check |
 
 ## E. Thomas, 8 Oct 13:07 (T3) — eight general points
@@ -66,12 +66,12 @@ Checks: `qa-v24`, `qa-v19`, `qa` (scripts/…cjs).
 | E1 | "Keep the current hand-drawn stick-figure style. Avoid overly polished or AI-generated-looking visuals." | V24 §5; SINGLE_FRAME "never glossy, never vector-perfect or AI-polished" | — | Rule |
 | E2 | "facial expressions, larger heads, expressive eyebrows, active hands, exaggerated reactions, and natural character interactions" | V24 §5 ("larger heads" = sudden close-ups, Muhammad 9 Oct) | qa-v24 attention punch; qa-v19 seven features | Rule + check |
 | E3 | Yellow surprise/energy/discoveries · red conflict/frustration/danger · blue trust/safety/calmness · purple smartphones/digital distractions · green positive development/selected objects | V24 §3; `COLOUR_LOGIC` | qa-v24 phones purple | Rule + check |
-| E3b | "Our backgrounds should remain white and minimalistic, but key objects and emotional moments need stronger, brighter colors." | V24 §3 "emotional moments carry colour too" (`mk`, `li`, PEAK) | — | Rule |
+| E3b | "Our backgrounds should remain white and minimalistic, but key objects and emotional moments need stronger, brighter colors." | V24 §2a (white by default, the stage converts at intensity), §3 "emotional moments carry colour too" (`mk`, `li`, `pc`) | qa-v24 INTENSITY | Rule + check (v25) |
 | E4 | "We do not want everything colorful. Use bright colors strategically to create contrast, attract attention, and strengthen emotions." | V24 §3 | qa-v24 at most two coloured objects | Rule + check |
 | E5 | "Objects can also become two or three times larger when it improves the storytelling." | V24 §4; `SCALE.DOMINANT` | — | Rule |
 | E6 | "Use dramatic close-ups, exaggerated reactions, expressive eyes, active hands, and stronger emotional contrasts. Humor and exaggeration are essential parts of our channel identity." | V24 §4–§5, §14 | qa-v24 peaks have a close-up | Rule + check |
-| E7 | "Aim for a meaningful visual change approximately every 3–5 seconds… every movement should support the story. Avoid unnecessary animation." | V24 §6 | qa-v24 long-holding stills | Rule + check |
-| E8 | "different camera angles, zooms, reactions, object movements, and surprising visual elements" | V24 §6, §14; edits; `zm` | qa-v24 reframes | Rule + check |
+| E7 | "Aim for a meaningful visual change approximately every 3–5 seconds… every movement should support the story. Avoid unnecessary animation." | V24 §6 | qa-v24 long-holding stills (timed from the word count — an estimate, never a measurement) | Rule + check |
+| E8 | "different camera angles, zooms, reactions, object movements, and surprising visual elements" | V24 §6, §14; edits; `zm`; inserts `I()` (v25) | qa-v24 reframes, the same move four in a row, inserts | Rule + check |
 | E8b | "different camera angles" | V24 §6 "different angles, all natural" | qa-render-risk natural angles | Rule + check |
 | E9 | "clean, bold, highly readable text that works immediately, even on mobile devices" · "sophisticated does not necessarily mean more effective" | V24 §7; `HAND_LETTER` | qa-v24 presentation fonts | Rule + check |
 | E10 | "distinguish between professional section headings and short, emotional keywords" | — | — | Superseded by I1–I4 and N4 (no section headings) |
@@ -198,6 +198,12 @@ The single-scene fixes are test cases in the regression sample (V24 §12). Summa
 | O3 | 28 Sep (Video 05): "there should be no random scenes… each and everything must be organized" · "doesn't drift too much or get random. All scenes or story do still feel connected" | V24 §15; pass J; director's read row 0 | — | Rule |
 | O4 | 28 Sep (Video 05): "Don't go according to percentage, just check where we need what" | V19 §0.2 | — | Rule |
 | O5 | 5 Oct (v19): Thomas's words applied across the whole script, no overdoing, no undoing; plan before production; one pass | V19 §0; SKILL.md | — | Rule |
+| O6 | 9 Oct, after the audit: "the default background is white… whenever a scene or a script segment occurs where we have to show the emotion intensity and the overall scenario then we do convert to colors to make the retention… staying minimalistic… we are not trying to go as a monotonous… fully engaged video" | V24 §2a (the intensity ladder), §14; RC §3; `pc`; style §1.3 | qa-v24 INTENSITY (peaks reach colour, a stage names its colour, one moment one colour, long colour runs, long white stretches); qa-contradictions (a focus or word in the field's hue) | Rule + check (v25) |
+| O7 | 9 Oct: "don't try to show like too much furniture… just show the visuals that we have to show that can show the overall scenario" | V24 §2 (the fewest pieces); RC §3 | qa-v24 pieces by shot (close one slice, others three at most) | Rule + check (v25) |
+| O8 | 9 Oct: the ground stays white — the clean warm white Video 08 was approved on (#F7F6F3) | V24 §2, §13; `CLEAN_GROUND` | qa-v24 ground; qa-contradictions (CLEAN called pure white) | Rule + check (v25) |
+| O9 | 9 Oct: "about the Thomas time step… that's like misunderstanding it was like wrong" | V24 §13, §16 | — | Closed: the 02:10–03:10 gap was not a timing fault; `timestamp-map.cjs` stays as it is |
+| O10 | 9 Oct: "the V23.1 and like release plan you can like go without it" | V24 §13 | — | Closed |
+| O11 | 9 Oct: "analyze all the messages instructions like divide them and like work on it… implement it on the skill… the overall simple minimalistic but the best visuals" · "analyze all details, steps, and logics as we are performing a QA… do all things like each single thing" | v25 (CHANGELOG); `assets/v24-samples/video08-regression/TESTS.md` | every script | Done (v25) |
 
 ## P. Lessons from earlier videos that still hold
 
@@ -264,7 +270,7 @@ were adapted to this skill's real structure rather than run as written (it assum
 | 11 | emotional contrast recipes (stress, reassurance, sadness, humour) | V24 §8, §14 | Rule |
 | 12 | still composition vs editing; editing-aware art; resolution; reuse before regenerating; 3–5 s rhythm as editing | V24 §6 | Rule + check |
 | 13 | typography from the latest decisions; the text decision procedure; text quality | V24 §7 | Rule + check |
-| 14 | a scene intelligence record per frame | the shot-plan fields (`ft idea alt ia dist look ctx ce ce2 cx ip pk`, `y`) + V24 §2 question | Rule + check |
+| 14 | a scene intelligence record per frame | the shot-plan fields (`ft idea alt ia dist look ctx ce ce2 cx ip pk pc`, `y`) + V24 §2 question | Rule + check |
 | 15 | Video 08 notes as a regression suite | V24 §12, §16; `assets/v24-samples/video08-regression/` | Done |
 | 16 | the independent decision questions | SKILL.md read-through | Rule |
 | 17 | rule levels (universal, style, client, video) | standing rules (V24) vs test cases (V24 §12) vs production notes; single-client skill, never for the Innes channel | Adapted |
@@ -273,11 +279,11 @@ were adapted to this skill's real structure rather than run as written (it assum
 | 20 | modular changes, no duplication | v24 files + banners on the v19 files | Done |
 | 21 | twelve regression tests | `assets/v24-samples/video08-regression/TESTS.md` | Done (visual tests need renders) |
 | 22 | traceability for every requirement | this ledger | Done |
-| 23 | deliverables A–J | ledger (A, F, H), V24 (B), SKILL.md + compiler README (C, E), the files (D), QA + read-through (G), TESTS.md (I), CHANGELOG (J) | Done |
+| 23 | deliverables A–J | ledger (deliverables A, F and H are its sections A–R), V24 (B), SKILL.md + compiler README (C, E), the files (D), QA + read-through (G), TESTS.md (I), CHANGELOG (J) | Done |
 | 24 | efficiency rules | followed | — |
 
 ## What this ledger cannot cover
 
 - Anything decided only inside the Video 08 chat that is not in the build or in the messages above.
 - Thomas's reference screenshots (1–5.png, 11.png, 12.png) — not seen.
-- How the v24 prompts render — no v24 frame has been rendered yet.
+- How the v24 and v25 prompts render — no v24 or v25 frame has been rendered yet.

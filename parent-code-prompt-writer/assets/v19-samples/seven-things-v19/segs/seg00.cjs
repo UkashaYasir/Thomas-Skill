@@ -1,5 +1,5 @@
 // Seven Things — v19 sample, chapter 00: the cold open (lines 1–18).
-module.exports = ({ seg, F, E, Q }) => {
+module.exports = ({ seg, F, I, E, Q }) => {
 seg("00 Cold open");
 
 // ── Scene: the hug (MOM left, SON right) ──
@@ -106,7 +106,7 @@ F(9, { sc: "Kitchen, now", t: "E", r: "Son", p: ["MILK_GLASS"], h: "FACE", fa: "
   look: "down at THE MILK GLASS on the table in front of him", ctx: "the glass is in the frame; follows the memory S5–S8 at this same table", ce: "MILK_GLASS stripe", cx: "faded memory → the bright present; the small child → the teenager who still carries it",
   sz: "FACE_HANDS", an: "EYE", w: "KITCHEN", m: "CLEAN", wh: "at the kitchen table",
   L: "a little open space", C: "SON's face and both mitten hands, large, his hands resting flat on the table top either side of THE MILK GLASS", R: "a little open space",
-  a: "SON sits at the kitchen table with both mitten hands resting flat on the table top either side of THE MILK GLASS, not touching it, and stares down at it.",
+  a: "SON leans over the kitchen table with both mitten hands resting flat on the table top either side of THE MILK GLASS, not touching it, and stares down at it.",
   pf: "SON: eyes heavy and still, eyebrows tilted up in the middle, mouth a flat line pressed tight at one corner, head bowed toward the glass, both mitten hands flat on the table either side of it, posture hunched over the table, pupils fixed down on THE MILK GLASS.",
   rv: ["MILK_GLASS", "didn’t", "FURN", "(standing on the table top between his hands, touching nothing else)"],
   st: "RESULT", mv: ["PUSH_IN", "", "slow push in"], dv: "BEFORE_AFTER",
@@ -168,13 +168,25 @@ F(14, { sc: "Stairs, that evening", t: "H", r: "Mom, Son", p: [], h: "FIGURE", h
   idea: "The field turns the colour of fear: MOM starts up the stairs smiling; at the top SON freezes, the folded test crushed behind his back.",
   alt: ["SON tiptoeing across thin ice toward MOM (Version 9: a cliché metaphor; the real moment is stronger)", "SON's face alone, terrified (kept as the edit's feeling)"],
   ia: "MOM starts up the stairs, smiling up at him → SON freezes at the top, shoulders jumping up, one hand hidden behind his back", dist: "far",
-  ce: "none", cx: "the opening's one full-colour field, right after the quiet watching", ip: "strong-pose",
-  sz: "WIDE", an: "EYE", w: "HALL", m: "PEAK", wh: "on the stairs",
-  L: "MOM at the bottom of the stairs, small, one foot on the first step, smiling up", C: "the staircase rising between them", R: "SON at the top of the stairs, small, frozen, one hand behind his back",
+  ce: "none", cx: "the white stage of the opening → the whole stage in red, the colour of the fear", ip: "strong-pose",
+  sz: "WIDE", an: "EYE", w: "HALL", pc: "RED", wh: "on the stairs",
+  L: "MOM at the bottom of the stairs, one foot on the first step, smiling up", C: "the staircase rising between them", R: "SON at the top of the stairs, frozen, one hand behind his back",
   a: "MOM puts one foot on the first stair and smiles up at SON; at the top of the stairs SON freezes, one mitten hand hidden behind his back.",
   pf: "SON: eyes wide open in fright, eyebrows shooting up and drawn together, mouth a tight open oval, head pulled back, one mitten hand crushing a folded paper behind his back and the other gripping the banister rail, posture rigid and pressed back, pupils locked on MOM below. MOM: eyes bright and warm, eyebrows lifted, mouth a wide easy smile, head tipped up toward him, one mitten hand on the banister, posture stepping up lightly, pupils on SON.",
   st: "PROBLEM", mv: ["PULL_OUT", "", "slow pull out — the stairs grow between them"], dv: "DISTANCE",
-  y: "The opening's peak gets its only full-colour field; the gap between her smile and his fear is the story." });
+  y: "The line that carries the opening's intensity converts the stage to red (v25 ladder); the gap between her smile and his fear is the story." });
+// v25: the peak's sudden close-up on pure white, cut in on "terrifying" (a crop of S14 would leave his face on the red field)
+I(14, { in: "terrifying", sc: "Stairs, that evening", t: "H", r: "Son", p: [], h: "FACE",
+  ft: "The fear itself, up close.", ln: "peak-close-up",
+  idea: "SON's face alone on pure white at the top of the stairs: eyes wide, eyebrows shot up and drawn together.",
+  alt: ["a punch into S14 (his face would sit on the red field)", "MOM's smiling face (the fear is his)"],
+  look: "down and to frame left, toward MOM at the bottom of the stairs", ctx: "follows S14 (the wide red stairs): the same moment, the camera suddenly in on his face", ce: "none", cx: "a wide red stage → one frightened face on white", ip: "snap-to-white",
+  sz: "CLOSE", an: "HIGH", w: "HALL", m: "WHITE",
+  L: "white space", C: "SON's face, large", R: "white space",
+  a: "SON's face fills the frame, frozen in fright, one mitten hand pressed to his chest.",
+  pf: "SON: eyes wide open in fright, eyebrows shooting up and drawn together, mouth a tight open oval, head pulled back, one mitten hand pressed to his chest, shoulders jumped up, pupils pressed down toward frame left.",
+  mv: ["SNAP_ZOOM", "terrifying", "snap in"], dv: "DISTANCE",
+  y: "A face close-up never sits on a colour field: the peak's close-up is an insert on white." });
 E("S14", "terrifying", "SON shrinks back against the banister at the top of the stairs, his shoulders jumping up toward his ears and his eyes squeezing shut; MOM stays exactly as she is, smiling up from the first step. The stairs, the colour field and the camera stay exactly as they are.");
 
 // ── Scene: dinner (MOM left, SON right) ──

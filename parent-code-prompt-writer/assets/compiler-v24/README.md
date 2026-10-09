@@ -1,9 +1,9 @@
-# Compiler v24 — the parts that build a Parent Code video
+# Compiler v24 (v25 rules) — the parts that build a Parent Code video
 
 Compiler v24 turns a shot plan and frame data into one image prompt per script line, plus the edit prompts, sequences,
 mask reveals, reframes and the Copy and Edit pages. It puts Thomas's final word after Video 08 into the prompts
 (`references/v24-standard.md`), on top of v19 (`references/v19-principles.md`):
-- **A pure white stage.** CLEAN is white (#FFFFFF); places are the fewest thin **black** line pieces with white fill; wider
+- **A clean white stage.** CLEAN is the clean warm white Video 08 was approved on (#F7F6F3); WHITE is pure white; places are the fewest thin **black** line pieces with white fill; wider
   shots get one ground line — never a coloured floor, grass or furniture.
 - **The colour focus is bright by default** ("stronger, brighter, and more vibrant colors on important objects"), with
   colour chosen by meaning. `cm` keeps a quiet beat calm; `ce2` names a second coloured object only when needed. Everything
@@ -15,18 +15,48 @@ mask reveals, reframes and the Copy and Edit pages. It puts Thomas's final word 
   Flow misspells one; a letter on an object (`ol`) only
   when the letter is the story. No numbers, section titles, underlines or presentation fonts.
 - **Zoom plans** (`zm`) reuse a still with new framing in Premiere; the targets are drawn crisp so the crop holds.
-- **The checks pass or fail by a rule.** `scripts/qa-v24.cjs` adds the v24 checks; `qa-all.cjs` runs everything.
+- **White by default, colour when the feeling peaks (v25).** A line that carries the intensity converts the stage to the
+  emotion's colour (`pk` + `pc`: RED, YELLOW, BLUE, GREEN, VIOLET, GREY); the close-up goes to white; the film comes back
+  to white. Anything in the field's own hue is drawn white automatically (`references/v24-standard.md` §2a).
+- **The fewest pieces of furniture (v25):** the piece the character uses, the one that says where we are.
+- **Inserts (v25):** `I(n, {in: "word", …})` adds a second generated image inside a line.
+- **The checks pass or fail by a rule.** `scripts/qa-v24.cjs` adds the v24 and v25 checks, `scripts/qa-contradictions.cjs`
+  fails any prompt whose sentences disagree; `qa-all.cjs` runs everything.
 
 The engine is the Video 08 build's compiler (v19 plus the v20–v23 changes made during that video), with what Thomas
 rejected taken out: the v22 soft fills and floor planes, the calm-by-default colour, the v21.1 underlined captions and the
 v23 numbered headings and geometric headline font (see `references/v24-standard.md` §11).
 
-This folder's own data is still the v19 smoke test "I'm fine"; `../v24-samples/video08-regression/` uses every v24 key.
+This folder's own data is still the v19 smoke test "I'm fine"; `../v24-samples/video08-regression/` uses every v24 and
+v25 key (its chapter 02 is the colour ladder).
+
+## Changes in compiler v25 (changelog)
+
+**Version 25 (9 Oct 2026).**
+- `EMOTION_FIELD` (before the dictionaries, so `assemble.cjs` can read it): six stage colours by meaning — RED #E2443A,
+  YELLOW #FFE04A, BLUE #4D9BEA, GREEN #3CC46E, VIOLET #8D5CDF, GREY #A3ABB5 — each with a deeper tone for the solid
+  pieces. `framePalette` uses the frame's `pc` first, then `CHAPTER.emo`, then the TENSE/SUNNY variant. No warm field.
+- `clashesField` / `fieldIsLight`: on a PEAK field a focus, a mark or a word in the field's own hue is drawn white with
+  its bold black outline ("THE FOCUS in this frame is …, drawn white…"); marks turn black ink; words take black on a light
+  field and white on a dark one (`textInk`, `isDarkField`).
+- Marks (`mk`) may sit beside a coloured focus: a `MARKS:` line, and the "no other strong colour" sentence names its
+  exceptions (the field, the marks, the word).
+- The AVOID line agrees with the stage: on PEAK and NIGHT "walls, floors, grass or furniture in any colour other than the
+  one flat field and its deeper tone"; in absence "other than the quiet grey" (the old mute replacement never matched).
+- LIGHT: "the light itself is a flat shape with a sharp edge — never a soft glow, gradient or beam" (no longer clashes
+  with a drawn glow of rays).
+- A line-only idea place on a colour field is the ground line itself (no doubled ground line, no "solid shape" line);
+  "floor line" counts as a ground line on CLEAN too.
+- `colourWhy` names the stage ("stage: vivid red field (red = conflict…)") and a focus drawn white.
+- `assemble.cjs`: `pc` (validated; it sets `m: "PEAK"`; any other `m` with it is an error); `I(n, {in, …})` inserts with
+  refs S12b, S12c…, pieces, picture text and reveal covers like any frame; the INSERT_BEATS block is filled at last
+  (it was always empty before — audit F5).
+- `CLEAN_GROUND` is #F7F6F3 again (v24.3 had #FFFFFF), and the contradictions the audit found are gone (audit F1–F2).
 
 ## Changes in compiler v24 (changelog)
 
 **Version 24 (9 Oct 2026).**
-- `CLEAN_GROUND` is #FFFFFF; `OUTLINE_GREY` is #2B2B2B black ink; set pieces are "thin black ink line… thinner than the
+- `CLEAN_GROUND` stays #F7F6F3 (approved on Video 08; a v24 draft set #FFFFFF and was reverted); `OUTLINE_GREY` is #2B2B2B black ink; set pieces are "thin black ink line… thinner than the
   characters' outlines, with plain white fill"; WORLD part fills (a fourth element) and `W.floor` are ignored outside
   absence frames.
 - `colourBlock`: "THE BRIGHT COLOUR FOCUS in this frame is …" (or "The one colour in this frame is … in its calm, deeper
@@ -51,7 +81,8 @@ This folder's own data is still the v19 smoke test "I'm fine"; `../v24-samples/v
 | `cm` | `true`: the colour focus in its calm tone, for a deliberately quiet beat (sadness, absence, a held moment). |
 | `ac` | Why the colour is pushed in this frame (shown on the Copy page). |
 | `gl` | A drawn glow on the colour focus: `"halo"`, `"rays"` or `"rainbow"` (delight, discovery, reward only). |
-| `mk` | Accent marks on an action when no object carries the colour: `["three short jagged strokes above DAD's head", "RED"]`. |
+| `mk` | Drawn marks on an action: `["three short jagged strokes where DAD's hand hits the table", "RED"]` — the accent when no object carries the colour, or (v25) a `MARKS:` line beside a coloured focus. |
+| `pc` | v25: the colour stage of a line that carries the intensity — `"RED"`, `"YELLOW"`, `"BLUE"`, `"GREEN"`, `"VIOLET"` or `"GREY"`. Sets `m: "PEAK"`; needs `pk: true`; never on a face close-up (that one goes WHITE). |
 | `li` | A flat, clean-edged light shape: `["warm" \| "cool" \| "dusk", "where"]` — warm for positive moments. |
 | `mu` | `true`: absence — the place in quiet cool grey, every object black line except `ce`. |
 | `tx` | A hand-lettered word in this frame's own prompt (never a separate image): `[WORD, cue word, COLOUR, where, big]` — COLOUR from WORD_COLOUR (BLACK, RED, YELLOW, BLUE, GREEN, VIOLET…); `big` for an ending or a peak. |
@@ -59,6 +90,12 @@ This folder's own data is still the v19 smoke test "I'm fine"; `../v24-samples/v
 | `zm` | Reframes of this still in Premiere: `[[cue word, target, "punch" \| "push"], …]` — the target is a character or object in the frame. |
 | `fg` | A near foreground piece at one edge of the frame. |
 | `sx` | `true`: a close face shot shows one slice of the place behind the head. |
+
+**Inserts (v25).** `I(n, { in: "cue word", …the same keys as F })` adds a second generated image inside line `n` — a
+cutaway, the object big, the hands, a sudden close-up a crop cannot give — cut in on its word. Refs run `S12b`, `S12c`…;
+the line needs its own `F(n)`. Inserts appear on the Copy page after their line and in the review page; the checks read
+them (cue word in the line, pieces, contradictions, rhythm). The segment function receives it: `module.exports = ({ seg,
+F, I, E, Q }) => { … }`.
 
 PROP keys used by v24: `fam` (the colour's meaning key in COLOUR_LOGIC), `why` (the colour reason), `screen: true` (lit at
 night), `lineText`, `part`, `small`, `onWall`, `mark`. `dicts.TONE`: `{ "#hex": { calm: [name, hex], bright: [name, hex] } }`.
@@ -135,7 +172,7 @@ night), `lineText`, `part`, `small`, `onWall`, `mark`. `dicts.TONE`: `{ "#hex": 
 | `assemble.cjs` | Reads `dicts.cjs`, `segs/segNN.cjs` and `script.txt`, and writes `out/build.jsx`. |
 | `dicts.cjs` | The video's dictionaries: PROJECT, ROLE, EDIT_WHO, SET, CHAPTER, WORLD, PROP, OVERLAY, STORY, PLAN, MOTIFS, KEY_LINES, REVISIONS. |
 | `script.txt` | The exact voice-over lines, one per line. |
-| `segs/segNN.cjs` | One file per chapter. It holds `F(n, {…})` frames, `E(ref, on, change)` edits and `Q(id, title, base, images)` sequences. |
+| `segs/segNN.cjs` | One file per chapter. It holds `F(n, {…})` frames, `I(n, {in, …})` inserts, `E(ref, on, change)` edits and `Q(id, title, base, images)` sequences. |
 | `fk.cjs` | Prints the source fields of chosen frames: `node fk.cjs 3,4 ft,look,ctx,ce`. Set `SEGS=path/segs` for another folder. |
 | `q.cjs` | Queries compiled frames: `node q.cjs "b.mood==='PEAK'" ref,peak,plan.ft`. Set `BUILD=path/build.jsx` for another build. |
 | `passlib.py` | Helpers for scripted fix passes (`sub`, `suball`, `setf`, `delf`, `esub`, `eset`, `edel`, `add_edit`, `qsub`, `save`). Set `ROOT` to the video folder; the default is the current folder. |
@@ -173,11 +210,11 @@ Things with the v19 compiler. It fails the new plan-field checks, as expected, b
 
 | Mood | Background | Use |
 |---|---|---|
-| `CLEAN` (the default) | v24: `CLEAN_GROUND` is pure white #FFFFFF and set pieces are thin black ink (#2B2B2B) line with white fill. (v19 had a very light warm neutral, #F7F6F3, and thin soft-grey (#B4B8BD) outlines with white fill. Wider shots get one ground line. | Most frames: real places shown by a few outline cues. |
+| `CLEAN` (the default) | `CLEAN_GROUND` #F7F6F3, the clean warm white Video 08 was approved on; set pieces are thin black ink (#2B2B2B) line with white fill (v19 had soft-grey #B4B8BD outlines). Wider shots get one ground line. | Most frames: real places told by their fewest pieces. |
 | `WHITE` | Pure white #FFFFFF, with nothing behind the subject. | Face-only, object-only and word frames, and deliberate white breaks. |
-| `PEAK` | One full-colour field: the chapter's `CHAPTER[xx].emo` colour (its `field` or `wall`, with `floor` as the darker outline tone), or the TENSE/SUNNY variant, or a storm-violet default. | An emotional peak scene only. The frame must carry `pk: true`. Never behind a face close-up. |
-| `NIGHT` | One flat night-navy field (#2C384E) with dim slate outlines. The navy-not-grey and black-hair lock is included. | Night scenes. A face close-up inside a night scene goes WHITE, and the next wider frame brings the night back. |
-| `MEMORY` | A faded light grey (#DDE1E7), as if the colour has drained out. | The past. |
+| `PEAK` | v25: one flat full-colour field in the emotion's colour from `pc` (`EMOTION_FIELD`), with its deeper tone for the solid pieces; older builds fall back to `CHAPTER[xx].emo`, the TENSE/SUNNY variant, or a storm-violet default. | The wider frames of a line that carries the intensity (`pk: true`, `pc`). Never behind a face close-up. |
+| `NIGHT` | One flat night-navy field (#35445E) with solid slate-navy pieces (#55647F, outlined #1C2433). The navy-not-grey and black-hair lock is included. | Night scenes. A face close-up inside a night scene goes WHITE, and the next wider frame brings the night back. |
+| `MEMORY` | A very light warm paper ground (#F4F1EB) with faded warm-grey lines (#7D776E). | The past. |
 
 The older names are aliases: BRIGHT, WARM, EVENING, COOL, DUSK, NEUTRAL and ACCENT are CLEAN; DARK is NIGHT; ICY is MEMORY;
 TENSE and SUNNY are PEAK. The compiled beat keeps the old name in `moodWas`. If no mood is given, the frame is CLEAN. WORD
@@ -194,7 +231,7 @@ frames are always WHITE.
 | `REACTION` | **new.** One face, with the top of the shoulders, in the instant it reacts. |
 | `HANDS` | Hands only. Forearms rise from the bottom edge or the bottom corners. |
 | `OBJECT` | An object with no character in the frame. |
-| `WORD` | **new.** A pure white frame for one on-screen word, which Muhammad adds in Premiere. Nothing is drawn, or only one small object if `p` names it. It needs `kw` and no characters. `w` and `m` are not needed. |
+| `WORD` | A pure white frame with one on-screen word lettered into it (v24.1). Nothing is drawn, or only one small object if `p` names it. It needs `kw` and no characters. `w` and `m` are not needed. |
 
 Angles (the `an` key): `EYE` (the default), `SQUARE`, `PROFILE`, `OTS`, `LOW` (child height), `HIGH` (a little above head
 height), `OVERHEAD` and `POV`. Natural camera positions read best.
@@ -216,7 +253,7 @@ height), `OVERHEAD` and `POV`. Natural camera positions read best.
 | `ce` | The one colour element: a PROP key (`"PHONE"`), a key plus a part (`"PHONE case"`), or `"none"`. The default is the hero object, then the first object not marked plain. | Every frame (write `"none"` when nothing carries colour). If it is missing, the prompt still defaults to the hero object, but the check fails. |
 | `cx` | The contrast this frame makes, with the frame before or inside the frame. | Whenever the frame makes a contrast; when sameness is chosen, write `"affinity — …"` and why. Missing gives a WARN. |
 | `ip` | The interrupt type: white-break, extreme-close-up, word, unexpected-object, funny-reaction, strong-pose, short-metaphor, visual-silence, large-face… The list is open. | When the frame is an interrupt. Not checked; printed as information. |
-| `pk` | `true` on an emotional-peak frame. | Every PEAK frame. |
+| `pk` | `true` on a line that carries the emotional intensity; it should reach colour (the stage with `pc`, or marks, glow or light — qa-v24 warns when it stays plain white). | Every PEAK frame. |
 
 All the plan fields are stored together in `beat.plan`. The Copy page, the Edit page and the review page show them.
 
@@ -278,11 +315,11 @@ line-type word, it is still read as the link. Use `lk` for the link from now on.
   - Older worlds still compile. Their `{WALL}`, `{FLOOR}` and `{FURN}` colour words are removed, and the anchor flag is ignored.
 - **PROP**
   - `name`, `hex`, `colour` and `text` (a build spec you can count).
-  - `part`: the coloured part, e.g. "THE PHONE's turquoise (#00B3B8) case".
+  - `part`: the coloured part, e.g. "THE PHONE's strong purple (#8A2BE2) case" (phones are purple — v24).
   - `lineText`: optional. This is how the object looks when it is not the colour element.
   - `small` and `onWall`, as before.
   - `nouns`: the words that count as using the object.
-  - `danger: true` is needed for strong red.
+  - `danger: true` marks an object whose red carries conflict, frustration, stress or danger; strong red needs it (qa.cjs).
   - **`mature: false`** marks a symbol prop. **`mature: true`** clears an object whose words look like a symbol (heart,
     star, arrow…) but which is a real, mature object.
 - **OVERLAY:** `mature: false` marks an emoji-style icon. Any pop that uses one fails the checks.
@@ -291,19 +328,23 @@ line-type word, it is still read as the link. Use `lk` for the link from now on.
   - **`sameAs`** links the same person at another age, who may share the hair outline.
   - `from`, `short`, `change` and `text` copy the MOM or SON reference.
   - `wear` lists accessories with their hex.
-- **CHAPTER:** `emo: { field: [name, hex], floor: [name, hex] }` is the chapter's peak colour, keyed by the first two
-  characters of the segment name.
-- **PROJECT:** `cleanGround: "#FFFFFF"` is optional. It sets this video's CLEAN ground.
+- **CHAPTER:** `emo: { field: [name, hex], floor: [name, hex] }` was the chapter's peak colour (keyed by the first two
+  characters of the segment name). Since v25 the colour follows the emotion: use `pc` on the frame; `emo` is only a
+  fallback for older builds.
+- **PROJECT:** `cleanGround` is optional and only for a test strip; the approved CLEAN ground is #F7F6F3 (`v24-standard.md` §13),
+  so leave it unset for production.
 
 ## The checks (skill `scripts/`)
 
-`qa-all.cjs` runs all six scripts below and prints one summary line for each. Every check passes or fails by a rule. Shares,
-counts and runs are printed as `info` only.
+`qa-all.cjs` runs all eight scripts below and prints one summary line for each. Every check passes or fails by a rule;
+a WARN is a question to read, never a quota. Shares and counts are printed as `info` only.
 
 | Script | What it checks |
 |---|---|
-| `qa-v19.cjs` (**new**) | **Plan fields:** ft, ln, idea, alt and ce on every frame (a missing cx gives a WARN); ia, and dist as one of touching, close, apart or far, on frames with two or more characters; look and ctx on close shots with a face; ctx refs point at an earlier frame, and at a wider one when ctx says wide; ce names an object in the frame, or none. **Background:** no tinted wall, room or furniture wording in CLEAN or WHITE frames; no set-piece colour there (only the ground, the soft-grey line and white); full colour only with pk (PEAK) or at night; no PEAK or NIGHT field behind a face close-up (it goes WHITE; the next wider frame brings the colour back); every colour block names one colour element or says nothing carries colour; WHITE face close-ups name no room part. **Faces:** every performance names the seven features (hands-only frames name the hands; eyes-only frames name the eyes, eyebrows and eye direction; a face turned away names the head, hands and posture); WORD frames carry their word and no characters. **Symbols:** no symbol props and no emoji-style pop-ins (a symbol word in the beat text gives a WARN). **Cast:** every ROLE describes its hair and is never bald or a featureless round head; no two roles share a hair outline word, unless `sameAs` links them. **Composition:** the same composition (shot + angle + place + who stands where) never repeats; the same character in back-to-back frames moves to another distance family (far WIDE/MEDWIDE · middle MEDIUM · near CLOSE/FACE_HANDS/REACTION · very near XCLOSE · inserts HANDS/OBJECT; MEDIUM↔MEDWIDE is no change) or changes the angle clearly (EYE and SQUARE are both frontal) — edits and the stills of one sequence are not compared; characters keep their sides inside a scene (a SQUARE frame on the line, or an action or edit that says the character crosses, may switch them); close-up gaze matches where the other person stands (eyeline match). **Keywords:** idea words only, never "NUMBER …", digits or a sentence. |
-| `qa.cjs` (**rewritten**) | **Structure:** fields, script match, sketch, value lists, placeholders, cast and hero sanity, unused entries. **Expression:** hands stated, the ceiling (no teeth or snarls), blank faces, big faces on wide shots, garments, anatomy words, each character performed, eye lines. **Props:** used, accessories locked. **Story plan:** STORY, PLAN, finished scenes, links, and recurring motifs whose `arc` shows a change of meaning. **Colour:** valid moods, a saturated colour element, no colour element in its field's family, red for danger only, the colour block present. **Motion:** pop cues, move cues, edits (detailed, one per frame, with a keep-clause), reveals and stated stillness. **Render risks** and **prompt shape:** injection wording, finger and wobbly words, lengths, lock positions, countable props, quoted words, edit wording. |
+| `qa-v24.cjs` | **Stage:** the approved ground; no set-piece fills or floor planes; the fewest pieces (a close shot one slice, other shots three at most — WARN). **Colour:** at most the focus and one second object coloured; ce2 sane; glow belongs to a focus; no rendered glow words; phones purple; marks on two coloured objects (WARN). **Intensity (v25):** every peak reaches colour on its line or beside it; a colour stage names its `pc`; one moment one field colour; more than five colour fields in a row; about half a minute with no colour lift (WARNs). **Size:** wide faces readable; oversized needs an object. **Words:** no numbers, titles, long phrases, labels on objects, underlines, presentation fonts or words left for Premiere; cue words in their lines. **Attention:** a close face per chapter; a close-up at each peak; metaphors enter with a surprise; a white moment per chapter; no absent names in prop texts. **Zooms:** cue in the line, target in the frame. **Rhythm:** stills holding well past five seconds; the same camera move four frames running (WARN). **Inserts:** the cut-in word is in the line. |
+| `qa-contradictions.cjs` (**v25**) | Fails any prompt whose sentences disagree: line pieces on a colour stage, "plain white" on a field, a coloured word or marks against "no other strong colour", "nothing carries colour" against a focus, "no words" against a word, the CLEAN ground called pure white, coloured set pieces, "never a glow" against a GLOW, "coloured furniture" avoided on a stage whose pieces are coloured, a focus or word in the field's own hue, white text on a light field. Inserts are scanned too. |
+| `qa-v19.cjs` (**new**) | **Plan fields:** ft, ln, idea, alt and ce on every frame (a missing cx gives a WARN); ia, and dist as one of touching, close, apart or far, on frames with two or more characters; look and ctx on close shots with a face; ctx refs point at an earlier frame, and at a wider one when ctx says wide; ce names an object in the frame, or none. **Background:** no tinted wall, room or furniture wording in CLEAN or WHITE frames; no set-piece colour there (only the ground, the black ink line and white); full colour only with pk (PEAK) or at night; no PEAK or NIGHT field behind a face close-up (it goes WHITE; the next wider frame brings the colour back); every colour block names one colour element or says nothing carries colour; WHITE face close-ups name no room part. **Faces:** every performance names the seven features (hands-only frames name the hands; eyes-only frames name the eyes, eyebrows and eye direction; a face turned away names the head, hands and posture); WORD frames carry their word and no characters. **Symbols:** no symbol props and no emoji-style pop-ins (a symbol word in the beat text gives a WARN). **Cast:** every ROLE describes its hair and is never bald or a featureless round head; no two roles share a hair outline word, unless `sameAs` links them. **Composition:** the same composition (shot + angle + place + who stands where) never repeats; the same character in back-to-back frames moves to another distance family (far WIDE/MEDWIDE · middle MEDIUM · near CLOSE/FACE_HANDS/REACTION · very near XCLOSE · inserts HANDS/OBJECT; MEDIUM↔MEDWIDE is no change) or changes the angle clearly (EYE and SQUARE are both frontal) — edits and the stills of one sequence are not compared; characters keep their sides inside a scene (a SQUARE frame on the line, or an action or edit that says the character crosses, may switch them); close-up gaze matches where the other person stands (eyeline match). **Keywords:** idea words only, never "NUMBER …", digits or a sentence. |
+| `qa.cjs` (**rewritten**) | **Structure:** fields, script match, sketch, value lists, placeholders, cast and hero sanity, unused entries. **Expression:** hands stated, the ceiling (no teeth or snarls), blank faces, big faces on wide shots, garments, anatomy words, each character performed, eye lines. **Props:** used, accessories locked. **Story plan:** STORY, PLAN, finished scenes, links, and recurring motifs whose `arc` shows a change of meaning. **Colour:** valid moods, a saturated colour element, no colour element in its field's family (unless it is drawn white on a colour stage), strong red only on objects flagged `danger` (red = conflict, stress, danger), the colour block present. **Motion:** pop cues, move cues, edits (detailed, one per frame, with a keep-clause), reveals and stated stillness. **Render risks** and **prompt shape:** injection wording, finger and wobbly words, lengths, lock positions, countable props, quoted words, edit wording. |
 | `qa-render-risk.cjs` (**converted**) | Steep-view wording; character size stated; natural cameras and presets; neighbouring frames that read as the same picture; the thin-body lock; the white-characters-on-a-field lock (PEAK, NIGHT, MEMORY); heaps named; THE PICTURE and its closing summary; the why line. |
 | `qa-consistency.cjs` (**converted**) | WHITE close-ups name no room part; frames that are not WHITE never call their ground white; removed room dress; texture; hands from the bottom edge; hidden objects; wall colours in placement; cast naming (an out-of-frame gaze target is allowed through `look`); chairs only for people sitting; eyes-only wording; one hand lock; **new:** every plan field reaches its prompt block (INTERACTION BEAT, DISTANCE, CLOSE-UP LOGIC, the ce colour element, ce none); CLEAN and WHITE never describe a colour field; grins and fading; edits name only what the base has; mouth shapes; expression strength. |
 | `qa-colour-v17.cjs` (**converted**) | The colour element stands apart from its background; keyword cue words are in their lines. The background mix and keyword timing are printed as information. |
@@ -315,7 +356,8 @@ by a rule:
 - FIELD counted as one location, and "location held more than 4 frames".
 - The opening-30-frames scene and mood counts, and the first-30-seconds counts.
 - The plain-field share, the colour-background share, a colour moment in every 40-s band, and "at least 4 moods".
-- The white-space share, and "long stretch on one kind of background".
+- The white-space share, and "long stretch on one kind of background". (v25 lists stretches of about half a minute with no
+  colour lift as a WARN to read — Muhammad: "not monotonous"; calm on purpose stays calm.)
 - Floating heads, and two huge faces within three frames.
 - The XCLOSE, close-up, HUGE, LARGE, hands and scale shares.
 - The segment floors.
@@ -327,7 +369,8 @@ by a rule:
 - The white face on BRIGHT, and furniture tone versus wall tone.
 - The eye-line share and the 60/40 screen-side balance.
 - The SIMPLE run and the emotional frames per band.
-- The humour, pop-in, edit, reveal and HOLD shares, the moves-per-film limits, and the same move four running.
+- The humour, pop-in, edit, reveal and HOLD shares, and the moves-per-film limits. (The same move four running came back
+  in v25 as a WARN to read — Thomas: "not exactly the same way on every image".)
 - The 3–5 sequence length and the sequences-per-film count.
 - The colour-script 20–30 %, and "room master required".
 - The key-line variety counts, and keyword spacing.

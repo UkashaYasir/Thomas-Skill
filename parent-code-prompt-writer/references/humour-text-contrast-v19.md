@@ -7,7 +7,7 @@
 > is a white frame with the word lettered in. Humour and exaggeration
 > are "essential parts of our channel identity" (Thomas, Video 08) — exaggerated reactions and impossible scale are in.
 
-Read with `v19-principles.md` §5. Where `aha-humour-popins.md`, `colour-and-text-v17.md` or `motion-and-energy.md` say
+Read with `v19-principles.md` §5. Where `aha-humour-popins.md`, `archive/colour-and-text-v17.md` or `motion-and-energy.md` say
 something different about humour, words, contrast, interrupts or pacing, this file wins.
 
 **This is an open library.** Every section is seed examples plus a method for making new ones. Never a menu, never a
@@ -46,9 +46,10 @@ laugh at the lopsided cake.
 - **Understatement reads adult.** A small reaction to a big moment: one raised eyebrow, a flat mouth, a slow blink
   (an edit). When the beat is an exaggerated parent reaction, push it through a large face on white — the expression
   grows, the effects do not.
-- **No slapstick and no cartoon effects.** No sweat drops, steam, stars, swirling eyes, motion lines, objects flying,
-  people falling over, things thrown out of windows. Physical comedy only as a brief, believable loss of control (the
-  spill and the freeze).
+- **Exaggeration, not cartoon effects** (v24: "Humor and exaggeration are essential parts of our channel identity").
+  In: exaggerated reactions and poses, impossible scale, the exaggerated cutaway (the giant helicopter), a big believable
+  loss of control (the spill and the freeze, the missed shot, the thrown teddy), and drawn speed or impact lines at the
+  point of action. Out: sweat drops, steam, stars, swirling eyes, anger veins, blush marks, random slapstick.
 - **Fast against slow.** A quick run of stills, then one dead-still face (S18).
 - **"There and back again".** A character moves on, notices, comes back; the reaction reveals who they are (S19).
 - **Exits and empty frames.** The empty chair where the teen just was; the door already shut.
@@ -143,7 +144,8 @@ his words — listen, attention, safe, trusting — with nothing on screen.
   creating a kids channel")*. Black, or the colour of the frame's colour element.
 - **The word stays at least until the end of the spoken phrase** it belongs to *(our inference; a key word needs time to
   land)*.
-- **The WORD frame.** A pure white frame with nothing drawn (or one small object the line names) for the word to sit in.
+- **The WORD frame.** A pure white frame with the word hand-lettered into it (or one small object the line names) —
+  generated from its own prompt like any other frame (v24.1).
   It also works as a pattern interrupt.
 
 **Why** (R3 §6, Mayer and Fiorella, S20):
@@ -181,7 +183,8 @@ nothing without the line (ALL THREE); numbers and chapter labels.
 3. **Test it:** it names an idea (not a label, a number or the metaphor); a parent would remember it; it stands alone;
    it comes from the line.
 4. **Place it:** on the spoken word, in empty space beside what it names, or on a WORD frame; never over a face.
-5. **Record it** in `kw` (the word and its cue word), and `ip` word if it is also an interrupt.
+5. **Record it** in `tx` (word, cue word, colour, place) or `kw` — both letter it into the frame's prompt — and `ip` word
+   if it is also an interrupt.
 
 ---
 

@@ -26,11 +26,13 @@ const marker = src.indexOf("/* ===== UI ===== */");
 if (marker < 0) { console.log("FAIL  build has no UI marker"); process.exit(1); }
 src = src.slice(0, marker).replace(/^\s*import[^\n]*\n/gm, "");
 let M;
-try { M = vm.runInNewContext(src + ";({RAW_BEATS,BEATS,PROMPTS,ROLE,PROP,OVERLAY,WORLD,MOOD,SCRIPT,EDIT_CUES,SEQUENCES,framePalette,MOOD_ALIAS:(typeof MOOD_ALIAS==='undefined'?null:MOOD_ALIAS),CLEAN_GROUND:(typeof CLEAN_GROUND==='undefined'?null:CLEAN_GROUND),OUTLINE_GREY:(typeof OUTLINE_GREY==='undefined'?null:OUTLINE_GREY)})", {}); }
+try { M = vm.runInNewContext(src + ";({RAW_BEATS,BEATS,PROMPTS,INSERT_PROMPTS:(typeof INSERT_PROMPTS==='undefined'?[]:INSERT_PROMPTS),ROLE,PROP,OVERLAY,WORLD,MOOD,SCRIPT,EDIT_CUES,SEQUENCES,framePalette,MOOD_ALIAS:(typeof MOOD_ALIAS==='undefined'?null:MOOD_ALIAS),CLEAN_GROUND:(typeof CLEAN_GROUND==='undefined'?null:CLEAN_GROUND),OUTLINE_GREY:(typeof OUTLINE_GREY==='undefined'?null:OUTLINE_GREY)})", {}); }
 catch (e) { console.log("FAIL  the build does not compile: " + e.message); process.exit(1); }
 if (!M.MOOD_ALIAS) { console.log("FAIL  this build was not made with compiler v19 or later — rebuild it with assets/compiler-v24/"); process.exit(1); }
 const { ROLE, PROP, OVERLAY, WORLD, MOOD, MOOD_ALIAS } = M;
 const D = M.BEATS || M.RAW_BEATS, P = M.PROMPTS, N = D.length;
+// v25: inserts (I) are frames too — every per-frame check below reads them (DI, PI); the sequence checks read the line frames
+const DI = [...D, ...(M.INSERT_PROMPTS || [])], PI = [...P, ...(M.INSERT_PROMPTS || [])];
 let fails = 0, warns = 0;
 const ok = m => { if (!BRIEF) console.log("  ok    " + m); }, info = m => { if (!BRIEF) console.log("  info  " + m); };
 const warn = m => { warns++; console.log("  WARN  " + m); }, fail = m => { fails++; console.log("  FAIL  " + m); };
@@ -58,15 +60,15 @@ console.log(`\nv19 RULE CHECKS — ${N} frames — every check is a rule, never 
 
 // ════════════════════════════════════════════════════════════════
 head("PLAN FIELDS (shot-plan-v19.md)");
-const noFt = D.filter(b => !String(plan(b).ft || "").trim()).map(b => b.ref);
+const noFt = DI.filter(b => !String(plan(b).ft || "").trim()).map(b => b.ref);
 noFt.length ? fail("frames without ft (what the viewer should feel): " + refs(noFt)) : ok("every frame states ft — what the viewer should feel");
 // shot-plan-v19.md: ln, idea, alt and ce are written for every frame; cx whenever the frame makes a contrast ("affinity — …" when sameness is chosen)
 const filled = (b, k) => Array.isArray(plan(b)[k]) ? plan(b)[k].some(x => String(x).trim()) : !!String(plan(b)[k] || "").trim();
-const noPlan = D.map(b => [b.ref, ["ln", "idea", "alt", "ce"].filter(k => !filled(b, k))]).filter(([, m]) => m.length).map(([r, m]) => `${r}(${m.join(",")})`);
+const noPlan = DI.map(b => [b.ref, ["ln", "idea", "alt", "ce"].filter(k => !filled(b, k))]).filter(([, m]) => m.length).map(([r, m]) => `${r}(${m.join(",")})`);
 noPlan.length ? fail("frames missing plan fields that shot-plan-v19.md asks for on every frame (ln line type, idea, alt — the ideas considered, ce — the colour element or \"none\"): " + refs(noPlan)) : ok("every frame records its line type, idea, the other ideas considered, and its colour element");
-const noCx = D.filter(b => !filled(b, "cx")).map(b => b.ref);
+const noCx = DI.filter(b => !filled(b, "cx")).map(b => b.ref);
 noCx.length ? warn("frames without cx — write the contrast this frame makes, or \"affinity — \" and why sameness is chosen: " + refs(noCx)) : ok("every frame states its contrast (or its chosen affinity)");
-const two = D.filter(b => roleList(b).length >= 2);
+const two = DI.filter(b => roleList(b).length >= 2);
 const noIa = two.filter(b => !String(plan(b).ia || "").trim()).map(b => b.ref);
 noIa.length ? fail("frames with two or more characters and no ia (who does what → who reacts how): " + refs(noIa)) : ok(`every frame with two or more characters has its interaction beat (${two.length})`);
 const DISTS = ["touching", "close", "apart", "far"];
@@ -74,33 +76,33 @@ const badDist = two.filter(b => !DISTS.includes(String(plan(b).dist || "").trim(
 badDist.length ? fail("frames with two or more characters whose dist is missing or not touching / close / apart / far: " + refs(badDist)) : ok("every frame with two or more characters plans its distance");
 const iaNoArrow = two.filter(b => plan(b).ia && !/→|->/.test(plan(b).ia)).map(b => b.ref);
 iaNoArrow.length ? warn("ia written without an arrow — the beat is \"who does what → who reacts how\": " + refs(iaNoArrow)) : ok("every ia names an action and a reaction");
-const cf = D.filter(closeFace);
+const cf = DI.filter(closeFace);
 const noLook = cf.filter(b => !String(plan(b).look || "").trim() || !String(plan(b).ctx || "").trim()).map(b => `${b.ref}(${!plan(b).look ? "look" : ""}${!plan(b).look && !plan(b).ctx ? "+" : ""}${!plan(b).ctx ? "ctx" : ""})`);
 noLook.length ? fail("close shots with a face but no look (gaze target and side) or ctx (what makes the close-up make sense): " + refs(noLook)) : ok(`every close shot with a face has its look and ctx (${cf.length})`);
-const byRef = Object.fromEntries(D.map(b => [b.ref, b]));
+const byRef = Object.fromEntries(DI.map(b => [b.ref, b]));
 const badCtx = [];
 cf.forEach(b => { const c = String(plan(b).ctx || ""); (c.match(/\bS\d+[a-z]?\b/g) || []).forEach(r => { const x = byRef[r]; if (!x) badCtx.push(`${b.ref}→${r} (no such frame)`); else if (x.n > b.n) badCtx.push(`${b.ref}→${r} (comes later)`); else if (/\bwide|wider|establish/i.test(c) && !WIDER.includes(x.shotSize)) badCtx.push(`${b.ref}→${r} (${x.shotSize} is not a wider frame)`); }); });
 badCtx.length ? fail("ctx refs that do not establish the place (missing, later, or not a wider frame): " + refs(badCtx)) : ok("every ctx ref points at an earlier frame (a wider one where ctx says wide)");
 const badCe = [];
-D.forEach(b => { const ce = String(plan(b).ce || "").trim(); if (!ce || /^none$/i.test(ce)) return; const k = (ce.match(/^[A-Z0-9_]+/) || [""])[0]; if (!PROP[k]) badCe.push(`${b.ref}(${ce}: no such PROP)`); else if (!propKeys(b).includes(k)) badCe.push(`${b.ref}(${k} is not in the frame's props)`); });
+DI.forEach(b => { const ce = String(plan(b).ce || "").trim(); if (!ce || /^none$/i.test(ce)) return; const k = (ce.match(/^[A-Z0-9_]+/) || [""])[0]; if (!PROP[k]) badCe.push(`${b.ref}(${ce}: no such PROP)`); else if (!propKeys(b).includes(k)) badCe.push(`${b.ref}(${k} is not in the frame's props)`); });
 badCe.length ? fail("ce (the one colour element) that is not an object in the frame: " + refs(badCe)) : ok("every ce names an object in its frame, or none");
 info("line types " + dist(D.filter(b => plan(b).ln), b => plan(b).ln) + " · interrupts " + dist(D.filter(b => plan(b).ip), b => plan(b).ip) + " · distance " + dist(two, b => plan(b).dist || "—"));
 
 // ════════════════════════════════════════════════════════════════
 head("BACKGROUND AND COLOUR (style-and-colour-v19.md)");
 info("moods " + dist(D, b => moodOf(b.mood)) + (D.some(b => b.moodWas) ? " · older names mapped: " + dist(D.filter(b => b.moodWas), b => b.moodWas + "→" + moodOf(b.mood)) : ""));
-const peakNoPk = D.filter(b => moodOf(b.mood) === "PEAK" && !b.peak).map(b => `${b.ref}${b.moodWas ? "(" + b.moodWas + ")" : ""}`);
+const peakNoPk = DI.filter(b => moodOf(b.mood) === "PEAK" && !b.peak).map(b => `${b.ref}${b.moodWas ? "(" + b.moodWas + ")" : ""}`);
 peakNoPk.length ? fail("full-colour PEAK frames without pk: true — full colour is only for an emotional peak (or NIGHT): " + refs(peakNoPk)) : ok("every full-colour PEAK frame is a marked emotional peak (pk)");
-const peakFace = D.filter(b => moodOf(b.mood) === "PEAK" && closeFace(b)).map(b => b.ref);
+const peakFace = DI.filter(b => moodOf(b.mood) === "PEAK" && closeFace(b)).map(b => b.ref);
 peakFace.length ? fail("a full-colour field behind a face close-up — the face is important there, keep the rest neutral (CLEAN or WHITE): " + refs(peakFace)) : ok("no full-colour field sits behind a face close-up");
-const nightFace = D.filter(b => moodOf(b.mood) === "NIGHT" && closeFace(b)).map(b => b.ref);
+const nightFace = DI.filter(b => moodOf(b.mood) === "NIGHT" && closeFace(b)).map(b => b.ref);
 nightFace.length ? fail("night-navy fields behind face close-ups — a face close-up inside a night scene goes WHITE like a peak close-up; the next wider frame brings the night back (style-and-colour-v19.md §1.4): " + refs(nightFace)) : ok("no night field behind a face close-up");
 const block = (t, name, next) => { const m = t.match(new RegExp(name + ": (.*?)(?= (?:" + next + ")[^:]{0,40}:|$)")); return m ? m[1] : ""; };
 const NEXT_SET = "PLACE MASTER|PLACE REFERENCE|CONSTRUCTION, as in the references|HANDS-ONLY CONSTRUCTION|HANDS|COLOUR|CHARACTER COUNT|TEXT";
 const NEXT_COL = "OBJECT FOCUS|VISUAL ORDER|LESS, BUT STRONGER|CHARACTER COUNT|TEXT|CHARACTER LOCKS|RECURRING CONSISTENCY";
 const TINT = /\b(?:soft|subtle|pale|quiet|light|dusty|muted|warm|cool)[ -](?:sage|blush|beige|lilac|mint|rose|aqua|periwinkle|lavender|mauve|peach|apricot|cream|oat|linen|blue|green|pink|yellow|teal|lilac grey|grey-aqua|grey-blue)\b|\btint(?:ed)?\b|\bthe (?:room|place|kitchen|hall|living room)'s (?:own )?(?:soft )?colou?rs\b|\bquiet furniture\b|\bone step deeper\b|\bwalls? stays? exactly\b|\bcolou?red (?:wall|walls|room|rooms|furniture)\b|\bwall colou?r\b|\bnear-white floor\b|\bsoft-colou?red wall\b|\bflat [a-z -]+ \(#[0-9A-Fa-f]{6}\) (?:back )?wall\b/i;
 const tinted = [], extraHex = [];
-P.filter(p => ["CLEAN", "WHITE"].includes(moodOf(p.mood))).forEach(p => {
+PI.filter(p => ["CLEAN", "WHITE"].includes(moodOf(p.mood))).forEach(p => {
   const set = block(p.prompt, "SETTING", NEXT_SET), col = block(p.prompt, "COLOUR", NEXT_COL);
   const beat = [p.framing, p.action, p.map].join(" ");
   // v24: an absence frame (mute) is grey on purpose — its fixed grey wording is not a tint
@@ -112,10 +114,10 @@ P.filter(p => ["CLEAN", "WHITE"].includes(moodOf(p.mood))).forEach(p => {
 });
 tinted.length ? fail("CLEAN/WHITE frames with tinted-room wording (a coloured wall, tinted room or furniture colour): " + refs(tinted)) : ok("CLEAN and WHITE frames carry no tinted wall, room or furniture wording");
 extraHex.length ? fail("CLEAN/WHITE settings that colour a set piece or the place (only the white ground, the black line and white fill are allowed there — Thomas: \"black and white is enough\"): " + refs(extraHex)) : ok("CLEAN and WHITE settings are the white ground, black-line pieces and white fill only");
-const noOne = P.filter(p => !/THE BRIGHT COLOUR FOCUS in this frame is|The one colour in this frame is|THE BRIGHT ACCENT in this frame is|The only (?:other )?coloured element|Nothing (?:in it )?carries (?:strong )?colou?r|No object carries colou?r|Only .{1,80} keeps its colou?r|Only the word carries colou?r|Everything is black ink and white/.test(block(p.prompt, "COLOUR", NEXT_COL))).map(p => p.ref);
+const noOne = PI.filter(p => !/THE BRIGHT COLOUR FOCUS in this frame is|The one colour in this frame is|THE (?:BRIGHT )?ACCENT in this frame is|The only (?:other )?coloured element|Nothing (?:in it )?carries (?:strong )?colou?r|No object carries colou?r|Only .{1,80} keeps its colou?r|Only the word carries colou?r|Everything is black ink and white|THE FOCUS in this frame is [^.]*drawn white/.test(block(p.prompt, "COLOUR", NEXT_COL))).map(p => p.ref);
 noOne.length ? fail("colour blocks that do not name one colour element (or say that nothing carries colour): " + refs(noOne)) : ok("every colour block names its one colour element, or says that nothing carries colour");
 info("colour elements " + dist(D, b => { const ce = String(plan(b).ce || "").trim(); return ce ? (/^none$/i.test(ce) ? "none" : (ce.match(/^[A-Z0-9_]+/) || [ce])[0]) : PROP[b.hero] ? b.hero + " (default)" : "none (default)"; }));
-const roomWhite = D.filter(b => moodOf(b.mood) === "WHITE" && closeFace(b)).filter(b => /\b(table|chair|counter|fridge|wall|door(way)?|stairs?|rail|sofa|bed|shelf|floor|window|desk)\b/i.test(stripProps([b.action, b.map].join(" ")))).map(b => b.ref);
+const roomWhite = DI.filter(b => moodOf(b.mood) === "WHITE" && closeFace(b)).filter(b => /\b(table|chair|counter|fridge|wall|door(way)?|stairs?|rail|sofa|bed|shelf|floor|window|desk)\b/i.test(stripProps([b.action, b.map].join(" ")))).map(b => b.ref);
 function stripProps(t) { return Object.values(PROP).map(p => p.name).sort((a, b) => b.length - a.length).reduce((x, n) => x.split(n).join(" "), t); }
 roomWhite.length ? fail("WHITE face close-ups that name a room part — WHITE has nothing behind the face; put an outline place on CLEAN instead: " + refs(roomWhite)) : ok("WHITE face close-ups name no room part");
 
@@ -133,7 +135,7 @@ const FEAT = {
 const LABEL = new RegExp("\\b(" + NAMES.map(esc).join("|") + ")\\s*:", "g");
 const perfOf = (b, n) => { const t = String(b.performance || ""); const hits = [...t.matchAll(LABEL)]; if (!hits.length) return t; const i = hits.findIndex(h => h[1] === n); if (i < 0) return ""; return t.slice(hits[i].index + hits[i][0].length, i + 1 < hits.length ? hits[i + 1].index : t.length); };
 const sevenMiss = [];
-D.filter(b => roleList(b).length && !isWord(b)).forEach(b => {
+DI.filter(b => roleList(b).length && !isWord(b)).forEach(b => {
   roleList(b).forEach(r => {
     const n = r.toUpperCase(), t = perfOf(b, n);
     let need = Object.keys(FEAT);

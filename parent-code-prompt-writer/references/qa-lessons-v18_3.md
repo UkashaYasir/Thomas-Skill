@@ -1,5 +1,13 @@
 # QA lessons v18.3 — what a full read of 232 prompts found
 
+> **v25 — lookup only.** `v24-standard.md` and `RULES-CARD.md` win over everything below, then `v19-principles.md`.
+> Where this file says otherwise, the current rule is: the CLEAN ground is the clean warm white #F7F6F3 and set pieces
+> are thin **black** ink lines with white fill (never soft grey), the fewest the frame needs; the colour focus is bright;
+> at most two coloured objects (`ce`, `ce2`); colour by meaning (red = conflict, frustration, stress, danger; phones
+> purple); white by default, and an intense line turns the whole stage to its emotion's colour (`pc`, `v24-standard.md`
+> §2a); words are short, playful and hand-lettered **inside the frame's own image prompt** — never added in Premiere,
+> never numbers or titles; drawn glow and action marks are allowed; "larger heads" means sudden close-ups.
+
 Source: "Seven Things Your Child Can't Tell You", Version 6 → Version 7 (4 Oct 2026). Eight reviewers read every compiled
 prompt, edit and sequence step. These are the error classes, most damaging first, with the fix the compiler or the frame
 now uses. Read this before writing frames; the compiler handles the items marked (auto).
@@ -22,7 +30,7 @@ now uses. Read this before writing frames; the compiler handles the items marked
 ## 2. Placement that splits a person from what they hold
 - Wrong: "centre — THE BIG CUSHION; right — DAD landing on the cushion". Right: "centre — DAD lying back on THE BIG CUSHION".
 - Place pieces are fixed in the layout (hall door LEFT, hall table CENTRE, stairs RIGHT; kitchen table CENTRE; sofa CENTRE;
-  bed CENTRE): move the people, not the piece. In v19 a piece is drawn only when the frame names it (as a soft-grey outline
+  bed CENTRE): move the people, not the piece. In v19 a piece is drawn only when the frame names it (as a thin black ink outline since v24
   with white fill), so a giant object simply takes the space; `na: true` is legacy.
 - The same people keep the same screen sides through a scene (S35–S39 MOM left, DAD right) — the 180° rule; vary sides
   between scenes.
@@ -79,5 +87,5 @@ now uses. Read this before writing frames; the compiler handles the items marked
   visible" and "his head below the shelf and clear of every jar".
 - "left — the edge of the round table" in a close-up → a big grey shape at the side. A table edge goes "along the bottom of
   the frame".
-- LITTLE BOY copied from SON with the teen's head ratio → reads as SON. Give the child a slightly bigger head for a short
-  body (about one-third of his height) and keep the size line in solo frames too.
+- LITTLE BOY copied from SON with the teen's head ratio → reads as SON. Give the child a shorter body so the
+  head (the same size as the reference, never bigger) is about one-third of his height (`cast-design-v19.md` rule 6) and keep the size line in solo frames too.

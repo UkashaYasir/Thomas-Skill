@@ -1,5 +1,13 @@
 # Thomas's standards — what he set, why, and every complaint behind them
 
+> **v25 — lookup only.** `v24-standard.md` and `RULES-CARD.md` win over everything below, then `v19-principles.md`.
+> Where this file says otherwise, the current rule is: the CLEAN ground is the clean warm white #F7F6F3 and set pieces
+> are thin **black** ink lines with white fill (never soft grey), the fewest the frame needs; the colour focus is bright;
+> at most two coloured objects (`ce`, `ce2`); colour by meaning (red = conflict, frustration, stress, danger; phones
+> purple); white by default, and an intense line turns the whole stage to its emotion's colour (`pc`, `v24-standard.md`
+> §2a); words are short, playful and hand-lettered **inside the frame's own image prompt** — never added in Premiere,
+> never numbers or titles; drawn glow and action marks are allowed; "larger heads" means sudden close-ups.
+
 > HISTORY FILE: Thomas's feedback round by round, kept for the why behind each rule. Where an older
 > round differs from the current rules, the current rules win — `v19-principles.md` first, then
 > RULES-CARD.md and the top of SKILL.md. Since 5 Oct 2026: white or very light neutral backgrounds are the
@@ -144,7 +152,7 @@ shot. *Now:* process lines storyboarded as sequences.
 
 **4 · "Avoid becoming an infographic channel."** Seven cards, many colours, small text; red X / green
 check doing the work. *Wanted:* CHARACTER → EMOTION → ACTION → SYMBOL. *Now (v19):* no generic symbols;
-emotion through behaviour; on-screen idea words only at strong moments, added in Premiere; no number
+emotion through behaviour; on-screen idea words only at strong moments, hand-lettered inside the frame's prompt (v24); no number
 slides.
 
 **5 · "The hug says love, not influence."** *Wanted:* the image says exactly what the line says. *Now:*

@@ -5,14 +5,21 @@
 //
 // Each check passes or fails by a rule. The only numbers are Thomas's own (two or three times larger; a meaningful change
 // about every 3–5 seconds — a WARN to read, never a quota) and technical ones.
-//   STAGE    CLEAN is pure white · set pieces are black line with white fill — no fills, no coloured floor or grass plane
+//   STAGE    CLEAN is the approved clean warm white · set pieces are black line with white fill — no fills, no coloured floor or grass plane ·
+//            the place told by its fewest pieces (close shots one slice, others three at most — a WARN to review; Muhammad 9 Oct:
+//            "don't try to show too much furniture")
+//   INTENSITY white by default; an emotional peak (pk) reaches colour — its colour stage (PEAK + pc), marks, glow or light — and
+//            the colour comes back to white (Muhammad 9 Oct) · a PEAK field names its emotion's colour (pc) · one moment, one
+//            field colour · long stretches with no colour lift and long runs of colour fields are listed (WARN)
 //   COLOUR   at most the focus (ce) and one second object (ce2) carry colour · the focus is bright unless the beat is calm ·
 //            ce2 is in its frame and differs from ce · glow (gl) only on a frame with a colour focus or accent marks
 //   SIZE     wide frames keep every face readable · DOMINANT says two to three times larger
 //   WORDS    no numbers, numbered titles, section headings or underlines · hand-lettered style · a letter on an object is one
 //            letter or number · the cue word is in its line
 //   ZOOMS    every reframe cue word is in its line · every target is in the frame
-//   RHYTHM   a still that holds well past five seconds with nothing changing (WARN, from the word count)
+//   RHYTHM   a still that holds well past five seconds with nothing changing (WARN, from the word count) · the same camera
+//            move four frames in a row (WARN — "not exactly the same way on every image")
+//   INSERTS  an insert (I) cuts in on a word of its line
 const fs = require("fs"), vm = require("vm");
 const argv = process.argv.slice(2), file = argv.find(a => !a.startsWith("--"));
 if (!file) { console.log("usage: node qa-v24.cjs build.jsx [--brief]"); process.exit(2); }
@@ -22,7 +29,7 @@ const marker = src.indexOf("/* ===== UI ===== */");
 if (marker < 0) { console.log("FAIL  build has no UI marker"); process.exit(1); }
 src = src.slice(0, marker).replace(/^\s*import[^\n]*\n/gm, "");
 let M;
-try { M = vm.runInNewContext(src + ";({PROJECT,BEATS,PROMPTS,PROP,ROLE,MOOD,MOOD_ALIAS,SCRIPT,EDIT_CUES,SEQUENCES,CLEAN_GROUND,OUTLINE_GREY,HAND_LETTER:(typeof HAND_LETTER==='undefined'?null:HAND_LETTER),colouredItems:(typeof colouredItems==='undefined'?null:colouredItems),ce2Key:(typeof ce2Key==='undefined'?null:ce2Key),heroKey:(typeof heroKey==='undefined'?null:heroKey)})", {}); }
+try { M = vm.runInNewContext(src + ";({PROJECT,BEATS,PROMPTS,PROP,ROLE,MOOD,MOOD_ALIAS,SCRIPT,EDIT_CUES,SEQUENCES,CLEAN_GROUND,OUTLINE_GREY,INSERT_PROMPTS:(typeof INSERT_PROMPTS==='undefined'?[]:INSERT_PROMPTS),EMOTION_FIELD:(typeof EMOTION_FIELD==='undefined'?{}:EMOTION_FIELD),CHAPTER:(typeof CHAPTER==='undefined'?{}:CHAPTER),HAND_LETTER:(typeof HAND_LETTER==='undefined'?null:HAND_LETTER),colouredItems:(typeof colouredItems==='undefined'?null:colouredItems),ce2Key:(typeof ce2Key==='undefined'?null:ce2Key),heroKey:(typeof heroKey==='undefined'?null:heroKey)})", {}); }
 catch (e) { console.log("FAIL  the build does not compile: " + e.message); process.exit(1); }
 if (!M.HAND_LETTER || !M.colouredItems) { console.log("FAIL  this build was not made with compiler v24 — rebuild it with assets/compiler-v24/"); process.exit(1); }
 const { PROP, MOOD, MOOD_ALIAS, SCRIPT } = M;
@@ -43,12 +50,17 @@ console.log(`\nv24 RULE CHECKS — ${N} frames — Thomas's final standard after
 
 // ════════════════════════════════════════════════════════════════
 head("STAGE — white ground, black-line places (v24-standard.md §2)");
-String(M.CLEAN_GROUND).toUpperCase() === "#FFFFFF" ? ok("the CLEAN ground is pure white") : warn(`the CLEAN ground is ${M.CLEAN_GROUND}, not pure white — Thomas: "The clean white background is very good and should stay"`);
+["#F7F6F3"].includes(String(M.CLEAN_GROUND).toUpperCase()) ? ok("the CLEAN ground is the clean warm white Video 08 was approved on (#F7F6F3)") : warn(`the CLEAN ground is ${M.CLEAN_GROUND}, not the approved clean warm white #F7F6F3 — Thomas: "The clean white background is very good and should stay"; pure white everywhere risks white characters fading (3 Oct)`);
 const filled = P.filter(p => ["CLEAN", "WHITE"].includes(moodOf(p.mood)) && !p.mute).filter(p => /filled flat in|plane from the ground line|filled flat in its own soft colou?r/i.test(block(p.prompt, "SETTING"))).map(p => p.ref);
 // object necessity (Thomas: "ask yourself whether every object is actually necessary… If an element doesn't contribute to the
 // story, emotion, or visual understanding, simply remove it"): a frame drawing four or more set pieces is listed for review (the Video 08 study had five)
-const busy = D.filter(b => (b.pieces || []).length >= 4 && b.shotSize !== "WIDE").map(b => `${b.ref}(${b.pieces.join(", ")})`);
-busy.length ? warn("frames that draw four or more set pieces — keep each piece only if the moment needs it (Video 08: Thomas cut the fridge, counter and cabinets and kept one window): " + refs(busy)) : ok("no frame crowds its place with set pieces");
+// v25 (Muhammad, 9 Oct: "don't try to show too much furniture… just show the visuals that show the overall scenario"): the
+// place is told by its fewest pieces — the one the character uses, a second only if the place can't be read without it, a
+// third only when the shot is wide enough to need it. More is listed for review (Video 08 drew up to six; Thomas cut the fridge,
+// counter and cabinets and kept the table, the chair and one window).
+const PIECE_CAP = { CLOSE: 1, XCLOSE: 1, FACE_HANDS: 1, REACTION: 1, HANDS: 1, OBJECT: 1, MEDIUM: 3, MEDWIDE: 3, WIDE: 3 };
+const busy = [...D, ...(M.INSERT_PROMPTS || [])].filter(b => (b.pieces || []).length > (PIECE_CAP[b.shotSize] || 3)).map(b => `${b.ref}(${b.shotSize}: ${b.pieces.join(", ")})`);
+busy.length ? warn("frames that draw more set pieces than their shot needs (a close shot one slice, any other shot three at most — Thomas's approved study: the table, the chair and one window) — keep the piece the character uses and the one that says where we are; cut the rest: " + refs(busy)) : ok("every frame tells its place with the fewest pieces (close shots one slice, others three at most)");
 filled.length ? fail("set pieces with a colour fill or a coloured floor plane — Thomas: \"the ground does not also need to be colored\", \"black and white is enough\": " + refs(filled)) : ok("every set piece is black line with white fill, and no frame has a coloured floor or grass plane");
 
 // ════════════════════════════════════════════════════════════════
@@ -68,6 +80,46 @@ info(`colour focus: ${bright} bright · ${calm} calm (quiet beats) · ${D.filter
 const hue = h => { const r = parseInt(h.slice(1, 3), 16) / 255, g = parseInt(h.slice(3, 5), 16) / 255, bl = parseInt(h.slice(5, 7), 16) / 255, mx = Math.max(r, g, bl), mn = Math.min(r, g, bl), d = mx - mn; if (!d) return -1; let x = mx === r ? ((g - bl) / d) % 6 : mx === g ? (bl - r) / d + 2 : (r - g) / d + 4; return (x * 60 + 360) % 360; };
 const phones = Object.entries(PROP).filter(([k, p]) => /(^|_)(PHONE|SMARTPHONE|TABLET)(_|$)/.test(k) || (p.nouns || []).some(n => /^(smart)?phones?$|^tablets?$/i.test(n))).filter(([k, p]) => /^#[0-9a-f]{6}$/i.test(p.hex || "") && !(hue(p.hex) >= 250 && hue(p.hex) <= 300)).map(([k, p]) => `${k}(${p.hex})`);
 phones.length ? warn("phones that are not purple — Thomas: \"Purple: Smartphones and digital distractions\": " + refs(phones)) : ok("every phone is purple");
+
+// marks beside a coloured focus and a second coloured object make three strong colours — read it against "not too many strong colored elements"
+const three = D.filter(b => b.accentMark && M.colouredItems(b).length >= 2).map(b => b.ref);
+three.length ? warn("frames with a coloured focus, a second coloured object and coloured marks — three strong colours; drop ce2 or the marks unless the moment needs all three: " + refs(three)) : ok("no frame stacks marks on two coloured objects");
+
+// ════════════════════════════════════════════════════════════════
+head("INTENSITY — white by default, colour when the feeling peaks (v24-standard.md §2a)");
+// Muhammad, 9 Oct: "the default background is white… whenever a scene or a script segment shows the emotional intensity and
+// the overall scenario, we convert to colours… staying minimalistic… not monotonous". Rung 1: the white stage (the bright
+// focus object is the baseline). Rung 2: colour carried by the feeling — marks (mk), glow (gl), light (li), a coloured word,
+// or the bright focus drawn two or three times larger.
+// Rung 3: the stage itself turns — a PEAK field in the emotion's colour (pc), NIGHT, absence grey (mu).
+const isColWord = b => b.onScreen && !b.onScreen.font && !["BLACK", "WHITE", "GREY"].includes(String(b.onScreen.col || "BLACK").toUpperCase());
+const bigFocus = b => ["DOMINANT", "OVERWHELMING"].includes(b.scale) && !b.calm && !!M.heroKey(b); // the bright focus two or three times larger fills the frame with its colour (the red F on white)
+const rung = b => { const m = moodOf(b.mood); if (m === "PEAK" || m === "NIGHT" || b.mute) return 3; if (b.accentMark || b.glow || b.light || isColWord(b) || bigFocus(b)) return 2; return 1; };
+const ALL = [...D, ...(M.INSERT_PROMPTS || [])].sort((a, b) => a.n - b.n || String(a.ref).localeCompare(String(b.ref)));
+const peaks = D.filter(b => b.peak || plan(b).ln === "peak");
+// the peak line itself climbs (rung 2 or 3), or the colour stage sits on the frame beside it in the same moment (the wider
+// frame in colour, the close-up on white)
+const flatPeak = peaks.filter(b => rung(b) < 2 && !ALL.some(x => x !== b && x.sequence === b.sequence && x.scene === b.scene && Math.abs(x.n - b.n) <= 1 && rung(x) === 3) && !(M.INSERT_PROMPTS || []).some(x => x.n === b.n && rung(x) >= 2)).map(b => b.ref);
+flatPeak.length ? warn("emotional peaks that never leave the plain white stage — at the peak the colour comes in: the stage in the emotion's colour (m: PEAK + pc) on the wider frame, or at least marks, glow or light on the action: " + refs(flatPeak)) : ok("every emotional peak reaches colour (its stage, marks, glow or light)");
+const named = k => !!(M.EMOTION_FIELD && M.EMOTION_FIELD[k]);
+const noPc = D.filter(b => moodOf(b.mood) === "PEAK" && !named(b.peakCol) && !(M.CHAPTER[String(b.sequence || "").slice(0, 2)] || {}).emo && !["TENSE", "SUNNY"].includes(b.moodWas)).map(b => b.ref);
+noPc.length ? warn(`colour stages with no emotion colour — name it with pc (${Object.keys(M.EMOTION_FIELD || {}).join(", ")}), one colour, one meaning for the whole video: ` + refs(noPc)) : ok("every colour stage names its emotion's colour");
+const byScene = {}; D.filter(b => moodOf(b.mood) === "PEAK").forEach(b => { const k = b.sequence + "/" + (b.scene || b.ref); (byScene[k] = byScene[k] || new Set()).add(b.peakCol || "chapter"); });
+const mixed = Object.entries(byScene).filter(([, v]) => v.size > 1).map(([k, v]) => `${k}(${[...v].join("/")})`);
+mixed.length ? warn("one moment shown on two different field colours — a moment keeps one colour until it returns to white: " + refs(mixed)) : ok("every colour moment keeps one field colour");
+let pr = [], longPeak = [];
+ALL.forEach((b, i) => { if (moodOf(b.mood) === "PEAK") pr.push(b.ref); if (moodOf(b.mood) !== "PEAK" || i === ALL.length - 1) { if (pr.length > 5) longPeak.push(`${pr[0]}–${pr[pr.length - 1]}(${pr.length})`); pr = []; } });
+longPeak.length ? warn("more than five colour-field frames in a row — colour hits hardest against white; return to the white stage between peaks: " + refs(longPeak)) : ok("colour fields stay short and come back to white");
+{ const rt = (M.PROJECT && M.PROJECT.runtimeSec) || 0, tw = SCRIPT.reduce((t, l) => t + words(l).length, 0);
+  if (rt && tw) {
+    const spw = rt / tw, perLine = {}; ALL.forEach(b => { perLine[b.n] = (perLine[b.n] || 0) + 1; });
+    const sec = b => words(b.script || SCRIPT[b.n - 1]).length * spw / perLine[b.n];
+    let run = [], t = 0; const flat = [];
+    const close = () => { if (t > 30) flat.push(`${run[0]}–${run[run.length - 1]}(~${Math.round(t)}s)`); run = []; t = 0; };
+    ALL.forEach(b => { if (rung(b) === 1 && moodOf(b.mood) !== "MEMORY") { run.push(b.ref); t += sec(b); } else close(); }); close();
+    flat.length ? warn("more than half a minute on the plain white stage with no colour lift — read the lines: if one carries the feeling, give it its colour (stage, marks, glow or light); if the stretch is calm on purpose, leave it: " + refs(flat)) : ok("no long stretch stays on the plain white stage without a colour lift");
+  } else info("no runtime set — the white-stretch check needs PROJECT.runtimeSec"); }
+info(`colour ladder: ${ALL.filter(b => rung(b) === 1).length} white stage · ${ALL.filter(b => rung(b) === 2).length} colour on the feeling · ${ALL.filter(b => rung(b) === 3).length} colour stage — stages: ${ALL.filter(b => rung(b) === 3).map(b => `${b.ref} ${moodOf(b.mood) === "PEAK" ? (b.peakCol || "chapter") : b.mute ? "grey" : moodOf(b.mood).toLowerCase()}`).join(" · ") || "none"}`);
 
 // ════════════════════════════════════════════════════════════════
 head("SIZE — never too small; bigger objects (v24-standard.md §4–§5)");
@@ -103,13 +155,21 @@ info(`${W.length} words: ${W.map(b => `${b.ref} ${wordOf(b)}`).join(" · ") || "
 // a sudden close-up grabs attention (Thomas: "larger heads"; "more frequent zoom-ins and close-ups on faces, eyes, hands")
 const CLOSE_FACE = ["CLOSE", "XCLOSE", "FACE_HANDS", "REACTION"];
 const faceTarget = z => /face|eyes|head/i.test(String(z.to || ""));
+// a punch into a face on a colour stage (PEAK) leaves the face on the field — Thomas: "If the face is important, keep almost
+// everything else neutral"; the close-up there is a WHITE frame or insert, never a crop of the field (v25). (Night keeps its
+// screen-lit face: v24-standard §14.)
+const onField = b => moodOf(b.mood) === "PEAK";
+const facePunch = b => !onField(b) && (b.zooms || []).some(faceTarget);
+const fieldFace = [...D, ...(M.INSERT_PROMPTS || [])].filter(b => onField(b) && (b.zooms || []).some(faceTarget)).map(b => `${b.ref}(${moodOf(b.mood)} → ${(b.zooms || []).filter(faceTarget).map(z => z.to).join(", ")})`);
+fieldFace.length ? warn("punches into a face on a colour stage — the crop leaves the face on the field; cut to a WHITE close-up (the next frame or an insert, I()) and punch to an object or the hands here: " + refs(fieldFace)) : ok("no reframe puts a face on a colour stage");
 const segs = [...new Set(D.map(b => b.sequence))];
-const noPunch = segs.filter(q => { const F = D.filter(b => b.sequence === q); return F.some(b => roleList(b).length) && !F.some(b => (CLOSE_FACE.includes(b.shotSize) && roleList(b).length) || (b.zooms || []).some(faceTarget)); });
+const noPunch = segs.filter(q => { const F = D.filter(b => b.sequence === q); return F.some(b => roleList(b).length) && !F.some(b => (CLOSE_FACE.includes(b.shotSize) && roleList(b).length) || facePunch(b)); });
 noPunch.length ? warn("chapters with characters but no close face and no punch to a face — a sudden close-up is how this channel grabs attention: " + refs(noPunch)) : ok("every chapter with characters has a close face or a punch to a face");
 // every emotional peak gets a short dramatic close-up (Thomas, 02:30: "Important emotional moment!… consider a short dramatic close-up")
 const isCloseFace = b => b && CLOSE_FACE.includes(b.shotSize) && roleList(b).length > 0;
-const peakNoClose = D.filter(b => (b.peak || plan(b).ln === "peak") && roleList(b).length).filter(b => { const nx = D.find(x => x.n === b.n + 1); return !isCloseFace(b) && !(b.zooms || []).some(faceTarget) && !(nx && nx.sequence === b.sequence && isCloseFace(nx)); }).map(b => b.ref);
-peakNoClose.length ? warn("emotional peaks without a short dramatic close-up on the line or the next frame (a close face or a punch to the face): " + refs(peakNoClose)) : ok("every emotional peak has its dramatic close-up");
+const insClose = n => (M.INSERT_PROMPTS || []).some(i => i.n === n && isCloseFace(i)); // a WHITE close-up insert inside the line counts (v25)
+const peakNoClose = D.filter(b => (b.peak || plan(b).ln === "peak") && roleList(b).length).filter(b => { const nx = D.find(x => x.n === b.n + 1); return !isCloseFace(b) && !facePunch(b) && !insClose(b.n) && !(nx && nx.sequence === b.sequence && (isCloseFace(nx) || insClose(nx.n))); }).map(b => b.ref);
+peakNoClose.length ? warn("emotional peaks without a short dramatic close-up on the line or the next frame (a close face, a close-up insert, or a punch to the face off a colour stage): " + refs(peakNoClose)) : ok("every emotional peak has its dramatic close-up");
 // a metaphor or explanation enters with a surprise (Thomas, 07:20: "Make the transition into this explanation more impactful and surprising")
 const famSeen = new Set(), flatEntry = [];
 D.forEach(b => { const fam = b.metaphor || (/^METAPHOR/.test(String(b.device || "")) ? "dv:" + (PROP[b.hero] ? b.hero : b.ref) : null); if (!fam || famSeen.has(fam)) return; famSeen.add(fam); if (!plan(b).ip) flatEntry.push(b.ref); });
@@ -138,11 +198,24 @@ const runtime = (M.PROJECT && M.PROJECT.runtimeSec) || 0, totalWords = SCRIPT.re
 if (!runtime || !totalWords) info("no runtime set — the rhythm check needs PROJECT.runtimeSec");
 else {
   const spw = runtime / totalWords;
+  const insN = new Set((M.INSERT_PROMPTS || []).map(i => i.n)); // v25: an insert is a change inside its line
   const edited = new Set((M.EDIT_CUES || []).map(e => e.ref)), seqd = new Set((M.SEQUENCES || []).flatMap(s => (s.images || []).map(i => i.ref)));
-  const long = D.filter(b => { const sec = words(b.script || SCRIPT[b.n - 1]).length * spw; const changes = (edited.has(b.ref) ? 1 : 0) + (seqd.has(b.ref) ? 1 : 0) + (b.reveal ? 1 : 0) + (b.pop ? 1 : 0) + ((b.zooms || []).length) + (b.move && b.move.type && b.move.type !== "HOLD" ? 1 : 0) + (b.onScreen ? 1 : 0); return sec / (changes + 1) > 6 && !b.still; }).map(b => `${b.ref}(~${Math.round(words(b.script || SCRIPT[b.n - 1]).length * spw)}s)`);
+  const long = D.filter(b => { const sec = words(b.script || SCRIPT[b.n - 1]).length * spw; const changes = (edited.has(b.ref) ? 1 : 0) + (seqd.has(b.ref) ? 1 : 0) + (b.reveal ? 1 : 0) + (b.pop ? 1 : 0) + ((b.zooms || []).length) + (b.move && b.move.type && b.move.type !== "HOLD" ? 1 : 0) + (b.onScreen ? 1 : 0) + (insN.has(b.n) ? 1 : 0); return sec / (changes + 1) > 6 && !b.still; }).map(b => `${b.ref}(~${Math.round(words(b.script || SCRIPT[b.n - 1]).length * spw)}s)`);
   long.length ? warn("stills that hold well past five seconds with nothing changing — add a reframe (zm), an edit or a move with a reason, or state the hold (sti): " + refs(long)) : ok("no still holds long with nothing changing");
   info(`about ${(runtime / N).toFixed(1)} s per frame on average (${N} frames, ${runtime} s)`);
 }
+
+// the same camera move four frames in a row (Thomas, Video 05: "zoom and pan selectively… not exactly the same way on every image"; v16's rule)
+{ const mv = b => (b.move && b.move.type) || "HOLD"; let r = [], reps = [];
+  D.forEach((b, i) => { if (mv(b) !== "HOLD" && r.length && mv(D[i - 1]) === mv(b)) r.push(b.ref); else { if (r.length >= 4) reps.push(`${r[0]}–${r[r.length - 1]}(${mv(D[i - 1])})`); r = mv(b) !== "HOLD" ? [b.ref] : []; } });
+  if (r.length >= 4) reps.push(`${r[0]}–${r[r.length - 1]}(${mv(D[D.length - 1])})`);
+  reps.length ? warn("the same camera move on four or more frames in a row — vary it, or hold where the moment is still: " + refs(reps)) : ok("camera moves vary from frame to frame"); }
+
+// ════════════════════════════════════════════════════════════════
+head("INSERTS — a second image inside a line (README: I())");
+const INS = M.INSERT_PROMPTS || [];
+const insCue = INS.filter(b => !inLine(b.cutIn || (b.move && b.move.on), b.script || SCRIPT[b.n - 1])).map(b => b.ref);
+INS.length ? (insCue.length ? fail("inserts whose cut-in word is not in their line: " + refs(insCue)) : ok(`every insert cuts in on a word of its line (${INS.map(b => b.ref).join(" ")})`)) : info("no inserts");
 
 console.log(`\n${fails ? fails + " v24 CHECK(S) FAILED" : "ALL v24 CHECKS PASSED"} · ${warns} warning(s)\n`);
 process.exit(fails ? 1 : 0);

@@ -1,7 +1,7 @@
 # Version 19 principles — the law for every frame (read after v24-standard.md; overrides every older file)
 
 > **v24 (9 Oct 2026):** `references/v24-standard.md` — Thomas's final word after Video 08 — wins over this file where they
-> differ: the ground is pure white; set pieces are thin black line with white fill; the colour focus is bright and vivid by
+> differ: the ground is the clean warm white Video 08 was approved on; set pieces are thin black line with white fill; the colour focus is bright and vivid by
 > default, with colour chosen by meaning (yellow surprise, red conflict, blue trust, purple phones, green growth, warm
 > positive, grey absence); a drawn halo or rainbow burst may make a key object glow; important objects may be two or three
 > times larger, and exaggerated cutaways (the helicopter) are allowed; characters never too small to read; zoom plans
@@ -52,15 +52,18 @@ this file wins. Verbatim quotes are in quotation marks.
   (an object, part of an object, or nothing when the face carries the frame). "If the phone is important, let the phone
   stand out. If the face is important, keep almost everything else neutral."
 - "Background environments can often be shown only with simple outlines"; "do not fully color every object just because it
-  exists in the scene." Places, furniture and secondary objects are thin soft-grey outlines with white fill — complete,
+  exists in the scene." Places, furniture and secondary objects are thin outlines with white fill *(v24: black ink, the fewest pieces)* — complete,
   closed line drawings, never coloured rooms, tinted walls or coloured furniture.
-- Full-colour scenes stay only "for emotional peaks and night scenes" (the summary Thomas approved), and they stay rare —
-  "full-screen color" is on his "Less" list. A full-colour field never sits behind a face close-up (the face is important
+- Full-colour scenes stay only "for emotional peaks and night scenes" (the summary Thomas approved) — "full-screen color"
+  is on his "Less" list, so never for decoration. *(v25, Muhammad 9 Oct: every line that carries the emotional intensity
+  converts the stage to the emotion's colour and the film returns to white after it — `v24-standard.md` §2a. Earned by
+  the line, never a share of frames.)* A full-colour field never sits behind a face close-up (the face is important
   there, so everything else stays neutral).
 - Characters must still be seen first: white characters with bold black outlines on the very light neutral ground, set
-  pieces in thinner, softer lines that never compete, nothing white-filled overlapping a character's outline.
+  pieces in thinner black ink lines that never compete *(v24)*, nothing white-filled overlapping a character's outline.
 - Scenes in the past sit on a faded light-grey ground (MEMORY) — light and neutral, so close-ups inside a memory may stay on it.
-- Red stays for danger or a warning only.
+- Red stays for danger or a warning only. *(v24, Thomas 8 Oct: red means conflict, frustration, stress and danger — still
+  never decoration; v25: the fight's breaking point may turn the whole stage red, `v24-standard.md` §2a.)*
 
 ## 2. Camera and composition
 
@@ -120,7 +123,8 @@ this file wins. Verbatim quotes are in quotation marks.
   contradict the fixed voice-over line.
 - Words: "a few strong on-screen words or short phrases… only at strong moments, not constantly" (TRUST, SAFE, LISTEN,
   TESTING, SHAME, CONTROL, MISREAD, ATTENTION, OVERWHELMED, HONESTY, NOT REJECTION). Idea words from the line, never a full
-  sentence, on the spoken word, in one consistent style, added by Muhammad in Premiere.
+  sentence, on the spoken word, in one consistent style. *(v24.1, Muhammad 9 Oct: short, playful and hand-lettered inside the
+  frame's own image prompt — never a separate image or a Premiere overlay; `v24-standard.md` §7.)*
 - Contrast inside and across frames: "empty background vs strong object; neutral scene vs one bright color; wide shot vs
   extreme close-up; serious moment vs humorous reaction; still moment vs movement; small prop vs large face; silence vs
   strong visual beat."
